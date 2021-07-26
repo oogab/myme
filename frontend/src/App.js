@@ -26,7 +26,7 @@ import Landing from './pages/Landing';
 
 // const
 const defaultThumbnailImage = 'default_user.jpg';
-const HOST = '192.168.0.25:3000';
+const HOST = 'localhost:3000';
 const serverUrl = `http://${HOST}/v1`;
 const serverUrlBase = `http://${HOST}`;
 const serverImgUrl = `https://ssafy-viba-s3.s3.ap-northeast-2.amazonaws.com/public/`;
