@@ -8,10 +8,23 @@ app.set('port', process.env.PORT || 3000)
 app.use((req, res, next) => {
   console.log('모든 요청에 실행하고 싶어요!')
   next() // 다음 미들웨어를 실행하기 위해서 필요하다!
+}, (req, res, next) => {
+  try {
+    console.log('실행!')
+    next('route')
+  } catch (error) {
+    // 에러 처리 미들웨어로 이동!
+    next(error)
+  }
 })
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'))
+  // res.sendFile(path.join(__dirname, 'index.html'))
+
+  // res.writeHead(200, { 'Content-Type': 'application/json' })
+  // res.end(JSON.stringify({ hello: 'wook' }))
+  // 위 아래 같은 동작
+  res.json({ hello: 'wook' })
 })
 
 app.post('/', (req, res) => {
