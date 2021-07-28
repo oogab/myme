@@ -56,7 +56,15 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
         return next(loginError)
       }
       // 세션 쿠키를 브라우저로 보내준다!
-      return res.json(user)
+      const fullUserWithoutPassword = await User.findOne({
+        where: {
+          id: user.id
+        },
+        attributes: {
+          exclude: ['password']
+        }
+      })
+      return res.json(fullUserWithoutPassword)
     })
   })(req, res, next) // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다!
 })
