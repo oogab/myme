@@ -19,14 +19,14 @@ import MainVote from './pages/MainVote/';
 import ContactUs from './pages/ContactUs/';
 import CreateVote from './pages/CreateVote/';
 import SearchVote from './pages/SearchVote/';
-import Landing from './pages/Landing';
+import MyRoutine from './pages/MyRoutine/';
 
 // css
 // import './index.css';
 
 // const
 const defaultThumbnailImage = 'default_user.jpg';
-const HOST = 'localhost:3000';
+const HOST = '192.168.0.82:3001';
 const serverUrl = `http://${HOST}/v1`;
 const serverUrlBase = `http://${HOST}`;
 const serverImgUrl = `https://ssafy-viba-s3.s3.ap-northeast-2.amazonaws.com/public/`;
@@ -104,8 +104,7 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={Landing} />
-            {/* <Route exact path="/" component={MainVote} />
+            <Route exact path="/" component={MainVote} />
             <Route exact path="/MainVote" component={MainVote} />
             <Route exact path="/Auth" component={Auth} />
             <Route exact path="/Terms" component={Terms} />
@@ -114,7 +113,8 @@ const App = () => {
             <Route exact path="/ContactUs" component={ContactUs} />
             <Route exact path="/SearchVote" component={SearchVote} />
             <Route exact path="/not-found" component={NotFound} />
-            <Route exact path="/CreateVote" component={CreateVote} /> */}
+            <Route exact path="/CreateVote" component={CreateVote} />
+            <Route exact path="/MyRoutine" component={MyRoutine} />
             <Redirect to="/not-found" />
           </Switch>
         </BrowserRouter>

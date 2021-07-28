@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import Header from './Header/';
-import Footer from './Footer/';
 import Drawer from './Drawer/';
 import { CommonContext } from '../context/CommonContext';
 import { CssBaseline, Container, Grid } from '@material-ui/core';
@@ -22,7 +21,6 @@ const Layout = props => {
       >
         <div className="container">{children}</div>
       </Container>
-      <Grid className="footer">{!wannaHide && <Footer />}</Grid>
     </Wrapper>
   );
 };
