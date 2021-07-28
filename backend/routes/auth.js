@@ -74,7 +74,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       return next(authError)
     }
     if (!user) {
-      return res.status(403).redirect(`/?loginError=${info.message}`)
+      return res.status(403).send(info.message)
     }
     return req.login(user, async (loginError) => {
       if (loginError) {
