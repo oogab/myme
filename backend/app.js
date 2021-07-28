@@ -6,17 +6,18 @@ const session = require('express-session')
 const dotenv = require('dotenv')
 const passport = require('passport')
 const cors = require('cors')
+const passportConfig = require('./passport')
 
 dotenv.config()
+const { sequelize } = require('./models')
 const indexRouter = require('./routes')
 const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
 
-const { sequelize } = require('./models')
-
 const app = express()
 
 app.set('port', process.env.PORT || 3000)
+passportConfig()
 sequelize.sync()
   .then(() => {
     console.log('데이터베이스 연결 성공')
