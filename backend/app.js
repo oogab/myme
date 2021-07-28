@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const dotenv = require('dotenv')
 const passport = require('passport')
+const cors = require('cors')
 
 dotenv.config()
 const indexRouter = require('./routes')
@@ -50,6 +51,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true })) // true면 qs, false면 querystring
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(cors())
 
 
 app.use('/', indexRouter)
