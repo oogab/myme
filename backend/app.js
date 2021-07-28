@@ -4,13 +4,25 @@ const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const dotenv = require('dotenv')
+const passport = require('passport')
 
 dotenv.config()
 const indexRouter = require('./routes')
+const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
+
+const { sequelize } = require('./models')
+
 const app = express()
 
 app.set('port', process.env.PORT || 3000)
+sequelize.sync()
+  .then(() => {
+    console.log('데이터베이스 연결 성공')
+  })
+  .catch((error) => {
+    console.error(error)
+  })
 
 // 아래의 미들웨어들은 내부적으로 next를 실행 해준다!
 // 미들웨어간 순서도 매우 중요하다! 왜?
@@ -36,8 +48,12 @@ app.use(session({
 // })
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })) // true면 qs, false면 querystring
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 app.use('/', indexRouter)
+app.use('auth', authRouter)
 app.use('/user', userRouter)
 
 app.use((req, res, next) => {

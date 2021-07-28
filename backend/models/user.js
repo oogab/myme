@@ -1,0 +1,39 @@
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', { // MySQL에는 users 테이블 생성
+      name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        unique: true,
+      },
+      nickname: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+        unique: true,
+      },
+      password: {
+        type: DataTypes.STRING(100), // 비밀번호 암호화 시 길어진다~
+        allowNull: false,
+      },
+      gender: {
+        type: DataTypes.STRING(5),
+        allowNull: false,
+      },
+      address: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      },
+      phone_number: {
+        type: DataTypes.STRING(15),
+        allowNull: false,
+      }
+  }, {
+    charset: 'utf8',
+    collate: 'utf8_general_ci'
+  })
+
+  return User
+}
