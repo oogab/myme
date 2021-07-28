@@ -19,6 +19,6 @@ module.exports = () => {
       .catch(error => done(error))
   })
 
-  local()
-  kakao()
+  local(passport)
+  kakao(passport)
 }
