@@ -1,30 +1,73 @@
 const express = require('express')
 const path = require('path')
+const morgan = require('morgan')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const dotenv = require('dotenv')
 
+dotenv.config()
+const indexRouter = require('./routes')
+const userRouter = require('./routes/user')
 const app = express()
 
 app.set('port', process.env.PORT || 3000)
 
+// 아래의 미들웨어들은 내부적으로 next를 실행 해준다!
+// 미들웨어간 순서도 매우 중요하다! 왜?
+// 요청에 따라서 어디까지 실행되는지 결정된다. 중간에 실행 되면 => 거기서 멈춤, 서버 부하 줄어든다!
+app.use(morgan('dev'))
+app.use(cookieParser(process.env.COOKIE_SECRET))
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+  },
+  name: 'connect.sid',
+}))
+// app.use('요청경로', express.static(path.join('실제 경로'))) -> 보안에 좋음, 서버 구조를 예측 불가능!
+// app.use('/', (req, res, next) => {
+//   if(req.session.id) {
+//     express.static(path.join(__dirname, 'public'))(req, res, next)
+//   } else {
+//     next()
+//   }
+// })
+app.use(express.json())
+app.use(express.urlencoded({ extended: true })) // true면 qs, false면 querystring
+
+app.use('/', indexRouter)
+app.use('/user', userRouter)
+
 app.use((req, res, next) => {
-  console.log('모든 요청에 실행하고 싶어요!')
-  next() // 다음 미들웨어를 실행하기 위해서 필요하다!
-}, (req, res, next) => {
-  try {
-    console.log('실행!')
-    next('route')
-  } catch (error) {
-    // 에러 처리 미들웨어로 이동!
-    next(error)
-  }
+  // req.data = 'wook비번' // middleware간 data 전송
+  next()
 })
 
 app.get('/', (req, res) => {
-  // res.sendFile(path.join(__dirname, 'index.html'))
+  // req.data // wook비번 // 이 라우터가 끝나고 나면 메모리가 정리되면서 req.data가 사라진다.
+
+  // req.cookies // { mycookie: 'test' }
+  // req.signedCookies // 서명된 쿠키
+  // // 'Set-Cookie': `name=${encodeURIComponent(name)}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
+  // res.cookie('name', encodeURIComponent(name), {
+  //   expires: new Date(),
+  //   httpOnly: true,
+  //   path: '/',
+  // })
+  // res.clearCookie('name', encodeURIComponent(name), {
+  //   httpOnly: true,
+  //   path: '/',
+  // })
+
+  
+  res.sendFile(path.join(__dirname, 'index.html'))
 
   // res.writeHead(200, { 'Content-Type': 'application/json' })
   // res.end(JSON.stringify({ hello: 'wook' }))
   // 위 아래 같은 동작
-  res.json({ hello: 'wook' })
+  // res.json({ hello: 'wook' })
 })
 
 app.post('/', (req, res) => {
@@ -36,7 +79,7 @@ app.get('/about', (req, res) => {
 })
 
 app.use((req, res, next) => {
-  res.status(200).send('404')
+  res.status(404).send('404')
 })
 
 app.use((err, req, res, next) => {
