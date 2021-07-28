@@ -1,5 +1,5 @@
 const passport = require('passport')
-const local = require('./localStrategy')
+const local = require('./local')
 const kakao = require('./kakaoStrategy')
 const User = require('../models/user')
 
