@@ -7,14 +7,15 @@ const dotenv = require('dotenv')
 const passport = require('passport')
 const cors = require('cors')
 const passportConfig = require('./passport')
+const { swaggerUI, specs } = require('./modules/swagger')
 
 dotenv.config()
+const app = express()
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
 const { sequelize } = require('./models')
 const indexRouter = require('./routes')
 const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
-
-const app = express()
 
 app.set('port', process.env.PORT || 3000)
 passportConfig()

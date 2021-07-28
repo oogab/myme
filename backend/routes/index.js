@@ -4,7 +4,7 @@ const router = express.Router()
 
 // GET / 라우터
 router.get('/', (req, res) => {
-  res.send('Hello, MYME')
+  res.send('Hello')
 })
 
 module.exports = router

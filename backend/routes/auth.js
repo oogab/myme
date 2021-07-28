@@ -6,6 +6,17 @@ const { isLoggedIn, isNotLoggedIn } = require('./middlewares')
 
 const router = express.Router()
 
+/**
+ * @swagger
+ *  /auth:
+ *    post:
+ *      tags:
+ *        - user
+ *      description: 회원 가입
+ *      responses:
+ *        200:
+ *          description: 회원 가입 성공
+ */
 router.post('/join', isNotLoggedIn, async (req, res, next) => {
   const {
     name,
@@ -41,6 +52,21 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
   }
 })
 
+/**
+ * @swagger
+ *  /auth/login:
+ *    post:
+ *      tags:
+ *        - user
+ *      description: 로그인
+ *      responses:
+ *        200:
+ *          description: 로그인 성공
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ */
 router.post('/login', isNotLoggedIn, (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
     if (authError) {
@@ -48,7 +74,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       return next(authError)
     }
     if (!user) {
-      return res.redirect(`/?loginError=${info.message}`)
+      return res.status(403).redirect(`/?loginError=${info.message}`)
     }
     return req.login(user, async (loginError) => {
       if (loginError) {
