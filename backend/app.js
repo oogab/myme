@@ -55,7 +55,7 @@ app.use(cors())
 
 
 app.use('/', indexRouter)
-app.use('auth', authRouter)
+app.use('/auth', authRouter)
 app.use('/user', userRouter)
 
 app.use((req, res, next) => {
