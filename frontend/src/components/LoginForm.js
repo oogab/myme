@@ -8,6 +8,7 @@ import {
   Button
 } from 'antd'
 import styled from 'styled-components'
+import axios from 'axios'
 
 const ButtonWrapper = styled.div`
   margin-top: 10px;
@@ -32,11 +33,17 @@ const LoginForm = () => {
 
   const onSubmitForm = useCallback(() => {
     console.log(email, password)
-    // dispatch
+    axios.post('http://i5a201.p.ssafy.io:3000/auth/login', {email, password})
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }, [email, password])
 
   return (
-    <FormWrapper>
+    <FormWrapper onFinish={onSubmitForm}>
       <div>
         <text>로그인 하시고</text>
         <br />

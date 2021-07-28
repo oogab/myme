@@ -64,7 +64,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
           exclude: ['password']
         }
       })
-      return res.json(fullUserWithoutPassword)
+      return res.status(200).json(fullUserWithoutPassword)
     })
   })(req, res, next) // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다!
 })
