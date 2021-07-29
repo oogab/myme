@@ -27,45 +27,27 @@
    *            type: string
    */
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', { // MySQL에는 users 테이블 생성
+  const Habit = sequelize.define('Habit', { // MySQL에는 users 테이블 생성
       name: {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-      email: {
-        type: DataTypes.STRING(50),
+      content: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      time_required: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true,
-      },
-      nickname: {
-        type: DataTypes.STRING(20),
-        allowNull: true,
-        unique: true,
-      },
-      password: {
-        type: DataTypes.STRING(100), // 비밀번호 암호화 시 길어진다~
-        allowNull: false,
-      },
-      gender: {
-        type: DataTypes.STRING(5),
-        allowNull: true,
-      },
-      address: {
-        type: DataTypes.STRING(50),
-        allowNull: true,
-      },
-      phone_number: {
-        type: DataTypes.STRING(15),
-        allowNull: true,
       }
   }, {
     charset: 'utf8',
     collate: 'utf8_general_ci'
   })
 
-  User.associate = (db) => {
-    db.User.hasMany(db.Routine)
+  Habit.associate = (db) => {
+    db.Habit.belongsTo(db.User)
   }
 
-  return User
+  return Habit
 }
