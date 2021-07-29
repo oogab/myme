@@ -1,24 +1,27 @@
 # MYME (Make Your Miracle Effectively)
 
 ## History
-- __07-12 ~ 07-16__ : 아이디어 및 주제 기획 완료, 명세 초안 작업, 와이어 프레임 및 목업 작업, 아키텍쳐 설계 진행중
-- __07-16__ : 조유식
-- __07-19__ : 함건유
-- __07-19 ~ 07-23__ : 하드웨어 구입 및 테스트, 펌웨어 제작(초음파, 소리감지, 카메라), 화면 구성(Mock up), DB 설계, aws server check, boiler plate 구성, 간단한 프론트 페이지 만들기
+
+- **07-12 ~ 07-16** : 아이디어 및 주제 기획 완료, 명세 초안 작업, 와이어 프레임 및 목업 작업, 아키텍쳐 설계 진행중
+- **07-16** : 조유식
+- **07-19** : 함건유
+- **07-19 ~ 07-23** : 하드웨어 구입 및 테스트, 펌웨어 제작(초음파, 소리감지, 카메라), 화면 구성(Mock up), DB 설계, aws server check, boiler plate 구성, 간단한 프론트 페이지 만들기
 
 ## 목차
 
-- [프로젝트 소개](#프로젝트-소개)   
-- [텍스트 ... ](#프로젝트-소개)   
+- [프로젝트 소개](#프로젝트-소개)
+- [텍스트 ... ](#프로젝트-소개)
 - [프로젝트 명세](#프로젝트-명세)
   - [배포 환경](#배포-환경)
   - [개발 환경](#개발-환경)
   - [Design Resources](#design-resources)
   - [핵심 라이브러리](#핵심-라이브러리)
-<br>
+    <br>
 
 ## 프로젝트 소개
+
 ### MYME (Make Your Miracle Effectively)
+
 당신의 일과를 루틴화 해보세요!
 
 아침 루틴, 점심 루틴, 저녁 루틴에 들어갈 항목을 만들고 추가해보세요!
@@ -29,74 +32,86 @@
 <br>
 
 ## 프로젝트 명세
+
 ### 배포 환경
-- __URL__ : http://myme.today (현재는 임시로 배포한 클론 페이지로 이동합니다.)
-- __배포 여부__ : O / X
-- __접속 가능__ : 접속 가능 / 수정 중
-- __HTTPS 적용__ : O / X
-- __PORT__ : // 3rd Party에서 사용하는 포트가 있다면 기입해주세요. <- 기입 후 해당 주석 삭제
-<br>
+
+- **URL** : http://myme.today (현재는 임시로 배포한 클론 페이지로 이동합니다.)
+- **배포 여부** : O / X
+- **접속 가능** : 접속 가능 / 수정 중
+- **HTTPS 적용** : O / X
+- **PORT** : // 3rd Party에서 사용하는 포트가 있다면 기입해주세요. <- 기입 후 해당 주석 삭제
+  <br>
 
 ### 개발 환경
+
 #### Front-end
-- __Framework__ : React
-- __지원 환경__ : Web / Mobile / Web App
-- __담당자__ : 김민주, 함건유
+
+- **Framework** : React
+- **지원 환경** : Web / Mobile / Web App
+- **담당자** : 김민주, 함건유
 
 #### Back-end
-- __Framework__ : Node.js
-- __Database__ : MySQL
-- __담당자__ : 백상욱
+
+- **Framework** : Node.js
+- **Database** : MySQL
+- **담당자** : 백상욱
 
 #### Smart-mirror client
-- __Device__ : RaspberryPi
-- __지원 환경__ : Web
-- __담당자__ : 김민지, 조유식, 허남규
+
+- **Device** : RaspberryPi
+- **지원 환경** : Web
+- **담당자** : 김민지, 조유식, 허남규
 
 #### Design
-- __Framework 사용__ : O / X
+
+- **Framework 사용** : O / X
   - [Ant Design](https://ant.design/)
   - [Material-UI](https://material-ui.com/)
-- __Design Tool 사용__ : Adobe XD, Photoshop, Illustrator, Zeplin 등
-- __담당자__ : 백상욱
+- **Design Tool 사용** : Adobe XD, Photoshop, Illustrator, Zeplin 등
+- **담당자** : 백상욱
 
 ### Design Resources
-__외부 템플릿 또는 에셋__ (이미지 또는 링크 첨부)
 
-__자체 제작 산출물__ (필요시 이미지 또는 설명 첨부)
+**외부 템플릿 또는 에셋** (이미지 또는 링크 첨부)
+
+**자체 제작 산출물** (필요시 이미지 또는 설명 첨부)
+
 - LOGO
 - CardView
 - Button
 - Calendar
-<br>
+  <br>
 
 ### 핵심 라이브러리
-기본 제공하는 라이브러리 외 핵심 기능 구현에 사용한 라이브러리가 있다면 작성해주세요.   
+
+기본 제공하는 라이브러리 외 핵심 기능 구현에 사용한 라이브러리가 있다면 작성해주세요.  
 예시 ) VR/AR 라이브러리, 애니메이션 라이브러리, 텍스트/사진/동영상 지원, 편집 라이브러리 등
 
-- __AR CORE__
-  - __링크__ : https://developers.google.com/ar
-  - __소개__ : 구글에서 제공하는 AR 지원 라이브러리
-  - __사용 기능__ : 이미지 인식, 이미지 위 영상 표시
-  - __담당자__ : 팀원 A, 
-- __COLOR THIEF__
-  - __링크__ : https://lokeshdhakar.com/projects/color-thief/
-  - __소개__ : 이미지에서 색상을 추출해주는 라이브러리
-  - __사용 기능__ : 커버 사진에서 색상 추출 -> 배경 색상 변경
-  - __담당자__ : 팀원 A,
-- __Animate.css__
-  - __링크__ : https://animate.style/
-  - __소개__ : css 애니메이션 지원 라이브러리
-  - __사용 기능__ : 메인 페이지 진입 시 애니메이션 사용
-  - __담당자__ : 팀원 A,
-<br>
+- **AR CORE**
+  - **링크** : https://developers.google.com/ar
+  - **소개** : 구글에서 제공하는 AR 지원 라이브러리
+  - **사용 기능** : 이미지 인식, 이미지 위 영상 표시
+  - **담당자** : 팀원 A,
+- **COLOR THIEF**
+  - **링크** : https://lokeshdhakar.com/projects/color-thief/
+  - **소개** : 이미지에서 색상을 추출해주는 라이브러리
+  - **사용 기능** : 커버 사진에서 색상 추출 -> 배경 색상 변경
+  - **담당자** : 팀원 A,
+- **Animate.css**
+  - **링크** : https://animate.style/
+  - **소개** : css 애니메이션 지원 라이브러리
+  - **사용 기능** : 메인 페이지 진입 시 애니메이션 사용
+  - **담당자** : 팀원 A,
+    <br>
 
 ## 협업 도구
+
 - Jira
 - Figma
-<br>
+  <br>
 
 ## 개발 자료 링크 정리
+
 - 웹엑스 미팅
   - https://ssafyclass.webex.com/meet/gjskarb1492
 - 코로나 일별 확진자 등등 api
