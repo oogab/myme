@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   position: relative;
   .content {
+    width:auto;
     transition: all 0.3s ease;
     padding-bottom: 287px;
     min-height: 1200px;

@@ -76,13 +76,8 @@ export default function SimpleModal(props) {
   };
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">myme님의 아침 루틴</h2>
-      <div className={classes.routineItemList}>
-      <RoutineModalItem/>
-      <RoutineModalItem/>
-      <RoutineModalItem/>
-      <RoutineModalItem/>
-      </div>
+      <h2 id="simple-modal-title">습관 추가하기</h2>
+      
       <textarea className={classes.textarea} placeholder='습관 추가하기'></textarea>
       <div className={classes.buttonDiv}>
           <button className={classes.buttonLeft}>취소</button>
