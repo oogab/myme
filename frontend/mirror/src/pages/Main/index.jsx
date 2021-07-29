@@ -44,7 +44,7 @@ const Main = props => {
 
   return (
         <Wrapper>
-          <Grid container spacing={3} style={{color: 'white', background: '#434343', padding: '50px'}}>
+          <Grid container spacing={3} style={{color: 'white', background: '#000000', padding: '50px'}}>
             {/* 카드 들어갈 자리 */}
             <Grid item xs={3} style={{padding: '50px'}}>
               <h3>나의 챌린지</h3>
