@@ -54,7 +54,7 @@ const DrawerListGroup = () => {
       user_nm: '',
       user_pwd: '',
       user_img_url: '',
-      status: '',
+      status: true,
       web_site: '',
       token: '',
     });
@@ -73,7 +73,7 @@ const DrawerListGroup = () => {
   return (
     <>
       <List className="drawer-list-group-list">
-      {user.status && (
+
         <Fragment>
           <ListItem button key={'Me'} className="bg-unset">
               <Accordion className="panel">
@@ -161,7 +161,7 @@ const DrawerListGroup = () => {
           <ListItemText primary={'스마트 미러 관리'} disableTypography />
         </ListItem>
         </Fragment>
-      )}
+      
       </List>
     </>
   );

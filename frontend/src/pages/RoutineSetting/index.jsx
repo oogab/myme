@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import RoutineItem from '../../components/Routine/RoutineItem/index'
 import ChallengeItem from '../../components/Routine/ChallengeItem/index'
 import AddRoutineButton from '../../components/Routine/AddRoutineButton/index'
-import Layout from '../../layout/';
+import Layout from '../../layout';
 import Wrapper from './styles';
 import RoutineModal from '../../components/Routine/RoutineModal/index';
 import CreateRoutineModal from '../../components/Routine/CreateRoutineModal/index';

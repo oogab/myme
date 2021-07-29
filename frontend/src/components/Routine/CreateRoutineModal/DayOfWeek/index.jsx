@@ -4,23 +4,8 @@ import myStyle from './styles'
 const useStyles = makeStyles(() => (myStyle));
 function App(props){
     const classes = useStyles();
-    let [color, setColor] = useState( {backgroundColor:'#B5E3D8'});
-    function changeColor() {
-        if(props.clicked){
-            setColor({
-                backgroundColor:'white'
-              });
-        }else{
-            setColor({
-                backgroundColor:'#B5E3D8'
-              });
-        }
-        
-      }
-
-    let [bgColor] = useState(color);
     return(
-        <div style={bgColor} onClick={changeColor} className={classes.dayDiv}>
+        <div style={props.clicked?{backgroundColor:'white'}:{backgroundColor:'#B5E3D8'}} onClick={props.onClick} className={classes.dayDiv}>
             {props.dayName}
         </div>
     );

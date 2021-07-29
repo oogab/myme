@@ -22,7 +22,42 @@ const useStyles = makeStyles((theme) => ({
   },
   routineItemList:{
     marginBottom:'60px',
-  }
+  },
+  textarea:{
+    border:'#66A091 1px solid',
+    fontFamily: 'auto',
+    width: '100%',
+    borderRadius: '50px',
+    padding: '20px',
+    height:'80px',
+    resize:'none',
+    outline:'none',
+  },
+  buttonLeft:{
+    width: '47.5%',
+    marginRight: '2.5%',
+    border: 'none',
+    padding: '5px',
+    borderRadius: '20px',
+    height:'40px',
+    backgroundColor: '#776D61',
+    color:'white',
+    fontWeight:'bold'
+  },
+  buttonRight:{
+    width: '47.5%',
+    marginLeft: '2.5%',
+    border: 'none',
+    padding: '5px',
+    borderRadius: '20px',
+    height:'40px',
+    backgroundColor: '#89DDBF',
+    color:'white',
+    fontWeight:'bold'
+  },
+  buttonDiv:{
+    marginTop:'50px',
+  },
 }));
 
 export default function SimpleModal(props) {
@@ -48,7 +83,11 @@ export default function SimpleModal(props) {
       <RoutineModalItem/>
       <RoutineModalItem/>
       </div>
-      <RoutineModalItem/>
+      <textarea className={classes.textarea} placeholder='습관 추가하기'></textarea>
+      <div className={classes.buttonDiv}>
+          <button className={classes.buttonLeft}>취소</button>
+          <button className={classes.buttonRight}>저장</button>
+          </div>
     </div>
   );
 
