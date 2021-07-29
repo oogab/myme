@@ -5,6 +5,7 @@ const Wrapper = styled.div`
   top: 0;
   z-index: 9999;
   background: #fff;
+
   & .drawer {
     display: none;
     width: 280px;
@@ -37,7 +38,11 @@ const Wrapper = styled.div`
       background: unset;
     }
   }
+  & .drawer-tablet{
+    display: block;
+  }
   & .drawer-list-group-list {
+    margin-top:30px;
     color: #a4a4a4;
     font-weight: 600;
     font-size: 1rem;
@@ -69,7 +74,7 @@ const Wrapper = styled.div`
       }
     }
   }
-  @media (max-width: 960px) {
+  @media (max-width: 1280px) {
     & .drawer {
       display: block;
     }

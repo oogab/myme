@@ -10,15 +10,7 @@ const Wrapper = styled.div`
   .content-shift {
     transition: all 0.3s ease;
 
-    /* margin-left: 280px; */
-  }
-  .footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    background: #f2f3f4;
+    margin-left: 280px;
   }
   .container {
     margin-bottom: 30px;

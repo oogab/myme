@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   position: relative;
   height: 48px;
+  z-index: 10001;
   & .display-none {
     display: none;
   }

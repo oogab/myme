@@ -2,7 +2,7 @@ import React, { useContext, Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CommonContext } from '../../context/CommonContext';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import Hidden from '@material-ui/core/Hidden';
 import {
   Button,
   Grid,
@@ -22,61 +22,7 @@ import {
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Wrapper from './styles';
 
-const DrawerHeaderGroup = () => {
-  let history = useHistory();
-  const { setDrawerOpen, user, setUser } = useContext(CommonContext);
 
-  const handleDrawerClose = () => {
-    setDrawerOpen(false);
-  };
-
-  const onClickRedirectPathHandler = name => () => {
-    setDrawerOpen(false);
-    history.push(name);
-  };
-
-  const handleSignInDialogOpen = () => {
-    setUser({
-      user_no: 0,
-      user_id: '',
-      user_nm: '',
-      user_pwd: '',
-      user_img_url: '',
-      status: '',
-      web_site: '',
-      token: '',
-    });
-
-    history.push('/Auth');
-  };
-
-  return (
-    <Grid container direction="row" justify="space-between" alignItems="center">
-      <Grid item>
-        {user.status ? (
-          <Button
-            variant="contained"
-            color="primary"
-            className="up-cancel-fab"
-            onClick={onClickRedirectPathHandler('/CreateVote')}
-          >
-            Create a Vote
-          </Button>
-        ) : (
-          <Fragment>
-            <Button
-              variant="outlined"
-              className="up-cancel-fab"
-              onClick={handleSignInDialogOpen}
-            >
-              Sign In
-            </Button>
-          </Fragment>
-        )}
-      </Grid>
-    </Grid>
-  );
-};
 
 const DrawerListGroup = () => {
   let history = useHistory();
@@ -127,23 +73,9 @@ const DrawerListGroup = () => {
   return (
     <>
       <List className="drawer-list-group-list">
-        <ListItem
-          button
-          key={'Vote'}
-          onClick={onClickRedirectPathHandler('/MainVote')}
-        >
-          <ListItemText primary={'Vote'} disableTypography />
-        </ListItem>
-        {user.status && (
-          <Fragment>
-            <ListItem
-              button
-              key={'My Vote'}
-              onClick={onClickRedirectPathHandler('/MyVote')}
-            >
-              <ListItemText primary={'My Vote'} disableTypography />
-            </ListItem>
-            <ListItem button key={'Me'} className="bg-unset">
+      {user.status && (
+        <Fragment>
+          <ListItem button key={'Me'} className="bg-unset">
               <Accordion className="panel">
                 <AccordionSummary
                   className="panel-summary"
@@ -196,47 +128,45 @@ const DrawerListGroup = () => {
                 </AccordionDetails>
               </Accordion>
             </ListItem>
-          </Fragment>
-        )}
+        <ListItem
+          button
+          key={'MyRoutine'}
+          onClick={onClickRedirectPathHandler('/MyRoutine')}
+        >
+          <ListItemText primary={'나의 루틴'} disableTypography />
+        </ListItem>
+        
+          
+            <ListItem
+              button
+              key={'RoutineSetting'}
+              onClick={onClickRedirectPathHandler('/')}
+            >
+              <ListItemText primary={'루틴 설정'} disableTypography />
+            </ListItem>
+            
+          
         <ListItem
           button
           key={'AboutMe'}
           onClick={onClickRedirectPathHandler('/AboutMe')}
         >
-          <ListItemText primary={'About Me'} disableTypography />
+          <ListItemText primary={'개인 정보'} disableTypography />
         </ListItem>
         <ListItem
           button
           key={'ContactUs'}
-          onClick={onClickRedirectPathHandler('/ContactUs')}
+          onClick={onClickRedirectPathHandler('/SmartMirror')}
         >
-          <ListItemText primary={'Contact Us'} disableTypography />
+          <ListItemText primary={'스마트 미러 관리'} disableTypography />
         </ListItem>
-        <ListItem
-          button
-          key={'Terms'}
-          onClick={onClickRedirectPathHandler('/Terms')}
-        >
-          <ListItemText primary={'Terms'} disableTypography />
-        </ListItem>
+        </Fragment>
+      )}
       </List>
     </>
   );
 };
 
-const DrawerFooterGroup = () => {
-  const { user } = useContext(CommonContext);
-
-  return (
-    <Grid container direction="row" justify="flex-start" alignItems="center">
-      <Grid item xs={6}>
-        {!user.status && <Fragment></Fragment>}
-      </Grid>
-      <Grid item xs={4}></Grid>
-      <Grid item xs={2}></Grid>
-    </Grid>
-  );
-};
 
 export default function PersistentDrawerLeft(props) {
   const { drawerOpen } = useContext(CommonContext);
@@ -249,15 +179,19 @@ export default function PersistentDrawerLeft(props) {
         anchor="left"
         open={drawerOpen}
       >
-        <div className="drawer-header">
-          <DrawerHeaderGroup />
-        </div>
         <Divider />
         <DrawerListGroup />
-        <div className="drawer-header">
-          <DrawerFooterGroup />
-        </div>
       </Drawer>
+      <Hidden mdDown>
+        <Drawer
+        className="drawer drawer-tablet"
+        variant="persistent"
+        open
+      >
+        <Divider />
+        <DrawerListGroup />
+      </Drawer>
+      </Hidden>
     </Wrapper>
   );
 }

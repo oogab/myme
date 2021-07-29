@@ -2,10 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import store from 'store';
 
+import { useTheme } from '@material-ui/core/styles';
 import { CommonContext } from '../../context/CommonContext';
-import SignResponsiveDialog from '../../components/Auth/SignResponsiveDialog/';
-import UserResponsiveDialog from '../../components/User/UserResponsiveDialog/';
-import VoteDetailResponsiveDialog from '../../components/Main/VoteDetailResponsiveDialog/';
 
 import {
   Grid,
@@ -20,7 +18,8 @@ import Wrapper from './styles';
 
 const Header = props => {
   let history = useHistory();
-  const isTablet = useMediaQuery('(max-width:960px)');
+  const theme = useTheme();
+  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
   const {
     user,
@@ -76,54 +75,20 @@ const Header = props => {
           </Grid>
         )}
         <AppBar
-          position="fixed"
+          position="fixed" style={{background:'#89DDBF'}}
           className={drawerOpen ? 'appbar appbar-shift' : 'appbar'}
         >
-          <Grid container justify="space-between" alignItems="center">
+          <Grid container justify={!isTablet?'space-between':'space-evenly'} alignItems="center">
             <Grid item>
               <Typography
                 variant="h6"
                 className="logo"
-                onClick={onClickRedirectPathHandler('/MainVote')}
+                onClick={onClickRedirectPathHandler('/')}
               >
                 Logo
               </Typography>
             </Grid>
 
-            <Grid item className="title display-none">
-              <Grid container justify="center" spacing={2}>
-                <Grid item>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={onClickRedirectPathHandler('/MainVote')}
-                    className="display-none header-button"
-                  >
-                    Vote
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={onClickRedirectPathHandler('/MyVote')}
-                    className="display-none header-button"
-                  >
-                    My Vote
-                  </Button>
-                </Grid>
-                <Grid item onClick={onClickRedirectPathHandler('/CreateVote')}>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={window.scrollTo(0, 0)}
-                    className="header-button"
-                  >
-                    Create a Vote
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
 
             <Grid item>
               <Grid container alignItems="center">
@@ -141,7 +106,7 @@ const Header = props => {
                 </Grid>
                 <Grid item>
                   <Button
-                    color="primary"
+                   style={{background:'#89DDBF'}}
                     variant="contained"
                     onClick={handleSignInDialogOpen}
                     className="display-none header-button"
@@ -154,9 +119,6 @@ const Header = props => {
           </Grid>
         </AppBar>
       </Wrapper>
-      <SignResponsiveDialog />
-      <UserResponsiveDialog />
-      <VoteDetailResponsiveDialog />
     </>
   );
 };

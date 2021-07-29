@@ -10,15 +10,6 @@ import { CommonContext } from './context/CommonContext';
 import { useLocalStorageSetState } from './common/CommonHooks';
 
 // page
-import Auth from './pages/Auth/';
-import Terms from './pages/Terms/';
-import MyVote from './pages/MyVote/';
-import AboutMe from './pages/AboutMe/';
-import NotFound from './pages/NotFound/';
-import MainVote from './pages/MainVote/';
-import ContactUs from './pages/ContactUs/';
-import CreateVote from './pages/CreateVote/';
-import SearchVote from './pages/SearchVote/';
 import MyRoutine from './pages/MyRoutine/';
 
 // css
@@ -104,17 +95,7 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={MainVote} />
-            <Route exact path="/MainVote" component={MainVote} />
-            <Route exact path="/Auth" component={Auth} />
-            <Route exact path="/Terms" component={Terms} />
-            <Route exact path="/MyVote" component={MyVote} />
-            <Route exact path="/AboutMe" component={AboutMe} />
-            <Route exact path="/ContactUs" component={ContactUs} />
-            <Route exact path="/SearchVote" component={SearchVote} />
-            <Route exact path="/not-found" component={NotFound} />
-            <Route exact path="/CreateVote" component={CreateVote} />
-            <Route exact path="/MyRoutine" component={MyRoutine} />
+            <Route exact path="/" component={MyRoutine} />
             <Redirect to="/not-found" />
           </Switch>
         </BrowserRouter>
