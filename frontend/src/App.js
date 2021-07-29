@@ -10,7 +10,7 @@ import { CommonContext } from './context/CommonContext';
 import { useLocalStorageSetState } from './common/CommonHooks';
 
 // page
-import MyRoutine from './pages/MyRoutine/';
+import RoutineSetting from './pages/RoutineSetting/';
 
 // css
 // import './index.css';
@@ -95,7 +95,7 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={MyRoutine} />
+            <Route exact path="/" component={RoutineSetting} />
             <Redirect to="/not-found" />
           </Switch>
         </BrowserRouter>
