@@ -14,7 +14,7 @@ const router = express.Router()
  *        - user
  *      description: 회원 가입
  *      responses:
- *        200:
+ *        '200':
  *          description: 회원 가입 성공
  */
 router.post('/join', isNotLoggedIn, async (req, res, next) => {
@@ -58,14 +58,33 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
  *    post:
  *      tags:
  *        - user
- *      description: 로그인
+ *      description: 사용자 로그인 요청
  *      responses:
- *        200:
+ *        '200':
  *          description: 로그인 성공
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/User'
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: number
+ *                  name:
+ *                    type: string
+ *                  email:
+ *                    type: string
+ *                  nickname:
+ *                    type: string
+ *                  gender:
+ *                    type: string
+ *                  phone_number:
+ *                    type: string
+ *                  createdAt:
+ *                    type: date
+ *                  updatedAt:
+ *                    type: date
+ *        '403':
+ *          description: 로그인 실패, 존재하지 않는 유저
  */
 router.post('/login', isNotLoggedIn, (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
