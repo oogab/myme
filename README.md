@@ -1,5 +1,7 @@
 # MYME (Make Your Miracle Effectively)
 
+### ⚠️ 통합 Merge를 아직 진행하지 않기 때문에 각 브랜치 별 내용이 상이합니다. 참고해주세요! ⚠️
+
 ## 멤버
 
 <table>
