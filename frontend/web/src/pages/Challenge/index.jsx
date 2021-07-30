@@ -28,42 +28,12 @@ import ButtonBases from '../../components/Main/ButtonBases';
 import VoteGridList from '../../components/Grid/VoteGridList';
 import VoteGridTitle from '../../components/Grid/VoteGridTitle';
 
-const useStyles = makeStyles({
-    root: {
-      maxWidth: 200,
-    },
-    media: {
-      height: 140,
-    },
-  });
 
 const Challenge = ()=>{
-    const classes = useStyles();
+    ;
     return(
         <Layout>
-             <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="/images/run.png"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h5">
-            새벽러닝
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            해가 뜨지 않은 새벽,<br/>
-            시원하게 달려봅시다.
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-          <PersonIcon/>11
-          <br/>        
-        <FavoriteIcon/>16
-      </CardActions>
-    </Card>
+            
         </Layout>
     )
 };
