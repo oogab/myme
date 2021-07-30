@@ -53,7 +53,7 @@
 
 ### 배포 환경
 
-- **URL** : http://myme.today (mirror display page)
+- **URL** : http://myme.today:3000 (mirror display page)
 - **배포 여부** : O
 - **접속 가능** : 접속 가능
 - **HTTPS 적용** : X
