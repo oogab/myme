@@ -59,6 +59,17 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
  *      tags:
  *        - user
  *      description: 사용자 로그인 요청
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                email:
+ *                  type: string
+ *                password:
+ *                  type: string
  *      responses:
  *        '200':
  *          description: 로그인 성공
