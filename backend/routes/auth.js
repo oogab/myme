@@ -72,7 +72,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
  *                  type: string
  *      responses:
  *        '200':
- *          description: 로그인 성공
+ *          description: Success
  *          content:
  *            application/json:
  *              schema:
