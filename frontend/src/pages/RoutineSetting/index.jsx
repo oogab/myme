@@ -19,9 +19,9 @@ function App(){
             <Layout>
                 <div className='daily-menu'><h1>Daily</h1><AddRoutineButton onClick={openCreateRoutineModal}></AddRoutineButton></div>
                 <hr/>
-                <RoutineItem routineId='아침 루틴'></RoutineItem>
-                <RoutineItem routineId='저녁 루틴'></RoutineItem>
-                <RoutineModal routineModal={routineModal} setRoutineModal={setRoutineModal} openModal={openRoutineModal}></RoutineModal>
+                <RoutineItem routineId='아침 루틴' openModal={openRoutineModal}></RoutineItem>
+                <RoutineItem routineId='저녁 루틴' openModal={openRoutineModal}></RoutineItem>
+                <RoutineModal routineModal={routineModal} setRoutineModal={setRoutineModal}></RoutineModal>
                 <CreateRoutineModal createRoutineModal={createRoutineModal} setCreateRoutineModal={setCreateRoutineModal}></CreateRoutineModal>
             </Layout>
         </Wrapper>
