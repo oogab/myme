@@ -7,7 +7,13 @@
 
 ```
 MYME 서비스의 백엔드 서버를 개발하고 있습니다.
+Node.js의 Express 프레임워크를 사용하여 개발할 예정입니다.
 
+일반 데스크톱, 모바일에서 접속 가능한 web과
+MYME 스마트미러에서 접속 가능한 web을 따로 둘 생각입니다.
+
+Back server 2대 Front server 2대 총 4대의 AWS EC2를 생성하였습니다.
+이미지 업로드를 해야할 작업이 있기 때문에 AWS S3, lambda를 사용할 예정입니다.
 
 ```
 
@@ -65,6 +71,10 @@ express에서 제공되는 기능으로
 - https://sequelize.org/master/
 
 ```
+
+### Dabtabase
+
+- https://app.diagrams.net/#G1vJliTyhuFDLXzTC2KZrurrbWdzVOYVtw
 
 #### run
 
