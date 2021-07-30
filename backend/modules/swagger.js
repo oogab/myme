@@ -10,7 +10,7 @@ const options = {
     },
     host: 'localhost:3300',
     basePath: '/',
-    components: [],
+    schemas: ['http'],
   },
   apis: ['./routes/*.js', './swagger/*', './models/*.js']
 }
