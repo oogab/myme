@@ -71,7 +71,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
  *                password:
  *                  type: string
  *      responses:
- *        200:
+ *        '200':
  *          description: 로그인 성공
  *          content:
  *            application/json:
@@ -79,7 +79,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
  *                type: object
  *                properties:
  *                  id:
- *                    type: number
+ *                    type: integer
  *                  name:
  *                    type: string
  *                  email:
@@ -90,11 +90,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
  *                    type: string
  *                  phone_number:
  *                    type: string
- *                  createdAt:
- *                    type: date
- *                  updatedAt:
- *                    type: date
- *        403:
+ *        '403':
  *          description: 로그인 실패, 존재하지 않는 유저
  */
 router.post('/login', isNotLoggedIn, (req, res, next) => {
