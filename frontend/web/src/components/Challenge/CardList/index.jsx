@@ -12,10 +12,13 @@ import {
     CardMedia,
     Button,
     Typography,
-    Chip
+    Chip,
+    Grid
      } from '@material-ui/core/';
 import PersonIcon from '@material-ui/icons/Person';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import DetailChallenge from '../DetailChallenge/';
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 280,
@@ -139,13 +142,21 @@ const Challenge = () => {
                             title="Contemplative Reptile"
                         />
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                            10분 명상
-                            </Typography>
+                            <Grid container spacing={2}>
+                                <Grid item xs container direction="column" spacing={2}>
+                                    <Typography gutterBottom variant="h5" component="h2">
+                                    10분 명상
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <DetailChallenge></DetailChallenge>
+                                </Grid>
+                            </Grid>
                             <Typography variant="body2" color="textSecondary" component="p">
                             매일 아침 10분 명상을 통해 내면을 들여다 봅시다.
                             </Typography>
                         </CardContent>
+
                     </CardActionArea>
                     <CardActions>
                         <PersonIcon></PersonIcon> 132
