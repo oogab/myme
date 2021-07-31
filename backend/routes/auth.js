@@ -63,7 +63,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
  *        required: true
  *        content:
  *          application/json:
- *            schemas:
+ *            schema:
  *              type: object
  *              properties:
  *                email:
@@ -75,7 +75,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
  *          description: Success
  *          content:
  *            application/json:
- *              schemas:
+ *              schema:
  *                type: object
  *                properties:
  *                  id:
