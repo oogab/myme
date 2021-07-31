@@ -1,118 +1,34 @@
-### SSAFY-WEB
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-###
+## Getting Started
 
-#### 진행사항
+First, run the development server:
 
-```
-아직 리액트에 익숙하지가 않아서 공부하면서 작성중입니다.
-스켈레톤 코드의 페이지들을 우선 주석처리하고 저희 프로젝트의 Landing Page를 작성중입니다.
-LoginForm 컴포넌트를 Landing Page에 import하여 보여줍니다.
-```
-
-#### 스켈레톤
-
-```
-"실시간 선호도 조사"은 투표를 통해 유저들끼리의 커뮤니티를 형성 할 수있는 가상의
-주제로써 이 프로젝트를 통해 React, Node.js, Mysql, Hw등 다양한 기술을
-접하는것을 목표로한다.
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-#### directory
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```
-/public
-	/images
-	-Vo_icon.png
--favicon.ico
--index.html
--logo192.png
--logo512.png
--manifest.json
--index.html
-```
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-```
-/src
-	/common
-	- CommonHooks.jsx                -> key press, local storage state
-	- InfiniteScroll.jsx             -> handle infinite scroll
-	- MediaQueryHooks.jsx            -> material-ui useMediaQuery hooks
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-	/components
-		/Auth
-			/SignResponsiveDialog        -> sigin in, sigin up, recover pw
-		/Create
-			/CreateVoteComponent         -> create a vote
-			/DialogActionsComponet       -> create a vote
-			/RadioButtonsGroup           -> create a vote
-		/Feed                            -> vote feed
-		/Grid
-			/VoteGridItem                -> vote item
-			/VoteGridList                -> vote root
-			/VoteGridTitle               -> vote title
-		/Main
-			/ButtonBases                 -> category head
-			/CheckBoxButtonsGroup        -> vote options
-			/HorizontalBar               -> perceantage chart
-			/VoteDetailResponsiveDialog  -> vote result
-		/Search
-			/SearchComponent             -> search vote
-		/User
-			/ChangePassword              -> change pw
-			/MyInfo                      -> user info
-			/UserResponsiveDialog        -> user dialog root
-			/VerticalTabs                -> user dialog side nav
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-	/context                         -> create context
+## Learn More
 
-	/css                             -> reset css
+To learn more about Next.js, take a look at the following resources:
 
-	/layout
-		/Drawer                        -> side nav
-		/Footer                        -> footer
-		/Header                        -> head nav
-		/Layout                        -> layout root
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-	/pages
-	- Auth                       -> user
-	- AboutMe                    -> about me
-	- ContactUs                  -> contact us
-	- CreateVote                 -> create vote
-	- MainVote                   -> vote
-	- MyVote                     -> my vote
-	- NotFound                   -> 404 page
-	- SearchVote                 -> search
-	- Terms                 	 -> terms
-```
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-```
-App.js
-```
+## Deploy on Vercel
 
-```
-index.css
-```
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-```
-index.js
-```
-
-```
-serviceWorker.js
-```
-
-```
-package.json
-```
-
-```
-README.md
-```
-
-#### run
-
-```
-npm install
-npm start
-```
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

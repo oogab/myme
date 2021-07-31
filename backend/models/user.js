@@ -46,6 +46,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100), // 비밀번호 암호화 시 길어진다~
         allowNull: false,
       },
+      age: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       gender: {
         type: DataTypes.STRING(5),
         allowNull: true,
