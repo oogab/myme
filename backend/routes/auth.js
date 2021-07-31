@@ -92,7 +92,11 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
  *                    type: string
  *              example:
  *                id: 1
- *                name: 백상욱
+ *                name: '백상욱'
+ *                email: 'oogab@naver.com'
+ *                nickname: 'wook'
+ *                gender: '남'
+ *                phone_number: '01032216063'
  *        '403':
  *          description: 로그인 실패, 존재하지 않는 유저
  */
