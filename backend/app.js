@@ -14,7 +14,6 @@ const app = express()
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
 const { sequelize } = require('./models')
 const indexRouter = require('./routes')
-const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
 
 app.set('port', process.env.PORT || 3000)
