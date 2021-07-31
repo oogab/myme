@@ -8,6 +8,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.User = require('./user')(sequelize, Sequelize)
 db.Habit = require('./habit')(sequelize, Sequelize)
 db.Routine = require('./routine')(sequelize, Sequelize)
+db.Challenge = require('./challenge')(sequelize, Sequelize)
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

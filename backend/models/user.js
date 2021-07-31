@@ -65,6 +65,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = (db) => {
     db.User.hasMany(db.Routine)
+    db.User.hasMany(db.Challenge)
   }
 
   return User
