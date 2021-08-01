@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import 'date-fns';
-import { makeStyles, withStyles, Grid } from '@material-ui/core/';
+import { makeStyles, withStyles, Grid, Paper } from '@material-ui/core/';
 import TextField from '@material-ui/core/TextField';
 import { teal } from '@material-ui/core/colors';
 import Wrapper from './styles';
@@ -163,14 +163,17 @@ export default function LayoutTextFields() {
             </Grid>
             <Grid item xs={12}>
                 <h4>챌린지를 소개해 주세요!</h4>
-                <UploadImg></UploadImg>
-                <TextField
-          id="outlined-multiline-static"
-          fullWidth
-          multiline
-          rows={4}
-          variant="outlined"
-        />
+                
+                
+                  <TextField
+                    id="outlined-multiline-static"
+                    fullWidth
+                    multiline
+                    rows={4}
+                    variant="outlined"
+                    style={{float:'right'}}
+                  />
+                
             </Grid>
         </Grid>
         </Wrapper>
