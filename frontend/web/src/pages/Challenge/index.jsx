@@ -9,34 +9,56 @@ import NewChallenge from '../../components/Challenge/NewChallenge';
 import TotalChallenge from '../../components/Challenge/TotalChallenge';
 import Layout from '../../layout';
 import Wrapper from './styles';
-
+import { Button } from '@material-ui/core/';
+import AddIcon from '@material-ui/icons/Add';
+import { useHistory } from 'react-router-dom';
 const Challenge = () => {
-
+    let history = useHistory();
       return (
        
            <Wrapper>
-           <Grid container item xs={12} spacing={3} >
+               {/* <Grid>
+               <Grid container item xs={9} spacing={9} >
                 <h2>추천</h2>
-                <Grid item xs={12} >
-                <RecommendChallenge></RecommendChallenge>
                 </Grid>
-            </Grid>
-            <div style={{height: '150px'}}></div>
-            <Grid container item xs={12} spacing={3} >
-            <h2>신규</h2>
-                <Grid item xs={12} >
-                <NewChallenge></NewChallenge>
+                <Grid container item xs={3} spacing={3} >
                 </Grid>
-            </Grid>
-            <div style={{height: '150px'}}></div>
-            <Grid container item xs={12} spacing={3} >
-                <Grid item xs={12} >
-                <h2>전체</h2>
-                <TotalChallenge></TotalChallenge>
+                </Grid> */}
+                <Grid container item xs={12} spacing={3} >
+                    <Grid item xs={10}>
+                    <h2>추천</h2> 
+                    </Grid>
+                    <Grid item xs={2}>
+                    <Button
+                        variant="contained"
+                        color="default"
+                        startIcon={<AddIcon />}
+                        style={{float: 'right'}}
+                        onClick={()=>{history.push('/CreateChallenge/')}}
+                    >
+                        챌린지 생성하기
+                    </Button>
+                    </Grid>
+                    <Grid item xs={12} >
+                    <RecommendChallenge></RecommendChallenge>
+                    </Grid>
                 </Grid>
-            </Grid>
+                <div style={{height: '150px'}}></div>
+                <Grid container item xs={12} spacing={3} >
+                <h2>신규</h2>
+                    <Grid item xs={12} >
+                    <NewChallenge></NewChallenge>
+                    </Grid>
+                </Grid>
+                <div style={{height: '150px'}}></div>
+                <Grid container item xs={12} spacing={3} >
+                    <Grid item xs={12} >
+                    <h2>전체</h2>
+                    <TotalChallenge></TotalChallenge>
+                    </Grid>
+                </Grid>
             </Wrapper>
-       
+          
       );
  }
 

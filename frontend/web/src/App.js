@@ -20,7 +20,7 @@ import ContactUs from './pages/ContactUs/';
 import CreateVote from './pages/CreateVote/';
 import SearchVote from './pages/SearchVote/';
 import Challenge from './pages/Challenge/';
-
+import CreateChallenge from './pages/CreateChallenge/';
 // css
 // import './index.css';
 
@@ -115,6 +115,7 @@ const App = () => {
             <Route exact path="/not-found" component={NotFound} />
             <Route exact path="/CreateVote" component={CreateVote} />
             <Route exact path="/Challenge" component={Challenge} />
+            <Route exact path="/CreateChallenge" component={CreateChallenge} />
             <Redirect to="/not-found" />
           </Switch>
         </BrowserRouter>

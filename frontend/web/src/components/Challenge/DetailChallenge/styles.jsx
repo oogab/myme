@@ -4,25 +4,25 @@ const Wrapper = styled.div`
 .detailChallenge{
 
  & .appBar{
-    position: relative,
+    position: relative;
   }
   & .appBarTitle{
-    margin-left: theme.spacing(1),
-    flex: 1,
+    margin-left: theme.spacing(1);
+    flex: 1;
   }
   & .titleImg{
-    text-align: center, 
+    text-align: center;
     background: #eeeeee
   }
   & .chip{
-    display: flex,
-    justify-content: left,
-    flex-wrap: wrap,
-    margin: 0 50px,
-    padding: 30px,
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    margin: 0 50px;
+    padding: 30px;
   }
   & .colorText{
-    background: #B49173,
+    background: #B49173;
   }
 }
 `;

@@ -105,6 +105,11 @@ export default function FullScreenDialog() {
           <Grid item xs={12}>
           <FavoriteIcon></FavoriteIcon> 좋아요 10 명
           </Grid>
+          <Grid item xs={12}>
+          <ColorButton variant="outlined" onClick={handleClickOpen}>
+        참여하기!
+      </ColorButton>
+        </Grid>
       </Container>
       </Grid>
       </Dialog>
