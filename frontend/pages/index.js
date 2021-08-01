@@ -3,8 +3,12 @@ import Head from 'next/head'
 import AppLayout from '../components/AppLayout'
 import styles from '../styles/Home.module.css'
 import LoginForm from '../components/LoginForm'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Home = () => {
+  const dispatch = useDispatch()
+  const { me } = useSelector((state) => state.user)
+
   return (
     <AppLayout>
       <div className={styles.container}>
@@ -14,7 +18,7 @@ const Home = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <main className={styles.main}>
-          Hello MYME
+          {me ? <div>Hello {me.email}</div> : <div>Hello MYME</div>}
           <LoginForm />
         </main>
       </div>

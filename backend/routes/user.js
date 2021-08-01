@@ -100,14 +100,14 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
  *        '403':
  *          description: 로그인 실패, 존재하지 않는 유저
  */
-router.post('/login', isNotLoggedIn, (req, res, next) => {
-  passport.authenticate('local', (authError, user, info) => {
-    if (authError) {
-      console.error(authError)
-      return next(authError)
+router.post('/login', isNotLoggedIn, (req, res, next) => {  // POST /user/login
+  passport.authenticate('local', (error, user, info) => {
+    if (error) { // 서버 에러
+      console.error(error)
+      return next(error)
     }
-    if (!user) {
-      return res.status(403).send(info.message)
+    if (info) { // 클라이언트 에러
+      return res.status(401).send(info.reason)
     }
     return req.login(user, async (loginError) => {
       if (loginError) {
