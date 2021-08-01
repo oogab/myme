@@ -1,21 +1,14 @@
-import { all, fork, take } from 'redux-saga/effects'
+import { all, fork } from 'redux-saga/effects'
+import axios from 'axios'
 
-function* watchLogIn() {
-  yield take('LOG_IN')
-}
+import userSaga from './user'
+import { backUrl } from '../config/config'
 
-function* watchLogOut() {
-  yield take('LOG_OUT')
-}
-
-function* watchAddChallenge() {
-  yield take('ADD_CHALLENGE')
-}
+axios.defaults.baseURL = backUrl
+axios.defaults.withCredentials = true
 
 export default function* rootSaga() {
   yield all([
-    fork(watchLogIn),
-    fork(watchLogOut),
-    fork(watchAddChallenge),
+    fork(userSaga),
   ])
 }
