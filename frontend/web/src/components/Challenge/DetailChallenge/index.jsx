@@ -1,89 +1,45 @@
 import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import { 
+  makeStyles, 
+  withStyles,
+  Button,
+  Dialog,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Slide,
+  Grid,
+  Chip,
+  Container
+  } from '@material-ui/core/';
 import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Chip from '@material-ui/core/Chip';
 import { teal } from '@material-ui/core/colors';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import Wrapper from './styles';
+import PersonIcon from '@material-ui/icons/Person';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: 'relative',
-  },
-  title: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-}));
-
-const basicStyles = makeStyles((theme) => ({
+const ColorTeal = withStyles((theme) => ({
   root: {
-    flexGrow: 1,
-    padding: '10px'
-  },
-  paper: {
-    padding: theme.spacing(2),
-    margin: '20px',
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-}));
-
-const chipStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'left',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(1.5),
+    color: theme.palette.getContrastText(teal[500]),
+    backgroundColor: teal[500],
+    '&:hover': {
+      backgroundColor: teal[700],
     },
-    margin: '0 50px',
   },
-}));
+}))
 
-const ColorButton = withStyles((theme) => ({
-    root: {
-      color: theme.palette.getContrastText(teal[500]),
-      backgroundColor: teal[500],
-      '&:hover': {
-        backgroundColor: teal[700],
-      },
-    },
-  }))(Button);
+const ColorButton = ColorTeal(Button);
+const ColorAppBar = ColorTeal(AppBar);
+const ColorChip = ColorTeal(Chip);
 
-  const ColorAppBar = withStyles((theme) => ({
-    root: {
-      color: theme.palette.getContrastText(teal[300]),
-      backgroundColor: teal[500],
-      '&:hover': {
-        backgroundColor: teal[700],
-      },
-    },
-  }))(AppBar);
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function FullScreenDialog() {
-  const classes = useStyles();
-  const basic = basicStyles();
   const [open, setOpen] = React.useState(false);
-  const chipClasses = chipStyles();
-  const handleClick = () => {
-      console.info('You clicked the Chip.');
-    };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -94,51 +50,64 @@ export default function FullScreenDialog() {
   };
 
   return (
-    <div>
-      <ColorButton variant="outlined" color="teal" onClick={handleClickOpen}>
+    <Wrapper>
+      <ColorButton variant="outlined" onClick={handleClickOpen}>
         상세보기
       </ColorButton>
-      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-        <ColorAppBar className={classes.appBar}>
+      
+      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition} className="detailChallenge">
+        <ColorAppBar className="appBar">
           <Toolbar>
             <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
               <CloseIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h6" className="appBarTitle">
               상세보기
             </Typography>
-            
           </Toolbar>
         </ColorAppBar>
-        <Grid container spacing={3} style={{padding: '10px'}}>
-        <Grid item xs={12} style={{textAlign: 'center', background: '#eeeeee'}}>
-          <img src="/images/challenge.png" alt="" style={{width: '50%'}}></img>
-        </Grid>
-        
-        <Grid item xs={12} sm={6} style={{padding: '30px', display:'inline-block'}}>
-          <h2>아침 10분 명상</h2>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FavoriteBorderIcon style={{float: 'right', padding: '30px'}}></FavoriteBorderIcon>
-        </Grid>
-        <Grid item xs={12}>
-            <div className={chipClasses.root}>
-                <Chip label="정서" color="#66A091"/>
-                <Chip label="2주" />
-                <Chip  label="평일매일"  />
-            </div>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Paper className={basic.paper}>xs=6 sm=3</Paper>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Paper className={basic.paper}>xs=6 sm=3</Paper>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Paper className={basic.paper}>xs=6 sm=3</Paper>
-        </Grid>
+        <Grid
+      container
+      direction="row"
+      justify="center"
+      alignItems="center"
+      spacing={1}
+    >
+        <Container spacing={1} style={{padding: '10px'}}>
+          {/* 대표이미지 */}
+          <Grid item xs={12} className="titleImg" style={{textAlign: 'center'}}>
+            <img src="/images/challenge.png" alt="" style={{width: '50%'}}></img>
+          </Grid>
+          {/* 제목 */}
+          <Grid item xs={12}>
+            <h2>아침 10분 명상</h2><span><FavoriteBorderIcon style={{float: 'right', padding: '30px'}}></FavoriteBorderIcon></span>
+          </Grid>
+          {/* 좋아요 */}
+          
+          {/* 태그 */}
+          <Grid item xs={12}>
+              <div className="chip">
+                  <ColorChip label="정서"/>
+                  <ColorChip label="2주" />
+                  <ColorChip  label="평일매일"  />
+              </div>
+          </Grid>
+          {/* 설명 */}
+          <Grid item xs={12} >
+            <h4>매일 아침 10분 명상을 통해 내면을 들여다 봅시다</h4>
+          </Grid>
+          <Grid item xs={12} >
+            <h4 className="colorText">매일 1번 인증샷을 찍어 올려야 해요!</h4>
+          </Grid>
+          <Grid item xs={12}>
+          <PersonIcon></PersonIcon> 참가인원 132 명
+          </Grid>
+          <Grid item xs={12}>
+          <FavoriteIcon></FavoriteIcon> 좋아요 10 명
+          </Grid>
+      </Container>
       </Grid>
       </Dialog>
-    </div>
+    </Wrapper>
   );
 }
