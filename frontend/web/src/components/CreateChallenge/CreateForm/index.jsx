@@ -73,12 +73,12 @@ export default function LayoutTextFields() {
   const [repeats, setRepeats] = useState(repeatData);
   return (
     <Wrapper>
-        <Grid container xs={10}>
-            <Grid item xs={12}>
-                <h2>챌린지 생성</h2>
+        <Grid container xs={10} className="grid">
+            <Grid item xs={12} className="titleGrid">
+                <h1 style={{margin: 0}}>챌린지 생성</h1>
             </Grid>
             <Grid item xs={12}>
-                <h4>개설하려는 챌린지에 이름을 붙여주세요!</h4>
+                <h4>1. 개설하려는 챌린지에 이름을 붙여주세요!</h4>
                 <TealColor
                 id="standard-full-width"
                 style={{ margin: 1}}
@@ -91,7 +91,7 @@ export default function LayoutTextFields() {
                 />
             </Grid>
             <Grid item xs={12}>
-                <h4>어떤 주제와 관련이 있나요?</h4>
+                <h4>2. 어떤 주제와 관련이 있나요?</h4>
                 <FormGroup row>
                     {
                         names.map((e, i)=>{
@@ -104,7 +104,7 @@ export default function LayoutTextFields() {
                 </FormGroup>
             </Grid>
             <Grid item xs={12}>
-            <h4>언제부터 시작하나요?</h4>
+            <h4>3. 언제부터 시작하나요?</h4>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 
                     <KeyboardDatePicker
@@ -123,7 +123,7 @@ export default function LayoutTextFields() {
                 </MuiPickersUtilsProvider>
             </Grid> 
             <Grid item xs={12}>
-                <h4>얼마동안 할건가요?</h4>
+                <h4>4. 얼마동안 할건가요?</h4>
                 <FormGroup row>
                     {
                         periods.map((e, i)=>{
@@ -136,7 +136,7 @@ export default function LayoutTextFields() {
                 </FormGroup>
             </Grid>
             <Grid item xs={12}>
-                <h4>얼마나 자주 할건가요?</h4>
+                <h4>5. 얼마나 자주 할건가요?</h4>
                 <FormGroup row>
                     {
                         repeats.map((e, i)=>{
@@ -149,7 +149,7 @@ export default function LayoutTextFields() {
                 </FormGroup>
             </Grid>
             <Grid item xs={12}>
-                <h4>하루에 몇 번 인증이 필요한가요?</h4>
+                <h4>6. 하루에 몇 번 인증이 필요한가요?</h4>
                 <TealColor
                 id="standard-full-width"
                 style={{ margin: 1}}
@@ -162,9 +162,7 @@ export default function LayoutTextFields() {
                 />
             </Grid>
             <Grid item xs={12}>
-                <h4>챌린지를 소개해 주세요!</h4>
-                
-                
+                <h4>7. 챌린지를 소개해 주세요!</h4>
                   <TextField
                     id="outlined-multiline-static"
                     fullWidth
