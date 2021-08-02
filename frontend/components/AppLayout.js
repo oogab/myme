@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -7,9 +7,18 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import { useDispatch, useSelector } from 'react-redux'
+import { Button } from '@material-ui/core'
+import { logoutRequestAction } from '../reducers/user'
 
 const AppLayout = ({ children }) => {
   const menuId = 'primary-search-account-menu';
+  const dispatch = useDispatch()
+  const { me } = useSelector((state) => state.user)
+
+  const onLogout = useCallback(() => {
+    dispatch(logoutRequestAction())
+  }, [])
 
   return (
     <div>
@@ -29,6 +38,14 @@ const AppLayout = ({ children }) => {
             >
               <AccountCircle />
             </IconButton>
+          </div>
+          <div>
+            <Button
+              style={{ color: 'white'}}
+              onClick={onLogout}
+            >
+              로그아웃
+            </Button>
           </div>
         </Toolbar>
       </AppBar>

@@ -17,11 +17,11 @@ import Link from 'next/link'
 import Wrapper from './styles';
 
 import { useDispatch, useSelector } from 'react-redux'
-import { loginRequestAction } from '../reducers/user'
+import { IS_SING_UP_MODE, loginRequestAction } from '../reducers/user'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
-  const { logInLoading, logInError } = useSelector((state) => state.user)
+  const { logInLoading, logInError, isSignUp } = useSelector((state) => state.user)
   const [disabled, setDisabled] = useState(true)
   const [email, setEmail] = useState('')
   const onChangeEmail = useCallback((e) => {
@@ -51,6 +51,13 @@ const LoginForm = () => {
     dispatch(loginRequestAction({email, password}))
   }, [email, password])
 
+  const onSignUp = useCallback(() => {
+    dispatch({
+      type: IS_SING_UP_MODE,
+      data: true,
+    })
+  }, [])
+
   return (
     <Wrapper>
       <Grid
@@ -77,6 +84,7 @@ const LoginForm = () => {
           <TextField
             required
             label="비밀번호"
+            type="password"
             className="text-field"
             value={password}
             variant="outlined"
@@ -135,6 +143,15 @@ const LoginForm = () => {
               {/* </Typography> */}
             </IconButton>
           </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            fullWidth={true}
+            onClick={onSignUp}
+            className="grid2-item-button"
+          >
+            {`계정이 없으신가요?`}
+          </Button>
         </Grid>
       </Grid>
     </Wrapper>

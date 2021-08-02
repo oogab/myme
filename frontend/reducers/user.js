@@ -12,8 +12,7 @@ export const initialState = {
   signUpError: null,
   me: null,
   userInfo: null,
-  signUpData: {},
-  loginData: {}
+  isSignUp: false,
 }
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST'
@@ -27,6 +26,8 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE'
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST'
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS'
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE'
+
+export const IS_SING_UP_MODE = 'IS_SING_UP_MODE'
 
 export const loginRequestAction = (data) => {
   return {
@@ -56,6 +57,36 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case LOG_IN_FAILURE:
       draft.logInLoading = false
       draft.logInError = action.error
+      break
+    case LOG_OUT_REQUEST:
+      draft.logOutLoading = true
+      draft.logOutDone = false
+      draft.logOutError = null
+      break
+    case LOG_OUT_SUCCESS:
+      draft.logOutLoading = false
+      draft.logOutDome = true
+      draft.me = null
+      break
+    case LOG_OUT_FAILURE:
+      draft.logOutLoading = false
+      draft.logOutError = action.error
+      break
+    case SIGN_UP_REQUEST:
+      draft.signUpLoading = true
+      draft.signUpDone = false
+      draft.signUpError = null
+      break
+    case SIGN_UP_SUCCESS:
+      draft.signUpLoading = false
+      draft.signUpDone = true
+      break
+    case SIGN_UP_FAILURE:
+      draft.signUpLoading = false
+      draft.signUpError = action.error
+      break
+    case IS_SING_UP_MODE:
+      draft.isSignUp = action.data
       break
   }
 })
