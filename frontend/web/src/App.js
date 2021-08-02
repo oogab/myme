@@ -15,6 +15,12 @@ import { useLocalStorageSetState } from './common/CommonHooks';
 // page
 import RoutineSetting from './pages/RoutineSetting/';
 import Home from './pages/Home/';
+import NotFound from './pages/NotFound/';
+import Challenge from './pages/Challenge/';
+import CreateChallenge from './pages/CreateChallenge/';
+import Profile from './pages/Profile/';
+import MirrorSetting from './pages/MirrorSetting/';
+
 
 // css
 import './index.css';
@@ -72,6 +78,12 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/RoutineSetting" component={RoutineSetting} />
+              <Route exact path="/not-found" component={NotFound} />
+              <Route exact path="/Challenge" component={Challenge} />
+              <Route exact path="/CreateChallenge" component={CreateChallenge} />
+              <Route exact path="/Profile" component={Profile} />
+              <Route exact path="/MirrorSetting" component={MirrorSetting} />
+
               <Redirect to="/not-found" />
             </Switch>
           </BrowserRouter>

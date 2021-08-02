@@ -1,24 +1,41 @@
-### SSAFY-WEB
+## 담당자
 
-###
+<a href="https://lab.ssafy.com/minjoo0112"><img src="https://secure.gravatar.com/avatar/9bdc67a1ff49729909fada0f0f14a994?s=800&d=identicon" width="100px;" alt=""/><br /><sub><b>김민주(Frontend)</b></sub></a>
 
-#### 진행사항
+<br/>
 
-```
-아직 리액트에 익숙하지가 않아서 공부하면서 작성중입니다.
-스켈레톤 코드의 페이지들을 우선 주석처리하고 저희 프로젝트의 Landing Page를 작성중입니다.
-LoginForm 컴포넌트를 Landing Page에 import하여 보여줍니다.
-```
+## Frontend
 
-#### 스켈레톤
+스켈레톤 코드를 기반으로 웹 페이지 UI 구현 중 입니다. <br/>
+다른 Frontend 담당자와 branch를 나눠 개발 중이라 branch별 코드가 상이합니다.
 
-```
-"실시간 선호도 조사"은 투표를 통해 유저들끼리의 커뮤니티를 형성 할 수있는 가상의
-주제로써 이 프로젝트를 통해 React, Node.js, Mysql, Hw등 다양한 기술을
-접하는것을 목표로한다.
-```
+<br/>
 
-#### directory
+## 진행사항
+
+- ### 2주차
+
+  - 아이디어 및 주제 기획
+  - 기능 명세서 초안 작성
+  - 와이어 프레임 및 목업 작업
+  - react 공부
+
+- ### 3주차
+
+  - 화면 상세 구성(목업 작업 완료)
+  - 전체적인 React Component 설계
+  - 회원가입, 로그인 UI 구현 시작
+  - react 공부
+
+- ### 4주차
+
+  - 회원가입, 로그인 UI 구현 완료
+  - 미러 화면 UI 구현
+  - 챌린지 관련 페이지 UI 구현 시작
+
+<br/>
+
+## directory
 
 ```
 /public
@@ -42,6 +59,10 @@ LoginForm 컴포넌트를 Landing Page에 import하여 보여줍니다.
 	/components
 		/Auth
 			/SignResponsiveDialog        -> sigin in, sigin up, recover pw
+		/Challenge
+			/NewChallenge        		 -> new challenge
+			/RecommendChallenge			 -> recommend challenge
+			/TotalChallenge				 -> total challenge
 		/Create
 			/CreateVoteComponent         -> create a vote
 			/DialogActionsComponet       -> create a vote
@@ -70,13 +91,13 @@ LoginForm 컴포넌트를 Landing Page에 import하여 보여줍니다.
 
 	/layout
 		/Drawer                        -> side nav
-		/Footer                        -> footer
 		/Header                        -> head nav
 		/Layout                        -> layout root
 
 	/pages
 	- Auth                       -> user
 	- AboutMe                    -> about me
+	- Challenge                  -> challenge
 	- ContactUs                  -> contact us
 	- CreateVote                 -> create vote
 	- MainVote                   -> vote
@@ -88,10 +109,6 @@ LoginForm 컴포넌트를 Landing Page에 import하여 보여줍니다.
 
 ```
 App.js
-```
-
-```
-index.css
 ```
 
 ```

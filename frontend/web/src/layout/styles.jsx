@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   }
   .content-shift {
     transition: all 0.3s ease;
-
     margin-left: 280px;
   }
   .container {
