@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom';
 import store from 'store';
 
 import { useTheme } from '@material-ui/core/styles';
-import { CommonContext } from '../../context/CommonContext';
+import {connect} from 'react-redux';
+import { openDrawer } from '../../redux/modules/layoutStore';
 
 import {
   Grid,
@@ -16,19 +17,10 @@ import {
 import SearchIcon from '@material-ui/icons/Search';
 import Wrapper from './styles';
 
-const Header = props => {
+const Header = (state) => {
   let history = useHistory();
   const theme = useTheme();
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-
-  const {
-    user,
-    drawerOpen,
-    setDrawerOpen,
-    setSignDialogOpen,
-    setUserDetailDialogOpen,
-    setInfoDetailDialogOpen,
-  } = useContext(CommonContext);
 
   const handleSignInDialogOpen = () => {
     history.push('/Auth');
@@ -48,13 +40,6 @@ const Header = props => {
     }
   };
 
-  useEffect(() => {
-    setSignDialogOpen(false);
-    setDrawerOpen(false);
-    setInfoDetailDialogOpen(false);
-    setUserDetailDialogOpen(false);
-  }, []);
-
   return (
     <>
       <Wrapper>
@@ -64,10 +49,10 @@ const Header = props => {
             direction="column"
             justify="space-between"
             aria-label="open drawer"
-            onClick={() => {
-              setDrawerOpen(!drawerOpen);
-            }}
-            className={drawerOpen ? 'menu-button on' : 'menu-button'}
+            onClick={
+              ()=>{ state.dispatch(openDrawer());}
+            }
+            className={state.state.layoutStore.drawerOpen ? 'menu-button on' : 'menu-button'}
           >
             <Grid></Grid>
             <Grid></Grid>
@@ -76,7 +61,7 @@ const Header = props => {
         )}
         <AppBar
           position="fixed" style={{background:'#89DDBF'}}
-          className={drawerOpen ? 'appbar appbar-shift' : 'appbar'}
+          className={state.state.layoutStore.drawerOpen ? 'appbar appbar-shift' : 'appbar'}
         >
           <Grid container justify={!isTablet?'space-between':'space-evenly'} alignItems="center">
             <Grid item>
@@ -111,7 +96,7 @@ const Header = props => {
                     onClick={handleSignInDialogOpen}
                     className="display-none header-button"
                   >
-                    {user.status === 'login' ? 'My' : 'Sign In'}
+                    {false ? 'My' : 'Sign In'}
                   </Button>
                 </Grid>
               </Grid>
@@ -123,4 +108,15 @@ const Header = props => {
   );
 };
 
-export default Header;
+//export default Header;
+
+const mapStateToProps= (state) =>{
+
+  return {
+    state: state
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Header);

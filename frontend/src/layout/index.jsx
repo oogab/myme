@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 import Header from './Header/';
 import Drawer from './Drawer/';
-import { CommonContext } from '../context/CommonContext';
 import { CssBaseline, Container, Grid } from '@material-ui/core';
 import Wrapper from './styles';
 import {useMediaQuery} from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 const Layout = props => {
   const theme = useTheme();
-  const { drawerOpen } = useContext(CommonContext);
   const { wannaHide, children } = props;
   const isNotTablet = useMediaQuery(theme.breakpoints.down('md'));
   return (
@@ -18,7 +17,7 @@ const Layout = props => {
       <Drawer isNotTablet={isNotTablet} />
       {!wannaHide && <Header />}
       <Container
-        open={drawerOpen}
+        open={props.state.layoutStore.drawerOpen}
         className={isNotTablet ? 'content' : 'content content-shift'}
         maxWidth="xl"
       >
@@ -27,5 +26,12 @@ const Layout = props => {
     </Wrapper>
   );
 };
+const mapStateToProps= (state) =>{
 
-export default Layout;
+  return {
+    state: state
+  }
+}
+export default connect(
+  mapStateToProps
+)(Layout);

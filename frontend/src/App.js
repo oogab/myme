@@ -5,15 +5,19 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // ui
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+//redux
+import {Provider} from 'react-redux';
+import store from './redux';
+
 // hook
-import { CommonContext } from './context/CommonContext';
 import { useLocalStorageSetState } from './common/CommonHooks';
 
 // page
 import RoutineSetting from './pages/RoutineSetting/';
+import Home from './pages/Home/';
 
 // css
-// import './index.css';
+import './index.css';
 
 // const
 const defaultThumbnailImage = 'default_user.jpg';
@@ -59,48 +63,20 @@ const App = () => {
     },
     'user',
   );
-  const [infoData, setInfoData] = useState({});
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [userDialogIndex, setUserDialogIndex] = useState(0);
-  const [isShowKeyborad, setIsShowKeyborad] = useState(false);
-  const [signDialogOpen, setSignDialogOpen] = useState(false);
-  const [infoDialogOpen, setInfoDetailDialogOpen] = useState(false);
-  const [userDialogOpen, setUserDetailDialogOpen] = useState(false);
 
   return (
-    <CommonContext.Provider
-      value={{
-        serverUrl,
-        user,
-        setUser,
-        drawerOpen,
-        setDrawerOpen,
-        signDialogOpen,
-        setSignDialogOpen,
-        infoDialogOpen,
-        setInfoDetailDialogOpen,
-        infoData,
-        setInfoData,
-        userDialogOpen,
-        setUserDetailDialogOpen,
-        userDialogIndex,
-        setUserDialogIndex,
-        serverUrlBase,
-        serverImgUrl,
-        isShowKeyborad,
-        setIsShowKeyborad,
-        defaultThumbnailImage,
-      }}
-    >
-      <MuiThemeProvider theme={theme}>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={RoutineSetting} />
-            <Redirect to="/not-found" />
-          </Switch>
-        </BrowserRouter>
-      </MuiThemeProvider>
-    </CommonContext.Provider>
+      
+      <Provider store = {store}>
+        <MuiThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/RoutineSetting" component={RoutineSetting} />
+              <Redirect to="/not-found" />
+            </Switch>
+          </BrowserRouter>
+        </MuiThemeProvider>
+      </Provider>
   );
 };
 

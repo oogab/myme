@@ -4,11 +4,5 @@ const Wrapper = styled.div`
         border: white 1px solid;
         margin-bottom: 20px;
     }
-    .daily-menu{
-        width:auto;
-    }
-    .daily-menu > * {
-        display: inline-block;
-    }
 `;
 export default Wrapper;
