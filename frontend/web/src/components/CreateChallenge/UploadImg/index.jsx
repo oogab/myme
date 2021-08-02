@@ -15,11 +15,9 @@ import {
   FormControl,
 } from '@material-ui/core';
 import Wrapper from './styles';
-import { CommonContext } from '../../../context/CommonContext';
 import { ViewContext } from '../../../context/ViewContext';
 import { useDropzone } from 'react-dropzone';
 import NavigationIcon from '@material-ui/icons/Navigation';
-import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
 
 

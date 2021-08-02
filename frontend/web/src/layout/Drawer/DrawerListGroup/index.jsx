@@ -102,14 +102,14 @@ const DrawerListGroup = (props) => {
           <ListItem
             button
             key={'AboutMe'}
-            onClick={onClickRedirectPathHandler('/AboutMe')}
+            onClick={onClickRedirectPathHandler('/Profile')}
           >
             <ListItemText primary={'개인 정보'} disableTypography />
           </ListItem>
           <ListItem
             button
             key={'ContactUs'}
-            onClick={onClickRedirectPathHandler('/SmartMirror')}
+            onClick={onClickRedirectPathHandler('/MirrorSetting')}
           >
             <ListItemText primary={'스마트 미러 관리'} disableTypography />
           </ListItem>
