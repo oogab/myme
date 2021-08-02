@@ -98,6 +98,13 @@ const DrawerListGroup = (props) => {
                 <ListItemText primary={'루틴 설정'} disableTypography />
               </ListItem>
               
+              <ListItem
+                button
+                key={'Challenge'}
+                onClick={onClickRedirectPathHandler('/Challenge')}
+              >
+                <ListItemText primary={'챌린지'} disableTypography />
+              </ListItem>
             
           <ListItem
             button

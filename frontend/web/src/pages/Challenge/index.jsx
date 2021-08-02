@@ -1,7 +1,7 @@
 import React from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Grid, Button } from '@material-ui/core/';
+import { Grid, Button, Typography } from '@material-ui/core/';
 import RecommendChallenge from '../../components/Challenge/RecommendChallenge';
 import NewChallenge from '../../components/Challenge/NewChallenge';
 import TotalChallenge from '../../components/Challenge/TotalChallenge';
@@ -15,11 +15,11 @@ const Challenge = () => {
        
            <Wrapper>
                <Layout>
-                <Grid container item xs={12} spacing={3} >
-                    <Grid item xs={10}>
-                    <h2>추천</h2> 
-                    </Grid>
-                    <Grid item xs={2}>
+                
+                <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
+                    <Grid container>
+                    <Grid item xs={6}><h1>추천</h1></Grid>
+                    <Grid item xs={6}>
                     <Button
                         variant="contained"
                         color="default"
@@ -30,26 +30,29 @@ const Challenge = () => {
                         챌린지 생성하기
                     </Button>
                     </Grid>
-                    <Grid item xs={12} >
+                    </Grid>
+                    <Grid item xs={12}><hr/></Grid>
+                    <Grid item xs={12} className="CardContent">
                     <RecommendChallenge></RecommendChallenge>
                     </Grid>
                 </Grid>
                 <div style={{height: '150px'}}></div>
-                <Grid container item xs={12} spacing={3} >
-                <h2>신규</h2>
-                    <Grid item xs={12} >
+                <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
+                <h1>신규</h1>
+                <Grid item xs={12}><hr/></Grid>
+                    <Grid item xs={12} className="CardContent">
                     <NewChallenge></NewChallenge>
                     </Grid>
                 </Grid>
                 <div style={{height: '150px'}}></div>
-                <Grid container item xs={12} spacing={3} >
+                <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
                     <Grid item xs={12} >
-                    <h2>전체</h2>
+                    <h1 className="TotalCard">전체</h1>
                     <TotalChallenge></TotalChallenge>
                     </Grid>
                 </Grid>
                 </Layout>
-            </Wrapper>
+             </Wrapper>
           
       );
  }

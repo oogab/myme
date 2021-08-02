@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
+import Wrapper from './styles'
 import styled from 'styled-components';
 import { 
     makeStyles,
@@ -13,7 +14,8 @@ import {
     Button,
     Typography,
     Chip,
-    Grid
+    Grid,
+    Container
      } from '@material-ui/core/';
 import PersonIcon from '@material-ui/icons/Person';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -30,27 +32,27 @@ const useStyles = makeStyles({
 
 
 
-const Container = styled.div`
-    min-height: 200px;
-    //background: #000;
-  `,
-  StyledSlider = styled(Slider)`
-    & .slick-slide img {
-      max-width: 100%;
-      min-height: 400;
-    }
-  `,
-  ImageContainer = styled.div`
-    position: relative;
-    color: white;
-    margin: 0 20px;
-  `,
-  Image = styled.img``,
-  BottomLeft = styled.div`
-    position: absolute;
-    bottom: 8px;
-    left: 16px;
-  `;
+// const Container = styled.div`
+//     min-height: 200px;
+//     //background: #000;
+//   `,
+//   StyledSlider = styled(Slider)`
+//     & .slick-slide img {
+//       max-width: 100%;
+//       min-height: 400;
+//     }
+//   `,
+//   ImageContainer = styled.div`
+//     position: relative;
+//     color: white;
+//     margin: 0 20px;
+//   `,
+//   Image = styled.img``,
+//   BottomLeft = styled.div`
+//     position: absolute;
+//     bottom: 8px;
+//     left: 16px;
+//   `;
 
 const items = [
   { id: 1, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
@@ -115,7 +117,8 @@ const Challenge = () => {
       ]
       };
       return (
-        <Container>
+        <Wrapper>
+        <Container maxWidth="lg" >
         <Slider
           {...settings}
           style={{
@@ -170,6 +173,7 @@ const Challenge = () => {
           })}
         </Slider>
       </Container>
+      </Wrapper>
       );
  }
 

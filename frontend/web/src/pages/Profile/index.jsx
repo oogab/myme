@@ -6,7 +6,7 @@ const Profile = () => {
 
     return (
         <Layout>
-        <Grid container item xs={12} style={{background: '#eee'}}>
+        <Grid container item xs={12}>
              <PersonalInformation></PersonalInformation>
         </Grid>   
         </Layout>             

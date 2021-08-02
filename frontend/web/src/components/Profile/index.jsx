@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Grid, Container } from '@material-ui/core/';
 import { teal } from '@material-ui/core/colors';
 import { makeStyles, withStyles, FilledInput, FormControl, FormHelperText, Input, InputLabel, OutlinedInput, MenuItem, TextField, Paper, InputBase, IconButton, Typography, Button  } from '@material-ui/core/';
-
+import Wrapper from './styles';
 import SearchIcon from '@material-ui/icons/Search';
 
 const genders = [
@@ -141,11 +141,14 @@ const Profile = () =>{
     };
     
     return(
-        <Container maxWidth="lg" style={{background: '#eee'}}>
+        <Container maxWidth="lg">
+          <Wrapper>
         <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
             <Grid item xs={12} className="titleGrid">
                 <h1>개인 정보</h1>
             </Grid>
+            <Grid item xs={12} className="BottomTitle"><hr/></Grid>
+            <Grid item xs={12} style={{height: '50px'}}></Grid>
             <form noValidate autoComplete="off">
                 <Grid
                     container
@@ -189,6 +192,7 @@ const Profile = () =>{
             </form>
         
         </Grid>
+        </Wrapper>
         </Container>
     )
 }
