@@ -6,6 +6,22 @@ const { isLoggedIn, isNotLoggedIn } = require('./middlewares')
 
 const router = express.Router()
 
+router.get('/', async (req, res, next) => { // GET /user
+  try {
+    if (req.user) {
+      const user = await User.findOne({
+        where: { id: req.user.id }
+      })
+      res.status(200).json(user)
+    } else {
+      res.status(200).json(null)
+    }
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
 /**
  * @swagger
  *  /user:
@@ -17,7 +33,7 @@ const router = express.Router()
  *        '200':
  *          description: 회원 가입 성공
  */
-router.post('/join', isNotLoggedIn, async (req, res, next) => {
+router.post('/join', isNotLoggedIn, async (req, res, next) => { // POST /user/join
   const {
     name,
     email,
