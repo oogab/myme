@@ -53,7 +53,8 @@ app.use(express.urlencoded({ extended: true })) // true면 qs, false면 querystr
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(cors({
-  origin: true
+  origin: true,
+  credentials: true,
 }))
 
 
