@@ -11,16 +11,12 @@ import { useLocalStorageSetState } from './common/CommonHooks';
 
 // page
 import Auth from './pages/Auth/';
-import Terms from './pages/Terms/';
-import MyVote from './pages/MyVote/';
-import AboutMe from './pages/AboutMe/';
 import NotFound from './pages/NotFound/';
-import MainVote from './pages/MainVote/';
-import ContactUs from './pages/ContactUs/';
-import CreateVote from './pages/CreateVote/';
-import SearchVote from './pages/SearchVote/';
 import Challenge from './pages/Challenge/';
 import CreateChallenge from './pages/CreateChallenge/';
+import Profile from './pages/Profile/';
+import MirrorSetting from './pages/MirrorSetting/';
+
 // css
 // import './index.css';
 
@@ -105,17 +101,12 @@ const App = () => {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Auth} />
-            <Route exact path="/Main" component={MainVote} />
             <Route exact path="/Auth" component={Auth} />
-            <Route exact path="/Terms" component={Terms} />
-            <Route exact path="/MyVote" component={MyVote} />
-            <Route exact path="/AboutMe" component={AboutMe} />
-            <Route exact path="/ContactUs" component={ContactUs} />
-            <Route exact path="/SearchVote" component={SearchVote} />
             <Route exact path="/not-found" component={NotFound} />
-            <Route exact path="/CreateVote" component={CreateVote} />
             <Route exact path="/Challenge" component={Challenge} />
             <Route exact path="/CreateChallenge" component={CreateChallenge} />
+            <Route exact path="/Profile" component={Profile} />
+            <Route exact path="/MirrorSetting" component={MirrorSetting} />
             <Redirect to="/not-found" />
           </Switch>
         </BrowserRouter>

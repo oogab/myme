@@ -1,29 +1,19 @@
 import React from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from 'react-slick';
-import styled from 'styled-components';
-import { makeStyles, Grid } from '@material-ui/core/';
+import { Grid, Button } from '@material-ui/core/';
 import RecommendChallenge from '../../components/Challenge/RecommendChallenge';
 import NewChallenge from '../../components/Challenge/NewChallenge';
 import TotalChallenge from '../../components/Challenge/TotalChallenge';
-import Layout from '../../layout';
 import Wrapper from './styles';
-import { Button } from '@material-ui/core/';
 import AddIcon from '@material-ui/icons/Add';
 import { useHistory } from 'react-router-dom';
+
 const Challenge = () => {
     let history = useHistory();
       return (
        
            <Wrapper>
-               {/* <Grid>
-               <Grid container item xs={9} spacing={9} >
-                <h2>추천</h2>
-                </Grid>
-                <Grid container item xs={3} spacing={3} >
-                </Grid>
-                </Grid> */}
                 <Grid container item xs={12} spacing={3} >
                     <Grid item xs={10}>
                     <h2>추천</h2> 
