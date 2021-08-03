@@ -84,9 +84,9 @@ const DrawerListGroup = (props) => {
           <ListItem
             button
             key={'MyRoutine'}
-            onClick={onClickRedirectPathHandler('/')}
+            onClick={onClickRedirectPathHandler('/Home')}
           >
-            <ListItemText primary={'나의 루틴'} disableTypography />
+            <ListItemText primary={'홈'} disableTypography />
           </ListItem>
           
             

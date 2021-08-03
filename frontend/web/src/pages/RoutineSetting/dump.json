@@ -1,0 +1,104 @@
+[
+    {
+        "rid" : 1,
+        "name" : "아침 루틴",
+        "alarm" : true,
+        "activeDay" : [
+            {
+                "activeDayOfWeek" : 1,
+                "startTime" : "12:00"
+            },
+            {
+                "activeDayOfWeek" : 2,
+                "startTime" : "14:00"
+            },
+            {
+                "activeDayOfWeek" : 3,
+                "startTime" : "15:00"
+            }
+        ],
+        "routinizedHabit" : [
+            {
+                "rhid" : 1,
+                "hid" : 1,
+                "order" : 2,
+                "achieveCount" : 4,
+                "assistContent" : "Youtube",
+                "assistLink" : "http://www.youtube.com",
+                "habitName" : "물 마시기",
+                "time" : "3:00"
+            },
+            {
+                "rhid" : 2,
+                "hid" : 2,
+                "order" : 1,
+                "achieveCount" : 2,
+                "assistContent" : "Youtube",
+                "assistLink" : "http://www.youtube.com",
+                "habitName" : "10분 명상",
+                "time" : "10:00"
+            },
+            {
+                "rhid" : 3,
+                "hid" : 3,
+                "order" : 0,
+                "achieveCount" : 1,
+                "assistContent" : "Youtube",
+                "assistLink" : "http://www.youtube.com",
+                "habitName" : "양치질 하기",
+                "time" : "3:00"
+            }
+        ]
+    },
+    {
+        "rid" : 2,
+        "name" : "저녁 루틴",
+        "alarm" : true,
+        "activeDay" : [
+            {
+                "activeDayOfWeek" : 4,
+                "startTime" : "10:00"
+            },
+            {
+                "activeDayOfWeek" : 5,
+                "startTime" : "15:00"
+            },
+            {
+                "activeDayOfWeek" : 6,
+                "startTime" : "11:00"
+            }
+        ],
+        "routinizedHabit" : [
+            {
+                "rhid" : 4,
+                "hid" : 4,
+                "order" : 1,
+                "achieveCount" : 5,
+                "assistContent" : "Youtube",
+                "assistLink" : "http://www.youtube.com",
+                "habitName" : "점심 먹기",
+                "time" : "20:00"
+            },
+            {
+                "rhid" : 5,
+                "hid" : 5,
+                "order" : 0,
+                "achieveCount" : 1,
+                "assistContent" : "Youtube",
+                "assistLink" : "http://www.youtube.com",
+                "habitName" : "탈취제 뿌리기",
+                "time" : "2:00"
+            },
+            {
+                "rhid" : 6,
+                "hid" : 6,
+                "order" : 2,
+                "achieveCount" : 3,
+                "assistContent" : "Youtube",
+                "assistLink" : "http://www.youtube.com",
+                "habitName" : "이불 개기",
+                "time" : "4:00"
+            }
+        ]
+    }
+]

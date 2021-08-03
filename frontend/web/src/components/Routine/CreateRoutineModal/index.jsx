@@ -4,6 +4,8 @@ import Modal from '@material-ui/core/Modal';
 import DayOfWeek from './DayOfWeek/index';
 import DayTimeInput from './DayTimeInput/index';
 import Switch from '@material-ui/core/Switch';
+import {connect} from 'react-redux';
+import {closeCreateRoutineModal} from '../../../redux/modules/modalStore';
 function getModalStyle() {
   return {
     top: `50%`,
@@ -78,18 +80,19 @@ function getDefaultTimes(){
   }
   return arr;
 }
-export default function SimpleModal(props) {
+function SimpleModal(props) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
-  const open = props.createRoutineModal;
-  const setOpen = props.setCreateRoutineModal;
+
+
   const dayName = ['월','화','수','목','금','토','일'];
   let [dayClicked, setDayClicked] = useState([true, false, true, false, true, false, true]);
   let [timeInfo, setTimeInfo] = useState(getDefaultTimes);
   let [timeSetClicked, setTimeSetClicked] = useState(false);
+
   const handleClose = () => {
-    setOpen(false);
+    props.dispatch(closeCreateRoutineModal());
     setTimeSetClicked(false);
   };
   const changeDayClicked =(idx) =>{
@@ -149,7 +152,7 @@ export default function SimpleModal(props) {
 
   return (
     <Modal
-        open={open}
+        open={props.state.modalStore.createRoutineModal}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -158,3 +161,11 @@ export default function SimpleModal(props) {
       </Modal>
   );
 }
+
+
+const mapStateToProps = (state) =>{
+  return {
+      state
+  }
+}
+export default connect(mapStateToProps)(SimpleModal);
