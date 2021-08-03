@@ -15,7 +15,7 @@ const Home = () => {
     dispatch({
       type: LOAD_MY_INFO_REQUEST,
     })
-  })
+  }, [])
 
   return (
     <AppLayout>

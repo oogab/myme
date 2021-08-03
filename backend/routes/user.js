@@ -6,6 +6,7 @@ const { isLoggedIn, isNotLoggedIn } = require('./middlewares')
 
 const router = express.Router()
 
+// 새로고침시 유저 정보 유지
 router.get('/', async (req, res, next) => { // GET /user
   try {
     if (req.user) {
@@ -24,14 +25,31 @@ router.get('/', async (req, res, next) => { // GET /user
 
 /**
  * @swagger
- *  /user:
+ *  /user/join:
  *    post:
  *      tags:
  *        - user
  *      description: 회원 가입
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                name:
+ *                  type: string
+ *                email:
+ *                  type: string
+ *                nickname:
+ *                  type: string
+ *                password:
+ *                  type: string
+ *                address:
+ *                  type: string
  *      responses:
  *        '200':
- *          description: 회원 가입 성공
+ *          description: Success
  */
 router.post('/join', isNotLoggedIn, async (req, res, next) => { // POST /user/join
   const {
@@ -144,10 +162,67 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {  // POST /user/login
   })(req, res, next) // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다!
 })
 
+/**
+ * @swagger
+ *  /user/logout:
+ *    post:
+ *      tags:
+ *        - user
+ *      description: 사용자 로그아웃 요청
+ *      responses:
+ *        '200':
+ *          description: Success
+ */
 router.post('/logout', isLoggedIn, (req, res) => {
   req.logout()
   req.session.destroy()
   res.send('ok')
+})
+
+/**
+ * @swagger
+ *  /user/profile:
+ *    patch:
+ *      tags:
+ *        - user
+ *      description: 사용자 개인정보 변경
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                nickname:
+ *                  type: string
+ *                gender:
+ *                  type: string
+ *                age:
+ *                  type: integer
+ *                address:
+ *                  type: string
+ *                phone_number:
+ *                  type: string
+ *      responses:
+ *        '200':
+ *          description: Success
+ */
+router.patch('/profile', isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await User.update({
+      nickname: req.body.nickname,
+      gender: req.body.gender,
+      age: req.body.age,
+      address: req.body.address,
+      phone_number: req.body.phone_number
+    }, {
+      where: { id: req.user.id }
+    })
+    res.status(200).json(user)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
 })
 
 module.exports = router

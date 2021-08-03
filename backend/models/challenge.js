@@ -1,3 +1,27 @@
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      Challenge:
+ *        type: object
+ *        properties:
+ *          name:
+ *            type: string
+ *          img_addr:
+ *            type: string
+ *          content:
+ *            type: text
+ *          start_date:
+ *            type: date
+ *          period:
+ *            type: integer
+ *          repeat_cycle:
+ *            type: integer
+ *            description: 반복 주기입니다. (월~금 매일 이런식 코드로 분류해야 할듯...)
+ *          auth_count:
+ *            type: integer
+ *            description: 하루에 인증해야 하는 횟수입니다.
+ */
 module.exports = (sequelize, DataTypes) => {
   const Challenge = sequelize.define('Challenge', {
     name: {
@@ -6,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     img_addr: {
       type: DataTypes.STRING(200),
-      allowNull: false,
+      allowNull: true,
     },
     content: {
       type: DataTypes.TEXT,
@@ -35,6 +59,11 @@ module.exports = (sequelize, DataTypes) => {
 
   Challenge.associate = (db) => {
     db.Challenge.belongsTo(db.User)
+    db.Challenge.belongsToMany(db.Category, {
+      through: 'ChallengeCategory'
+    })
+    db.Challenge.hasMany(db.Comment)
+    db.Challenge.hasOne(db.ChallengeParticipation, {foreignKey: 'ChallengeId'})
   }
 
   return Challenge

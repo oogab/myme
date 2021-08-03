@@ -4,7 +4,7 @@
   "description": "### History - __07-19 ~ 07-23__ : 데이터베이스 및 프로젝트 아키텍처 설계, 백엔드 서버 기초 구성 및 User관련 API 완성",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app",
+    "dev": "nodemon app -p 3065",
     "start": "pm2 start app.js"
   },
   "author": "wook",

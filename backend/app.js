@@ -15,8 +15,13 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
 const { sequelize } = require('./models')
 const indexRouter = require('./routes')
 const userRouter = require('./routes/user')
+const challengeRouter = require('./routes/challenge')
+const challengeParticipationRouter = require('./routes/challengeParticipation')
+const routineRouter = require('./routes/routine')
+const routinizedHabitRouter = require('./routes/routinizedHabit')
+const habitRouter = require('./routes/habit')
 
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 3065)
 passportConfig()
 sequelize.sync()
   .then(() => {
@@ -60,6 +65,11 @@ app.use(cors({
 
 app.use('/', indexRouter)
 app.use('/user', userRouter)
+app.use('/challenge', challengeRouter)
+app.use('/challengeParticipation', challengeParticipationRouter)
+app.use('/routine', routineRouter)
+app.use('/routinizedHabit', routinizedHabitRouter)
+app.use('/habit', habitRouter)
 
 app.use((req, res, next) => {
   // req.data = 'wook비번' // middleware간 data 전송
