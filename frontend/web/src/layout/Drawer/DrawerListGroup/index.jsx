@@ -84,9 +84,9 @@ const DrawerListGroup = (props) => {
           <ListItem
             button
             key={'MyRoutine'}
-            onClick={onClickRedirectPathHandler('/')}
+            onClick={onClickRedirectPathHandler('/Home')}
           >
-            <ListItemText primary={'나의 루틴'} disableTypography />
+            <ListItemText primary={'홈'} disableTypography />
           </ListItem>
           
             
@@ -98,13 +98,6 @@ const DrawerListGroup = (props) => {
                 <ListItemText primary={'루틴 설정'} disableTypography />
               </ListItem>
               
-              <ListItem
-                button
-                key={'Challenge'}
-                onClick={onClickRedirectPathHandler('/Challenge')}
-              >
-                <ListItemText primary={'챌린지'} disableTypography />
-              </ListItem>
             
           <ListItem
             button

@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
 
 import RoutineItem from '../../components/Routine/RoutineItem/index'
 import AddRoutineButton from '../../components/Routine/AddRoutineButton/index'
 import RoutineModal from '../../components/Routine/RoutineModal/index';
 import CreateRoutineModal from '../../components/Routine/CreateRoutineModal/index';
-import Layout from '../../layout';
-
+import Layout from '../../layout/';
 import Wrapper from './styles';
-function App(){
-    let [routineModal, setRoutineModal] = useState(false);
-    let [createRoutineModal, setCreateRoutineModal] = useState(false);
-    function openRoutineModal(){
-        setRoutineModal(true);
-    }
-    function openCreateRoutineModal(){
-        setCreateRoutineModal(true);
-    }
+function App(props){
     return(
+        <Layout>
         <Wrapper>
-            <Layout>
-                <div className='menu daily-menu'><h1>Daily</h1><AddRoutineButton onClick={openCreateRoutineModal}></AddRoutineButton></div>
+                <div className='menu daily-menu'><h1>Daily</h1><AddRoutineButton/></div>
                 <hr/>
-                <RoutineItem routineId='아침 루틴' openModal={openRoutineModal}></RoutineItem>
-                <RoutineItem routineId='저녁 루틴' openModal={openRoutineModal}></RoutineItem>
-                <RoutineModal routineModal={routineModal} setRoutineModal={setRoutineModal}></RoutineModal>
-                <CreateRoutineModal createRoutineModal={createRoutineModal} setCreateRoutineModal={setCreateRoutineModal}></CreateRoutineModal>
-            </Layout>
+                {
+                    props.state.routineStore.routine.map((item, idx)=>(<RoutineItem num={idx}></RoutineItem>))
+                }
+                <RoutineModal/>
+                <CreateRoutineModal/>
+
         </Wrapper>
+        </Layout>
     );
 }
-export default App;
+
+const mapStateToProps = (state) =>{
+    return {
+        state
+    }
+}
+export default connect(mapStateToProps)(App);

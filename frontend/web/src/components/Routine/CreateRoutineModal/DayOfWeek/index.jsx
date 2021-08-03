@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import myStyle from './styles'
+import myStyle from './styles.json'
 const useStyles = makeStyles(() => (myStyle));
 function App(props){
     const classes = useStyles();

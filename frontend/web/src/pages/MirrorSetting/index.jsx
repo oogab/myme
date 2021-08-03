@@ -6,7 +6,7 @@ const MirrorSetting = () => {
 
     return (
         <Layout>
-        <Grid container item xs={12}>
+        <Grid container item xs={12} style={{background: '#eee'}}>
              <Mirror></Mirror>
         </Grid>        
         </Layout>        

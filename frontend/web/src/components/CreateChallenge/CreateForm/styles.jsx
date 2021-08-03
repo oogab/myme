@@ -11,11 +11,7 @@ margin: 10px;
     margin: 50px;
     padding: 10px;
     & h4{
-        margin: 70px 0 10px 0;
-    }
-    & .dateTitle{
-        margin-top: 10px;
-        color: teal;
+        margin-top: 70px;
     }
 }
 `;
