@@ -1,3 +1,19 @@
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      DailyAchieveChallenge:
+ *        type: object
+ *        properties:
+ *          date_time:
+ *            type: date
+ *            description: primaryKey
+ *          img_addr:
+ *            type: string
+ *          content:
+ *            type: text
+ */
+
 module.exports = (sequelize, DataTypes) => {
   const DailyAchieveChallenge = sequelize.define('DailyAchieveChallenge', {
     date_time: {
