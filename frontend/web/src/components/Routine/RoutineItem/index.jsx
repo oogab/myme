@@ -10,7 +10,6 @@ import {
 function App(props){
     return(
         <Wrapper>
-            <Container maxWidth="lg">
             <Accordion className="panel" className='routine-item'>
                 <AccordionSummary
                   className="panel-summary"
@@ -24,7 +23,6 @@ function App(props){
                   <div className='button-div'><button onClick={props.openModal}>+</button></div>
                 </AccordionDetails>
               </Accordion>
-              </Container>
         </Wrapper>
     );
 }
