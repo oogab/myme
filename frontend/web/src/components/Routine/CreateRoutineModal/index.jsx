@@ -6,6 +6,7 @@ import DayTimeInput from './DayTimeInput/index';
 import Switch from '@material-ui/core/Switch';
 import {connect} from 'react-redux';
 import {closeCreateRoutineModal} from '../../../redux/modules/modalStore';
+import {addRoutine} from '../../../redux/modules/routineStore';
 function getModalStyle() {
   return {
     top: `50%`,
@@ -76,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
 function getDefaultTimes(){
   let arr = new Array();
   for(let i=0;i<7;i++){
-    arr.push({isAm:true, hour:'00', min:'00'});
+    arr.push('00:00');
   }
   return arr;
 }
@@ -87,9 +88,11 @@ function SimpleModal(props) {
 
 
   const dayName = ['월','화','수','목','금','토','일'];
-  let [dayClicked, setDayClicked] = useState([true, false, true, false, true, false, true]);
-  let [timeInfo, setTimeInfo] = useState(getDefaultTimes);
-  let [timeSetClicked, setTimeSetClicked] = useState(false);
+  let [name , setName ] = useState(''); //루틴 이름
+  let [alarm , setAlarm ] = useState(false); //알림
+  let [dayClicked, setDayClicked] = useState([true, true, true, true, true, true, true]); //요일 on off
+  let [timeInfo, setTimeInfo] = useState(getDefaultTimes); // 시간 설정
+  let [timeSetClicked, setTimeSetClicked] = useState(false); //모달 모양 변경
 
   const handleClose = () => {
     props.dispatch(closeCreateRoutineModal());
@@ -100,12 +103,36 @@ function SimpleModal(props) {
     tempClicked[idx] = !tempClicked[idx];
     setDayClicked(tempClicked);
   };
-  const changeAM =(idx) =>{
-    
-    let tempTimeInfo = [...timeInfo];
-    tempTimeInfo[idx].isAm = !tempTimeInfo[idx].isAm;
-    setTimeInfo(tempTimeInfo);
-  };
+
+  const changeName = (e) =>{
+    setName(e.target.value);
+  }
+  const changeAlarm = (e) =>{
+    setAlarm(e.target.checked);
+  }
+  const changeTimeInfo = (e, idx) =>{
+    let copyTimeInfo = [...timeInfo];
+    copyTimeInfo[idx] = e.target.value; 
+    setTimeInfo(copyTimeInfo);
+  }
+
+  const add = () =>{
+    let inputValue = {
+      "rid" : -1,
+      "name" : name,
+      "alarm" : alarm,
+      "activeDay" : [],
+      "routinizedHabit":[]
+    };
+    for(let i=0; i<dayClicked.length; i++){
+      if(dayClicked[i]) continue; //요일이 선택이 되어있지 않다면 넘어간다
+      inputValue.activeDay.push({
+        "activeDayOfWeek" : i,
+        "startTime": timeInfo[i]
+      });
+    }
+    props.dispatch(addRoutine(inputValue));
+  }
   const body = (
     <div style={modalStyle} className={classes.paper}>
       {
@@ -115,7 +142,7 @@ function SimpleModal(props) {
         <div className={classes.day}>
           {
             dayName.map((str, idx) => (
-              <DayTimeInput dayName={str} clicked={dayClicked[idx]} timeInfo={timeInfo[idx]} setIsAm={()=>{changeAM(idx)}}/>
+              <DayTimeInput dayName={str} idx = {idx} clicked={dayClicked[idx]} timeInfo={timeInfo[idx]} change={changeTimeInfo}/>
             ))
           }          
           <div className={classes.buttonDiv}>
@@ -127,7 +154,7 @@ function SimpleModal(props) {
         :
         <>
         <h2 id="simple-modal-title">새로운 루틴</h2>
-        <input type="text" placeholder="루틴 이름 입력" className={classes.inputDiv}></input>
+        <input type="text" placeholder="루틴 이름 입력" className={classes.inputDiv} onChange={changeName}></input>
         <div className={classes.day}>
           {
             dayName.map((str, idx) => (
@@ -139,11 +166,11 @@ function SimpleModal(props) {
           <span className={classes.text}>시간</span><span className={classes.floatRight} onClick={()=>{setTimeSetClicked(true);}}>시간 선택</span>
         </div>
         <div className={classes.inputDiv}>
-          <span className={classes.text}>알림</span><div className={classes.floatRight}><Switch className={classes.switch}/></div>
+          <span className={classes.text}>알림</span><div className={classes.floatRight}><Switch className={classes.switch} onChange={changeAlarm}/></div>
         </div>
         <div className={classes.buttonDiv}>
           <button className={classes.buttonLeft} onClick={handleClose}>취소</button>
-          <button className={classes.buttonRight}>완료</button>
+          <button className={classes.buttonRight} onClick = {add}>완료</button>
         </div>
         </>
       }

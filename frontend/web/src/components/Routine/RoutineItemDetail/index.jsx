@@ -9,8 +9,7 @@ function App(props){
     let routinizedHabit = props.state.routineStore.routine[props.num].routinizedHabit;
     //순서 변경 함수
     function changeOrder(e){
-        props.dispatch(setOrder({newIndex : e.newIndex , oldIndex : e.oldIndex, idx : props.num}));
-        console.log(routinizedHabit);
+        props.dispatch(setOrder({idx : props.num}));
     }
     return(
         <Wrapper>
