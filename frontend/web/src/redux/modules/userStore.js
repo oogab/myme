@@ -32,10 +32,10 @@ export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST'
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS'
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE'
 
-export const loginRequestAction = (data) => {
+export const loginRequestAction = (payload) => {
   return {
     type: LOG_IN_REQUEST,
-    data
+    payload
   }
 }
 
@@ -44,6 +44,14 @@ export const logoutRequestAction = () => {
     type: LOG_OUT_REQUEST
   }
 }
+
+export const loginAction = (payload) => {
+  
+}
+
+
+
+
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
@@ -104,3 +112,5 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
   }
 })
+
+export default reducer
