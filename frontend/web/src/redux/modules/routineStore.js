@@ -12,38 +12,43 @@ let setOrderAction='routine/setOrder';
 let setChoosedRoutineAction='routine/setChoosedRoutine';
 let addRoutineItemAction='routine/addRoutineItem';
 let deleteRoutineItemAction='routine/deleteRoutineItem';
+
 //타입 매핑해서 export
 export const setOrder = (payload) =>({
     type:setOrderAction,
     newIndex : payload.newIndex,
     oldIndex : payload.oldIndex,
     idx : payload.idx
-}); 
+});
+
 export const setChoosedRoutine = (payload) =>({
     type:setChoosedRoutineAction,
     choosedIdx : payload
 });
+
 export let addRoutineItem = (payload) =>({
-    type:addRoutineItemAction,
-    habit : {
-        "rhid" : -1,
-        "hid" : -1,
-        "order" : -1,
-        "achieveCount" : 7,
-        "assistContent" : "Youtube",
-        "assistLink" : "http://www.youtube.com",
-        "habitName" : payload,
-        "time" : "3:00"
-    }
+  type:addRoutineItemAction,
+  habit : {
+    "rhid" : -1,
+    "hid" : -1,
+    "order" : -1,
+    "achieveCount" : 7,
+    "assistContent" : "Youtube",
+    "assistLink" : "http://www.youtube.com",
+    "habitName" : payload,
+    "time" : "3:00"
+  }
 });
+
 export const deleteRoutineItem = (payload) =>({
-    type:deleteRoutineItemAction,
-    routineIdx : payload.routineIdx,
-    routineItemIdx : payload.routineItemIdx
+  type:deleteRoutineItemAction,
+  routineIdx : payload.routineIdx,
+  routineItemIdx : payload.routineItemIdx
 });
+
 const initialState = {
-    routine : [...dumpData],
-    choosedRoutine : 0
+  routine : [...dumpData],
+  choosedRoutine : 0
 };
 
 export default function reducer(state = initialState, action){
@@ -83,6 +88,5 @@ export default function reducer(state = initialState, action){
             return copy;
         default:
             return state;
-
     }
 }
