@@ -8,6 +8,7 @@ import {
     ListItem
   } from '@material-ui/core';
 import RoutineItemCheck from '../RoutineItemCheck/index';
+import {connect} from 'react-redux';
 function App(props){
     return(
         <Wrapper>
@@ -17,20 +18,26 @@ function App(props){
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <h2 className="title">{props.routineId}</h2>
+                  <h2 className="title">{props.state.routineStore.routine[props.idx].name}</h2>
                 </AccordionSummary>
                 <AccordionDetails className='routine-list-item-detail'>
                   <List class='accordian-detail-list'>
-                    <ListItem className='items'>
-                    <RoutineItemCheck routineId='하루 10분 명상'/>
-                    </ListItem>
-                    <ListItem className='items'>
-                    <RoutineItemCheck routineId='오늘의 다짐 작성'/>
-                    </ListItem>
+                    {
+                      props.state.routineStore.routine[props.idx].routinizedHabit.map((item, idx) =>(
+                        <ListItem className='items'>
+                      <RoutineItemCheck listIdx = {props.idx} itemIdx ={idx}/>
+                      </ListItem>
+                      ))
+                    }
                   </List>
                 </AccordionDetails>
               </Accordion>
         </Wrapper>
     );
 }
-export default App;
+const mapStateToProps = (state) =>{
+    return {
+        state
+    }
+}
+export default connect(mapStateToProps)(App);

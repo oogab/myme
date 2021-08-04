@@ -6,7 +6,7 @@ import DayTimeInput from './DayTimeInput/index';
 import Switch from '@material-ui/core/Switch';
 import {connect} from 'react-redux';
 import {closeCreateRoutineModal} from '../../../redux/modules/modalStore';
-import {addRoutine} from '../../../redux/modules/routineStore';
+import {addRoutine, setModalInputName, setModalInputAlarm, setModalInputActiveDay, modifyRoutine} from '../../../redux/modules/routineStore';
 function getModalStyle() {
   return {
     top: `50%`,
@@ -18,7 +18,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 400,
+    width:400,
     backgroundColor: '#E5E3E3',
     border: '1px solid #66A091',
     boxShadow: theme.shadows[5],
@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom:'20px'
   },
   text:{
-    margin:'0px'
+    textAlign: "center",
+    marginBottom: "10px"
   },
   inputDiv:{
     backgroundColor:'white',
@@ -86,94 +87,66 @@ function SimpleModal(props) {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
 
-
   const dayName = ['월','화','수','목','금','토','일'];
-  let [name , setName ] = useState(''); //루틴 이름
-  let [alarm , setAlarm ] = useState(false); //알림
-  let [dayClicked, setDayClicked] = useState([true, true, true, true, true, true, true]); //요일 on off
-  let [timeInfo, setTimeInfo] = useState(getDefaultTimes); // 시간 설정
-  let [timeSetClicked, setTimeSetClicked] = useState(false); //모달 모양 변경
 
+  //모달 닫는 함수
   const handleClose = () => {
     props.dispatch(closeCreateRoutineModal());
-    setTimeSetClicked(false);
   };
   const changeDayClicked =(idx) =>{
-    let tempClicked = [...dayClicked];
-    tempClicked[idx] = !tempClicked[idx];
-    setDayClicked(tempClicked);
+    let tempClicked = props.state.routineStore.createRoutineInfo.activeDay[idx];
+    tempClicked.activeDayOfWeek = !tempClicked.activeDayOfWeek;
+    props.dispatch(setModalInputActiveDay({...tempClicked, "idx":idx}));
   };
 
   const changeName = (e) =>{
-    setName(e.target.value);
+    props.dispatch(setModalInputName(e.target.value));
   }
   const changeAlarm = (e) =>{
-    setAlarm(e.target.checked);
+    props.dispatch(setModalInputAlarm(e.target.checked));
   }
   const changeTimeInfo = (e, idx) =>{
-    let copyTimeInfo = [...timeInfo];
-    copyTimeInfo[idx] = e.target.value; 
-    setTimeInfo(copyTimeInfo);
+    let tempClicked = props.state.routineStore.createRoutineInfo.activeDay[idx];
+    tempClicked.startTime = e.target.value;
+    props.dispatch(setModalInputActiveDay({...tempClicked, "idx":idx}));
+  }
+  
+  const add = () =>{
+    if(props.state.routineStore.choosedRoutine == -1){
+      props.dispatch(addRoutine());
+    }else{
+      props.dispatch(modifyRoutine());
+    }
+    handleClose();
   }
 
-  const add = () =>{
-    let inputValue = {
-      "rid" : -1,
-      "name" : name,
-      "alarm" : alarm,
-      "activeDay" : [],
-      "routinizedHabit":[]
-    };
-    for(let i=0; i<dayClicked.length; i++){
-      if(dayClicked[i]) continue; //요일이 선택이 되어있지 않다면 넘어간다
-      inputValue.activeDay.push({
-        "activeDayOfWeek" : i,
-        "startTime": timeInfo[i]
-      });
-    }
-    props.dispatch(addRoutine(inputValue));
-  }
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      {
-        timeSetClicked?
-        <>
-        <h2 id="simple-modal-title">시간 설정</h2>
-        <div className={classes.day}>
-          {
-            dayName.map((str, idx) => (
-              <DayTimeInput dayName={str} idx = {idx} clicked={dayClicked[idx]} timeInfo={timeInfo[idx]} change={changeTimeInfo}/>
-            ))
-          }          
-          <div className={classes.buttonDiv}>
-          <button className={classes.buttonLeft +' btn'} onClick={()=>{setTimeSetClicked(false);}}>뒤로 가기</button>
-          <button className={classes.buttonRight +' btn'}>완료</button>
-          </div>
-        </div>
-        </>
-        :
-        <>
-        <h2 id="simple-modal-title">새로운 루틴</h2>
-        <input type="text" placeholder="루틴 이름 입력" className={classes.inputDiv} onChange={changeName}></input>
-        <div className={classes.day}>
-          {
-            dayName.map((str, idx) => (
-              <DayOfWeek dayName={str} clicked={dayClicked[idx]} onClick={()=>{changeDayClicked(idx);}}></DayOfWeek>
-            ))
-          }
-        </div>
-        <div className={classes.inputDiv}>
-          <span className={classes.text}>시간</span><span className={classes.floatRight+' btn'} onClick={()=>{setTimeSetClicked(true);}}>시간 선택</span>
-        </div>
-        <div className={classes.inputDiv}>
-          <span className={classes.text}>알림</span><div className={classes.floatRight}><Switch className={classes.switch} onChange={changeAlarm}/></div>
-        </div>
+      
+          <h2 id="simple-modal-title" style={{marginBottom: "10px"}}>루틴 {props.state.routineStore.createRoutineInfo.rid==-1?'생성':'수정'}</h2>
+              <input type="text" placeholder="루틴 이름 입력" className={classes.inputDiv} onChange={changeName} defaultValue={props.state.routineStore.createRoutineInfo.name}></input>
+              <div className={classes.day}>
+                {
+                  dayName.map((str, idx) => (
+                    <DayOfWeek dayName={str} clicked={props.state.routineStore.createRoutineInfo.activeDay[idx].activeDayOfWeek} onClick={()=>{changeDayClicked(idx);}}></DayOfWeek>
+                  ))
+                }
+              </div>
+              <div className={classes.inputDiv}>
+                <h3 className={classes.text}>시작 시간을 선택해주세요.</h3>
+                {
+                  dayName.map((str, idx) => (
+                    <DayTimeInput dayName={str} idx = {idx} clicked={props.state.routineStore.createRoutineInfo.activeDay[idx].activeDayOfWeek} timeInfo={props.state.routineStore.createRoutineInfo.activeDay[idx].startTime} change={changeTimeInfo}/>
+                  ))
+                }   
+              </div>
+              <div className={classes.inputDiv}>
+                <span className={classes.text}>알림</span><div className={classes.floatRight}><Switch className={classes.switch} onChange={changeAlarm} defaultChecked={props.state.routineStore.createRoutineInfo.alarm}/></div>
+              </div>
         <div className={classes.buttonDiv}>
           <button className={classes.buttonLeft +' btn'} onClick={handleClose}>취소</button>
           <button className={classes.buttonRight +' btn'} onClick = {add}>완료</button>
         </div>
-        </>
-      }
     </div>
   );
 

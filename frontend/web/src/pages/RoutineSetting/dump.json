@@ -1,21 +1,15 @@
 [
     {
-        "rid" : 1,
+        "rid" : 0,
         "name" : "아침 루틴",
         "alarm" : true,
-        "activeDay" : [
-            {
-                "activeDayOfWeek" : 1,
-                "startTime" : "12:00"
-            },
-            {
-                "activeDayOfWeek" : 2,
-                "startTime" : "14:00"
-            },
-            {
-                "activeDayOfWeek" : 3,
-                "startTime" : "15:00"
-            }
+        "activeDay" : [{"activeDayOfWeek" : true,"startTime": "12:00"},
+            {"activeDayOfWeek" : false,"startTime": ""},
+            {"activeDayOfWeek" : false,"startTime": ""},
+            {"activeDayOfWeek" : true,"startTime": "08:00"},
+            {"activeDayOfWeek" : false,"startTime": ""},
+            {"activeDayOfWeek" : false,"startTime": ""},
+            {"activeDayOfWeek" : true,"startTime": "09:00"}
         ],
         "routinizedHabit" : [
             {
@@ -51,22 +45,16 @@
         ]
     },
     {
-        "rid" : 2,
+        "rid" : 1,
         "name" : "저녁 루틴",
         "alarm" : true,
-        "activeDay" : [
-            {
-                "activeDayOfWeek" : 4,
-                "startTime" : "10:00"
-            },
-            {
-                "activeDayOfWeek" : 5,
-                "startTime" : "15:00"
-            },
-            {
-                "activeDayOfWeek" : 6,
-                "startTime" : "11:00"
-            }
+        "activeDay" : [{"activeDayOfWeek" : true,"startTime": "14:00"},
+            {"activeDayOfWeek" : false,"startTime": ""},
+            {"activeDayOfWeek" : false,"startTime": ""},
+            {"activeDayOfWeek" : false,"startTime": ""},
+            {"activeDayOfWeek" : false,"startTime": ""},
+            {"activeDayOfWeek" : true,"startTime": "11:00"},
+            {"activeDayOfWeek" : true,"startTime": "09:00"}
         ],
         "routinizedHabit" : [
             {

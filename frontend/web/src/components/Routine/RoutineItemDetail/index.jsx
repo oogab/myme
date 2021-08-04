@@ -13,12 +13,17 @@ function App(props){
     }
     return(
         <Wrapper>
-            <ReactDragList
+            {
+                routinizedHabit.length?
+                <ReactDragList
                 dataSource={routinizedHabit}
                 row={(item, idx) => <RoutineModalItem num={props.num} itemIdx={idx}/>}
                 handles = {false}
                 onUpdate = {changeOrder}
-            />
+                />
+                :
+                <div className="default-box">루틴 일정을 추가해주세요.</div>
+            }
         </Wrapper>
     );
 }

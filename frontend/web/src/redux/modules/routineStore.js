@@ -1,6 +1,7 @@
 import dumpData from '../../pages/RoutineSetting/dump.json';
 //액션 타입 import
-import {setOrderAction,setChoosedRoutineAction,addRoutineAction,addRoutineItemAction,deleteRoutineItemAction} from '../constants/actionTypes';
+import {setOrderAction,setChoosedRoutineAction,addRoutineAction,addRoutineItemAction,deleteRoutineItemAction, 
+    setModalInputAction, setModalInputNameAction, setModalInputAlarmAction, setModalInputActiveDayAction, modifyRoutineAction, deleteRoutineAction} from '../constants/actionTypes';
 
 //초기화 정렬 . dump file이라서 해둔것. 나중에 바꿀 예정
 function sortHabit(obj){
@@ -36,15 +37,51 @@ export const deleteRoutineItem = (payload) =>({
     routineIdx : payload.routineIdx,
     routineItemIdx : payload.routineItemIdx
 });
-export const addRoutine = (payload) =>({
+export const addRoutine = () =>({
     type:addRoutineAction,
-    routine : payload
 });
+
+export const modifyRoutine = () =>({
+    type:modifyRoutineAction
+});
+
+export const deleteRoutine = () =>({
+    type:deleteRoutineAction,
+});
+
+export const setModalInput = (payload) =>({
+    type:setModalInputAction,
+    idx : payload
+});
+
+export const setModalInputName = (payload) =>({
+    type : setModalInputNameAction,
+    name : payload
+});
+
+export const setModalInputAlarm = (payload) =>({
+    type : setModalInputAlarmAction,
+    alarm : payload
+});
+
+export const setModalInputActiveDay = (payload) =>({
+    type : setModalInputActiveDayAction,
+    idx : payload.idx,
+    activeDay : {"activeDayOfWeek" : payload.activeDayOfWeek, "startTime" : payload.startTime}
+});
+
 
 //초기값 설정
 const initialState = {
     routine : [...dumpData],
-    choosedRoutine : 0
+    choosedRoutine : -1,
+    createRoutineInfo : {
+        "rid" : -1,
+        "name" : '',
+        "alarm" : false,
+        "activeDay" : [{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""}],
+        "routinizedHabit":[]    
+    }
 };
 
 export default function reducer(state = initialState, action){
@@ -71,8 +108,35 @@ export default function reducer(state = initialState, action){
             console.log(copy.routine[action.routineIdx].routinizedHabit);
             return copy;
         case addRoutineAction: //새로운 루틴 생성
-            copy.routine.push(action.routine);
-            console.log(copy);
+            copy.routine.push(Object.assign({}, copy.createRoutineInfo));
+            return copy;
+        case modifyRoutineAction:
+            copy.routine[copy.choosedRoutine]=Object.assign({}, copy.createRoutineInfo);
+            return copy;
+        case deleteRoutineAction:
+            copy.routine.splice(copy.choosedRoutine, copy.choosedRoutine+1);
+            return copy;
+        case setModalInputAction:
+            if(copy.choosedRoutine==-1){
+                copy.createRoutineInfo = {
+                    "rid" : -1,
+                    "name" : '',
+                    "alarm" : false,
+                    "activeDay" : [{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""},{"activeDayOfWeek" : false,"startTime": ""}],
+                    "routinizedHabit":[]    
+                }
+            }else{
+                copy.createRoutineInfo = Object.assign({}, copy.routine[copy.choosedRoutine]);
+            }
+            return copy;
+        case setModalInputNameAction:
+            copy.createRoutineInfo.name = action.name;
+            return copy;
+        case setModalInputAlarmAction:
+            copy.createRoutineInfo.alarm = action.alarm;
+            return copy;
+        case setModalInputActiveDayAction:
+            copy.createRoutineInfo.activeDay[action.idx] = action.activeDay;
             return copy;
         default:
             return state;
