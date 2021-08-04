@@ -31,11 +31,7 @@ function App(props){
             <Grid item xs={3}><span className="float-right">70%</span></Grid>
             </Grid>
             <Grid container spacing={0}>
-<<<<<<< HEAD
                 <Grid item xs={12} className='term confirm-btn btn'>인증하기</Grid>
-=======
-                <Grid item xs={12} className='term confirm-btn'>인증하기</Grid>
->>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
             </Grid>
         </Wrapper>
     );

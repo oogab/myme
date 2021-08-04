@@ -13,7 +13,6 @@ function App(props){
                 <Grid container item xs={8}>
                     <Grid item xs={4}>
                     {
-<<<<<<< HEAD
                         true?<PlayIcon className="btn progress-btn"></PlayIcon>:<PauseIcon className="progress-btn"></PauseIcon>
                 }
                     </Grid>
@@ -22,16 +21,6 @@ function App(props){
                     </Grid>
                     <Grid item xs={4}>
                         <NextIcon className="btn progress-btn"></NextIcon>
-=======
-                        true?<PlayIcon className="progress-btn"></PlayIcon>:<PauseIcon className="progress-btn"></PauseIcon>
-                }
-                    </Grid>
-                    <Grid item xs={4}>
-                        <CheckIcon className="progress-btn"></CheckIcon>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <NextIcon className="progress-btn"></NextIcon>
->>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
                     </Grid>
                 </Grid>
                 <Grid item xs={4} className='assist'>

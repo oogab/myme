@@ -74,28 +74,6 @@ const SignInSection01 = () => {
       return;
     }
 
-<<<<<<< HEAD
-    let respone = [];
-    let hashPassword = '';
-    try {
-      hashPassword = crypto
-        .createHash('sha512')
-        .update(password)
-        .digest('hex');
-    } catch (error) {
-      return;
-    }
-
-    setUser({ ...userData });
-    setSignDialogOpen(false);
-    setIsSignUp('SignIn');
-
-    history.goBack();
-  };
-
-  useEffect(() => {
-    console.log({ user });
-=======
     Axios.post(`${serverUrl}/user/login`, {
       email: id,
       password
@@ -126,7 +104,6 @@ const SignInSection01 = () => {
 
   useEffect(() => {
     // console.log({ user });
->>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
 
     if (signInUserData.id !== '' && signInUserData.email !== '') {
       setDisabled(false);
@@ -342,34 +319,6 @@ const SignUpSection02 = () => {
       return;
     }
 
-<<<<<<< HEAD
-    let respone = [];
-    let hashPassword = 'test2';
-    try {
-      hashPassword = crypto
-        .createHash('sha512')
-        .update(password)
-        .digest('hex');
-    } catch (error) {
-      console.log('PPAP: signInHandler -> error', error);
-    }
-
-    var body = {
-      id: id,
-      name: name,
-      pwd: hashPassword,
-    };
-    console.log('PPAP: signUpHandler -> body', body);
-
-    //
-
-    setIsSignUp('SignIn');
-    setSignUpUserData({
-      id: '',
-      name: '',
-      password: '',
-    });
-=======
     Axios.post(`${serverUrl}/user/join`, {
       name,
       email: id,
@@ -412,7 +361,6 @@ const SignUpSection02 = () => {
     //   name: '',
     //   password: '',
     // });
->>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
   };
 
   return (

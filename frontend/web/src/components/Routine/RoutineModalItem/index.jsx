@@ -10,11 +10,7 @@ function App(props){
     }
     return(
         <Wrapper>
-<<<<<<< HEAD
             <span className="toDoItem">{props.state.routineStore.routine[props.num].routinizedHabit[props.itemIdx].habitName}</span><span className="minus btn" onClick={deleteToDoItem}>ㅡ</span>
-=======
-            <span className="toDoItem">{props.state.routineStore.routine[props.num].routinizedHabit[props.itemIdx].habitName}</span><span className="minus" onClick={deleteToDoItem}>ㅡ</span>
->>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
         </Wrapper>
     );
 }

@@ -32,11 +32,7 @@
     "react-vis": "^1.11.7",
     "recharts": "^2.0.0-beta.1",
     "redux": "^4.1.0",
-<<<<<<< HEAD
-    "redux-saga": "^1.1.3",
-=======
-    "redux-saga": "1.1.3",
->>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
+    "redux-snaga": "^1.1.3",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^2.3.0",
     "store": "^2.0.12",
