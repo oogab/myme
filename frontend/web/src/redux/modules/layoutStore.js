@@ -1,6 +1,5 @@
-//액션 타입 정의
-let drawerOpen={type: 'layout/drawerOpen'};
-let drawerClose={type: 'layout/drawerClose'};
+//액션 타입 import
+import {drawerOpen,drawerClose} from '../constants/actionTypes';
 
 export const openDrawer = () =>({type:drawerOpen});
 export const closeDrawer = () =>({type:drawerClose});

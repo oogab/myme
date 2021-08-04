@@ -1,18 +1,14 @@
 import dumpData from '../../pages/RoutineSetting/dump.json';
-//초기화 정렬
+//액션 타입 import
+import {setOrderAction,setChoosedRoutineAction,addRoutineAction,addRoutineItemAction,deleteRoutineItemAction} from '../constants/actionTypes';
+
+//초기화 정렬 . dump file이라서 해둔것. 나중에 바꿀 예정
 function sortHabit(obj){
     for(let i= 0 ; i<obj.length;i++){
         obj[i].routinizedHabit.sort((a,b)=>{return a.order-b.order});
     }
 }
 sortHabit(dumpData);
-
-//액션 타입 정의
-let setOrderAction='routine/setOrder';
-let setChoosedRoutineAction='routine/setChoosedRoutine';
-let addRoutineAction='routine/addRoutine';
-let addRoutineItemAction='routine/addRoutineItem';
-let deleteRoutineItemAction='routine/deleteRoutineItem';
 //타입 매핑해서 export
 export const setOrder = (payload) =>({
     type:setOrderAction,
@@ -44,6 +40,8 @@ export const addRoutine = (payload) =>({
     type:addRoutineAction,
     routine : payload
 });
+
+//초기값 설정
 const initialState = {
     routine : [...dumpData],
     choosedRoutine : 0
@@ -57,7 +55,6 @@ export default function reducer(state = initialState, action){
             for(let i=0;i<state.routine[state.choosedRoutine].routinizedHabit.length;i++){
                 state.routine[state.choosedRoutine].routinizedHabit[i].order = i;
             }
-            console.log(state.routine[0].routinizedHabit)
             return state;
         case setChoosedRoutineAction: //선택된 루틴 변경. 모달 open할 때마다 선택된 루틴이 다를 수도 있기 때문에 사용
             copy.choosedRoutine = action.choosedIdx;

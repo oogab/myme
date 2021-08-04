@@ -10,7 +10,7 @@ function App(props){
     }
     return(
         <Wrapper>
-            <span className="toDoItem">{props.state.routineStore.routine[props.num].routinizedHabit[props.itemIdx].habitName}</span><span className="minus" onClick={deleteToDoItem}>ㅡ</span>
+            <span className="toDoItem">{props.state.routineStore.routine[props.num].routinizedHabit[props.itemIdx].habitName}</span><span className="minus btn" onClick={deleteToDoItem}>ㅡ</span>
         </Wrapper>
     );
 }

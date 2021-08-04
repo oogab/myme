@@ -1,10 +1,5 @@
-//액션 타입 정의
-let routineModalOpen='modal/routineModalOpen';
-let routineModalToggle='modal/routineModalToggle';
-let routineModalClose='modal/routineModalClose';
-let createRoutineModalOpen='modal/createRoutineModalOpen';
-let createRoutineModalToggle='modal/createRoutineModalToggle';
-let createRoutineModalClose='modal/createRoutineModalClose';
+//액션 타입 import
+import {routineModalOpen,routineModalToggle,routineModalClose,createRoutineModalOpen,createRoutineModalToggle,createRoutineModalClose} from '../constants/actionTypes';
 
 //타입 매핑해서 export
 export const openRoutineModal = () =>({type:routineModalOpen});

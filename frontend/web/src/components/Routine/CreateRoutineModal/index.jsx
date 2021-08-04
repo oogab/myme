@@ -146,8 +146,8 @@ function SimpleModal(props) {
             ))
           }          
           <div className={classes.buttonDiv}>
-          <button className={classes.buttonLeft} onClick={()=>{setTimeSetClicked(false);}}>뒤로 가기</button>
-          <button className={classes.buttonRight}>완료</button>
+          <button className={classes.buttonLeft +' btn'} onClick={()=>{setTimeSetClicked(false);}}>뒤로 가기</button>
+          <button className={classes.buttonRight +' btn'}>완료</button>
           </div>
         </div>
         </>
@@ -163,14 +163,14 @@ function SimpleModal(props) {
           }
         </div>
         <div className={classes.inputDiv}>
-          <span className={classes.text}>시간</span><span className={classes.floatRight} onClick={()=>{setTimeSetClicked(true);}}>시간 선택</span>
+          <span className={classes.text}>시간</span><span className={classes.floatRight+' btn'} onClick={()=>{setTimeSetClicked(true);}}>시간 선택</span>
         </div>
         <div className={classes.inputDiv}>
           <span className={classes.text}>알림</span><div className={classes.floatRight}><Switch className={classes.switch} onChange={changeAlarm}/></div>
         </div>
         <div className={classes.buttonDiv}>
-          <button className={classes.buttonLeft} onClick={handleClose}>취소</button>
-          <button className={classes.buttonRight} onClick = {add}>완료</button>
+          <button className={classes.buttonLeft +' btn'} onClick={handleClose}>취소</button>
+          <button className={classes.buttonRight +' btn'} onClick = {add}>완료</button>
         </div>
         </>
       }

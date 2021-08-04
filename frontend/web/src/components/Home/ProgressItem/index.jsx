@@ -13,14 +13,14 @@ function App(props){
                 <Grid container item xs={8}>
                     <Grid item xs={4}>
                     {
-                        true?<PlayIcon className="progress-btn"></PlayIcon>:<PauseIcon className="progress-btn"></PauseIcon>
+                        true?<PlayIcon className="btn progress-btn"></PlayIcon>:<PauseIcon className="progress-btn"></PauseIcon>
                 }
                     </Grid>
                     <Grid item xs={4}>
-                        <CheckIcon className="progress-btn"></CheckIcon>
+                        <CheckIcon className="btn progress-btn"></CheckIcon>
                     </Grid>
                     <Grid item xs={4}>
-                        <NextIcon className="progress-btn"></NextIcon>
+                        <NextIcon className="btn progress-btn"></NextIcon>
                     </Grid>
                 </Grid>
                 <Grid item xs={4} className='assist'>

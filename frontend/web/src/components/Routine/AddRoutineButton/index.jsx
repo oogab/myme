@@ -7,7 +7,7 @@ function App(props){
         props.dispatch(openCreateRoutineModal());
     }
     return(
-        <Wrapper onClick={openCreateRoutine}>
+        <Wrapper onClick={openCreateRoutine} className='btn'>
             + 루틴 생성
         </Wrapper>
     );
