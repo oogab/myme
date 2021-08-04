@@ -74,6 +74,7 @@ const SignInSection01 = () => {
       return;
     }
 
+<<<<<<< HEAD
     let respone = [];
     let hashPassword = '';
     try {
@@ -94,6 +95,38 @@ const SignInSection01 = () => {
 
   useEffect(() => {
     console.log({ user });
+=======
+    Axios.post(`${serverUrl}/user/login`, {
+      email: id,
+      password
+    })
+    .then(response => {
+      console.log(response)
+      setIsSignUp('SignIn');
+      history.replace('/Home')
+    })
+    .catch(error => console.error(error))
+
+    // let respone = [];
+    // let hashPassword = '';
+    // try {
+    //   hashPassword = crypto
+    //     .createHash('sha512')
+    //     .update(password)
+    //     .digest('hex');
+    // } catch (error) {
+    //   return;
+    // }
+
+    // setUser({ ...userData });
+    // setSignDialogOpen(false);
+
+    // history.goBack();
+  };
+
+  useEffect(() => {
+    // console.log({ user });
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
 
     if (signInUserData.id !== '' && signInUserData.email !== '') {
       setDisabled(false);
@@ -309,6 +342,7 @@ const SignUpSection02 = () => {
       return;
     }
 
+<<<<<<< HEAD
     let respone = [];
     let hashPassword = 'test2';
     try {
@@ -335,6 +369,50 @@ const SignUpSection02 = () => {
       name: '',
       password: '',
     });
+=======
+    Axios.post(`${serverUrl}/user/join`, {
+      name,
+      email: id,
+      nickname: 'wook',
+      password,
+      address: '서울시 마포구 창전동 6-206 301호'
+    })
+    .then(response => {
+      console.log(response)
+      setSignUpUserData({
+        id: '',
+        name: '',
+        password: '',
+      });
+      setIsSignUp('SignIn');
+    })
+    .catch(error => console.error(error))
+
+    // let respone = [];
+    // let hashPassword = 'test2';
+    // try {
+    //   hashPassword = crypto
+    //     .createHash('sha512')
+    //     .update(password)
+    //     .digest('hex');
+    // } catch (error) {
+    //   console.log('PPAP: signInHandler -> error', error);
+    // }
+
+    // var body = {
+    //   id: id,
+    //   name: name,
+    //   pwd: hashPassword,
+    // };
+    // console.log('PPAP: signUpHandler -> body', body);
+
+    // setIsSignUp('SignIn');
+    // setSignUpUserData({
+    //   id: '',
+    //   name: '',
+    //   password: '',
+    // });
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
   };
 
   return (

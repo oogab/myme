@@ -6,7 +6,10 @@ import DayTimeInput from './DayTimeInput/index';
 import Switch from '@material-ui/core/Switch';
 import {connect} from 'react-redux';
 import {closeCreateRoutineModal} from '../../../redux/modules/modalStore';
+<<<<<<< HEAD
 import {addRoutine} from '../../../redux/modules/routineStore';
+=======
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
 function getModalStyle() {
   return {
     top: `50%`,
@@ -77,7 +80,11 @@ const useStyles = makeStyles((theme) => ({
 function getDefaultTimes(){
   let arr = new Array();
   for(let i=0;i<7;i++){
+<<<<<<< HEAD
     arr.push('00:00');
+=======
+    arr.push({isAm:true, hour:'00', min:'00'});
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
   }
   return arr;
 }
@@ -88,11 +95,17 @@ function SimpleModal(props) {
 
 
   const dayName = ['월','화','수','목','금','토','일'];
+<<<<<<< HEAD
   let [name , setName ] = useState(''); //루틴 이름
   let [alarm , setAlarm ] = useState(false); //알림
   let [dayClicked, setDayClicked] = useState([true, true, true, true, true, true, true]); //요일 on off
   let [timeInfo, setTimeInfo] = useState(getDefaultTimes); // 시간 설정
   let [timeSetClicked, setTimeSetClicked] = useState(false); //모달 모양 변경
+=======
+  let [dayClicked, setDayClicked] = useState([true, false, true, false, true, false, true]);
+  let [timeInfo, setTimeInfo] = useState(getDefaultTimes);
+  let [timeSetClicked, setTimeSetClicked] = useState(false);
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
 
   const handleClose = () => {
     props.dispatch(closeCreateRoutineModal());
@@ -103,6 +116,7 @@ function SimpleModal(props) {
     tempClicked[idx] = !tempClicked[idx];
     setDayClicked(tempClicked);
   };
+<<<<<<< HEAD
 
   const changeName = (e) =>{
     setName(e.target.value);
@@ -133,6 +147,14 @@ function SimpleModal(props) {
     }
     props.dispatch(addRoutine(inputValue));
   }
+=======
+  const changeAM =(idx) =>{
+    
+    let tempTimeInfo = [...timeInfo];
+    tempTimeInfo[idx].isAm = !tempTimeInfo[idx].isAm;
+    setTimeInfo(tempTimeInfo);
+  };
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
   const body = (
     <div style={modalStyle} className={classes.paper}>
       {
@@ -142,19 +164,32 @@ function SimpleModal(props) {
         <div className={classes.day}>
           {
             dayName.map((str, idx) => (
+<<<<<<< HEAD
               <DayTimeInput dayName={str} idx = {idx} clicked={dayClicked[idx]} timeInfo={timeInfo[idx]} change={changeTimeInfo}/>
             ))
           }          
           <div className={classes.buttonDiv}>
           <button className={classes.buttonLeft +' btn'} onClick={()=>{setTimeSetClicked(false);}}>뒤로 가기</button>
           <button className={classes.buttonRight +' btn'}>완료</button>
+=======
+              <DayTimeInput dayName={str} clicked={dayClicked[idx]} timeInfo={timeInfo[idx]} setIsAm={()=>{changeAM(idx)}}/>
+            ))
+          }          
+          <div className={classes.buttonDiv}>
+          <button className={classes.buttonLeft} onClick={()=>{setTimeSetClicked(false);}}>뒤로 가기</button>
+          <button className={classes.buttonRight}>완료</button>
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
           </div>
         </div>
         </>
         :
         <>
         <h2 id="simple-modal-title">새로운 루틴</h2>
+<<<<<<< HEAD
         <input type="text" placeholder="루틴 이름 입력" className={classes.inputDiv} onChange={changeName}></input>
+=======
+        <input type="text" placeholder="루틴 이름 입력" className={classes.inputDiv}></input>
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
         <div className={classes.day}>
           {
             dayName.map((str, idx) => (
@@ -163,6 +198,7 @@ function SimpleModal(props) {
           }
         </div>
         <div className={classes.inputDiv}>
+<<<<<<< HEAD
           <span className={classes.text}>시간</span><span className={classes.floatRight+' btn'} onClick={()=>{setTimeSetClicked(true);}}>시간 선택</span>
         </div>
         <div className={classes.inputDiv}>
@@ -171,6 +207,16 @@ function SimpleModal(props) {
         <div className={classes.buttonDiv}>
           <button className={classes.buttonLeft +' btn'} onClick={handleClose}>취소</button>
           <button className={classes.buttonRight +' btn'} onClick = {add}>완료</button>
+=======
+          <span className={classes.text}>시간</span><span className={classes.floatRight} onClick={()=>{setTimeSetClicked(true);}}>시간 선택</span>
+        </div>
+        <div className={classes.inputDiv}>
+          <span className={classes.text}>알림</span><div className={classes.floatRight}><Switch className={classes.switch}/></div>
+        </div>
+        <div className={classes.buttonDiv}>
+          <button className={classes.buttonLeft} onClick={handleClose}>취소</button>
+          <button className={classes.buttonRight}>완료</button>
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
         </div>
         </>
       }

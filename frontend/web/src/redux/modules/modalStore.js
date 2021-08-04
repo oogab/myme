@@ -1,6 +1,5 @@
 //액션 타입 import
 import {routineModalOpen,routineModalToggle,routineModalClose,createRoutineModalOpen,createRoutineModalToggle,createRoutineModalClose} from '../constants/actionTypes';
-
 //타입 매핑해서 export
 export const openRoutineModal = () =>({type:routineModalOpen});
 export const closeRoutineModal = () =>({type:routineModalClose});

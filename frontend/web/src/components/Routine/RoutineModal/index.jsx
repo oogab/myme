@@ -87,8 +87,13 @@ function SimpleModal(props) {
       
       <textarea className={classes.textarea} placeholder='습관 추가하기' onChange={changeTitle}></textarea>
       <div className={classes.buttonDiv}>
+<<<<<<< HEAD
           <button className={classes.buttonLeft+' btn'} onClick={closeRoutine}>취소</button>
           <button className={classes.buttonRight+' btn'} onClick={add}>저장</button>
+=======
+          <button className={classes.buttonLeft} onClick={closeRoutine}>취소</button>
+          <button className={classes.buttonRight} onClick={add}>저장</button>
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
           </div>
     </div>
   );

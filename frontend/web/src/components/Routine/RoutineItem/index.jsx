@@ -27,7 +27,11 @@ function App(props){
                 </AccordionSummary>
                 <AccordionDetails className ='details'>
                   <RoutineItemDetail num = {props.num}/>
+<<<<<<< HEAD
                   <div className='button-div'><button onClick={openRoutine} className='btn'>+</button></div>
+=======
+                  <div className='button-div'><button onClick={openRoutine}>+</button></div>
+>>>>>>> 6856e7cc1b7367bcf4168499048c46e94d453b23
                 </AccordionDetails>
               </Accordion>
         </Wrapper>
