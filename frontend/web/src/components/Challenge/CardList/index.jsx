@@ -4,17 +4,17 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import { 
-    makeStyles,
-    Card,
-    CardActionArea,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Button,
-    Typography,
-    Chip,
-    Grid
-     } from '@material-ui/core/';
+  makeStyles,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  Chip,
+  Grid
+} from '@material-ui/core/';
 import PersonIcon from '@material-ui/icons/Person';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DetailChallenge from '../DetailChallenge/';
@@ -171,6 +171,6 @@ const Challenge = () => {
         </Slider>
       </Container>
       );
- }
+}
 
 export default Challenge;

@@ -1,11 +1,12 @@
-import React,{useState} from 'react';
+import React,{useCallback, useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import DayOfWeek from './DayOfWeek/index';
 import DayTimeInput from './DayTimeInput/index';
 import Switch from '@material-ui/core/Switch';
-import {connect} from 'react-redux';
-import {closeCreateRoutineModal} from '../../../redux/modules/modalStore';
+import {connect, useDispatch, useSelector} from 'react-redux';
+import { CLOSE_CREATE_ROUTINE_MODAL } from '../../../reducers/modal';
+import { ADD_ROUTINE_REQUEST } from '../../../reducers/routine';
 function getModalStyle() {
   return {
     top: `50%`,
@@ -80,32 +81,74 @@ function getDefaultTimes(){
   }
   return arr;
 }
+
 function SimpleModal(props) {
+  const dispatch = useDispatch()
+  const { createRoutineModal } = useSelector((state) => state.modal)
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
 
-
   const dayName = ['월','화','수','목','금','토','일'];
-  let [dayClicked, setDayClicked] = useState([true, false, true, false, true, false, true]);
-  let [timeInfo, setTimeInfo] = useState(getDefaultTimes);
-  let [timeSetClicked, setTimeSetClicked] = useState(false);
+  const [dayClicked, setDayClicked] = useState([true, false, true, false, true, false, true]);
+  const [timeInfo, setTimeInfo] = useState(getDefaultTimes);
+  const [timeSetClicked, setTimeSetClicked] = useState(false);
+  const [alarm, setAlarm] = useState(false)
+  const [routineName, setRoutineName] = useState('')
 
   const handleClose = () => {
-    props.dispatch(closeCreateRoutineModal());
+    dispatch({
+      type: CLOSE_CREATE_ROUTINE_MODAL
+    })
     setTimeSetClicked(false);
   };
+
   const changeDayClicked =(idx) =>{
     let tempClicked = [...dayClicked];
     tempClicked[idx] = !tempClicked[idx];
     setDayClicked(tempClicked);
   };
+
   const changeAM =(idx) =>{
-    
     let tempTimeInfo = [...timeInfo];
     tempTimeInfo[idx].isAm = !tempTimeInfo[idx].isAm;
     setTimeInfo(tempTimeInfo);
   };
+
+  const onChangeRoutineName = useCallback((e) => {
+    setRoutineName(e.target.value)
+  }, [])
+
+  const toggleAlarm = useCallback(() => {
+    setAlarm(prev => !prev)
+  }, [])
+
+  const onComplete = useCallback(() => {
+    dispatch({
+      type: ADD_ROUTINE_REQUEST,
+      data: {
+        name: routineName,
+        alarm,
+        day_of_week: dayClicked.map((v, i) => {
+          if (v) {
+            return {
+              day: dayName[i],
+              time: '12:00'
+            }
+          } else {
+            return {
+              day: dayName[i],
+              time: null
+            }
+          }
+        })
+      }
+    });
+    dispatch({
+      type: CLOSE_CREATE_ROUTINE_MODAL
+    })
+  }, [routineName])
+
   const body = (
     <div style={modalStyle} className={classes.paper}>
       {
@@ -127,7 +170,7 @@ function SimpleModal(props) {
         :
         <>
         <h2 id="simple-modal-title">새로운 루틴</h2>
-        <input type="text" placeholder="루틴 이름 입력" className={classes.inputDiv}></input>
+        <input type="text" placeholder="루틴 이름 입력" className={classes.inputDiv} onChange={onChangeRoutineName} ></input>
         <div className={classes.day}>
           {
             dayName.map((str, idx) => (
@@ -139,11 +182,11 @@ function SimpleModal(props) {
           <span className={classes.text}>시간</span><span className={classes.floatRight} onClick={()=>{setTimeSetClicked(true);}}>시간 선택</span>
         </div>
         <div className={classes.inputDiv}>
-          <span className={classes.text}>알림</span><div className={classes.floatRight}><Switch className={classes.switch}/></div>
+          <span className={classes.text}>알림</span><div className={classes.floatRight}><Switch checked={alarm} onChange={toggleAlarm} className={classes.switch}/></div>
         </div>
         <div className={classes.buttonDiv}>
           <button className={classes.buttonLeft} onClick={handleClose}>취소</button>
-          <button className={classes.buttonRight}>완료</button>
+          <button className={classes.buttonRight} onClick={onComplete}>완료</button>
         </div>
         </>
       }
@@ -152,13 +195,13 @@ function SimpleModal(props) {
 
   return (
     <Modal
-        open={props.state.modalStore.createRoutineModal}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
-      </Modal>
+      open={createRoutineModal}
+      onClose={handleClose}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+    >
+      {body}
+    </Modal>
   );
 }
 

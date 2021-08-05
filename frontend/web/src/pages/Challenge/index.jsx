@@ -12,9 +12,8 @@ import Layout from '../../layout/index';
 const Challenge = () => {
     let history = useHistory();
       return (
-       
-           <Wrapper>
-               <Layout>
+        <Wrapper>
+          <Layout>
                 <Grid container item xs={12} spacing={3} >
                     <Grid item xs={10}>
                     <h2>추천</h2> 

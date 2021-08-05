@@ -1,12 +1,12 @@
 import React from 'react';
 import Wrapper from './styles'
 import {connect} from 'react-redux';
-import {deleteRoutineItem} from '../../../redux/modules/routineStore';
+// import {deleteRoutineItem} from '../../../redux/modules/routineStore';
 
 function App(props){
     //삭제하는 함수
     function deleteToDoItem(){
-        props.dispatch(deleteRoutineItem({routineIdx: props.num , routineItemIdx: props.itemIdx}));
+        // props.dispatch(deleteRoutineItem({routineIdx: props.num , routineItemIdx: props.itemIdx}));
     }
     return(
         <Wrapper>
