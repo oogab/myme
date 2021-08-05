@@ -64,8 +64,7 @@ const useStyles = makeStyles((theme) => ({
 const Challenge = () => {
     const classes = useStyles();
     let history = useHistory();
-      return (
-       
+      return (       
            <Wrapper>
                <Layout>
                <Grid container xs={12} style={{padding: '20px', margin: '10px'}}>

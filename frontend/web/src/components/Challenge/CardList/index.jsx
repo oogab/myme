@@ -17,6 +17,7 @@ import {
     Grid,
     Container
      } from '@material-ui/core/';
+
 import PersonIcon from '@material-ui/icons/Person';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DetailChallenge from '../DetailChallenge/';
@@ -175,6 +176,6 @@ const Challenge = () => {
       </Container>
       </Wrapper>
       );
- }
+}
 
 export default Challenge;

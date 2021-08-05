@@ -2,8 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Grid, Container } from '@material-ui/core/';
 import { teal } from '@material-ui/core/colors';
 import { makeStyles, withStyles, FilledInput, FormControl, FormHelperText, Input, InputLabel, OutlinedInput, MenuItem, TextField, Paper, InputBase, IconButton, Typography, Button  } from '@material-ui/core/';
-import Wrapper from './styles';
-import SearchIcon from '@material-ui/icons/Search';
+import { useSelector } from 'react-redux';
 
 const genders = [
     {
@@ -52,7 +51,7 @@ const genders = [
 
   const MyInfoInputComponent = props => {
     let { keyValue, title, rows, defaultValue } = props;
-   
+
     return (
       <MyInfoContentDefaultComponent
         LefetComponent={
@@ -78,7 +77,7 @@ const genders = [
 
   const MyInfoSelectComponent = props => {
     let { keyValue, title, rows, data, handleChange  } = props;
-   
+
     return (
       <MyInfoContentDefaultComponent
         LefetComponent={
@@ -109,7 +108,7 @@ const genders = [
 
   const MyInfoBirthdayComponent = props => {
     let { keyValue, title, rows } = props;
-   
+
     return (
       <MyInfoContentDefaultComponent
         LefetComponent={
@@ -133,68 +132,62 @@ const genders = [
       />
     );
   }
+
 const Profile = () =>{
-    const [name, setName] = React.useState('Composed TextField');
-    const [gender, setGender] = React.useState('여');
-    const handleChange = (event) => {
-      setName(event.target.value);
-    };
-    
-    return(
-        <Container maxWidth="lg">
-          <Wrapper>
-        <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
-            <Grid item xs={12} className="titleGrid">
-                <h1>개인 정보</h1>
-            </Grid>
-            <Grid item xs={12} className="BottomTitle"><hr/></Grid>
-            <Grid item xs={12} style={{height: '50px'}}></Grid>
-            <form noValidate autoComplete="off">
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                    spacing={2}
-                >
+  const { me } = useSelector((state) => state.user)
 
-                    <Grid item xs={12}>
-                    <MyInfoInputComponent title="이름" keyValue="user_id" defaultValue="김민주"/>
-                    </Grid>
-                    <Grid item xs={12}>
-                    <MyInfoInputComponent title="이메일" keyValue="user_nm" defaultValue="minjoo0112@naver.com"/>
-                    </Grid>
+  const [name, setName] = useState('Composed TextField');
+  const [gender, setGender] = useState('여');
 
-                    <Grid item xs={12}>
-                    <MyInfoInputComponent title="전화번호" keyValue="web_site" defaultValue="010-8296-9303"/>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                    <MyInfoSelectComponent title="성별" keyValue="web_site" data={gender} handelChange="handelChange" defaultValue="여"/>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                    <MyInfoBirthdayComponent title="생년월일" keyValue="birthday" />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                    <MyInfoInputComponent title="주소" keyValue="web_site"/>
-                    {/* <IconButton type="submit" aria-label="search">
-                            <SearchIcon />
-                        </IconButton> */}
-                    </Grid>
-            
-                </Grid>
-                <Grid item xs={12} style={{marginTop:'40px'}}>
-                    <ColorButton variant="contained" >수정</ColorButton>
-                    <Button variant="contained" style={{margin: '10px'}} >취소</Button>
-                </Grid>
-            </form>
-        
+  const handleChange = (event) => {
+    setName(event.target.value);
+  };
+  
+  return (
+    <Container maxWidth="lg" style={{background: '#eee'}}>
+      <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
+        <Grid item xs={12} className="titleGrid">
+          <h1>개인 정보</h1>
         </Grid>
-        </Wrapper>
-        </Container>
-    )
+        <form noValidate autoComplete="off">
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <Grid item xs={12}>
+              <MyInfoInputComponent title="이름" keyValue="user_id" defaultValue={me.name} />
+            </Grid>
+            <Grid item xs={12}>
+              <MyInfoInputComponent title="이메일" keyValue="user_nm" defaultValue={me.email}/>
+            </Grid>
+
+            <Grid item xs={12}>
+              <MyInfoInputComponent title="전화번호" keyValue="web_site" defaultValue={me.phone_number}/>
+            </Grid>
+
+            <Grid item xs={12}>
+              <MyInfoSelectComponent title="성별" keyValue="web_site" data={me.gender} handelChange="handelChange" defaultValue={me.gender}/>
+            </Grid>
+
+            <Grid item xs={12}>
+              <MyInfoBirthdayComponent title="생년월일" keyValue="birthday" />
+            </Grid>
+
+            <Grid item xs={12}>
+              <MyInfoInputComponent title="주소" keyValue="web_site" defaultValue={me.address} />
+            </Grid>
+          </Grid>
+          <Grid item xs={12} style={{marginTop:'40px'}}>
+            <ColorButton variant="contained" >수정</ColorButton>
+            <Button variant="contained" style={{margin: '10px'}} >취소</Button>
+          </Grid>
+        </form>
+      </Grid>
+    </Container>
+  )
 }
 
 export default Profile;
