@@ -6,9 +6,11 @@ import {
   Divider,
   TextField,
   Checkbox,
+  Container,
+  FormControlLabel,
 } from '@material-ui/core';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import styled from 'styled-components'
-import Wrapper from './styles';
 
 import { useDispatch } from 'react-redux';
 import { SIGN_UP_REQUEST, CHANGE_SIGN_UP_MODE } from '../../../reducers/user';
@@ -67,7 +69,7 @@ const SignupForm = () => {
     if (!term) {
         return setTermError(true)
     }
-    
+
     dispatch({
       type: SIGN_UP_REQUEST,
       data: { name, email, nickname, password, address }
@@ -94,18 +96,22 @@ const SignupForm = () => {
   }, [name, email, nickname, password, passwordCheck, address, term]);
 
   return (
-    <Wrapper>
-      <Typography align="center" className="sign-up1">
-        가입하고 더 많은 서비스를 누려보세요!
-      </Typography>
+    <Container maxWidth="sm" style={{margin: '0 20px', padding: '20px', background: '#ffffff', border: 'solid 1px #eeeeee', borderRadius: '10px', boxShadow: '2px 2px 2px #eeeeee'}}>
       <Grid
         container
         direction="row"
         justifyContent="center"
         alignItems="center"
-        spacing={1}
-        style={{ marginLeft: 4 }}
+        spacing={2}
       >
+        
+        <Grid item xs={1}>
+          <AssignmentIndIcon fontSize="large" style={{ color: '#89DDBF' }}/>
+        </Grid>
+        <Grid item xs={11}>
+          <Typography >회원가입</Typography>
+        </Grid>
+
         <Grid item xs={12} className="sign-up-grid-item1">
           <TextField
             required
@@ -196,12 +202,13 @@ const SignupForm = () => {
             onChange={onChangeAddress}
           />
         </Grid>
-        <div>
-          <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>
-            {'MYME 약관에 동의합니다.'}
-          </Checkbox>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={<Checkbox checked={term} onChange={onChangeTerm} />}
+            label="MYME 약관에 동의하셔야 합니다."
+          />
           {termError && <ErrorMessage>약관에 동의하셔야 합니다.</ErrorMessage>}
-        </div>
+        </Grid>
         <Grid item xs={12} className="sign-up-grid-item3">
           <Button
             variant="contained"
@@ -218,38 +225,30 @@ const SignupForm = () => {
             회원가입
           </Button>
         </Grid>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={1}
-          className="sign-up3-grid-item"
-        >
-          <Grid item xs={5}>
-            <Divider />
-          </Grid>
-
-          <Grid item xs={2}>
-            <Typography
-              align="center"
-              className="sign-up3-grid-item-typography"
-            >
-              or
-            </Typography>
-          </Grid>
-
-          <Grid item xs={5}>
-            <Divider />
-          </Grid>
-        </Grid>
-        <Grid item xs={2} />
+        
         <Grid item xs={5}>
+          <Divider />
+        </Grid>
+
+        <Grid item xs={2}>
+          <Typography
+            align="center"
+            className="sign-up3-grid-item-typography"
+          >
+            or
+          </Typography>
+        </Grid>
+
+        <Grid item xs={5}>
+          <Divider />
+        </Grid>
+        
+        <Grid item xs={6}>
           <Typography align="center" className="sign-up4-grid-item-typography">
             {'계정이 있으신가요?'}
           </Typography>
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={6}>
           <Button
             fullWidth={true}
             onClick={onChangeSignupMode}
@@ -259,7 +258,7 @@ const SignupForm = () => {
           </Button>
         </Grid>
       </Grid>
-    </Wrapper>
+    </Container>
   );
 }
 

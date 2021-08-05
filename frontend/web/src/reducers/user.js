@@ -17,6 +17,8 @@ const initialState = {
   isSignUp: false,
 }
 
+export const UPDATE_MY_INFO_REQUEST = 'UPDATE_MY_INFO_REQUEST'
+
 export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST'
 export const LOAD_MY_INFO_SUCCESS = 'LOAD_MY_INFO_SUCCESS'
 export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE'

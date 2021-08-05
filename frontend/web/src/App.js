@@ -60,72 +60,24 @@ const theme = createMuiTheme({
 
 // app
 const App = () => {
-  const [user, setUser] = useLocalStorageSetState(
-    {
-      user_no: 0,
-      user_id: '',
-      user_nm: '',
-      user_pwd: '',
-      user_img_url: '',
-      status: '',
-      web_site: '',
-      token: '',
-    },
-    'user',
-  );
-
-  const [infoData, setInfoData] = useState({});
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [userDialogIndex, setUserDialogIndex] = useState(0);
-  const [isShowKeyborad, setIsShowKeyborad] = useState(false);
-  const [signDialogOpen, setSignDialogOpen] = useState(false);
-  const [infoDialogOpen, setInfoDetailDialogOpen] = useState(false);
-  const [userDialogOpen, setUserDetailDialogOpen] = useState(false);
-
   return (
-  //   <CommonContext.Provider
-  //   value={{
-  //     serverUrl,
-  //     user,
-  //     setUser,
-  //     drawerOpen,
-  //     setDrawerOpen,
-  //     signDialogOpen,
-  //     setSignDialogOpen,
-  //     infoDialogOpen,
-  //     setInfoDetailDialogOpen,
-  //     infoData,
-  //     setInfoData,
-  //     userDialogOpen,
-  //     setUserDetailDialogOpen,
-  //     userDialogIndex,
-  //     setUserDialogIndex,
-  //     serverUrlBase,
-  //     serverImgUrl,
-  //     isShowKeyborad,
-  //     setIsShowKeyborad,
-  //     defaultThumbnailImage,
-  //   }}
-  // >
-
-      <Provider store = {store}>
-        <MuiThemeProvider theme={theme}>
-          <BrowserRouter>
-            <Switch>
-              <Route exact path="/Home" component={Home} />
-              <Route exact path="/RoutineSetting" component={RoutineSetting} />
-              <Route exact path="/not-found" component={NotFound} />
-              <Route exact path="/Challenge" component={Challenge} />
-              <Route exact path="/CreateChallenge" component={CreateChallenge} />
-              <Route exact path="/Profile" component={Profile} />
-              <Route exact path="/MirrorSetting" component={MirrorSetting} />
-              <Route exact path="/" component={Auth} />
-              <Redirect to="/not-found" />
-            </Switch>
-          </BrowserRouter>
-        </MuiThemeProvider>
-      </Provider>
-    // </CommonContext.Provider>
+    <Provider store = {store}>
+      <MuiThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/Home" component={Home} />
+            <Route exact path="/RoutineSetting" component={RoutineSetting} />
+            <Route exact path="/not-found" component={NotFound} />
+            <Route exact path="/Challenge" component={Challenge} />
+            <Route exact path="/CreateChallenge" component={CreateChallenge} />
+            <Route exact path="/Profile" component={Profile} />
+            <Route exact path="/MirrorSetting" component={MirrorSetting} />
+            <Route exact path="/" component={Auth} />
+            <Redirect to="/not-found" />
+          </Switch>
+        </BrowserRouter>
+      </MuiThemeProvider>
+    </Provider>
   );
 };
 

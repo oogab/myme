@@ -28,7 +28,9 @@ const Auth = () => {
   return(
     <Wrapper>
       <div className="box">
-        <div className="box2"><img src="/images/contact_us_img_4.png" alt="" width="40px" style={{margin: "20px"}}/></div>
+        <div className="box2">
+          <img src="/images/contact_us_img_4.png" alt="" width="40px" style={{margin: "20px"}}/>
+        </div>
         <div className="LoginCard">
           {isSignUp
             ? <SignupForm />

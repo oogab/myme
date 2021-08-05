@@ -181,6 +181,7 @@ body{
   .grid {
     padding: 14px;
     padding-right: 0;
+    background: #FFFFFF
   }
   .grid-item {
     margin: 8px 0;
@@ -210,7 +211,6 @@ body{
     float: right;
     & > img{
       margin: 0 20px;
-      
     }
   }
   .grid-item-typography3 {
@@ -312,7 +312,7 @@ body{
     padding: 0 0 12px 0;
     float: left;
     display: inline-block;
-    width:5px;
+    width: 5px;
     height: 5px;
   }
 `;
