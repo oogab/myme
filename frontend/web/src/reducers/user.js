@@ -2,7 +2,7 @@ import produce from 'immer'
 
 const initialState = {
   loadMyInfoLoading: false, // 유저 정보 가져오기 시도 중
-  loadMyInfoDonw: false,
+  loadMyInfoDone: false,
   loadMyInfoError: null,
   logInLoading: false, // 로그인 시도 중
   logInDone: false,
@@ -14,6 +14,7 @@ const initialState = {
   signUpDone: false,
   signUpError: null,
   me: null,
+  isSignUp: false,
 }
 
 export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST'
@@ -32,10 +33,12 @@ export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST'
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS'
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE'
 
-export const loginRequestAction = (payload) => {
+export const CHANGE_SIGN_UP_MODE = 'CHANGE_SIGN_UP_MODE'
+
+export const loginRequestAction = (data) => {
   return {
     type: LOG_IN_REQUEST,
-    payload
+    data
   }
 }
 
@@ -44,14 +47,6 @@ export const logoutRequestAction = () => {
     type: LOG_OUT_REQUEST
   }
 }
-
-export const loginAction = (payload) => {
-  
-}
-
-
-
-
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
@@ -90,7 +85,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
     case LOG_OUT_SUCCESS:
       draft.logOutLoading = false
-      draft.logOutDome = true
+      draft.logOutDone = true
       draft.me = null
       break
     case LOG_OUT_FAILURE:
@@ -109,6 +104,9 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case SIGN_UP_FAILURE:
       draft.signUpLoading = false
       draft.signUpError = action.error
+      break
+    case CHANGE_SIGN_UP_MODE:
+      draft.isSignUp = !draft.isSignUp
       break
   }
 })

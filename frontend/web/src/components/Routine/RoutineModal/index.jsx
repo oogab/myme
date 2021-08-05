@@ -1,9 +1,9 @@
 import React,{useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import {closeRoutineModal } from '../../../redux/modules/modalStore';
-import { addRoutineItem } from '../../../redux/modules/routineStore';
-import {connect} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
+import { CLOSE_ROUTINE_MODAL } from '../../../reducers/modal';
+import { ADD_ROUTINE_ITEM } from '../../../reducers/routine';
 function getModalStyle() {
   return {
     top: `50%`,
@@ -63,39 +63,46 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SimpleModal(props) {
+  const { routineModal } = useSelector((state) => state.modal)
+  const dispatch = useDispatch()
   let [title,setTitle] = useState('');
 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
+
   //모달 닫는 함수
   function closeRoutine(){
-    props.dispatch(closeRoutineModal());
+    dispatch({
+      type: CLOSE_ROUTINE_MODAL
+    })
   }
+
   //습관 추가 함수
-  function add(){
-    props.dispatch(addRoutineItem(title));
-    closeRoutine();
+  function addHabit(){
+    dispatch({type:ADD_ROUTINE_ITEM, rhid:-1, hid:-1, order:-1, habitName:title})
   }
+
   //input에 써져있는 습관제목과 title 바인딩
   function changeTitle(e){
     setTitle(e.target.value);
   }
+
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title">습관 추가하기</h2>
       
       <textarea className={classes.textarea} placeholder='습관 추가하기' onChange={changeTitle}></textarea>
       <div className={classes.buttonDiv}>
-          <button className={classes.buttonLeft+' btn'} onClick={closeRoutine}>취소</button>
-          <button className={classes.buttonRight+' btn'} onClick={add}>저장</button>
+          <button className={classes.buttonLeft} onClick={closeRoutine}>취소</button>
+          <button className={classes.buttonRight} onClick={addHabit}>저장</button>
           </div>
     </div>
   );
 
   return (
     <Modal
-        open={props.state.modalStore.routineModal}
+        open={routineModal}
         onClose={closeRoutine}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"

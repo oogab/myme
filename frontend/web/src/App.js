@@ -1,13 +1,14 @@
 // react
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 // ui
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 //redux
-import {Provider} from 'react-redux';
-import store from './redux';
+import {Provider, useDispatch} from 'react-redux';
+// import store from './redux';
+import store from './store/configureStore'
 
 // hook
 import { CommonContext } from './context/CommonContext';
@@ -26,6 +27,7 @@ import Auth from './pages/Auth/';
 
 // css
 import './index.css';
+import { LOAD_MY_INFO_REQUEST } from './reducers/user';
 
 // const
 const defaultThumbnailImage = 'default_user.jpg';
@@ -81,36 +83,35 @@ const App = () => {
   const [userDialogOpen, setUserDetailDialogOpen] = useState(false);
 
   return (
-    <CommonContext.Provider
-    value={{
-      serverUrl,
-      user,
-      setUser,
-      drawerOpen,
-      setDrawerOpen,
-      signDialogOpen,
-      setSignDialogOpen,
-      infoDialogOpen,
-      setInfoDetailDialogOpen,
-      infoData,
-      setInfoData,
-      userDialogOpen,
-      setUserDetailDialogOpen,
-      userDialogIndex,
-      setUserDialogIndex,
-      serverUrlBase,
-      serverImgUrl,
-      isShowKeyborad,
-      setIsShowKeyborad,
-      defaultThumbnailImage,
-    }}
-  >
+  //   <CommonContext.Provider
+  //   value={{
+  //     serverUrl,
+  //     user,
+  //     setUser,
+  //     drawerOpen,
+  //     setDrawerOpen,
+  //     signDialogOpen,
+  //     setSignDialogOpen,
+  //     infoDialogOpen,
+  //     setInfoDetailDialogOpen,
+  //     infoData,
+  //     setInfoData,
+  //     userDialogOpen,
+  //     setUserDetailDialogOpen,
+  //     userDialogIndex,
+  //     setUserDialogIndex,
+  //     serverUrlBase,
+  //     serverImgUrl,
+  //     isShowKeyborad,
+  //     setIsShowKeyborad,
+  //     defaultThumbnailImage,
+  //   }}
+  // >
 
       <Provider store = {store}>
         <MuiThemeProvider theme={theme}>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={Auth} />
               <Route exact path="/Home" component={Home} />
               <Route exact path="/RoutineSetting" component={RoutineSetting} />
               <Route exact path="/not-found" component={NotFound} />
@@ -118,13 +119,13 @@ const App = () => {
               <Route exact path="/CreateChallenge" component={CreateChallenge} />
               <Route exact path="/Profile" component={Profile} />
               <Route exact path="/MirrorSetting" component={MirrorSetting} />
-
+              <Route exact path="/" component={Auth} />
               <Redirect to="/not-found" />
             </Switch>
           </BrowserRouter>
         </MuiThemeProvider>
       </Provider>
-      </CommonContext.Provider>
+    // </CommonContext.Provider>
   );
 };
 

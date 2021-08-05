@@ -2,28 +2,30 @@ import React,{useState} from 'react';
 import Wrapper from './styles'
 import RoutineModalItem from '../RoutineModalItem/index'
 import ReactDragList from 'react-drag-list'
-import { setOrder, setChoosedRoutine } from '../../../redux/modules/routineStore';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 
 function App(props){
-    let routinizedHabit = props.state.routineStore.routine[props.num].routinizedHabit;
+  const { myRoutines } = useSelector((state) => state.routine) 
+  const { num } = props
+    let routinizedHabit = myRoutines[num]?.routinizedHabit;
+
     //순서 변경 함수
     function changeOrder(e){
-        props.dispatch(setOrder({idx : props.num}));
+        // props.dispatch(setOrder({idx : props.num}));
     }
     return(
         <Wrapper>
-            {
-                routinizedHabit.length?
+            {/* {
+                true?
                 <ReactDragList
                 dataSource={routinizedHabit}
-                row={(item, idx) => <RoutineModalItem num={props.num} itemIdx={idx}/>}
+                row={(item, idx) => <RoutineModalItem key={item.id} num={num} itemIdx={idx}/>}
                 handles = {false}
                 onUpdate = {changeOrder}
                 />
                 :
                 <div className="default-box">루틴 일정을 추가해주세요.</div>
-            }
+            } */}
         </Wrapper>
     );
 }

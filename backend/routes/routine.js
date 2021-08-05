@@ -1,6 +1,5 @@
 const express = require('express')
 const { Routine, User, RoutinizedHabit, RoutineActiveDay } = require('../models')
-const routineActiveDay = require('../models/routineActiveDay')
 const { isLoggedIn } = require('./middlewares')
 
 const router = express.Router()
@@ -36,11 +35,14 @@ router.get('/', isLoggedIn, async (req, res, next) => { // GET /routine
       where: { UserId: req.user.id },
       include: [{
         model: User,
-        include: ['id', 'nickname']
+        attributes: ['id', 'nickname']
       }, {
         model: RoutinizedHabit,
+      }, {
+        model: RoutineActiveDay
       }]
     })
+    // console.log(routines)
     res.status(200).json(routines)
   } catch (error) {
     console.error(error)
@@ -96,16 +98,21 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /routine
       UserId: req.user.id,
     })
     req.body.day_of_week.map(async (v, i) => {
-      await routineActiveDay.create({
+      await RoutineActiveDay.create({
         RoutineId: routine.id,
-        active_day_of_week: i,
-        start_time: v
+        active_day_of_week: v.day,
+        start_time: v.time
       })
     })
-    const fullRoutine = await Routine.findAll({
+    const fullRoutine = await Routine.findOne({
       where: { id: routine.id },
-      includes: [{
-        model: RoutineActiveDay,
+      include: [{
+        model: User,
+        attributes: ['id', 'nickname']
+      }, {
+        model: RoutinizedHabit,
+      }, {
+        model: RoutineActiveDay
       }]
     })
     res.status(200).json(fullRoutine)
