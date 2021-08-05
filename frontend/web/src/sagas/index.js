@@ -8,6 +8,7 @@ import axios from 'axios'
 import userSaga from "./user"
 import routineSaga from './routine'
 import habitSaga from './habit'
+import challengeSaga from './challenge'
 import { backUrl } from '../config/config'
 
 axios.defaults.baseURL = backUrl
@@ -18,6 +19,7 @@ export default function* rootSaga() {
       // fork(postSaga),
       fork(userSaga),
       fork(routineSaga),
-      fork(habitSaga)
+      fork(habitSaga),
+      fork(challengeSaga),
   ])
 }

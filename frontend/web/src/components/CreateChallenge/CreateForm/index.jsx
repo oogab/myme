@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import 'date-fns';
 import { makeStyles, withStyles, Grid, MenuItem, Typography, TextField, FormGroup, FormControlLabel,FormControl, Checkbox, Radio , RadioGroup, Button, Select} from '@material-ui/core/';
 
@@ -20,6 +20,9 @@ import nameData from './name';
 import periodData from './period';
 import repeatData from './repeat';
 import UploadImg from '../UploadImg/';
+
+import {connect, useDispatch, useSelector} from 'react-redux';
+import { ADD_CHALLENGE_REQUEST, ADD_CHALLENGE } from '../../../reducers/challenge';
 
 const GreenCheckbox = withStyles({
   root: {
@@ -80,7 +83,9 @@ const TealColor = withStyles((theme) => ({
   }))(TextField)
 
 
-export default function LayoutTextFields() {
+function CreateChallenge() {
+  const dispatch = useDispatch()
+
   const classes = useStyles();
   const [state, setState] = React.useState({});
   // const [selectedValue, setSelectedValue] = React.useState('');
@@ -94,20 +99,74 @@ export default function LayoutTextFields() {
   };
 
   const [names, setNames] = useState(nameData);
-  const [periods, setPeriods] = useState(periodData);
-  const [repeats, setRepeats] = useState(repeatData);
+  // const [periods, setPeriods] = useState(periodData);
+  // const [repeats, setRepeats] = useState(repeatData);
   const [startDate, setStartDate] = useState(Date.now());
   const [endDate, setEndDate] = useState(startDate);
   
   var diffDay = (endDate - startDate) / (1000*60*60*24);
   
 // 인증 횟수
-  const [repeat, setRepeat] = useState('1');
-
-  const repeatChange = (event) => {
-    setRepeat(event.target.value);
-  };
+ 
   const [check, setCheck] = useState(false);
+
+  const [name, setName] = useState('')
+  const onChangeName = useCallback((e) => {
+    setName(e.target.value)
+  }, [])
+
+  const [subject, setSubject] = useState('')
+  const onChangeSubject = useCallback((e) => {
+    setSubject(e.target.value)
+  }, [])
+
+  const [start_date, setStart] = useState('')
+  const onChangeStart = useCallback((e) => {
+    setStart(e.target.value)
+  }, [])
+
+  const [end, setEnd] = useState('')
+  const onChangeEnd = useCallback((e) => {
+    setEnd(e.target.value)
+  }, [])
+
+  const [period, setDays] = useState('')
+  const onChangeDays = useCallback((e) => {
+    setDays(e.target.value)
+  }, [])
+
+  const [repeat_cycle, setRepeat] = useState(1)
+  const onChangeRepeat = useCallback((e) => {
+    setRepeat(e.target.value)
+  }, [])
+
+  const [auth_count, setProof] = useState('1')
+  const onChangeProof = useCallback((e) => {
+    setProof(e.target.value)
+  }, [])
+
+  const [content, setIntroduce] = useState('')
+  const onChangeIntroduce = useCallback((e) => {
+    setIntroduce(e.target.value)
+  }, [])
+
+  const add = useCallback(() =>{
+    dispatch({
+      type: ADD_CHALLENGE_REQUEST,
+      data:{
+        name,
+        // subject,
+        start_date: startDate,
+        // end,
+        period: diffDay,
+        repeat_cycle,
+        auth_count,
+        content
+      }
+    })
+  },[name, start_date, period, repeat_cycle, auth_count, content]);
+
+
 
   return (
     <Wrapper>
@@ -121,17 +180,19 @@ export default function LayoutTextFields() {
                 id="standard-full-width"
                 style={{ margin: '10px'}}
                 placeholder="ex. 1일 1커밋"
+                value={name}
                 fullWidth
                 margin="normal"
                 InputLabelProps={{
                     shrink: true,
                 }}
+                onChange={onChangeName}
                 />
             </Grid>
             <Grid item xs={12}>
                 <h4>2. 어떤 주제와 관련이 있나요?</h4>
                 <FormControl component="fieldset" style={{ margin: '10px'}}>
-                  <RadioGroup name="주제" value={value} onChange={handleChange}>
+                  <RadioGroup name="주제" value={subject} onChange={onChangeSubject}>
                       {
                           names.map((e, i)=>{
                               return  <FormControlLabel value={e.label} control={<TealRadio />} label={e.label} />
@@ -148,7 +209,7 @@ export default function LayoutTextFields() {
                   
                   <h4 className="dateTitle">시작일</h4>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <KeyboardDatePicker
+                  <KeyboardDatePicker
                       disableToolbar
                       variant="inline"
                       format="yyyy/MM/dd"
@@ -164,6 +225,7 @@ export default function LayoutTextFields() {
                           'aria-label': 'change date',
                       }}
                       />
+
                 
                   </MuiPickersUtilsProvider>
                 </Grid>
@@ -171,7 +233,7 @@ export default function LayoutTextFields() {
                     <h4 className="dateTitle">종료일</h4>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                       
-                          <KeyboardDatePicker
+                  <KeyboardDatePicker
                           disableToolbar
                           variant="inline"
                           format="yyyy/MM/dd"
@@ -185,12 +247,13 @@ export default function LayoutTextFields() {
                               'aria-label': 'change date',
                           }}
                           />
+
                       </MuiPickersUtilsProvider>
                 </Grid>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={4} float='right'>
                   <h4 className="dateTitle" style={{marginBottom: '50px'}}> </h4>
-                  <Typography variant='h5'>🏃‍♂️ {diffDay} 일</Typography>
+                  <Typography variant='h5' onChange={onChangeDays}>🏃‍♂️ {diffDay} 일</Typography>
                 </Grid>
               </Grid>
             </Grid> 
@@ -198,16 +261,16 @@ export default function LayoutTextFields() {
             <Grid item xs={12}>
                 <h4>4. 얼마나 자주 할건가요?</h4>
                 <FormControl component="fieldset" style={{ margin: '10px'}}>
-                  <RadioGroup name="주제" value={value} onChange={handleChange}>
+                  <RadioGroup name="주제" value={repeat_cycle} onChange={onChangeRepeat}>
                       {/* {
                           repeats.map((e, i)=>{
                               return  <FormControlLabel value={e.label} control={<TealRadio />} label={e.label} />
                           })
                       } */}
-                      <FormControlLabel value="월~일 매일" control={<TealRadio />} label="월~일 매일" />
-                      <FormControlLabel value="월~금 매일" control={<TealRadio />} label="월~금 매일" />
-                      <FormControlLabel value="토~일 매일" control={<TealRadio />} label="토~일 매일" />
-                      <FormControlLabel value="선택" control={<TealRadio />}label="선택">
+                      <FormControlLabel value="7" control={<TealRadio />} label="월~일 매일" />
+                      <FormControlLabel value="5" control={<TealRadio />} label="월~금 매일" />
+                      <FormControlLabel value="2" control={<TealRadio />} label="토~일 매일" />
+                      <FormControlLabel value="1" control={<TealRadio />}label="선택">
                         
                           
                       </FormControlLabel>
@@ -220,8 +283,8 @@ export default function LayoutTextFields() {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={repeat}
-                    onChange={repeatChange}
+                    value={auth_count}
+                    onChange={onChangeProof}
                   >
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
@@ -239,17 +302,27 @@ export default function LayoutTextFields() {
                     id="outlined-multiline-static"
                     fullWidth
                     multiline
+                    value={content}
                     rows={4}
                     variant="outlined"
                     style={{ margin:'10px'}}
+                    onChange={onChangeIntroduce}
                   />
                 
             </Grid>
             <Grid item xs={12} style={{margin:'40px 10px'}}>
-                    <ColorButton variant="contained" >개설하고 멋있게 도전하기!</ColorButton>
+                    <ColorButton variant="contained" onClick={add}>개설하고 멋있게 도전하기!</ColorButton>
                     <Button variant="contained" style={{margin: '10px'}} >취소</Button>
                 </Grid>
         </Grid>
         </Wrapper>
   );
 }
+
+// const mapStateToProps = (state) =>{
+//   return {
+//       state
+//   }
+// }
+// export default connect(mapStateToProps)(CreateChallenge);
+export default CreateChallenge
