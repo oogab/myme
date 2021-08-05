@@ -2,13 +2,32 @@ import produce from 'immer'
 
 const initialState = {
   myRoutines: [],
+  myHabits:[],
 
   addRoutineLoading: false,
   addRoutineDone: false,
   addRoutineError: null,
+
   loadMyRoutinesLoading: false,
   loadMyRoutinesDone: false,
   loadMyRoutinesError: null,
+
+  addHabitLoading: false,
+  addHabitDone: false,
+  addHabitError: null,
+
+  loadMyHabitsLoading: false,
+  loadMyHabitsDone: false,
+  loadMyHabitsError: null,
+
+  addRoutinizedHabitLoading: false,
+  addRoutinizedHabitDone: false,
+  addRoutinizedHabitError: null,
+
+  loadRoutinizedHabitsLoading: false,
+  loadRoutinizedHabitsDone: false,
+  loadRoutinizedHabitsError: null,
+
   choosedRoutine : -1,
   createRoutineInfo : {
       "rid" : -1,
@@ -16,7 +35,7 @@ const initialState = {
       "alarm" : false,
       "day_of_week" : [{day : "월", "activeDayOfWeek" : false,"time": ""},{day : "월", "activeDayOfWeek" : false,"time": ""},{day : "월", "activeDayOfWeek" : false,"time": ""},{day : "월", "activeDayOfWeek" : false,"time": ""},{day : "월", "activeDayOfWeek" : false,"time": ""},{day : "월", "activeDayOfWeek" : false,"time": ""},{day : "월", "activeDayOfWeek" : false,"time": ""}],
       "routinizedHabit":[]    
-  }
+  },
 }
 
 export const ADD_ROUTINE_REQUEST = 'ADD_ROUTINE_REQUEST'
@@ -27,13 +46,28 @@ export const LOAD_MY_ROUTINES_REQUEST = 'LOAD_MY_ROUTINES_REQUEST'
 export const LOAD_MY_ROUTINES_SUCCESS = 'LOAD_MY_ROUTINES_SUCCESS'
 export const LOAD_MY_ROUTINES_FAILURE = 'LOAD_MY_ROUTINES_FAILURE'
 
+export const ADD_HABIT_REQUEST = 'ADD_HABIT_REQUEST'
+export const ADD_HABIT_SUCCESS = 'ADD_HABIT_SUCCESS'
+export const ADD_HABIT_FAILURE = 'ADD_HABIT_FAILURE'
+
+export const LOAD_MY_HABITS_REQUEST = 'LOAD_MY_HABITS_REQUEST'
+export const LOAD_MY_HABITS_SUCCESS = 'LOAD_MY_HABITS_SUCCESS'
+export const LOAD_MY_HABITS_FAILURE = 'LOAD_MY_HABITS_FAILURE'
+
+export const ADD_ROUTINIZED_HABIT_REQUEST = 'ADD_ROUTINIZED_HABIT_REQUEST'
+export const ADD_ROUTINIZED_HABIT_SUCCESS = 'ADD_ROUTINIZED_HABIT_SUCCESS'
+export const ADD_ROUTINIZED_HABIT_FAILURE = 'ADD_ROUTINIZED_HABIT_FAILURE'
+
+export const LOAD_ROUTINIZED_HABIT_REQUEST = 'LOAD_ROUTINIZED_HABITS_REQUEST'
+export const LOAD_ROUTINIZED_HABIT_SUCCESS = 'LOAD_ROUTINIZED_HABITS_SUCCESS'
+export const LOAD_ROUTINIZED_HABIT_FAILURE = 'LOAD_ROUTINIZED_HABITS_FAILURE'
+
 export const CLEAR_MY_ROUTINES = 'CLEAR_MY_ROUTINES'
 
 
 export const SET_ORDER = 'routine/setOrder';
 
 export const SET_CHOOSED_ROUTINE='routine/setChoosedRoutine';
-export const ADD_ROUTINE='routine/addRoutine';
 export const MODIFY_ROUTINE='routine/modifyRoutine';
 export const DELETE_ROUTINE='routine/deleteRoutine';
 export const ADD_ROUTINE_ITEM='routine/addRoutineItem';
@@ -42,6 +76,7 @@ export const SET_MODAL_INPUT='routine/setModalInput';
 export const SET_MODAL_INPUT_NAME='routine/setModalInputName';
 export const SET_MODAL_INPUT_ALARM='routine/setModalInputAlarm';
 export const SET_MODAL_INPUT_ACTIVE_DAY='routine/setModalInputActiveDay';
+
 
 const sortHabit = (obj) => {
   for (let i=0; i<obj.length; i++) {
@@ -83,8 +118,62 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.loadMyRoutinesLoading = false
       draft.loadMyRoutinesError = action.error
       break
-    case ADD_ROUTINE:
-      draft.myRoutines.push(state.createRoutineInfo)
+    case ADD_HABIT_REQUEST:
+      draft.addHabitLoading = true
+      draft.addHabitDone = false
+      draft.addHabitError = null
+      break
+    case ADD_HABIT_SUCCESS:
+      draft.addHabitLoading = false
+      draft.addHabitDone = true
+      draft.myHabits = draft.myHabits.concat(action.data)
+      break
+    case ADD_HABIT_FAILURE:
+      draft.addHabitLoading = false
+      draft.addHabitError = action.error
+      break
+    case LOAD_MY_HABITS_REQUEST:
+      draft.loadMyHabitsLoading = true
+      draft.loadMyHabitsDone = false
+      draft.loadMyHabitsError = null
+      break
+    case LOAD_MY_HABITS_SUCCESS:
+      draft.loadMyHabitsLoading = false
+      draft.loadMyHabitsDone = true
+      draft.myHabits = []
+      draft.myHabits = draft.myHabits.concat(action.data)
+      break
+    case LOAD_MY_HABITS_FAILURE:
+      draft.loadMyHabitsLoading = false
+      draft.loadMyHabitsError = action.error
+      break
+    case ADD_ROUTINIZED_HABIT_REQUEST:
+      draft.addRoutinizedHabitLoading = true
+      draft.addRoutinizedHabitDone = false
+      draft.addRoutinizedHabitError = null
+      break
+    case ADD_ROUTINIZED_HABIT_SUCCESS:
+      draft.addRoutinizedHabitLoading = false
+      draft.addRoutinizedHabitDone = true
+      break
+    case ADD_ROUTINIZED_HABIT_FAILURE:
+      draft.addRoutinizedHabitLoading = false
+      draft.addRoutinizedHabitError = action.error
+      break
+    case LOAD_ROUTINIZED_HABIT_REQUEST:
+      draft.loadRoutinizedRoutinesLoading = true
+      draft.loadRoutinizedRoutinesDone = false
+      draft.loadRoutinizedRoutinesError = null
+      break
+    case LOAD_ROUTINIZED_HABIT_SUCCESS:
+      draft.loadRoutinizedRoutinesLoading = false
+      draft.loadRoutinizedRoutinesDone = true
+      // draft.myRoutines = []
+      // draft.myRoutines = draft.myRoutines.concat(action.data)
+      break
+    case LOAD_ROUTINIZED_HABIT_FAILURE:
+      draft.loadRoutinizedRoutinesLoading = false
+      draft.loadRoutinizedRoutinesError = action.error
       break
     case SET_CHOOSED_ROUTINE:
       draft.choosedRoutine = action.idx

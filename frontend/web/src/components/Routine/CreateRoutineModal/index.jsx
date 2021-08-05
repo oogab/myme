@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight:'bold'
   },
   buttonDiv:{
-    marginTop:'50px',
+    marginTop:'20px',
   },
   floatRight:{
     float:'right',
@@ -117,21 +117,35 @@ function SimpleModal(props) {
   }
   
   const add = () =>{
-    if(choosedRoutine == -1){
-      dispatch({
-        type: ADD_ROUTINE_REQUEST,
-        data: {
-          name: createRoutineInfo.name,
-          alarm: createRoutineInfo.alarm,
-          "day_of_week": createRoutineInfo.day_of_week
-        }
-        
-      })
-    }else{
-      dispatch({type:MODIFY_ROUTINE});
+    if(validate()){
+      if(choosedRoutine == -1){
+        dispatch({
+          type: ADD_ROUTINE_REQUEST,
+          data: {
+            name: createRoutineInfo.name,
+            alarm: createRoutineInfo.alarm,
+            "day_of_week": createRoutineInfo.day_of_week
+          }
+          
+        })
+      }else{
+        dispatch({type:MODIFY_ROUTINE});
+      }
     }
+    
   }
 
+  const validate = () =>{
+    let titlesKorean = ['루틴 이름을']
+    let titlesEnglish =['name']
+    for(let i=0;i<titlesKorean.length;i++){
+      if(!createRoutineInfo[titlesEnglish[i]]){
+        alert(titlesKorean[i]+' 입력해주세요')
+        return false;
+      }
+    }
+    return true;
+  }
 
   const body = (
     <div style={modalStyle} className={classes.paper}>

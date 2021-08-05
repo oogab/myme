@@ -7,7 +7,7 @@ import RoutineModal from '../../components/Routine/RoutineModal/index';
 import CreateRoutineModal from '../../components/Routine/CreateRoutineModal/index';
 import Layout from '../../layout/';
 import Wrapper from './styles';
-import { LOAD_MY_ROUTINES_REQUEST } from '../../reducers/routine';
+import { LOAD_MY_ROUTINES_REQUEST, LOAD_MY_HABITS_REQUEST, LOAD_ROUTINIZED_HABIT_REQUEST } from '../../reducers/routine';
 
 function App (props) {
   const dispatch = useDispatch()
@@ -17,6 +17,9 @@ function App (props) {
     dispatch({
       type: LOAD_MY_ROUTINES_REQUEST
     })
+    dispatch({
+      type: LOAD_MY_HABITS_REQUEST
+    })
   }, [])
 
   return(
@@ -25,7 +28,6 @@ function App (props) {
         <div className='menu daily-menu'><h1>Daily</h1><AddRoutineButton/></div>
         <hr/>
         {
-            // myRoutines.map((item, idx)=>(<RoutineItem num={idx} key={myRoutines.id} ></RoutineItem>))
             myRoutines.map((item, idx) => <RoutineItem num={idx} key={item?.id} />)
         }
         <RoutineModal/>
