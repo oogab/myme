@@ -1,15 +1,4 @@
-## 담당자
-
-<a href="https://lab.ssafy.com/minjoo0112"><img src="https://secure.gravatar.com/avatar/9bdc67a1ff49729909fada0f0f14a994?s=800&d=identicon" width="100px;" alt=""/><br /><sub><b>김민주(Frontend)</b></sub></a>
-
-<br/>
-
-## Frontend
-
-스켈레톤 코드를 기반으로 웹 페이지 UI 구현 중 입니다. <br/>
-다른 Frontend 담당자와 branch를 나눠 개발 중이라 branch별 코드가 상이합니다.
-
-<br/>
+# Frontend
 
 ## 진행사항
 
@@ -32,6 +21,63 @@
   - 회원가입, 로그인 UI 구현 완료
   - 미러 화면 UI 구현
   - 챌린지 관련 페이지 UI 구현 시작
+
+- ### 5주차
+
+      	- 웹 UI 구현 완료
+      	- redux, redux-saga 사용하여 데이터 전달
+      	- backend와 연결
+
+<br/>
+
+## react-saga 사용법
+
+### 1. 사용하는 이유
+
+    redux는 무조건 동기적으로 dispatch가 이루어진다. 또한 dispatch를 여러번 할 경우 컴포넌트 파일에서 dispatch 로직을 2번 써야해서 불편하기도 하다. 그래서 나온 미들웨어가 redux-saga
+    redux-saga는 비동기적으로 dispatch 사용 가능(put), 내부 메소드를 활용하여 사용자의 부주의로 인하여 동일한 api를 여러번 req 할 경우 가장 최근 or 가장 마지막 req의 res만 받아오도록 하는 기능도 있다(thuttle, debouce)
+
+### 2. 선수지식(generator)
+
+- 함수에 \*를 붙이고, yield라는 문법을 사용
+- next()를 이용하여 다음 yield를 호출
+
+```
+	const gen = function* () {
+		console.log(1);
+		yield;
+		console.log(2);
+		yield;
+		console.log(3);
+		yield;
+		console.log(4)
+	}
+	const gener = gen()
+	// gener() - gener{<suspended>}
+	gener().next() -> 1
+	gener().next() -> 2
+	gener().next() -> 3
+	gener().next() -> 4
+	gener().next() -> undifined
+```
+
+### 3. saga 이펙트 함수
+
+- `all` : 배열을 받고, 받은 이펙트를 등록 (실행 아님, 등록임!!)
+- `fork` : 함수를 실행
+- `call` : 동기함수호출 (api가 리턴할때까지 기다림), fork은 비동기함수 호출 (안기다리고 리턴 다음꺼 이동)
+  - **통신할때는 무조건 call** (yield가 await과 비슷)
+- `take` : 한번만 실행되고 이벤트 삭제됨
+- `takeEvery` : 한번 실행되도, 이벤트 계속 리슨
+- `takeLatest` : 클릭 실수로 2번 했을때, 앞 이벤트 무시 마지막 이벤트 실행(보통 이거 많이씀)
+  - 이미 완료됬다면 실행 -> 둘다 팬딩이면 뒤에꺼만
+  - **front -> back으로 2번 req를 보내긴함 -> 그러나 b->f로 res는 1번 보냄 (즉, 서버단에 저장 2번됬는지 확인 필요)**
+  - 즉, 새로고침하면 2개가 반영될수있음
+  - 이를 막기위해 throttle가 있음
+- `throttle` : 초 이내에 req를 1번만
+  - 스크롤 (마지막 함수가 호출된 후 일정 시간이 지나기전 재호출 안함)
+- `debounce`: 검색 결과 - 초 이내에 req를 1번만 (연이어 호출되는 함수들 중 마지막 함수 or 가장 처음 함수만 호출)
+- `takeLeading`: 첫번째 이벤트만 실행, 뒤에꺼 무시
 
 <br/>
 
@@ -63,29 +109,6 @@
 			/NewChallenge        		 -> new challenge
 			/RecommendChallenge			 -> recommend challenge
 			/TotalChallenge				 -> total challenge
-		/Create
-			/CreateVoteComponent         -> create a vote
-			/DialogActionsComponet       -> create a vote
-			/RadioButtonsGroup           -> create a vote
-		/Feed                            -> vote feed
-		/Grid
-			/VoteGridItem                -> vote item
-			/VoteGridList                -> vote root
-			/VoteGridTitle               -> vote title
-		/Main
-			/ButtonBases                 -> category head
-			/CheckBoxButtonsGroup        -> vote options
-			/HorizontalBar               -> perceantage chart
-			/VoteDetailResponsiveDialog  -> vote result
-		/Search
-			/SearchComponent             -> search vote
-		/User
-			/ChangePassword              -> change pw
-			/MyInfo                      -> user info
-			/UserResponsiveDialog        -> user dialog root
-			/VerticalTabs                -> user dialog side nav
-
-	/context                         -> create context
 
 	/css                             -> reset css
 
@@ -96,15 +119,9 @@
 
 	/pages
 	- Auth                       -> user
-	- AboutMe                    -> about me
 	- Challenge                  -> challenge
-	- ContactUs                  -> contact us
-	- CreateVote                 -> create vote
-	- MainVote                   -> vote
-	- MyVote                     -> my vote
 	- NotFound                   -> 404 page
-	- SearchVote                 -> search
-	- Terms                 	 -> terms
+
 ```
 
 ```
