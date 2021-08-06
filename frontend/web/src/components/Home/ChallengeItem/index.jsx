@@ -2,8 +2,10 @@ import React from 'react';
 import Wrapper from './styles'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
+import { useDispatch } from 'react-redux';
 
 function App(props){
+  const dispatch = useDispatch()
     return(
         <Wrapper>
             <Grid container spacing={0}>
