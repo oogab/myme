@@ -1,1 +1,1 @@
-export const backUrl = 'http://i5a201.p.ssafy.io'
+export const backUrl = 'https://api.myme.today'
