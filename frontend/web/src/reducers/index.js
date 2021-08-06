@@ -5,6 +5,7 @@ import layout from './layout';
 import modal from './modal'
 import routine from './routine'
 import habit from './habit'
+import challenge from './challenge'
 // import post from './post'
 
 // combineReducers가 알아서 만들어 줌!
@@ -26,7 +27,8 @@ const rootReducer = (state, action) =>{
                 layout,
                 modal,
                 routine,
-                habit
+                habit,
+                challenge,
                 // post
             });
             return combinedReducer(state, action)
