@@ -15,7 +15,8 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { CHANGE_SIGN_UP_MODE, loginRequestAction } from '../../../reducers/user';
 
-const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+const regExpEm = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+const regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
 
 const LoginForm = () => {
   let history = useHistory()
@@ -40,9 +41,14 @@ const LoginForm = () => {
       return;
     }
 
-    if (!regExp.test(email)) {
-      alert('The email format is invalid.');
+    if (!regExpEm.test(email)) {
+      alert('이메일 형식이 맞지 않습니다.');
       return;
+    }
+
+    if (!regExpPw.test(password)) {
+      alert('비밀번호는 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력하세요.')
+      return
     }
 
     dispatch(loginRequestAction({email, password}))

@@ -1,1 +1,1 @@
-export const backUrl = 'http://localhost:3065'
+export const backUrl = 'http://i5a201.p.ssafy.io'

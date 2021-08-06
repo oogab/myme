@@ -19,6 +19,10 @@ const ErrorMessage = styled.div`
     color: red;
 `
 
+const regExpEm = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+const regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
+const regExpPN = /(\d{3}).*(\d{3}).*(\d{4})/
+
 const SignupForm = () => {
   const dispatch = useDispatch()
   const [disabled, setDisabled] = useState(true);
@@ -50,6 +54,11 @@ const SignupForm = () => {
       setPasswordError(e.target.value !== password)
   }, [password])
 
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const onChangePhoneNumber = useCallback((e) => {
+    setPhoneNumber(e.target.value)
+  }, [])
+
   const [address, setAddress] = useState('')
   const onChangeAddress = useCallback((e) => {
     setAddress(e.target.value)
@@ -64,15 +73,35 @@ const SignupForm = () => {
 
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
-        return setPasswordError(true)
+      return setPasswordError(true)
     }
     if (!term) {
-        return setTermError(true)
+      return setTermError(true)
+    }
+
+    if (!regExpEm.test(email)) {
+      alert('이메일 형식이 맞지 않습니다.');
+      return;
+    }
+
+    if (!regExpPw.test(password)) {
+      alert('비밀번호는 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력하세요.')
+      return
+    }
+
+    if (!regExpPN.test(phoneNumber)) {
+      alert('전화번호는 000-0000-0000 형식으로 입력하세요.')
+      return
+    }
+
+    if (address.length >= 51) {
+      alert('주소는 50자 이하로 기입해주세요')
+      return
     }
 
     dispatch({
       type: SIGN_UP_REQUEST,
-      data: { name, email, nickname, password, address }
+      data: { name, email, nickname, 'phone_number': phoneNumber, password, address }
     })
     dispatch({
       type: CHANGE_SIGN_UP_MODE
@@ -86,14 +115,14 @@ const SignupForm = () => {
   }, [])
 
   useEffect(() => {
-    if (name !== '' && email !== '' && nickname !== '' && password !== '' && passwordCheck !== '' && address !== '' && term === true) {
+    if (name !== '' && email !== '' && nickname !== '' && password !== '' && passwordCheck !== '' && phoneNumber !== '' && address !== '' && term === true) {
       setDisabled(false);
     }
 
-    if (name === '' || email === '' || nickname === '' || password === '' || passwordCheck === '' || address === '' || term === false) {
+    if (name === '' || email === '' || nickname === '' || password === '' || passwordCheck === '' || phoneNumber === '' || address === '' || term === false) {
       setDisabled(true);
     }
-  }, [name, email, nickname, password, passwordCheck, address, term]);
+  }, [name, email, nickname, password, passwordCheck, phoneNumber, address, term]);
 
   return (
     <Container maxWidth="sm" style={{margin: '0 20px', padding: '20px', background: '#ffffff', border: 'solid 1px #eeeeee', borderRadius: '10px', boxShadow: '2px 2px 2px #eeeeee'}}>
@@ -188,6 +217,20 @@ const SignupForm = () => {
           />
         </Grid>
         {passwordError && <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>}
+        <Grid item xs={12} className="sign-up-grid-item1">
+          <TextField
+            required
+            id="outlined-required"
+            label="전화번호"
+            value={phoneNumber}
+            className="text-field"
+            variant="outlined"
+            style={{background: 'white'}}
+            placeholder="전화번호 000-0000-0000"
+            fullWidth={true}
+            onChange={onChangePhoneNumber}
+          />
+        </Grid>
         <Grid item xs={12} className="sign-up-grid-item1">
           <TextField
             required
