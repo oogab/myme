@@ -57,7 +57,7 @@ function* loadChallenges() {
 
 function loadMyChallengesAPI() {
   console.log('my challenge load 요청')
-  return axios.get('/mychallenge')
+  return axios.get('/challenge/mychallenge')
 }
 
 function* loadMyChallenges() {
