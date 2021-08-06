@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Grid, Container } from '@material-ui/core/';
 import { teal } from '@material-ui/core/colors';
 import { makeStyles, withStyles, FilledInput, FormControl, FormHelperText, Input, InputLabel, OutlinedInput, MenuItem, TextField, Paper, InputBase, IconButton, Typography, Button  } from '@material-ui/core/';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 
 const genders = [
     {
@@ -50,7 +51,7 @@ const genders = [
   };
 
   const MyInfoInputComponent = props => {
-    let { keyValue, title, rows, defaultValue } = props;
+    let { keyValue, title, rows, defaultValue, disabled } = props;
 
     return (
       <MyInfoContentDefaultComponent
@@ -62,13 +63,14 @@ const genders = [
         RightComponet={
           <TextField
             id={`outlined-basic-${keyValue}`}
-            defaultValue={defaultValue}
+            value={defaultValue}
             variant="outlined"
             fullWidth={true}
             style={{backgroundColor:"white"}}
             multiline={rows !== null ? true : false}
             rows={rows !== null ? rows : 1}
             rowsMax={3}
+            disabled={disabled}
           />
         }
       />
@@ -133,12 +135,19 @@ const genders = [
     );
   }
 
-const Profile = () =>{
+const Profile = () => {
+  const dispatch = useDispatch()
   const { me } = useSelector((state) => state.user)
-
+  
   const [name, setName] = useState('Composed TextField');
   const [gender, setGender] = useState('여');
-
+  
+  useEffect(() => {
+    dispatch({
+      type: LOAD_MY_INFO_REQUEST
+    })
+  }, [])
+  
   const handleChange = (event) => {
     setName(event.target.value);
   };
@@ -158,18 +167,18 @@ const Profile = () =>{
             spacing={2}
           >
             <Grid item xs={12}>
-              <MyInfoInputComponent title="이름" keyValue="user_id" defaultValue={me.name} />
+              <MyInfoInputComponent title="이름" keyValue="user_id" defaultValue={me?.name} disabled={true}/>
             </Grid>
             <Grid item xs={12}>
-              <MyInfoInputComponent title="이메일" keyValue="user_nm" defaultValue={me.email}/>
-            </Grid>
-
-            <Grid item xs={12}>
-              <MyInfoInputComponent title="전화번호" keyValue="web_site" defaultValue={me.phone_number}/>
+              <MyInfoInputComponent title="이메일" keyValue="user_nm" defaultValue={me?.email} disabled={true}/>
             </Grid>
 
             <Grid item xs={12}>
-              <MyInfoSelectComponent title="성별" keyValue="web_site" data={me.gender} handelChange="handelChange" defaultValue={me.gender}/>
+              <MyInfoInputComponent title="전화번호" keyValue="web_site" defaultValue={me?.phone_number}/>
+            </Grid>
+
+            <Grid item xs={12}>
+              <MyInfoSelectComponent title="성별" keyValue="web_site" data={me?.gender} handelChange="handelChange" defaultValue={me?.gender}/>
             </Grid>
 
             <Grid item xs={12}>
@@ -177,7 +186,7 @@ const Profile = () =>{
             </Grid>
 
             <Grid item xs={12}>
-              <MyInfoInputComponent title="주소" keyValue="web_site" defaultValue={me.address} />
+              <MyInfoInputComponent title="주소" keyValue="web_site" defaultValue={me?.address} />
             </Grid>
           </Grid>
           <Grid item xs={12} style={{marginTop:'40px'}}>

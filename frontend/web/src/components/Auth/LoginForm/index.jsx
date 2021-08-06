@@ -7,13 +7,16 @@ import {
   Typography,
   Divider,
   TextField,
+  Box,
+  Container,
 } from '@material-ui/core';
-import Wrapper from './styles';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { CHANGE_SIGN_UP_MODE, loginRequestAction } from '../../../reducers/user';
 
-const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+const regExpEm = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+const regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
 
 const LoginForm = () => {
   let history = useHistory()
@@ -38,9 +41,14 @@ const LoginForm = () => {
       return;
     }
 
-    if (!regExp.test(email)) {
-      alert('The email format is invalid.');
+    if (!regExpEm.test(email)) {
+      alert('이메일 형식이 맞지 않습니다.');
       return;
+    }
+
+    if (!regExpPw.test(password)) {
+      alert('비밀번호는 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력하세요.')
+      return
     }
 
     dispatch(loginRequestAction({email, password}))
@@ -65,15 +73,23 @@ const LoginForm = () => {
   }, [email, password]);
 
   return (
-    <Wrapper>
+    <Container maxWidth="sm" style={{margin: '0 20px', padding: '20px', background: '#ffffff', border: 'solid 1px #eeeeee', borderRadius: '10px', boxShadow: '2px 2px 2px #eeeeee'}}>
       <Grid
         container
         direction="row"
         justifyContent="center"
         alignItems="center"
-        spacing={1}
+        spacing={2}
         className="grid"
       >
+        <Grid>
+          <AccountBoxIcon fontSize="large" style={{ color: '#89DDBF' }} />
+        </Grid>
+        <Grid item xs={11}>
+          <Typography>
+            로그인
+          </Typography>
+        </Grid>
         <Grid item xs={12}>
           <TextField
             required
@@ -144,35 +160,44 @@ const LoginForm = () => {
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={3} >
           <Grid container direction="row" justifyContent="center" alignItems="center">
-            <IconButton
-              className="sign-in-butoon grid-item-icon-button"
-              // onClick={onClickHandler}
-            >
-              {/* <Typography > */}
-              <div className="SocialLoginImg">
-                <img src="/images/naver.png" alt="" width="40px"/>
-                <img src="/images/facebook.png" alt="" width="40px" />
-                <img src="/images/google.png" alt="" width="40px" />
-                <img src="/images/kakao.png" alt="" width="40px" />
-              </div>
-              {/* </Typography> */}
-            </IconButton>
+            <img src="/images/naver.png" alt="" width="40px"/>
+          </Grid>
+        </Grid>
+        <Grid item xs={3} >
+          <Grid container direction="row" justifyContent="center" alignItems="center">
+            <img src="/images/facebook.png" alt="" width="40px" />
+          </Grid>
+        </Grid>
+        <Grid item xs={3} >
+          <Grid container direction="row" justifyContent="center" alignItems="center">
+            <img src="/images/google.png" alt="" width="40px" />
+          </Grid>
+        </Grid>
+        <Grid item xs={3} >
+          <Grid container direction="row" justifyContent="center" alignItems="center">
+            <img src="/images/kakao.png" alt="" width="40px" />
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={6} >
+          <div style={{textAlign: 'center'}}>
+            계정이 없으신가요?
+          </div>
+        </Grid>
+
+        <Grid item xs={6} >
           <Button
             fullWidth={true}
             onClick={onChangeSignupMode}
             className="grid2-item-button"
           >
-            {`계정이 없으신가요?`}
+            회원가입
           </Button>
         </Grid>
       </Grid>
-    </Wrapper>
+    </Container>
   );
 }
 

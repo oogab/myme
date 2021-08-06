@@ -6,9 +6,11 @@ import {
   Divider,
   TextField,
   Checkbox,
+  Container,
+  FormControlLabel,
 } from '@material-ui/core';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import styled from 'styled-components'
-import Wrapper from './styles';
 
 import { useDispatch } from 'react-redux';
 import { SIGN_UP_REQUEST, CHANGE_SIGN_UP_MODE } from '../../../reducers/user';
@@ -16,6 +18,10 @@ import { SIGN_UP_REQUEST, CHANGE_SIGN_UP_MODE } from '../../../reducers/user';
 const ErrorMessage = styled.div`
     color: red;
 `
+
+const regExpEm = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+const regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
+const regExpPN = /(\d{3}).*(\d{3}).*(\d{4})/
 
 const SignupForm = () => {
   const dispatch = useDispatch()
@@ -48,6 +54,11 @@ const SignupForm = () => {
       setPasswordError(e.target.value !== password)
   }, [password])
 
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const onChangePhoneNumber = useCallback((e) => {
+    setPhoneNumber(e.target.value)
+  }, [])
+
   const [address, setAddress] = useState('')
   const onChangeAddress = useCallback((e) => {
     setAddress(e.target.value)
@@ -62,15 +73,35 @@ const SignupForm = () => {
 
   const onSubmit = useCallback(() => {
     if (password !== passwordCheck) {
-        return setPasswordError(true)
+      return setPasswordError(true)
     }
     if (!term) {
-        return setTermError(true)
+      return setTermError(true)
     }
-    
+
+    if (!regExpEm.test(email)) {
+      alert('이메일 형식이 맞지 않습니다.');
+      return;
+    }
+
+    if (!regExpPw.test(password)) {
+      alert('비밀번호는 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력하세요.')
+      return
+    }
+
+    if (!regExpPN.test(phoneNumber)) {
+      alert('전화번호는 000-0000-0000 형식으로 입력하세요.')
+      return
+    }
+
+    if (address.length >= 51) {
+      alert('주소는 50자 이하로 기입해주세요')
+      return
+    }
+
     dispatch({
       type: SIGN_UP_REQUEST,
-      data: { name, email, nickname, password, address }
+      data: { name, email, nickname, 'phone_number': phoneNumber, password, address }
     })
     dispatch({
       type: CHANGE_SIGN_UP_MODE
@@ -84,28 +115,32 @@ const SignupForm = () => {
   }, [])
 
   useEffect(() => {
-    if (name !== '' && email !== '' && nickname !== '' && password !== '' && passwordCheck !== '' && address !== '' && term === true) {
+    if (name !== '' && email !== '' && nickname !== '' && password !== '' && passwordCheck !== '' && phoneNumber !== '' && address !== '' && term === true) {
       setDisabled(false);
     }
 
-    if (name === '' || email === '' || nickname === '' || password === '' || passwordCheck === '' || address === '' || term === false) {
+    if (name === '' || email === '' || nickname === '' || password === '' || passwordCheck === '' || phoneNumber === '' || address === '' || term === false) {
       setDisabled(true);
     }
-  }, [name, email, nickname, password, passwordCheck, address, term]);
+  }, [name, email, nickname, password, passwordCheck, phoneNumber, address, term]);
 
   return (
-    <Wrapper>
-      <Typography align="center" className="sign-up1">
-        가입하고 더 많은 서비스를 누려보세요!
-      </Typography>
+    <Container maxWidth="sm" style={{margin: '0 20px', padding: '20px', background: '#ffffff', border: 'solid 1px #eeeeee', borderRadius: '10px', boxShadow: '2px 2px 2px #eeeeee'}}>
       <Grid
         container
         direction="row"
         justifyContent="center"
         alignItems="center"
-        spacing={1}
-        style={{ marginLeft: 4 }}
+        spacing={2}
       >
+        
+        <Grid item xs={1}>
+          <AssignmentIndIcon fontSize="large" style={{ color: '#89DDBF' }}/>
+        </Grid>
+        <Grid item xs={11}>
+          <Typography >회원가입</Typography>
+        </Grid>
+
         <Grid item xs={12} className="sign-up-grid-item1">
           <TextField
             required
@@ -186,6 +221,20 @@ const SignupForm = () => {
           <TextField
             required
             id="outlined-required"
+            label="전화번호"
+            value={phoneNumber}
+            className="text-field"
+            variant="outlined"
+            style={{background: 'white'}}
+            placeholder="전화번호 000-0000-0000"
+            fullWidth={true}
+            onChange={onChangePhoneNumber}
+          />
+        </Grid>
+        <Grid item xs={12} className="sign-up-grid-item1">
+          <TextField
+            required
+            id="outlined-required"
             label="주소"
             value={address}
             className="text-field"
@@ -196,12 +245,13 @@ const SignupForm = () => {
             onChange={onChangeAddress}
           />
         </Grid>
-        <div>
-          <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>
-            {'MYME 약관에 동의합니다.'}
-          </Checkbox>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={<Checkbox checked={term} onChange={onChangeTerm} />}
+            label="MYME 약관에 동의하셔야 합니다."
+          />
           {termError && <ErrorMessage>약관에 동의하셔야 합니다.</ErrorMessage>}
-        </div>
+        </Grid>
         <Grid item xs={12} className="sign-up-grid-item3">
           <Button
             variant="contained"
@@ -218,38 +268,30 @@ const SignupForm = () => {
             회원가입
           </Button>
         </Grid>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={1}
-          className="sign-up3-grid-item"
-        >
-          <Grid item xs={5}>
-            <Divider />
-          </Grid>
-
-          <Grid item xs={2}>
-            <Typography
-              align="center"
-              className="sign-up3-grid-item-typography"
-            >
-              or
-            </Typography>
-          </Grid>
-
-          <Grid item xs={5}>
-            <Divider />
-          </Grid>
-        </Grid>
-        <Grid item xs={2} />
+        
         <Grid item xs={5}>
+          <Divider />
+        </Grid>
+
+        <Grid item xs={2}>
+          <Typography
+            align="center"
+            className="sign-up3-grid-item-typography"
+          >
+            or
+          </Typography>
+        </Grid>
+
+        <Grid item xs={5}>
+          <Divider />
+        </Grid>
+        
+        <Grid item xs={6}>
           <Typography align="center" className="sign-up4-grid-item-typography">
             {'계정이 있으신가요?'}
           </Typography>
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={6}>
           <Button
             fullWidth={true}
             onClick={onChangeSignupMode}
@@ -259,7 +301,7 @@ const SignupForm = () => {
           </Button>
         </Grid>
       </Grid>
-    </Wrapper>
+    </Container>
   );
 }
 
