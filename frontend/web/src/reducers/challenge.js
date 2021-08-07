@@ -17,7 +17,6 @@ const initialState = {
     "name" : '',
     // "subject" : '',
     "start_date" : '',
-    // "createdAt" : '',
     "period" : -1,
     "repeat_cycle" : 1,
     "auth_count": 1,
