@@ -25,7 +25,7 @@ const App = (props) => {
           <h2 className="title">{routine.name}</h2>
         </AccordionSummary>
         <AccordionDetails className='routine-list-item-detail'>
-          <List class='accordian-detail-list'>
+          <List className='accordian-detail-list'>
             {
               routine.RoutinizedHabits
                 ? (
