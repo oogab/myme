@@ -64,7 +64,6 @@ export const LOAD_ROUTINIZED_HABIT_FAILURE = 'LOAD_ROUTINIZED_HABITS_FAILURE'
 
 export const CLEAR_MY_ROUTINES = 'CLEAR_MY_ROUTINES'
 
-
 export const SET_ORDER = 'routine/setOrder';
 
 export const SET_CHOOSED_ROUTINE='routine/setChoosedRoutine';

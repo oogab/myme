@@ -13,13 +13,11 @@
  *          content:
  *            type: text
  */
-
 module.exports = (sequelize, DataTypes) => {
   const DailyAchieveChallenge = sequelize.define('DailyAchieveChallenge', {
     date_time: {
       type: DataTypes.DATE,
       allowNull: false,
-      primaryKey: true,
       defaultValue: sequelize.literal('now()')
     },
     img_addr: {

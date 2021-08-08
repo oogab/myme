@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
 
   ChallengeParticipation.associate = (db) => {
     db.ChallengeParticipation.hasMany(db.DailyAchieveChallenge)
+    db.ChallengeParticipation.belongsTo(db.Challenge)
+    db.ChallengeParticipation.belongsTo(db.User)
   }
 
   return ChallengeParticipation

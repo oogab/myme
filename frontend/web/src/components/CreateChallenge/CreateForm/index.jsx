@@ -83,7 +83,7 @@ const TealColor = withStyles((theme) => ({
   }))(TextField)
 
 
-function CreateChallenge() {
+const CreateChallenge = () => {
   const dispatch = useDispatch()
 
   const classes = useStyles();
@@ -104,10 +104,9 @@ function CreateChallenge() {
   const [startDate, setStartDate] = useState(Date.now());
   const [endDate, setEndDate] = useState(startDate);
   
-  var diffDay = (endDate - startDate) / (1000*60*60*24);
+  let diffDay = Math.round((endDate - startDate) / (1000*60*60*24));
   
 // 인증 횟수
- 
   const [check, setCheck] = useState(false);
 
   const [name, setName] = useState('')
@@ -165,8 +164,6 @@ function CreateChallenge() {
       }
     })
   },[name, start_date, period, repeat_cycle, auth_count, content]);
-
-
 
   return (
     <Wrapper>
@@ -267,13 +264,15 @@ function CreateChallenge() {
                               return  <FormControlLabel value={e.label} control={<TealRadio />} label={e.label} />
                           })
                       } */}
-                      <FormControlLabel value="7" control={<TealRadio />} label="월~일 매일" />
-                      <FormControlLabel value="5" control={<TealRadio />} label="월~금 매일" />
-                      <FormControlLabel value="2" control={<TealRadio />} label="토~일 매일" />
-                      <FormControlLabel value="1" control={<TealRadio />}label="선택">
-                        
-                          
-                      </FormControlLabel>
+                      <FormControlLabel value="7" control={<TealRadio />} label="매일" />
+                      <FormControlLabel value="5" control={<TealRadio />} label="평일 매일" />
+                      <FormControlLabel value="2" control={<TealRadio />} label="주말 매일" />
+                      <FormControlLabel value="6" control={<TealRadio />} label="주 6일" />
+                      <FormControlLabel value="5" control={<TealRadio />} label="주 5일" />
+                      <FormControlLabel value="4" control={<TealRadio />} label="주 4일" />
+                      <FormControlLabel value="3" control={<TealRadio />} label="주 3일" />
+                      <FormControlLabel value="2" control={<TealRadio />} label="주 2일" />
+                      <FormControlLabel value="1" control={<TealRadio />} label="주 1일" />
                   </RadioGroup>
                 </FormControl>
             </Grid>
@@ -319,10 +318,4 @@ function CreateChallenge() {
   );
 }
 
-// const mapStateToProps = (state) =>{
-//   return {
-//       state
-//   }
-// }
-// export default connect(mapStateToProps)(CreateChallenge);
 export default CreateChallenge

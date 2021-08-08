@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
+    end_date: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
     period: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -63,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
       through: 'ChallengeCategory'
     })
     db.Challenge.hasMany(db.Comment)
-    db.Challenge.hasOne(db.ChallengeParticipation, {foreignKey: 'ChallengeId'})
+    db.Challenge.hasMany(db.ChallengeParticipation)
   }
 
   return Challenge

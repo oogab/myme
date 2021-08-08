@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Habit.associate = (db) => {
     db.Habit.belongsTo(db.User)
-    db.Habit.hasOne(db.RoutinizedHabit, {foreignKey: 'HabitId'})
+    db.Habit.hasMany(db.RoutinizedHabit)
     db.Habit.belongsToMany(db.Category, {
       through: 'HabitCategory'
     })

@@ -11,6 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useHistory } from 'react-router-dom';
 import Layout from '../../layout/index';
 import { teal } from '@material-ui/core/colors';
+
 const useStyles = makeStyles((theme) => ({
     search: {
       position: 'relative',
@@ -65,10 +66,10 @@ const Challenge = () => {
     const classes = useStyles();
     let history = useHistory();
       return (       
-           <Wrapper>
-               <Layout>
-               <Grid container xs={12} style={{padding: '20px', margin: '10px'}}>
-                   <Grid item xs={4} className="CardContent"></Grid>
+          <Wrapper>
+            <Layout>
+              <Grid container xs={12} style={{padding: '20px', margin: '10px'}}>
+                  <Grid item xs={4} className="CardContent"></Grid>
                     <Grid item xs={8} className="CardContent">
                         <div className={classes.search} style={{float:'right'}}>
                             <div className={classes.searchIcon}>
@@ -120,10 +121,10 @@ const Challenge = () => {
                     </Grid>
                 </Grid>
                 </Layout>
-             </Wrapper>
+            </Wrapper>
           
       );
- }
+}
 
 export default Challenge;
 

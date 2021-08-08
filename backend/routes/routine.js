@@ -1,5 +1,5 @@
 const express = require('express')
-const { Routine, User, RoutinizedHabit, RoutineActiveDay } = require('../models')
+const { Routine, User, RoutinizedHabit, RoutineActiveDay, Habit } = require('../models')
 const { isLoggedIn } = require('./middlewares')
 
 const router = express.Router()
@@ -38,6 +38,10 @@ router.get('/', isLoggedIn, async (req, res, next) => { // GET /routine
         attributes: ['id', 'nickname']
       }, {
         model: RoutinizedHabit,
+        include: [{
+          model: Habit,
+          attributes: ['name']
+        }]
       }, {
         model: RoutineActiveDay
       }]

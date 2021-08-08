@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import store from 'store';
 
@@ -43,6 +43,12 @@ const Header = (state) => {
     }
   };
 
+  const onToggleDrawer = useCallback(() => {
+    dispatch({
+      type: TOGGLE_DRAWER
+    })
+  }, [])
+
   return (
     <>
       <Wrapper>
@@ -52,9 +58,7 @@ const Header = (state) => {
             direction="column"
             justifyContent="space-between"
             aria-label="open drawer"
-            onClick={
-              ()=>{ dispatch({type: TOGGLE_DRAWER})}
-            }
+            onClick={onToggleDrawer}
             className={drawerOpen ? 'menu-button on' : 'menu-button'}
           >
             <Grid></Grid>

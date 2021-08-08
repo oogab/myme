@@ -1,18 +1,15 @@
 // react
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 // ui
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 //redux
-import {Provider, useDispatch} from 'react-redux';
+import { Provider } from 'react-redux';
+
 // import store from './redux';
 import store from './store/configureStore'
-
-// hook
-import { CommonContext } from './context/CommonContext';
-import { useLocalStorageSetState } from './common/CommonHooks';
 
 // page
 import RoutineSetting from './pages/RoutineSetting/';
@@ -22,22 +19,13 @@ import Challenge from './pages/Challenge/';
 import CreateChallenge from './pages/CreateChallenge/';
 import Profile from './pages/Profile/';
 import MirrorSetting from './pages/MirrorSetting/';
-import Layout from './layout/';
 import Auth from './pages/Auth/';
 
 // css
 import './index.css';
-import { LOAD_MY_INFO_REQUEST } from './reducers/user';
-
-// const
-const defaultThumbnailImage = 'default_user.jpg';
-const HOST = '192.168.0.82:3001';
-const serverUrl = `http://localhost:3065`;
-const serverUrlBase = `http://${HOST}`;
-const serverImgUrl = `https://ssafy-viba-s3.s3.ap-northeast-2.amazonaws.com/public/`;
 
 /// theme
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: ['Noto Sans KR'].join(','),
     button: {

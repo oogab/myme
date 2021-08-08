@@ -71,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
     db.User.hasMany(db.Routine)
     db.User.hasMany(db.Challenge)
     db.User.hasMany(db.Comment)
-    db.User.hasOne(db.ChallengeParticipation, {foreignKey: 'UserId'})
+    db.User.hasMany(db.ChallengeParticipation)
   }
 
   return User

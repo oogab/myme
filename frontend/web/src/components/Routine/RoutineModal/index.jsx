@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import { CLOSE_ROUTINE_MODAL } from '../../../reducers/modal';
-import { ADD_HABIT_REQUEST, ADD_ROUTINIZED_HABIT_REQUEST } from '../../../reducers/routine';
+import { ADD_HABIT_REQUEST, ADD_ROUTINIZED_HABIT_REQUEST, LOAD_MY_ROUTINES_REQUEST } from '../../../reducers/routine';
 import {Paper, Grid, TextField} from '@material-ui/core';
 import {Create, Event} from '@material-ui/icons';
 import Habit from '../Habit/';
@@ -125,9 +125,12 @@ function SimpleModal(props) {
       data: {
         "order": 0,
         "achieve_count": 0,
-        "HabitId": habitId
+        habitId
       },
       id:myRoutines[choosedRoutine].id
+    })
+    dispatch({
+      type: LOAD_MY_ROUTINES_REQUEST,
     })
     closeRoutine()
   }

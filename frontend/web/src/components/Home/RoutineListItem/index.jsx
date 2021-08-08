@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Wrapper from './styles'
 import {
     Accordion,
@@ -8,11 +8,10 @@ import {
     ListItem
   } from '@material-ui/core';
 import RoutineItemCheck from '../RoutineItemCheck/index';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 const App = (props) => {
   const { routine } = props
-  // console.log(routine.RoutinizedHabits)
 
   return(
     <Wrapper>
@@ -31,8 +30,11 @@ const App = (props) => {
                 ? (
                   routine.RoutinizedHabits.map((habit) => {
                     return (
+                      // <ListItem className='items'>
+                      //   {habit.Habit.name}
+                      // </ListItem>
                       <ListItem className='items'>
-                        <RoutineItemCheck routineId={habit?.name} />
+                        <RoutineItemCheck habit={habit} />
                       </ListItem>
                     )
                   })

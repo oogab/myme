@@ -42,7 +42,7 @@ router.post('/:routineId', isLoggedIn, async (req, res, next) => {
   try {
     const routinizedHabit = await RoutinizedHabit.create({
       order: req.body.order,
-      achieve_count: 0,
+      achieve_count: req.body.achieve_count,
       RoutineId: req.params.routineId,
       HabitId: req.body.habitId
     })
@@ -138,5 +138,58 @@ router.post('/', isLoggedIn, async (req, res, next) => {
     next(error)
   }
 })
+
+// // 루틴에 저장된 습관 목록 불러오기
+// /**
+//  * @swagger
+//  *  /routinizedHabit/{routineId}:
+//  *    get:
+//  *      tags:
+//  *      - routinizedHabit
+//  *      description: 루틴에 저장된 습관 목록 불러오기
+//  *      parameters:
+//  *        - in: path
+//  *          name: routineId
+//  *          required: true
+//  *          schema:
+//  *            type: integer
+//  *            minimum: 1
+//  *          description: 저장된 습관 목록을 불러오려는 루틴의 Id
+//  *      responses:
+//  *        '200':
+//  *          description: Success
+//  *          content:
+//  *            application/json:
+//  *              schema:
+//  *                type: object
+//  *                properties:
+//  *                  order:
+//  *                    type: integer
+//  *                  assist_content:
+//  *                    type: text
+//  *                  assist_link:
+//  *                    type: string
+//  *                  achieve_count:
+//  *                    type: integer
+//  *                    description: 초기에 무조건 0으로 고정
+//  *                  HabitId:
+//  *                    type: integer
+//  *                  RoutineId:
+//  *                    type: integer
+//  */
+// router.get('/:routineId', isLoggedIn, async (req, res, next) => {
+//   try {
+//     const routinizedHabits = await RoutinizedHabit.findAll({
+//       where: { RoutineId: req.params.routineId },
+//       include: [{
+//         model: DailyAchieveHabit,
+//       }]
+//     })
+//     res.status(200).json(routinizedHabits)
+//   } catch (error) {
+//     console.error(error)
+//     next(error)
+//   }
+// })
 
 module.exports = router

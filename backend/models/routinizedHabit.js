@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const RoutinizedHabit = sequelize.define('RoutinizedHabbit', {
+  const RoutinizedHabit = sequelize.define('RoutinizedHabit', {
     order: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 
   RoutinizedHabit.associate = (db) => {
     db.RoutinizedHabit.belongsTo(db.Routine)
+    db.RoutinizedHabit.belongsTo(db.Habit)
     db.RoutinizedHabit.hasMany(db.DailyAchieveHabit)
   }
 
