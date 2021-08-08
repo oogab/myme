@@ -128,7 +128,7 @@ function SimpleModal(props) {
           }
           
         })
-      }else{
+      } else {
         dispatch({type:MODIFY_ROUTINE});
       }
     }

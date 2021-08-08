@@ -23,6 +23,7 @@ import UploadImg from '../UploadImg/';
 
 import {connect, useDispatch, useSelector} from 'react-redux';
 import { ADD_CHALLENGE_REQUEST, ADD_CHALLENGE } from '../../../reducers/challenge';
+import { useHistory } from 'react-router-dom';
 
 const GreenCheckbox = withStyles({
   root: {
@@ -85,6 +86,7 @@ const TealColor = withStyles((theme) => ({
 
 const CreateChallenge = () => {
   const dispatch = useDispatch()
+  let history = useHistory()
 
   const classes = useStyles();
   const [state, setState] = React.useState({});
@@ -163,158 +165,183 @@ const CreateChallenge = () => {
         content
       }
     })
+    history.push('/Home')
   },[name, start_date, period, repeat_cycle, auth_count, content]);
 
   return (
     <Wrapper>
-        <Grid container xs={10} className="grid">
-            <Grid item xs={12} className="titleGrid">
-                <h1 style={{margin: 0}}>챌린지 생성</h1>
-            </Grid>
-            <Grid item xs={12}>
-                <h4>1. 개설하려는 챌린지에 이름을 붙여주세요!</h4>
-                <TealColor
-                id="standard-full-width"
-                style={{ margin: '10px'}}
-                placeholder="ex. 1일 1커밋"
-                value={name}
-                fullWidth
-                margin="normal"
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                onChange={onChangeName}
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <h4>2. 어떤 주제와 관련이 있나요?</h4>
-                <FormControl component="fieldset" style={{ margin: '10px'}}>
-                  <RadioGroup name="주제" value={subject} onChange={onChangeSubject}>
-                      {
-                          names.map((e, i)=>{
-                              return  <FormControlLabel value={e.label} control={<TealRadio />} label={e.label} />
-                          })
-                      }
-                  </RadioGroup>
-                </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <h4>3. 얼마동안 할건가요?</h4>
-              
-              <Grid container spacing={3} style={{margin: '10px'}}>
-                <Grid item xs={3}>
-                  
-                  <h4 className="dateTitle">시작일</h4>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <KeyboardDatePicker
-                      disableToolbar
-                      variant="inline"
-                      format="yyyy/MM/dd"
-                      margin="normal"
-                      id="date-picker-inline"
-                      value={startDate}
-                      onChange={date => setStartDate(date)}
-                      startDate={startDate}
-                      selected={startDate}
-                      minDate={Date.now()}
-                      locale={ko}
-                      KeyboardButtonProps={{
-                          'aria-label': 'change date',
-                      }}
-                      />
-
-                
-                  </MuiPickersUtilsProvider>
-                </Grid>
-                <Grid item xs={3}>
-                    <h4 className="dateTitle">종료일</h4>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      
-                  <KeyboardDatePicker
-                          disableToolbar
-                          variant="inline"
-                          format="yyyy/MM/dd"
-                          margin="normal"
-                          id="date-picker-inline"
-                          value={endDate}
-                          minDate={startDate}
-                          onChange={date => setEndDate(date)}
-                          locale={ko}
-                          KeyboardButtonProps={{
-                              'aria-label': 'change date',
-                          }}
-                          />
-
-                      </MuiPickersUtilsProvider>
-                </Grid>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={4} float='right'>
-                  <h4 className="dateTitle" style={{marginBottom: '50px'}}> </h4>
-                  <Typography variant='h5' onChange={onChangeDays}>🏃‍♂️ {diffDay} 일</Typography>
-                </Grid>
-              </Grid>
-            </Grid> 
-          
-            <Grid item xs={12}>
-                <h4>4. 얼마나 자주 할건가요?</h4>
-                <FormControl component="fieldset" style={{ margin: '10px'}}>
-                  <RadioGroup name="주제" value={repeat_cycle} onChange={onChangeRepeat}>
-                      {/* {
-                          repeats.map((e, i)=>{
-                              return  <FormControlLabel value={e.label} control={<TealRadio />} label={e.label} />
-                          })
-                      } */}
-                      <FormControlLabel value="7" control={<TealRadio />} label="매일" />
-                      <FormControlLabel value="5" control={<TealRadio />} label="평일 매일" />
-                      <FormControlLabel value="2" control={<TealRadio />} label="주말 매일" />
-                      <FormControlLabel value="6" control={<TealRadio />} label="주 6일" />
-                      <FormControlLabel value="5" control={<TealRadio />} label="주 5일" />
-                      <FormControlLabel value="4" control={<TealRadio />} label="주 4일" />
-                      <FormControlLabel value="3" control={<TealRadio />} label="주 3일" />
-                      <FormControlLabel value="2" control={<TealRadio />} label="주 2일" />
-                      <FormControlLabel value="1" control={<TealRadio />} label="주 1일" />
-                  </RadioGroup>
-                </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-                <h4>5. 하루에 몇 번 인증이 필요한가요?</h4>
-                <FormControl className={classes.formControl} style={{ margin: '10px'}}>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={auth_count}
-                    onChange={onChangeProof}
-                  >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                    <MenuItem value={5}>5</MenuItem>
-                  </Select>
-                </FormControl>
-
-
-            </Grid>
-            <Grid item xs={12}>
-                <h4>6. 챌린지를 소개해 주세요!</h4>
-                  <TextField
-                    id="outlined-multiline-static"
-                    fullWidth
-                    multiline
-                    value={content}
-                    rows={4}
-                    variant="outlined"
-                    style={{ margin:'10px'}}
-                    onChange={onChangeIntroduce}
-                  />
-                
-            </Grid>
-            <Grid item xs={12} style={{margin:'40px 10px'}}>
-                    <ColorButton variant="contained" onClick={add}>개설하고 멋있게 도전하기!</ColorButton>
-                    <Button variant="contained" style={{margin: '10px'}} >취소</Button>
-                </Grid>
+      <Grid container xs={10} className="grid">
+        <Grid item xs={12} className="titleGrid">
+          <h1 style={{margin: 0}}>챌린지 생성</h1>
         </Grid>
-        </Wrapper>
+        <Grid item xs={12}>
+          <h4>1. 개설하려는 챌린지에 이름을 붙여주세요!</h4>
+          <TealColor
+            id="standard-full-width"
+            style={{ margin: '10px'}}
+            placeholder="ex. 1일 1커밋"
+            value={name}
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+                shrink: true,
+            }}
+            onChange={onChangeName}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <h4>2. 어떤 주제와 관련이 있나요?</h4>
+          <FormControl component="fieldset" style={{ margin: '10px'}}>
+            <RadioGroup name="주제" value={subject} onChange={onChangeSubject}>
+              {
+                names.map((e, i)=>{
+                    return  <FormControlLabel value={e.label} control={<TealRadio />} label={e.label} />
+                })
+              }
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <h4>3. 얼마나 자주 할건가요?</h4>
+          <FormControl component="fieldset" style={{ margin: '10px'}}>
+            <RadioGroup name="주제" value={repeat_cycle} onChange={onChangeRepeat}>
+              {/* {
+                  repeats.map((e, i)=>{
+                      return  <FormControlLabel value={e.label} control={<TealRadio />} label={e.label} />
+                  })
+              } */}
+              <FormControlLabel value="1" control={<TealRadio />} label="매일" />
+              <FormControlLabel value="2" control={<TealRadio />} label="평일 매일" />
+              <FormControlLabel value="3" control={<TealRadio />} label="주말 매일" />
+              <FormControlLabel value="4" control={<TealRadio />} label="주 6일" />
+              <FormControlLabel value="5" control={<TealRadio />} label="주 5일" />
+              <FormControlLabel value="6" control={<TealRadio />} label="주 4일" />
+              <FormControlLabel value="7" control={<TealRadio />} label="주 3일" />
+              <FormControlLabel value="8" control={<TealRadio />} label="주 2일" />
+              <FormControlLabel value="9" control={<TealRadio />} label="주 1일" />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <h4>4. 얼마동안 할건가요?</h4>
+          {repeat_cycle <= 3
+            ? (
+            <Grid Grid container spacing={3} style={{margin: '10px'}}>
+              <Grid item xs={3}>
+                <h4 className="dateTitle">시작일</h4>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy/MM/dd"
+                    margin="normal"
+                    id="date-picker-inline"
+                    value={startDate}
+                    onChange={date => setStartDate(date)}
+                    startDate={startDate}
+                    selected={startDate}
+                    minDate={Date.now()}
+                    locale={ko}
+                    KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </Grid>
+              <Grid item xs={3}>
+                <h4 className="dateTitle">종료일</h4>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy/MM/dd"
+                    margin="normal"
+                    id="date-picker-inline"
+                    value={endDate}
+                    minDate={startDate}
+                    onChange={date => setEndDate(date)}
+                    locale={ko}
+                    KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </Grid>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={4} float='right'>
+                <h4 className="dateTitle" style={{marginBottom: '50px'}}> </h4>
+                <Typography variant='h5' onChange={onChangeDays}>🏃‍♂️ {diffDay} 일</Typography>
+              </Grid>
+            </Grid>
+            )
+            : (
+            <Grid Grid container spacing={3} style={{margin: '10px'}}>
+              <Grid item xs={3}>
+                <h4 className="dateTitle">시작일</h4>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="yyyy/MM/dd"
+                    margin="normal"
+                    id="date-picker-inline"
+                    value={startDate}
+                    onChange={date => setStartDate(date)}
+                    startDate={startDate}
+                    selected={startDate}
+                    minDate={Date.now()}
+                    locale={ko}
+                    KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </Grid>
+              <Grid item xs={1}></Grid>
+              <Grid item xs={4} float='right'>
+                <h4 className="dateTitle" style={{marginBottom: '50px'}}> </h4>
+                <Typography variant='h5' onChange={onChangeDays}>🏃‍♂️ {diffDay} 일</Typography>
+              </Grid>
+            </Grid>
+            )
+          }
+        </Grid>
+        <Grid item xs={12}>
+          <h4>5. 하루에 몇 번 인증이 필요한가요?</h4>
+          <FormControl className={classes.formControl} style={{ margin: '10px'}}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={auth_count}
+              onChange={onChangeProof}
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <h4>6. 챌린지를 소개해 주세요!</h4>
+          <TextField
+            id="outlined-multiline-static"
+            fullWidth
+            multiline
+            value={content}
+            rows={4}
+            variant="outlined"
+            style={{ margin:'10px'}}
+            onChange={onChangeIntroduce}
+          />
+        </Grid>
+        <Grid item xs={12} style={{margin:'40px 10px'}}>
+          <ColorButton variant="contained" onClick={add}>개설하고 멋있게 도전하기!</ColorButton>
+          <Button variant="contained" style={{margin: '10px'}} >취소</Button>
+        </Grid>
+      </Grid>
+    </Wrapper>
   );
 }
 

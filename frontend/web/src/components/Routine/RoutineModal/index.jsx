@@ -114,7 +114,7 @@ function SimpleModal(props) {
           "time_required": time
         }
       })
-      connectRoutinizedHabit(myHabits[myHabits.length-1].id)
+      connectRoutinizedHabit(myHabits[myHabits?.length-1]?.id)
     }
     
   }
