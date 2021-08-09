@@ -193,7 +193,7 @@ router.patch('/:routineId', isLoggedIn, async (req, res, next) => { // PATCH /ro
     const routine = await Routine.findOne({
       where: req.params.routineId
     })
-    res.status(200).json({routine})
+    res.status(200).json(routine)
   } catch (error) {
     console.error(error)
     next(error)
@@ -222,7 +222,7 @@ router.patch('/:routineId', isLoggedIn, async (req, res, next) => { // PATCH /ro
 router.delete('/:routineId', isLoggedIn, async (req, res, next) => {
   try {
     await Routine.destroy({
-      where: req.params.routineId,
+      where: { id: req.params.routineId }
     })
     res.status(200).json('Success')
   } catch (error) {
