@@ -115,8 +115,6 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /routine
         model: User,
         attributes: ['id', 'nickname']
       }, {
-        model: RoutinizedHabit,
-      }, {
         model: RoutineActiveDay
       }]
     })
@@ -174,7 +172,7 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /routine
  *                  RoutineActiveDay:
  *                    type: array
  */
-router.patch('/:routineId', isLoggedIn, async (req, res, next) => { // PATCH /routine/:routineId
+router.put('/:routineId', isLoggedIn, async (req, res, next) => { // PATCH /routine/:routineId
   try {
     await Routine.update({
       name: req.body.name,
@@ -191,7 +189,10 @@ router.patch('/:routineId', isLoggedIn, async (req, res, next) => { // PATCH /ro
       })
     })
     const routine = await Routine.findOne({
-      where: req.params.routineId
+      where: { id: req.params.routineId },
+      include: [{
+        model: RoutineActiveDay
+      }]
     })
     res.status(200).json(routine)
   } catch (error) {
