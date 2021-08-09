@@ -39,15 +39,9 @@ sequelize.sync()
 app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use(session({
   httpOnly: true,
-  // secure: true,
   resave: false,
   saveUninitialized: false,
-  // proxy: true,
   secret: process.env.COOKIE_SECRET,
-  // cookie: {
-  //   httpOnly: true,
-  //   secure: true,
-  // },
   name: 'connect.sid',
 }))
 // app.use('요청경로', express.static(path.join('실제 경로'))) -> 보안에 좋음, 서버 구조를 예측 불가능!
