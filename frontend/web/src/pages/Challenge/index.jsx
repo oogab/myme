@@ -224,39 +224,3 @@ const Challenge = () => {
 }
 export default connect(mapStateToProps)(Challenge);
 
-
-
-// const Container = styled.div`
-//     min-height: 400px;
-//     background: #1ab394;
-//   `,
-//   StyledSlider = styled(Slider)`
-//     & .slick-slide img {
-//       max-width: 100%;
-//       min-height: 500px;
-//     }
-//   `,
-//   ImageContainer = styled.div`
-//     position: relative;
-//     color: white;
-//     margin: 0 20px;
-//   `,
-//   Image = styled.img``,
-//   BottomLeft = styled.div`
-//     position: absolute;
-//     bottom: 8px;
-//     left: 16px;
-//   `;
-
-// const items = [
-//   { id: 1, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 2, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 3, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 4, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 5, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 6, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 7, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 8, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 9, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 10, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" }
-// ];
