@@ -5,6 +5,7 @@ import ChallengeItem from '../../components/Home/ChallengeItem/index';
 import RoutineListItem from '../../components/Home/RoutineListItem/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_MY_ROUTINES_REQUEST } from '../../reducers/routine';
+import {LOAD_MY_HABITS_REQUEST} from '../../reducers/habit';
 import { LOAD_MY_CHALLENGES_REQUEST } from '../../reducers/challenge';
 
 const App = () => {
@@ -15,6 +16,9 @@ const App = () => {
   useEffect(() => {
     dispatch({
       type: LOAD_MY_ROUTINES_REQUEST
+    })
+    dispatch({
+      type: LOAD_MY_HABITS_REQUEST
     })
     dispatch({
       type: LOAD_MY_CHALLENGES_REQUEST

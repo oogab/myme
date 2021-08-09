@@ -18,13 +18,17 @@
  */
 module.exports = (sequelize, DataTypes) => {
   const RoutineActiveDay = sequelize.define('RoutineActiveDay', {
-    active_day_of_week: {
+    day_of_week: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
     start_time: {
       type: DataTypes.TIME,
       allowNull: true,
+    },
+    active:{
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
     }
   })
 

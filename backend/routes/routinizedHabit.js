@@ -77,23 +77,17 @@ router.post('/:routineId', isLoggedIn, async (req, res, next) => {
  *        '200':
  *          description: Success
  */
-router.patch('/order', isLoggedIn, async (req, res, next) => {
+router.put('/order', isLoggedIn, async (req, res, next) => {
   try {
-    const routinizedHabits = await RoutinizedHabit.findAll({
-      where: { RoutineId: req.body.routineId },
+    req.body.habits.map(async (routinizedHabit) => {
+          await RoutinizedHabit.update(
+            {order: routinizedHabit.order},
+            {
+              where: { id: routinizedHabit.id }
+            }
+          )
     })
-    // 이게 맞나 싶다...
-    routinizedHabits.map(async (routinizedHabit) => {
-      for(let i=0; i<routinizedHabits.length; i++) {
-        if (routinizedHabit.id === req.body.habits[i].habitId) {
-          await RoutinizedHabit.update({
-            order: req.body.habits[i].order,
-            where: { id: routinizedHabit.id }
-          })
-        }
-      }
-    })
-    res.status(200).json(routinizedHabits)
+    res.status(200).json(req.body.habits)
   } catch (error) {
     console.error(error)
     next(error)

@@ -11,7 +11,6 @@ import {connect} from 'react-redux';
 
 function App(props){
   const { habit } = props
-
     return (
         <Wrapper>
             <Accordion className="panel" className='routine-item-check'>

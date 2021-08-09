@@ -174,26 +174,34 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /routine
  *                  RoutineActiveDay:
  *                    type: array
  */
-router.patch('/:routineId', isLoggedIn, async (req, res, next) => { // PATCH /routine/:routineId
+router.put('/:routineId', isLoggedIn, async (req, res, next) => { // PATCH /routine/:routineId
   try {
     await Routine.update({
       name: req.body.name,
       alarm: req.body.alarm,
     },{
-      where: { id: req.params.routineId, UserId: req.user.id },
+      where: { id: req.params.routineId },
     })
     req.body.active_day_of_week.map(async (v, i) => {
       await RoutineActiveDay.update({
         start_time: v.start_time,
         active: v.active
       }, {
-        where: { RoutineId: req.params.routineId, UserId: req.user.id, day_of_week: i }
+        where: { RoutineId: req.params.routineId, day_of_week: i }
       })
     })
     const routine = await Routine.findOne({
-      where: req.params.routineId
+      where: {id: req.params.routineId},
+      include: [{
+        model: User,
+        attributes: ['id', 'nickname']
+      }, {
+        model: RoutinizedHabit,
+      }, {
+        model: RoutineActiveDay
+      }]
     })
-    res.status(200).json({routine})
+    res.status(200).json(routine)
   } catch (error) {
     console.error(error)
     next(error)
@@ -222,7 +230,7 @@ router.patch('/:routineId', isLoggedIn, async (req, res, next) => { // PATCH /ro
 router.delete('/:routineId', isLoggedIn, async (req, res, next) => {
   try {
     await Routine.destroy({
-      where: req.params.routineId,
+      where: { id: req.params.routineId }
     })
     res.status(200).json('Success')
   } catch (error) {

@@ -28,12 +28,9 @@ const App = (props) => {
             {
               routine.RoutinizedHabits
                 ? (
-                  routine.RoutinizedHabits.map((habit) => {
+                  routine.RoutinizedHabits.map((habit, idx) => {
                     return (
-                      // <ListItem className='items'>
-                      //   {habit.Habit.name}
-                      // </ListItem>
-                      <ListItem className='items'>
+                      <ListItem className='items' key={idx}>
                         <RoutineItemCheck habit={habit} />
                       </ListItem>
                     )
@@ -41,12 +38,6 @@ const App = (props) => {
                 )
                 : null
             }
-            {/* <ListItem className='items'>
-              <RoutineItemCheck routineId='하루 10분 명상'/>
-            </ListItem>
-            <ListItem className='items'>
-              <RoutineItemCheck routineId='오늘의 다짐 작성'/>
-            </ListItem> */}
           </List>
         </AccordionDetails>
       </Accordion>

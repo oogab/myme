@@ -7,7 +7,8 @@ import RoutineModal from '../../components/Routine/RoutineModal/index';
 import CreateRoutineModal from '../../components/Routine/CreateRoutineModal/index';
 import Layout from '../../layout/';
 import Wrapper from './styles';
-import { LOAD_MY_ROUTINES_REQUEST, LOAD_MY_HABITS_REQUEST, LOAD_ROUTINIZED_HABIT_REQUEST } from '../../reducers/routine';
+import { LOAD_MY_ROUTINES_REQUEST, LOAD_ROUTINIZED_HABIT_REQUEST } from '../../reducers/routine';
+import {LOAD_MY_HABITS_REQUEST} from '../../reducers/habit'
 
 function App (props) {
   const dispatch = useDispatch()
