@@ -8,11 +8,13 @@
  *        properties:
  *          id:
  *            type: integer
- *          active_day_of_week:
+ *          day_of_week:
  *            type: integer
  *            description: 월 0 / 화 1 / 수 2 / 목 3 / 금 4 / 토 5 / 일 6
  *          start_time:
  *            type: time
+ *          active:
+ *            type: boolean
  *          RoutineId:
  *            type: integer
  */

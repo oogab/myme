@@ -116,8 +116,6 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /routine
         model: User,
         attributes: ['id', 'nickname']
       }, {
-        model: RoutinizedHabit,
-      }, {
         model: RoutineActiveDay
       }]
     })
