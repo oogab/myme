@@ -53,14 +53,14 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/Home" component={Home} />
-            <Route exact path="/RoutineSetting" component={RoutineSetting} />
-            <Route exact path="/not-found" component={NotFound} />
-            <Route exact path="/Challenge" component={Challenge} />
-            <Route exact path="/CreateChallenge" component={CreateChallenge} />
-            <Route exact path="/Profile" component={Profile} />
-            <Route exact path="/MirrorSetting" component={MirrorSetting} />
             <Route exact path="/" component={Auth} />
+            <Route path="/Home" component={Home} />
+            <Route path="/RoutineSetting" component={RoutineSetting} />
+            <Route path="/not-found" component={NotFound} />
+            <Route path="/Challenge" component={Challenge} />
+            <Route path="/CreateChallenge" component={CreateChallenge} />
+            <Route path="/Profile" component={Profile} />
+            <Route path="/MirrorSetting" component={MirrorSetting} />
             <Redirect to="/not-found" />
           </Switch>
         </BrowserRouter>
