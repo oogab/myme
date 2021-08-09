@@ -25,6 +25,8 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 import { ADD_CHALLENGE_REQUEST, ADD_CHALLENGE } from '../../../reducers/challenge';
 import { useHistory } from 'react-router-dom';
 
+import Alert from '@material-ui/lab/Alert';
+
 const GreenCheckbox = withStyles({
   root: {
     color: teal[400],
@@ -136,7 +138,7 @@ const CreateChallenge = () => {
     setDays(e.target.value)
   }, [])
 
-  const [repeat_cycle, setRepeat] = useState(1)
+  const [repeat_cycle, setRepeat] = useState('')
   const onChangeRepeat = useCallback((e) => {
     setRepeat(e.target.value)
   }, [])
@@ -152,6 +154,30 @@ const CreateChallenge = () => {
   }, [])
 
   const add = useCallback(() =>{
+    if(!name){
+      alert('챌린지 이름을 입력하세요.')
+      return
+    }
+    // if(!subject){
+    //   alert('관련 주제를 선택하세요.')
+    //   return
+    // }
+    if(!startDate){
+      alert('시작일을 선택하세요.')
+      return
+    }
+    if(!repeat_cycle){
+      alert('반복일을 선택하세요.')
+      return
+    }
+    if(!auth_count){
+      alert('인증횟수를 선택하세요')
+      return
+    }
+    if(!content){
+      alert('챌린지 소개글을 입력하세요.')
+      return
+    }
     dispatch({
       type: ADD_CHALLENGE_REQUEST,
       data:{
