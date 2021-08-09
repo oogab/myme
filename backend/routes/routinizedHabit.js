@@ -133,6 +133,38 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   }
 })
 
+// 루틴 내 습관 삭제하기
+/**
+ * @swagger
+ *  /routinizedHabit/{routinizedHabitId}
+ *    delete:
+ *      tags:
+ *      - routinizedHabit
+ *      description: 루틴 내 습관 삭제하기
+ *      parameters:
+ *        - in: path
+ *          name: routinizedHabitId
+ *          required: true
+ *          schema:
+ *            type: integer
+ *            minimum: 1
+ *          description: 루틴습관 Id
+ *      responses:
+ *        '200':
+ *          description: Success
+ */
+router.delete('/:routinizedHabitId', isLoggedIn, async (req, res, next) => {
+  try {
+    await RoutinizedHabit.destroy({
+      where: { id: req.params.routinizedHabitId}
+    })
+    res.status(200).json()
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
 // // 루틴에 저장된 습관 목록 불러오기
 // /**
 //  * @swagger

@@ -101,16 +101,17 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /routine
       alarm: req.body.alarm,
       UserId: req.user.id,
     })
-    req.body.active_day_of_week.map(async (v, i) => {
+    for(let i=0;i<req.body.active_day_of_week.length;i++){
+      let v = req.body.active_day_of_week[i]
       await RoutineActiveDay.create({
         RoutineId: routine.id,
         day_of_week: i,
         start_time: v.start_time,
         active: v.active,
       })
-    })
+    }
     const fullRoutine = await Routine.findOne({
-      where: { id: routine.id },
+      where: {id: routine.id},
       include: [{
         model: User,
         attributes: ['id', 'nickname']
@@ -182,14 +183,15 @@ router.put('/:routineId', isLoggedIn, async (req, res, next) => { // PATCH /rout
     },{
       where: { id: req.params.routineId },
     })
-    req.body.active_day_of_week.map(async (v, i) => {
+    for(let i=0;i<req.body.active_day_of_week.length;i++){
+      let v = req.body.active_day_of_week[i]
       await RoutineActiveDay.update({
         start_time: v.start_time,
-        active: v.active
+        active: v.active,
       }, {
         where: { RoutineId: req.params.routineId, day_of_week: i }
       })
-    })
+    }
     const routine = await Routine.findOne({
       where: {id: req.params.routineId},
       include: [{

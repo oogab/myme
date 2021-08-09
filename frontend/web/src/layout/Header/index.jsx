@@ -87,7 +87,6 @@ const Header = (state) => {
                 <Grid item>
                   <IconButton
                     aria-label="delete"
-                    onClick={onClickRedirectPathHandler('/SearchVote')}
                   >
                     <SearchIcon
                       fontSize='medium'
@@ -95,16 +94,6 @@ const Header = (state) => {
                       htmlColor="#eeeeee"
                     />
                   </IconButton>
-                </Grid>
-                <Grid item>
-                  <Button
-                    style={{background:'#89DDBF'}}
-                    variant="contained"
-                    onClick={handleSignInDialogOpen}
-                    className="display-none header-button"
-                  >
-                    {false ? 'My' : 'Sign In'}
-                  </Button>
                 </Grid>
               </Grid>
             </Grid>

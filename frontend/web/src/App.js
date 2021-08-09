@@ -20,6 +20,8 @@ import CreateChallenge from './pages/CreateChallenge/';
 import Profile from './pages/Profile/';
 import MirrorSetting from './pages/MirrorSetting/';
 import Auth from './pages/Auth/';
+import RoutineModal from './components/Routine/RoutineModal/index';
+import CreateRoutineModal from './components/Routine/CreateRoutineModal/index';
 
 // css
 import './index.css';
@@ -65,6 +67,8 @@ const App = () => {
           </Switch>
         </BrowserRouter>
       </MuiThemeProvider>
+        <RoutineModal/>
+        <CreateRoutineModal/>
     </Provider>
   );
 };

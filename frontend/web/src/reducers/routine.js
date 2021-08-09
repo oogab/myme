@@ -24,6 +24,10 @@ const initialState = {
   addRoutinizedHabitDone: false,
   addRoutinizedHabitError: null,
 
+  deleteRoutinizedHabitLoading: false,
+  deleteRoutinizedHabitDone: false,
+  deleteRoutinizedHabitError: null,
+
   setOrderLoading: false,
   setOrderDone:false,
   setOrderError:null,
@@ -57,6 +61,10 @@ export const ADD_ROUTINIZED_HABIT_REQUEST = 'ADD_ROUTINIZED_HABIT_REQUEST'
 export const ADD_ROUTINIZED_HABIT_SUCCESS = 'ADD_ROUTINIZED_HABIT_SUCCESS'
 export const ADD_ROUTINIZED_HABIT_FAILURE = 'ADD_ROUTINIZED_HABIT_FAILURE'
 
+export const DELETE_ROUTINIZED_HABIT_REQUEST = 'DELETE_ROUTINIZED_HABIT_REQUEST'
+export const DELETE_ROUTINIZED_HABIT_SUCCESS = 'DELETE_ROUTINIZED_HABIT_SUCCESS'
+export const DELETE_ROUTINIZED_HABIT_FAILURE = 'DELETE_ROUTINIZED_HABIT_FAILURE'
+
 export const CLEAR_MY_ROUTINES = 'CLEAR_MY_ROUTINES'
 
 export const SET_ORDER_REQUEST = 'SET_ORDER_REQUEST';
@@ -64,9 +72,6 @@ export const SET_ORDER_SUCCESS = 'SET_ORDER_SUCCESS';
 export const SET_ORDER_FAILURE = 'SET_ORDER_FAILURE';
 
 export const SET_CHOOSED_ROUTINE='routine/setChoosedRoutine';
-export const MODIFY_ROUTINE='routine/modifyRoutine';
-export const DELETE_ROUTINE='routine/deleteRoutine';
-export const ADD_ROUTINE_ITEM='routine/addRoutineItem';
 export const DELETE_ROUTINE_ITEM='routine/deleteRoutineItem';
 export const SET_MODAL_INPUT='routine/setModalInput';
 export const SET_MODAL_INPUT_NAME='routine/setModalInputName';
@@ -133,9 +138,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case MODIFY_ROUTINE_SUCCESS:
       draft.modifyRoutineLoading = false
       draft.modifyRoutineDone = true
-      // draft.myRoutines[draft.choosedRoutine] = action.data
-      console.log(action.data)
-      // draft.myRoutines.splice(action.idx, 1)
+      draft.myRoutines[draft.choosedRoutine] = action.data
       break
     case MODIFY_ROUTINE_FAILURE:
       draft.modifyRoutineLoading = false
@@ -155,6 +158,20 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.addRoutinizedHabitLoading = false
       draft.addRoutinizedHabitError = action.error
       break
+    case DELETE_ROUTINIZED_HABIT_REQUEST:
+      draft.deleteRoutinizedHabitLoading = true
+      draft.deleteRoutinizedHabitDone = false
+      draft.deleteRoutinizedHabitError = null
+      break
+    case DELETE_ROUTINIZED_HABIT_SUCCESS:
+      draft.deleteRoutinizedHabitLoading = false
+      draft.deleteRoutinizedHabitDone = true
+      draft.myRoutines[action.routineIdx].RoutinizedHabits.splice(action.habitIdx, 1)
+      break
+    case DELETE_ROUTINIZED_HABIT_FAILURE:
+      draft.deleteRoutinizedHabitLoading = false
+      draft.deleteRoutinizedHabitError = action.error
+      break
     case SET_ORDER_REQUEST:
       draft.setOrderLoading = true
       draft.setOrderDone = false
@@ -170,15 +187,6 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
     case SET_CHOOSED_ROUTINE:
       draft.choosedRoutine = action.idx
-      break
-    case MODIFY_ROUTINE:
-      draft.myRoutines[draft.choosedRoutine] = draft.createRoutineInfo
-      break
-    case DELETE_ROUTINE:
-      draft.myRoutines.splice(draft.choosedRoutine, draft.choosedRoutine+1)
-      break
-    case ADD_ROUTINE_ITEM:
-      draft.myRoutines[draft.choosedRoutine].RoutinizedHabits.push(action.habit)
       break
     case DELETE_ROUTINE_ITEM:
       draft.myRoutines[action.routineIdx].RoutinizedHabits.splice(action.habitIdx, 1)
