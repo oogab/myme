@@ -42,6 +42,28 @@ const Wrapper = styled.div`
   & .tab-panel {
     padding: 170px 0 20px 0;
   }
+  .react-calendar {
+    width: 500px;
+  max-width: 100%;
+  border: 1px solid #a0a096;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.500em;
+  float: right;
+  }
+ 
+  .react-calendar .react-calendar__navigation .react-calendar__navigation__label {
+    font-size: 25px;
+  }
+  .react-calendar .react-calendar__tile {
+    height: 70px;
+  }
+
+  .react-calendar .react-calendar__tile--active:enabled:hover, .react-calendar .react-calendar__tile--active:enabled:focus {
+    background: #e70220;
+  }
+  .react-calendar .react-calendar__tile, .react-calendar .react-calendar__month-view__days__day {
+    font-size: 18px;
+  }
 `;
 
 export default Wrapper;

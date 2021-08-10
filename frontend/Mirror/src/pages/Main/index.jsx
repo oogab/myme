@@ -16,11 +16,15 @@ import {
   } from '@material-ui/core';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
 
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
+import CustomCalendar from '../../components/Calendar/index.jsx';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -37,11 +41,11 @@ const BorderLinearProgress = withStyles((theme) => ({
 }))(LinearProgress);
 
 
+
 const Main = props => {
   
   const [value, onChange] = useState(new Date());
   const events = [{ title: "today's event", date: new Date() }];
-
   return (
         <Wrapper>
           <Grid container spacing={3} style={{color: 'white', background: '#000000', padding: '50px'}}>
@@ -156,12 +160,12 @@ const Main = props => {
             </Grid>
               <Grid item xs={4}></Grid>
               <Grid item xs={5}>
-                <FullCalendar
-                  defaultView="dayGridMonth"
-                  plugins={[dayGridPlugin]}
-                  events={events}
-                  className="calendar"
-                />
+              {/* <Calendar
+                onChange={onChange}
+                value={value}
+                className="react-calendar" 
+              /> */}
+               <CustomCalendar/>
               </Grid>
             </Grid>
           </Grid>
@@ -171,6 +175,15 @@ const Main = props => {
     
   );
 };
+
+function renderEventContent(eventInfo) {
+  return (
+    <>
+      <b>{eventInfo.timeText}</b>
+      <i>{eventInfo.event.title}</i>
+    </>
+  )
+}
 
 export default Main;
 
