@@ -48,6 +48,45 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
             draft.createEventLoading = false
             draft.createEventError = action.error
             break
+        case DELETE_EVENT_REQUEST:
+            draft.deleteEventLoading = true
+            draft.deleteEventDone = false
+            draft.deleteEventError = null
+            break
+        case DELETE_EVENT_SUCCESS:
+            draft.deleteEventLoading = false
+            draft.deleteEventDone = true
+            break
+        case DELETE_EVENT_FAILURE:
+            draft.deleteEventLoading = false
+            draft.deleteEventError = action.error
+            break
+         case UPDATE_EVENT_REQUEST:
+            draft.updateEventLoading = true
+            draft.updateEventDone = false
+            draft.updateEventError = null
+            break
+        case UPDATE_EVENT_SUCCESS:
+            draft.updateEventLoading = false
+            draft.updateEventDone = true
+            break
+        case UPDATE_EVENT_FAILURE:
+            draft.updateEventLoading = false
+            draft.updateEventError = action.error
+            break
+        case LOAD_EVENT_REQUEST:
+            draft.loadEventLoading = true
+            draft.loadEventDone = false
+            draft.loadEventError = null
+            break
+        case LOAD_EVENT_SUCCESS:
+            draft.loadEventLoading = false
+            draft.loadEventDone = true
+            break
+        case LOAD_EVENT_FAILURE:
+            draft.loadEventLoading = false
+            draft.loadEventError = action.error
+            break
     }
 })
 
