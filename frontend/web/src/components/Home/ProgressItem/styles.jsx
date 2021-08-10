@@ -14,5 +14,15 @@ const Wrapper = styled.div`
     .assist > * {
         color:white;
     }
+
+    .time {
+        text-align: center;
+        align-self: center;
+        font-size: 30px;
+    }
+
+    .complete-btn{
+        color:red;
+    }
 `;
 export default Wrapper;

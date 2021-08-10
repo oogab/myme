@@ -8,7 +8,7 @@ function App(props){
     let {myRoutines} = useSelector((state) => state.routine);
     //삭제하는 함수
     function deleteToDoItem(){
-        dispatch({type:DELETE_ROUTINIZED_HABIT_REQUEST, id: myRoutines[props.num].RoutinizedHabits[props.itemIdx].id ,routineIdx: props.num , routineItemIdx: props.itemIdx})
+        dispatch({type:DELETE_ROUTINIZED_HABIT_REQUEST, id: props.nowItem.id ,routineIdx: props.num , routineItemIdx: props.itemIdx})
     }
     return(
         <Wrapper>

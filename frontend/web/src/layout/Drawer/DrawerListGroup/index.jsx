@@ -145,6 +145,13 @@ const DrawerListGroup = (props) => {
           >
             <ListItemText primary={'스마트 미러 관리'} disableTypography />
           </ListItem>
+          <ListItem
+            button
+            key={'HabitSetting'}
+            onClick={onClickRedirectPathHandler('/HabitSetting')}
+          >
+            <ListItemText primary={'습관 관리'} disableTypography />
+          </ListItem>
           </Fragment>
         
         </List>

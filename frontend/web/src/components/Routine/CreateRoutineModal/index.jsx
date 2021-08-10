@@ -1,4 +1,4 @@
-import React,{useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import DayOfWeek from './DayOfWeek/index';
@@ -64,14 +64,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function getDefaultTimes(){
-  let arr = new Array();
-  for(let i=0;i<7;i++){
-    arr.push('00:00');
-  }
-  return arr;
-}
-
 function SimpleModal(props) {
   const dispatch = useDispatch()
   const { createRoutineModal } = useSelector((state) => state.modal)
@@ -128,6 +120,7 @@ function SimpleModal(props) {
           id: createRoutineInfo.id
         });
       }
+      handleClose()
     }
     
   }

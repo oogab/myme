@@ -1,5 +1,8 @@
 const express = require('express')
-const { Routine, User, RoutinizedHabit, RoutineActiveDay, Habit } = require('../models')
+const moment = require('moment')
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+const { Routine, User, RoutinizedHabit, RoutineActiveDay, Habit, DailyAchieveHabit } = require('../models')
 const { isLoggedIn } = require('./middlewares')
 
 const router = express.Router()
@@ -40,7 +43,14 @@ router.get('/', isLoggedIn, async (req, res, next) => { // GET /routine
         model: RoutinizedHabit,
         include: [{
           model: Habit,
-          attributes: ['name']
+        },{
+          model: DailyAchieveHabit,
+          required: false,
+          where:{
+            achieve_datetime:{
+              [Op.between]: [moment().startOf('day'), moment().endOf('day')],
+            }
+          }
         }]
       }, {
         model: RoutineActiveDay
@@ -115,6 +125,19 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /routine
       include: [{
         model: User,
         attributes: ['id', 'nickname']
+      }, {
+        model: RoutinizedHabit,
+        include: [{
+          model: Habit,
+        },{
+          model: DailyAchieveHabit,
+          required: false,
+          where:{
+            achieve_datetime:{
+              [Op.between]: [moment().startOf('day'), moment().endOf('day')],
+            }
+          }
+        }]
       }, {
         model: RoutineActiveDay
       }]
@@ -197,6 +220,17 @@ router.put('/:routineId', isLoggedIn, async (req, res, next) => { // PATCH /rout
         attributes: ['id', 'nickname']
       }, {
         model: RoutinizedHabit,
+        include: [{
+          model: Habit,
+        },{
+          model: DailyAchieveHabit,
+          required: false,
+          where:{
+            achieve_datetime:{
+              [Op.between]: [moment().startOf('day'), moment().endOf('day')],
+            }
+          }
+        }]
       }, {
         model: RoutineActiveDay
       }]

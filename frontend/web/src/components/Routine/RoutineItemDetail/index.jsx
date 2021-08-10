@@ -16,10 +16,10 @@ function App(props){
     return(
         <Wrapper>
             {
-                routinizedHabit.length?
+                routinizedHabit != undefined && routinizedHabit.length ?
                 <ReactDragList
                 dataSource={routinizedHabit}
-                row={(item, idx) => <RoutineModalItem rowKey={item.order} num={num} itemIdx={idx}/>}
+                row={(item, idx) => <RoutineModalItem rowKey={item.order} num={num} itemIdx={idx} nowItem={item}/>}
                 handles = {false}
                 onUpdate = {changeOrder}
                 

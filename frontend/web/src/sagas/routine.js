@@ -4,24 +4,34 @@ import {
   ADD_ROUTINE_REQUEST,
   ADD_ROUTINE_SUCCESS,
   ADD_ROUTINE_FAILURE,
+
   LOAD_MY_ROUTINES_REQUEST,
   LOAD_MY_ROUTINES_SUCCESS,
   LOAD_MY_ROUTINES_FAILURE,
+
   DELETE_ROUTINE_REQUEST,
   DELETE_ROUTINE_SUCCESS,
   DELETE_ROUTINE_FAILURE,
+  
+  MODIFY_ROUTINE_REQUEST,
+  MODIFY_ROUTINE_SUCCESS,
+  MODIFY_ROUTINE_FAILURE,
+
   ADD_ROUTINIZED_HABIT_REQUEST,
   ADD_ROUTINIZED_HABIT_SUCCESS,
   ADD_ROUTINIZED_HABIT_FAILURE,
+
   DELETE_ROUTINIZED_HABIT_REQUEST,
   DELETE_ROUTINIZED_HABIT_SUCCESS,
   DELETE_ROUTINIZED_HABIT_FAILURE,
+
+  CHECK_ROUTINIZED_HABIT_REQUEST,
+  CHECK_ROUTINIZED_HABIT_SUCCESS,
+  CHECK_ROUTINIZED_HABIT_FAILURE,
+
   SET_ORDER_REQUEST,
   SET_ORDER_SUCCESS,
   SET_ORDER_FAILURE,
-  MODIFY_ROUTINE_REQUEST,
-  MODIFY_ROUTINE_SUCCESS,
-  MODIFY_ROUTINE_FAILURE
 } from '../reducers/routine'
 import { RestoreOutlined } from "@material-ui/icons";
 
@@ -138,12 +148,34 @@ function* deleteRoutinizedHabit(action){
     yield put({
       type: DELETE_ROUTINIZED_HABIT_SUCCESS,
       routineIdx: action.routineIdx , 
-      routineItemIdx: action.routineItemIdx
+      id: action.id
     })
     console.log(result);
   } catch (error) {
     yield put({
       type: DELETE_ROUTINIZED_HABIT_FAILURE,
+    })
+  }
+}
+
+function checkRoutinizedHabitAPI(routineId, habitId){
+  console.log('루틴 습관 완료 체크 요청')
+  return axios.post('/routinizedHabit/', {routineId, habitId})
+}
+function* checkRoutinizedHabit(action){
+  try{
+    console.log(action.routineId, action.habitId)
+    const result = yield call(checkRoutinizedHabitAPI, action.routineId, action.habitId)
+    yield put({
+      type: CHECK_ROUTINIZED_HABIT_SUCCESS,
+      data: result.data,
+      routineIdx: action.routineIdx,
+      routinizedHabitIdx: action.routinizedHabitIdx
+    })
+  }catch(error){
+    yield put({
+      type: CHECK_ROUTINIZED_HABIT_FAILURE,
+      error
     })
   }
 }
@@ -193,6 +225,10 @@ function* watchDeleteRoutinizedHabit(){
   yield takeLatest(DELETE_ROUTINIZED_HABIT_REQUEST, deleteRoutinizedHabit)
 }
 
+function* watchCheckRoutinizedHabit(){
+  yield takeLatest(CHECK_ROUTINIZED_HABIT_REQUEST, checkRoutinizedHabit)
+}
+
 function* watchSetOrder(){
   yield takeLatest(SET_ORDER_REQUEST, setOrder)
 }
@@ -206,6 +242,7 @@ export default function* routineSaga() {
     fork(watchModifyRoutine),
     fork(watchAddRoutinizedHabit),
     fork(watchDeleteRoutinizedHabit),
+    fork(watchCheckRoutinizedHabit),
     fork(watchSetOrder)
   ])
 }

@@ -13,6 +13,7 @@ import store from './store/configureStore'
 
 // page
 import RoutineSetting from './pages/RoutineSetting/';
+import HabitSetting from './pages/HabitSetting/';
 import Home from './pages/Home/';
 import NotFound from './pages/NotFound/';
 import Challenge from './pages/Challenge/';
@@ -22,6 +23,7 @@ import MirrorSetting from './pages/MirrorSetting/';
 import Auth from './pages/Auth/';
 import RoutineModal from './components/Routine/RoutineModal/index';
 import CreateRoutineModal from './components/Routine/CreateRoutineModal/index';
+import ModifyHabitModal from './components/Habit/ModifyHabitModal/index';
 
 // css
 import './index.css';
@@ -58,6 +60,7 @@ const App = () => {
             <Route exact path="/" component={Auth} />
             <Route path="/Home" component={Home} />
             <Route path="/RoutineSetting" component={RoutineSetting} />
+            <Route path="/HabitSetting" component={HabitSetting} />
             <Route path="/not-found" component={NotFound} />
             <Route path="/Challenge" component={Challenge} />
             <Route path="/CreateChallenge" component={CreateChallenge} />
@@ -69,6 +72,7 @@ const App = () => {
       </MuiThemeProvider>
         <RoutineModal/>
         <CreateRoutineModal/>
+        <ModifyHabitModal/>
     </Provider>
   );
 };

@@ -28,18 +28,18 @@ const App = () => {
   return(
     <Layout>
       <Wrapper>
-        <div className='menu'><h1>나의 챌린지</h1></div>
+        <div className='menu'><h2>나의 챌린지</h2></div>
         <hr/>
         {
           myChallenges.map((challenge) => {
             return <ChallengeItem key={challenge.id} challengeId={challenge.Challenge.name} />
           })
         }
-        <div className='menu'><h1>나의 루틴 목록</h1></div>
+        <div className='menu'><h2>나의 루틴 목록</h2></div>
         <hr/>
         {
-          myRoutines.map((routine) => {
-            return <RoutineListItem key={routine.id} routine={routine} />
+          myRoutines.map((routine,idx) => {
+            return <RoutineListItem key={idx} routine={routine} routineIdx={idx} />
           })
         }
       </Wrapper>
