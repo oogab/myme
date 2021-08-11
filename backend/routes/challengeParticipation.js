@@ -1,5 +1,5 @@
 const express = require('express')
-const { ChallengeParticipation, User, DailyAchieveChallenge, Challenge } = require('../models')
+const { ChallengeParticipation, User, DailyAchieveChallenge, Challenge, ChallengeCertificationDay, ChallengeCertificationTime } = require('../models')
 const { isLoggedIn } = require('./middlewares')
 
 const router = express.Router()
@@ -35,6 +35,11 @@ const router = express.Router()
       where: { UserId: req.user.id },
       include: [{
         model: Challenge,
+        include: [{
+          model: ChallengeCertificationDay,
+        }, {
+          model: ChallengeCertificationTime
+        }]
       }]
     })
     res.status(200).json(challengeParticipation)

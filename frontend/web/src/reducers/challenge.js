@@ -4,7 +4,7 @@ const initialState = {
   challenges: [], // 전체 챌린지 목록
   myChallenges: [], // 내가 참여하는 챌린지
   myCreateChallenges: [], // 내가 생성한 챌린지
-  challengeImagePath: null, // 챌린지 대표 이미지 경로
+  challengeImagePath: '', // 챌린지 대표 이미지 경로
   uploadChallengeImageLoading: false, // 챌린지 대표 이미지 업로드 중
   uploadChallengeImageDone: false,
   uploadChallengeImageError: null,
@@ -44,6 +44,7 @@ export const LOAD_MY_CREATE_CHALLENGES_FAILURE = 'LOAD_MY_CREATE_CHALLENGES_FAIL
 
 export const CLEAR_CHALLENGES = 'CLEAR_CHALLENGES'
 export const CLEAR_MY_CHALLENGES = 'CLEAR_MY_CHALLENGES'
+export const CLEAR_ADD_CHALLENGE_DONE = 'CLEAR_ADD_CHALLENGE_DONE'
 // export const ADD_CHALLENGE='challenge/addChallenge';
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
@@ -53,6 +54,9 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
     case CLEAR_MY_CHALLENGES:
       draft.myChallenges = []
+      break
+    case CLEAR_ADD_CHALLENGE_DONE:
+      draft.addChallengeDone = false
       break
     case UPLOAD_CHALLENGE_IMAGE_REQUEST:
       draft.uploadChallengeImageLoading = true

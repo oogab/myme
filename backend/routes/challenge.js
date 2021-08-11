@@ -4,7 +4,7 @@ const path = require('path')
 const multerS3 = require('multer-s3')
 const AWS = require('aws-sdk')
 
-const { Challenge, User, Comment, ChallengeParticipation } = require('../models')
+const { Challenge, User, Comment, ChallengeParticipation, ChallengeCertificationTime, ChallengeCertificationDay } = require('../models')
 const { isLoggedIn } = require('./middlewares')
 const router = express.Router()
 
@@ -169,40 +169,13 @@ router.get('/mychallenge', isLoggedIn, async (req, res, next) => { // GET /mycha
  *      responses:
  *        '200':
  *          description: Success
- *          content:
- *            application/json:
- *              schema:
- *                type: object
- *                properties:
- *                  id:
- *                    type: integer
- *                  name:
- *                    type: string
- *                  content:
- *                    type: text
- *                  start_date:
- *                    type: date
- *                  period:
- *                    type: integer
- *                  repeat_cycle:
- *                    type: integer
- *                  auth_count:
- *                    type: integer
- *              example:
- *                id: 1
- *                name: '하루 10분 명상하기'
- *                content: '하루 10분 명상을 통해 내면의 평화를 찾아봅시다.'
- *                start_date: 2021-08-02
- *                period: 21
- *                repeat_cycle: 1
- *                auth_count: 1
  */
 router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST /challenge
   try {
-    // console.log(req.user)
+    // 챌린지 생성
     const challenge = await Challenge.create({
       name: req.body.name,
-      image_addr: req.body.image_addr,
+      img_addr: req.body.img_addr,
       content: req.body.content,
       start_date: req.body.start_date,
       end_date: req.body.end_date,
@@ -212,11 +185,43 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
       UserId: req.user.id,
       CategoryId: ''
     })
+    // 챌린지 인증 가능 시간 생성
+    await ChallengeCertificationTime.create({
+      certification_available_start_time: req.body.cert_available.cert_available_start_time,
+      certification_available_end_time: req.body.cert_available.cert_available_end_time,
+      ChallengeId: challenge.id
+    })
+    // 챌린지 인증 가능 요일 생성 thanks to yuri
+    for(let i = 0; i < req.body.cert_day.length; i++) {
+      let v = req.body.cert_day[i]
+      await ChallengeCertificationDay.create({
+        active_day_of_week: i,
+        certification_available: v.data,
+        ChallengeId: challenge.id
+      })
+    }
+    // 내가 생성한 챌린지는 자동으로 참여하기! 챌린지 참여 생성
+    await ChallengeParticipation.create({
+      start_date: req.body.start_date,
+      end_date: req.body.end_date,
+      period: req.body.period,
+      certification_count: 0,
+      total_number_of_certification: req.body.total_number_of_certification,
+      UserId: req.user.id,
+      ChallengeId: challenge.id
+    })
+    // 챌린지의 모든 정보 제공
     const fullChallenge = await Challenge.findOne({
       where: { id: challenge.id },
       include: [{
         model: User, // 챌린지 개설자 아이디
         attributes: ['id', 'nickname']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
       }]
     })
     res.status(200).json(fullChallenge)
@@ -247,7 +252,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
  *                  
  */
 router.post('/image', isLoggedIn, upload.single('image'), async (req, res, next) => { // POST /challenge/image
-  console.log(req.file)
+  // console.log(req.file)
   res.json(req.file.location)
 })
 

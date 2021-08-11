@@ -4,7 +4,6 @@ import {
   makeStyles,
   withStyles,
   Grid,
-  MenuItem,
   Typography,
   TextField,
   FormGroup,
@@ -14,16 +13,12 @@ import {
   Radio,
   RadioGroup,
   Button,
-  Select,
-  InputAdornment,
   FormHelperText
 } from '@material-ui/core/';
 
 import { teal } from '@material-ui/core/colors';
 import Wrapper from './styles';
-
 import DateFnsUtils from '@date-io/date-fns';
-
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -32,7 +27,7 @@ import ko from "date-fns/locale/ko"
 import category from './category';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_CHALLENGE_REQUEST, UPLOAD_CHALLENGE_IMAGE_REQUEST } from '../../../reducers/challenge';
+import { ADD_CHALLENGE_REQUEST, CLEAR_ADD_CHALLENGE_DONE, UPLOAD_CHALLENGE_IMAGE_REQUEST } from '../../../reducers/challenge';
 import { useHistory } from 'react-router-dom';
 
 /* ************************ Main Component Start ************************ */
@@ -44,6 +39,7 @@ const CreateChallenge = () => {
   const { challengeImagePath, addChallengeDone } = useSelector((state) => state.challenge)
 
   const [categories, setCategories] = useState(category);
+  const [submitDisable, setSubmitDisable] = useState(true)
   
   // 챌린지 이름
   const [name, setName] = useState('')
@@ -57,7 +53,7 @@ const CreateChallenge = () => {
     setSubject(e.target.value)
   }, [])
 
-  const [certCycle, setCertCycle] = useState(1)
+  const [certCycle, setCertCycle] = useState('1')
   const onChangeCertCycle = useCallback((e) => {
     setCertCycle(e.target.value)
   }, [])
@@ -129,23 +125,20 @@ const CreateChallenge = () => {
     }
   }
 
-  const [openPeriodInput, setOpenPeriodInput] = useState(false)
-
   // 인증 기간 주 선택
   const [selectWeek, setSelectWeek] = useState(0)
   const onChangeSelectWeek = useCallback((e) => {
     if (e.target.value === '5') {
-      setOpenPeriodInput(true)
       setSelectWeek(e.target.value)
       setWeek(e.target.value*1)
     } else {
-      setOpenPeriodInput(false)
       setSelectWeek(e.target.value)
       setWeek(e.target.value*1)
     }
   }, [])
 
   const [week, setWeek] = useState(0)
+  const [weekError, setWeekError] = useState(false)
   const onChangeWeek = useCallback((e) => {
     if (isNaN(e.target.value)) {
       setWeekError(true)
@@ -158,45 +151,6 @@ const CreateChallenge = () => {
       }
     }
   }, [])
-
-  const [weekError, setWeekError] = useState(false)
-
-  // 아 로직 작성한다고 디지는 줄 알았네...
-  useEffect(() => {
-    if (certCycle*1 <= 3) {
-      setPeriod(Math.ceil((endDate - startDate) / (1000*60*60*24)))
-    } else {
-      setPeriod(week*7)
-    }
-  }, [certCycle, week, startDate, endDate])
-
-  useEffect(() => {
-    if (certCycle*1 <= 3) {
-      if (certCycle*1 === 1) {
-        setTotalCertError(false)
-        setTotalNumOfCert(period)
-      } else if (certCycle*1 === 2) {
-        const result = getWeekdayNum()
-        if (result === 0) setTotalCertError(true)
-        else setTotalCertError(false)
-        setTotalNumOfCert(result)
-      } else if (certCycle*1 === 3) {
-        const result = getWeekendNum()
-        if (result === 0) setTotalCertError(true)
-        else setTotalCertError(false)
-        setTotalNumOfCert(result)
-      }
-    } else {
-      const tempEnd = new Date(startDate.valueOf() + period*1000*60*60*24)
-      setEndDate(tempEnd)
-      setTotalNumOfCert(period*(10-certCycle)/7)
-    }
-  }, [period, certCycle])
-
-  // 총 인증 일 수 확인...
-  // useEffect(() => {
-  //   console.log(totalNumOfCert)
-  // }, [totalNumOfCert])
 
   // 인증 가능 요일 설정
   const [activeWeekDay, setActiveWeekDay] = useState({
@@ -212,7 +166,71 @@ const CreateChallenge = () => {
     setActiveWeekDay({ ...activeWeekDay, [e.target.name]: e.target.checked })
   }
   const { mon, tue, wed, thu, fri, sat, sun } = activeWeekDay
-  const activeWeekError = [mon, tue, wed, thu, fri, sat, sun].filter((v) => v).length < (10 - certCycle)
+  const activeWeekError = certCycle <= 3 ? false : [mon, tue, wed, thu, fri, sat, sun].filter((v) => v).length < (10 - certCycle)
+
+  // 아 로직 작성한다고 디지는 줄 알았네...
+  useEffect(() => {
+    if (certCycle*1 <= 3) {
+      setPeriod(Math.ceil((endDate - startDate) / (1000*60*60*24)))
+    } else {
+      setPeriod(week*7)
+    }
+  }, [certCycle, week, startDate, endDate])
+
+  useEffect(() => {
+    if (certCycle*1 <= 3) {
+      if (certCycle*1 === 1) {
+        setTotalCertError(false)
+        setTotalNumOfCert(period)
+        setActiveWeekDay({
+          mon: true,
+          tue: true,
+          wed: true,
+          thu: true,
+          fri: true,
+          sat: true,
+          sun: true
+        })
+      } else if (certCycle*1 === 2) {
+        const result = getWeekdayNum()
+        if (result === 0) setTotalCertError(true)
+        else setTotalCertError(false)
+        setTotalNumOfCert(result)
+        setActiveWeekDay({
+          mon: true,
+          tue: true,
+          wed: true,
+          thu: true,
+          fri: true,
+          sat: false,
+          sun: false,
+        })
+      } else if (certCycle*1 === 3) {
+        const result = getWeekendNum()
+        if (result === 0) setTotalCertError(true)
+        else setTotalCertError(false)
+        setTotalNumOfCert(result)
+        setActiveWeekDay({
+          mon: false,
+          tue: false,
+          wed: false,
+          thu: false,
+          fri: false,
+          sat: true,
+          sun: true,
+        })
+      }
+    } else {
+      const tempEnd = new Date(startDate.valueOf() + period*1000*60*60*24)
+      setEndDate(tempEnd)
+      setTotalNumOfCert(period*(10-certCycle)/7)
+    }
+  }, [period, certCycle])
+
+  // 총 인증 일 수 확인...
+  // useEffect(() => {
+  //   console.log(totalNumOfCert)
+  // }, [totalNumOfCert])
 
   // 인증 가능 시간 모드 선택 (24시간, 사용자 설정)
   const [certTimeMode, setCertTimeMode] = useState('1')
@@ -232,13 +250,29 @@ const CreateChallenge = () => {
     setCertEndTime(e.target.value)
   }, [])
 
-  const certTimeError = certStartTime > certEndTime
+  const certTimeError = certTimeMode === '1' ? false : certStartTime > certEndTime
+
+  useEffect(() => {
+    if (certTimeMode === '1') {
+      setCertStartTime('00:00')
+      setCertEndTime('00:00')
+    }
+  }, [certTimeMode])
 
   // 챌린지 소개 내용
   const [content, setIntroduce] = useState('')
   const onChangeIntroduce = useCallback((e) => {
     setIntroduce(e.target.value)
   }, [])
+
+  useEffect(() => {
+    if (name === '' || challengeImagePath === '' || content === '' || startDate === '' || endDate === '' || period <= 0 || totalNumOfCert <= 0 || certStartTime === '' || certEndTime === '' || activeWeekError || weekError || certTimeError || totalCertError) {
+      setSubmitDisable(true)
+    }
+    if (name !== '' && challengeImagePath !== '' && content !== '' && startDate !== '' && endDate !== '' && period !== 0 && totalNumOfCert !== 0 && certStartTime !== '' && certEndTime !== '' && !activeWeekError && !weekError && !certTimeError && !totalCertError) {
+      setSubmitDisable(false)
+    }
+  }, [name, challengeImagePath, content, startDate, endDate, period, totalNumOfCert, certStartTime, certEndTime])
   
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click()
@@ -258,10 +292,7 @@ const CreateChallenge = () => {
   
   const onSubmit = useCallback((e) => {
     e.preventDefault()
-    if (totalNumOfCert === 0) {
-      alert('필요한 정보가 충분히 기입되지 않았습니다!')
-      return
-    }
+    console.log(challengeImagePath)
 
     dispatch({
       type: ADD_CHALLENGE_REQUEST,
@@ -278,18 +309,29 @@ const CreateChallenge = () => {
           cert_available_start_time: certStartTime,
           cert_available_end_time: certEndTime
         },
-        cert_day: [{mon},{tue},{wed},{thu},{fri},{sat},{sun}],
+        cert_day: [
+          {data: mon},
+          {data: tue},
+          {data: wed},
+          {data: thu},
+          {data: fri},
+          {data: sat},
+          {data: sun}
+        ],
         CategoryId: ''
       }
     })
-
-    if (addChallengeDone) {
-      history.push('/Home')
-    } else {
-      return
-    }
   }, [name, challengeImagePath, content, startDate, endDate, period, certCycle, totalNumOfCert, certStartTime, certEndTime,
     mon, tue, wed, thu, fri, sat, sun, categories]);
+
+  useEffect(() => {
+    if (addChallengeDone) {
+      history.push('/Home')
+      dispatch({
+        type: CLEAR_ADD_CHALLENGE_DONE
+      })
+    }
+  }, [addChallengeDone])
 
   const onCancel = useCallback(() => {
     history.push('/Challenge')
@@ -528,10 +570,9 @@ const CreateChallenge = () => {
             certTimeMode === '2'
               ?
               <>
-                <Grid xs={12} sm={6} md={3} >
+                <Grid item xs={12} sm={6} md={3} >
                   <TextField
                     className={classes.textField}
-                    defaultValue="07:30"
                     id="time"
                     inputProps={{
                       step: 300, // 5 min
@@ -546,10 +587,9 @@ const CreateChallenge = () => {
                     value={certStartTime}
                   />
                 </Grid>
-                <Grid xs={12} sm={6} md={3} >
+                <Grid item xs={12} sm={6} md={3} >
                   <TextField
                     className={classes.textField}
-                    defaultValue="07:30"
                     id="time"
                     inputProps={{
                       step: 300, // 5 min
@@ -594,7 +634,7 @@ const CreateChallenge = () => {
           </Grid>
           {/* ************************ 챌린지 개설 완료ㅆㅃ!!! ************************* */}
           <Grid item xs={12} style={{ margin: '20px 0'}}>
-            <ColorButton variant="contained" type="submit" >개설하고 멋있게 도전하기!</ColorButton>
+            <ColorButton variant="contained" type="submit" disabled={submitDisable} >개설하고 멋있게 도전하기!</ColorButton>
             <Button variant="contained" onClick={onCancel} style={{ margin: '0 10px' }} >취소</Button>
           </Grid>
         </Grid>

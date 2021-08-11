@@ -11,6 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useHistory } from 'react-router-dom';
 import Layout from '../../layout/index';
 import { teal } from '@material-ui/core/colors';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -63,72 +64,74 @@ const useStyles = makeStyles((theme) => ({
   const ColorButton = ColorTeal(Button);
 
 const Challenge = () => {
-    const classes = useStyles();
-    let history = useHistory();
-      return (       
-          <Wrapper>
-            <Layout>
-              <Grid container xs={12} style={{padding: '20px', margin: '10px'}}>
-                  <Grid item xs={4} className="CardContent"></Grid>
-                    <Grid item xs={8} className="CardContent">
-                        <div className={classes.search} style={{float:'right'}}>
-                            <div className={classes.searchIcon}>
-                            <SearchIcon />
-                            </div>
-                            <InputBase
-                            placeholder="검색"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                            />
+  const classes = useStyles();
+  const dispatch = useDispatch()
+  let history = useHistory();
+
+
+  
+  return (       
+      <Wrapper>
+        <Layout>
+          <Grid container xs={12} style={{padding: '20px', margin: '10px'}}>
+              <Grid item xs={4} className="CardContent"></Grid>
+                <Grid item xs={8} className="CardContent">
+                    <div className={classes.search} style={{float:'right'}}>
+                        <div className={classes.searchIcon}>
+                        <SearchIcon />
                         </div>
-                    {/* </Grid>
-                    <Grid item xs={5} className="CardContent"> */}
-                        <Button
-                            variant="outlined"
-                            // color="default"
-                            startIcon={<AddIcon />}
-                            style={{float: 'right', width:'auto'}}
-                            onClick={()=>{history.push('/CreateChallenge/')}}
-                        >
-                            챌린지 생성하기
-                        </Button>
-                    </Grid>
+                        <InputBase
+                        placeholder="검색"
+                        classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                        }}
+                        inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </div>
+                {/* </Grid>
+                <Grid item xs={5} className="CardContent"> */}
+                    <Button
+                        variant="outlined"
+                        // color="default"
+                        startIcon={<AddIcon />}
+                        style={{float: 'right', width:'auto'}}
+                        onClick={()=>{history.push('/CreateChallenge/')}}
+                    >
+                        챌린지 생성하기
+                    </Button>
                 </Grid>
-                
-                <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
-                <h1>신규</h1>
-                <Grid item xs={12}><hr/></Grid>
-                    <Grid item xs={12} className="CardContent">
-                    <RecommendChallenge></RecommendChallenge>
-                    </Grid>
+            </Grid>
+            
+            <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
+            <h1>신규</h1>
+            <Grid item xs={12}><hr/></Grid>
+                <Grid item xs={12} className="CardContent">
+                <RecommendChallenge></RecommendChallenge>
                 </Grid>
-                <div style={{height: '150px'}}></div>
-                <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
-                <h1>신규</h1>
-                <Grid item xs={12}><hr/></Grid>
-                    <Grid item xs={12} className="CardContent">
-                    <NewChallenge></NewChallenge>
-                    </Grid>
+            </Grid>
+            <div style={{height: '150px'}}></div>
+            <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
+            <h1>신규</h1>
+            <Grid item xs={12}><hr/></Grid>
+                <Grid item xs={12} className="CardContent">
+                <NewChallenge></NewChallenge>
                 </Grid>
-                <div style={{height: '150px'}}></div>
-                <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
-                    <Grid item xs={12} >
-                    <h1 className="TotalCard">전체</h1>
-                    <TotalChallenge></TotalChallenge>
-                    </Grid>
+            </Grid>
+            <div style={{height: '150px'}}></div>
+            <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
+                <Grid item xs={12} >
+                <h1 className="TotalCard">전체</h1>
+                <TotalChallenge></TotalChallenge>
                 </Grid>
-                </Layout>
-            </Wrapper>
-          
-      );
+            </Grid>
+            </Layout>
+        </Wrapper>
+      
+  );
 }
 
-export default Challenge;
-
-
+export default Challenge
 
 // const Container = styled.div`
 //     min-height: 400px;

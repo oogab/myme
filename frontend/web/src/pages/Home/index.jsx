@@ -28,7 +28,7 @@ const App = () => {
         <hr/>
         {
           myChallenges.map((challenge) => {
-            return <ChallengeItem key={challenge.id} challengeId={challenge.Challenge.name} />
+            return <ChallengeItem key={challenge.id} challenge={challenge} />
           })
         }
         <div className='menu'><h1>나의 루틴 목록</h1></div>
