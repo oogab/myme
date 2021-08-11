@@ -13,7 +13,30 @@ import {
   LOAD_MY_CREATE_CHALLENGES_REQUEST,
   LOAD_MY_CREATE_CHALLENGES_SUCCESS,
   LOAD_MY_CREATE_CHALLENGES_FAILURE,
+  UPLOAD_CHALLENGE_IMAGE_REQUEST,
+  UPLOAD_CHALLENGE_IMAGE_SUCCESS,
+  UPLOAD_CHALLENGE_IMAGE_FAILURE,
 } from '../reducers/challenge'
+
+function uploadChallengeImageAPI(data) {
+  return axios.post('/challenge/image', data)
+}
+  
+function* uploadChallengeImage(action) {
+  try {
+    const result = yield call(uploadChallengeImageAPI, action.data)
+    console.log(result)
+    yield put({
+      type: UPLOAD_CHALLENGE_IMAGE_SUCCESS,
+      data: result.data
+    })
+  } catch (error) {
+    yield put({
+      type: UPLOAD_CHALLENGE_IMAGE_FAILURE,
+      error: error.response.data
+    })
+  }
+}
 
 function addChallengeAPI(data) {
   return axios.post('/challenge', data)
@@ -93,6 +116,10 @@ function* loadMyCreateChallenges() {
   }
 }
 
+function* watchUploadChallengeImage() {
+  yield takeLatest(UPLOAD_CHALLENGE_IMAGE_REQUEST, uploadChallengeImage)
+}
+
 function* watchAddChallenge() {
   yield takeLatest(ADD_CHALLENGE_REQUEST, addChallenge)
 }
@@ -111,6 +138,7 @@ function* watchLoadMyCreateChallenges() {
 
 export default function* challengeSaga() {
   yield all([
+    fork(watchUploadChallengeImage),
     fork(watchAddChallenge),
     fork(watchLoadChallenges),
     fork(watchLoadMyChallenges),

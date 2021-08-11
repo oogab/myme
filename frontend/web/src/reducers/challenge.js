@@ -4,6 +4,10 @@ const initialState = {
   challenges: [], // 전체 챌린지 목록
   myChallenges: [], // 내가 참여하는 챌린지
   myCreateChallenges: [], // 내가 생성한 챌린지
+  challengeImagePath: null, // 챌린지 대표 이미지 경로
+  uploadChallengeImageLoading: false, // 챌린지 대표 이미지 업로드 중
+  uploadChallengeImageDone: false,
+  uploadChallengeImageError: null,
   addChallengeLoading: false, // 챌린지 생성 중
   addChallengeDone: false,
   addChallengeError: null,
@@ -16,18 +20,11 @@ const initialState = {
   loadMyCreateChallengesLoading: false,
   loadMyCreateChallengesDone: false,
   loadMyCreateChallengesError: null,
-  createChallengeInfo : {
-    "rid" : -1,
-    "name" : '',
-    // "subject" : '',
-    "start_date" : '',
-    // "createdAt" : '',
-    "period" : -1,
-    "repeat_cycle" : 1,
-    "auth_count": 1,
-    "content" : ''
-  }
 }
+
+export const UPLOAD_CHALLENGE_IMAGE_REQUEST = 'UPLOAD_CHALLENGE_IMAGE_REQUEST'
+export const UPLOAD_CHALLENGE_IMAGE_SUCCESS = 'UPLOAD_CHALLENGE_IMAGE_SUCCESS'
+export const UPLOAD_CHALLENGE_IMAGE_FAILURE = 'UPLOAD_CHALLENGE_IMAGE_FAILURE'
 
 export const ADD_CHALLENGE_REQUEST = 'ADD_CHALLENGE_REQUEST'
 export const ADD_CHALLENGE_SUCCESS = 'ADD_CHALLENGE_SUCCESS'
@@ -56,6 +53,20 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
     case CLEAR_MY_CHALLENGES:
       draft.myChallenges = []
+      break
+    case UPLOAD_CHALLENGE_IMAGE_REQUEST:
+      draft.uploadChallengeImageLoading = true
+      draft.uploadChallengeImageDone = false
+      draft.uploadChallengeImageError = null
+      break
+    case UPLOAD_CHALLENGE_IMAGE_SUCCESS:
+      draft.uploadChallengeImageLoading = false
+      draft.uploadChallengeImagaDone = true
+      draft.challengeImagePath = action.data
+      break
+    case UPLOAD_CHALLENGE_IMAGE_FAILURE:
+      draft.uploadChallengeImageLoading = false
+      draft.uploadChallengeImageError = action.error
       break
     case ADD_CHALLENGE_REQUEST:
       draft.addChallengeLoading = true

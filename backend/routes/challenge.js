@@ -1,8 +1,29 @@
 const express = require('express')
+const multer = require('multer')
+const path = require('path')
+const multerS3 = require('multer-s3')
+const AWS = require('aws-sdk')
+
 const { Challenge, User, Comment, ChallengeParticipation } = require('../models')
 const { isLoggedIn } = require('./middlewares')
-
 const router = express.Router()
+
+AWS.config.update({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  region: 'ap-northeast-2',
+})
+
+const upload = multer({
+  storage: multerS3({
+    s3: new AWS.S3(),
+    bucket: 'ssafymyme',
+    key(req, file, cb) {
+      cb(null, `original/${Date.now()}_${encodeURIComponent(path.basename(file.originalname))}`)
+    }
+  }),
+  limits: { fileSize: 20*1024*1024 } // 20MB
+})
 
 /**
  * @swagger
@@ -176,27 +197,25 @@ router.get('/mychallenge', isLoggedIn, async (req, res, next) => { // GET /mycha
  *                repeat_cycle: 1
  *                auth_count: 1
  */
-router.post('/', isLoggedIn, async (req, res, next) => { // POST /challenge
+router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST /challenge
   try {
     // console.log(req.user)
     const challenge = await Challenge.create({
       name: req.body.name,
+      image_addr: req.body.image_addr,
       content: req.body.content,
       start_date: req.body.start_date,
+      end_date: req.body.end_date,
       period: req.body.period,
-      repeat_cycle: req.body.repeat_cycle,
-      auth_count: req.body.auth_count,
+      certification_cycle: req.body.certification_cycle,
+      total_number_of_certification: req.body.total_number_of_certification,
       UserId: req.user.id,
-    })
-    const challengeParticipation = await ChallengeParticipation.create({
-      achieve_count: req.body.achieve_count,
-      UserId: req.user.id,
-      ChallengeId: challenge.id
+      CategoryId: ''
     })
     const fullChallenge = await Challenge.findOne({
       where: { id: challenge.id },
       include: [{
-        model: User, // 게시글 작성자
+        model: User, // 챌린지 개설자 아이디
         attributes: ['id', 'nickname']
       }]
     })
@@ -205,6 +224,31 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /challenge
     console.error(error)
     next(error)
   }
+})
+
+/**
+ * @swagger
+ *  /challenge/image:
+ *    post:
+ *      tags:
+ *        - challenge
+ *      description: 챌린지 대표 이미지 생성하기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  data:
+ *                    type: string
+ *                    description: S3에 저장된 사진의 주소
+ *                  
+ */
+router.post('/image', isLoggedIn, upload.single('image'), async (req, res, next) => { // POST /challenge/image
+  console.log(req.file)
+  res.json(req.file.location)
 })
 
 module.exports = router
