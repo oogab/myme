@@ -1,44 +1,23 @@
 import React from 'react';
 import { 
-  makeStyles, 
-  withStyles,
-  Button,
   Dialog,
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
   Slide,
   Grid,
-  Chip,
   Container
   } from '@material-ui/core/';
 import CloseIcon from '@material-ui/icons/Close';
-import { teal } from '@material-ui/core/colors';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Wrapper from './styles';
 import PersonIcon from '@material-ui/icons/Person';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-
-const ColorTeal = withStyles((theme) => ({
-  root: {
-    color: theme.palette.getContrastText(teal[500]),
-    backgroundColor: teal[500],
-    '&:hover': {
-      backgroundColor: teal[700],
-    },
-  },
-}))
-
-const ColorButton = ColorTeal(Button);
-const ColorAppBar = ColorTeal(AppBar);
-const ColorChip = ColorTeal(Chip);
+import { ColorButton } from '../../../common/Buttons';
+import { ColorChip } from '../../../common/Chips'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog() {
+export default function FullScreenDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -51,21 +30,7 @@ export default function FullScreenDialog() {
 
   return (
     <Wrapper>
-      <ColorButton variant="outlined" onClick={handleClickOpen}>
-        상세보기
-      </ColorButton>
-      
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition} className="detailChallenge">
-        <ColorAppBar className="appBar">
-          <Toolbar>
-            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="h6" className="appBarTitle">
-              상세보기
-            </Typography>
-          </Toolbar>
-        </ColorAppBar>
         <Grid
       container
       direction="row"
@@ -107,8 +72,8 @@ export default function FullScreenDialog() {
           </Grid>
           <Grid item xs={12}>
           <ColorButton variant="outlined" onClick={handleClickOpen}>
-        참여하기!
-      </ColorButton>
+            참여하기!
+          </ColorButton>
         </Grid>
       </Container>
       </Grid>

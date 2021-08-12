@@ -16,6 +16,15 @@ import {
   UPLOAD_CHALLENGE_IMAGE_REQUEST,
   UPLOAD_CHALLENGE_IMAGE_SUCCESS,
   UPLOAD_CHALLENGE_IMAGE_FAILURE,
+  LOAD_NEW_CHALLENGES_REQUEST,
+  LOAD_NEW_CHALLENGES_SUCCESS,
+  LOAD_NEW_CHALLENGES_FAILURE,
+  LOAD_REC_CHALLENGES_REQUEST,
+  LOAD_REC_CHALLENGES_SUCCESS,
+  LOAD_REC_CHALLENGES_FAILURE,
+  LOAD_CHALLENGE_REQUEST,
+  LOAD_CHALLENGE_SUCCESS,
+  LOAD_CHALLENGE_FAILURE
 } from '../reducers/challenge'
 
 function uploadChallengeImageAPI(data) {
@@ -78,6 +87,67 @@ function* loadChallenges() {
   }
 }
 
+function loadChallengeAPI(data) {
+  return axios.get(`/challenge/${data}`)
+}
+
+function* loadChallenge(action) {
+  try {
+    const result = yield call(loadChallengeAPI, action.data)
+    console.log(result)
+    yield put({
+      type: LOAD_CHALLENGE_SUCCESS,
+      data: result.data
+    })
+  } catch (error) {
+    yield put({
+      type: LOAD_CHALLENGE_FAILURE,
+      error: error.response.data
+    })
+  }
+}
+
+function loadNewChallengesAPI() {
+  return axios.get('/challenge/new')
+}
+
+function* loadNewChallenges() {
+  try {
+    const result = yield call(loadNewChallengesAPI)
+    console.log(result)
+    yield put({
+      type: LOAD_NEW_CHALLENGES_SUCCESS,
+      data: result.data
+    })
+  } catch (error) {
+    yield put({
+      type: LOAD_NEW_CHALLENGES_FAILURE,
+      error: error.response.data
+    })
+  }
+}
+
+function loadRecChallengesAPI() {
+  return axios.get('/challenge/recommended')
+}
+
+function* loadRecChallenges() {
+  try {
+    const result = yield call(loadRecChallengesAPI)
+    console.log(result)
+    yield put({
+      type: LOAD_REC_CHALLENGES_SUCCESS,
+      data: result.data
+    })
+  } catch (error) {
+    yield put({
+      type: LOAD_REC_CHALLENGES_FAILURE,
+      error: error.response.data
+    })
+  }
+}
+
+// 내가 참여하고 있는 챌린지 목록 불러오기
 function loadMyChallengesAPI() {
   return axios.get('/challengeParticipation')
 }
@@ -128,6 +198,18 @@ function* watchLoadChallenges() {
   yield takeLatest(LOAD_CHALLENGES_REQUEST, loadChallenges)
 }
 
+function* watchLoadChallenge() {
+  yield takeLatest(LOAD_CHALLENGE_REQUEST, loadChallenge)
+}
+
+function* watchLoadNewChallenges() {
+  yield takeLatest(LOAD_NEW_CHALLENGES_REQUEST, loadNewChallenges)
+}
+
+function* watchLoadRecChallenges() {
+  yield takeLatest(LOAD_REC_CHALLENGES_REQUEST, loadRecChallenges)
+}
+
 function* watchLoadMyChallenges() {
   yield takeLatest(LOAD_MY_CHALLENGES_REQUEST, loadMyChallenges)
 }
@@ -141,6 +223,9 @@ export default function* challengeSaga() {
     fork(watchUploadChallengeImage),
     fork(watchAddChallenge),
     fork(watchLoadChallenges),
+    fork(watchLoadChallenge),
+    fork(watchLoadNewChallenges),
+    fork(watchLoadRecChallenges),
     fork(watchLoadMyChallenges),
     fork(watchLoadMyCreateChallenges)
   ])

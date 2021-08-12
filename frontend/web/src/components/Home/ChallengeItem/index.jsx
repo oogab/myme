@@ -12,8 +12,8 @@ const App = (props) => {
 
   return(
     <Wrapper>
-      <Grid>
-        <img src={challenge.Challenge?.img_addr ? challenge.Challenge?.img_addr : randomImageUrl} style={{ maxWidth: '270px' }} />
+      <Grid style={{textAlign: 'center'}}>
+        <img src={challenge.Challenge?.img_addr ? challenge.Challenge?.img_addr : randomImageUrl} style={{ maxWidth: '270px', maxHeight: '180px' }} />
       </Grid>
       <Grid container spacing={0}>
         <Grid item xs={12}>
@@ -40,7 +40,7 @@ const App = (props) => {
       </Grid>
       <Grid container spacing={0}>
         <Grid item xs={12} >
-          <LinearProgress style={{ margin: '5px' }} variant="determinate" value={100*challenge.certification_count/challenge.total_number_of_certification} />
+          <LinearProgress variant="determinate" value={100*challenge.certification_count/challenge.total_number_of_certification} />
         </Grid>
       </Grid>
       <Grid container spacing={0}>

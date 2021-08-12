@@ -4,9 +4,11 @@ const path = require('path')
 const multerS3 = require('multer-s3')
 const AWS = require('aws-sdk')
 
-const { Challenge, User, Comment, ChallengeParticipation, ChallengeCertificationTime, ChallengeCertificationDay } = require('../models')
+const { Challenge, User, Comment, ChallengeParticipation, ChallengeCertificationTime, ChallengeCertificationDay, Sequelize } = require('../models')
 const { isLoggedIn } = require('./middlewares')
 const router = express.Router()
+
+const Op = Sequelize.Op
 
 AWS.config.update({
   accessKeyId: process.env.S3_ACCESS_KEY_ID,
@@ -31,7 +33,7 @@ const upload = multer({
  *    get:
  *      tags:
  *        - challenge
- *      description: 챌린지 목록 가져오기
+ *      description: 전체 챌린지 목록 불러오기
  *      responses:
  *        '200':
  *          description: Success
@@ -95,11 +97,149 @@ router.get('/', async (req, res, next) => { // GET /challenge
 
 /**
  * @swagger
+ *  /challenge/new:
+ *    get:
+ *      tags:
+ *        - challenge
+ *      description: 신규 챌린지 목록 불러오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.get('/new', async (req, res, next) => { // GET /challenge/new
+  try {
+    const d = new Date()
+    const where = { createdAt: { [Op.gt]: d.getDate() - 7 } }
+    const challenges = await Challenge.findAll({
+      where,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: User,
+        attributes: ['id', 'nickname']
+      }, {
+        model: Comment,
+        include: [{
+          model: User,
+          attributes: ['id', 'nickname']
+        }]
+      }, {
+        model: ChallengeParticipation
+      }]
+    })
+    res.status(200).json(challenges)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ *  /challenge/recommended:
+ *    get:
+ *      tags:
+ *        - challenge
+ *      description: 추천 챌린지 목록 불러오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.get('/recommended', async (req, res, next) => { // GET /challenge/recommended
+  try {
+    const where = {}
+    const challenges = await Challenge.findAll({
+      where,
+      limit: 10,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: User,
+        attributes: ['id', 'nickname']
+      }, {
+        model: Comment,
+        include: [{
+          model: User,
+          attributes: ['id', 'nickname']
+        }]
+      }]
+    })
+    res.status(200).json(challenges)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
  *  /mychallenge:
  *    get:
  *      tags:
  *        - challenge
- *      description: 내가 생성한 챌린지 목록 가져오기
+ *      description: 내가 생성한 챌린지 목록 불러오기
  *      responses:
  *        '200':
  *          description: Success
@@ -254,6 +394,75 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
 router.post('/image', isLoggedIn, upload.single('image'), async (req, res, next) => { // POST /challenge/image
   // console.log(req.file)
   res.json(req.file.location)
+})
+
+/**
+ * @swagger
+ *  /challenge/:challengeId:
+ *    get:
+ *      tags:
+ *        - challenge
+ *      description: 하나의 챌린지 정보 불러오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.get('/:challengeId', async (req, res, next) => { // GET /challenge/{challengeID}
+  try {
+    const challenge = await Challenge.findOne({
+      where: { id : req.params.challengeId },
+      include: [{
+        model: User,
+        attributes: ['id', 'nickname']
+      }, {
+        model: Comment,
+        include: [{
+          model: User,
+          attributes: ['id', 'nickname']
+        }]
+      }, {
+        model: ChallengeParticipation
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeCertificationTime
+      }]
+    })
+    res.status(200).json(challenge)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
 })
 
 module.exports = router

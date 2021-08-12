@@ -1,3 +1,7 @@
+import React from 'react'
+import { withStyles } from '@material-ui/core/';
+import { teal } from '@material-ui/core/colors';
+
 export const backUrl = 'http://localhost:3065'
 
 export const convertCertType = (type) => {
@@ -14,3 +18,13 @@ export const convertCertType = (type) => {
   ]
   return types[type]
 }
+
+export const ColorTeal = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(teal[500]),
+    backgroundColor: teal[500],
+    '&:hover': {
+      backgroundColor: teal[700],
+    },
+  },
+}))

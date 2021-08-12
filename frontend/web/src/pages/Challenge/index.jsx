@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Grid, Button, Typography, InputBase, makeStyles, alpha, withStyles } from '@material-ui/core/';
-import RecommendChallenge from '../../components/Challenge/RecommendChallenge';
-import NewChallenge from '../../components/Challenge/NewChallenge';
+import CardList from '../../components/Challenge/CardList'
+
 import TotalChallenge from '../../components/Challenge/TotalChallenge';
 import Wrapper from './styles';
 import AddIcon from '@material-ui/icons/Add';
@@ -12,6 +12,7 @@ import { useHistory } from 'react-router-dom';
 import Layout from '../../layout/index';
 import { teal } from '@material-ui/core/colors';
 import { useDispatch, useSelector } from 'react-redux';
+import { LOAD_CHALLENGES_REQUEST, LOAD_NEW_CHALLENGES_REQUEST, LOAD_REC_CHALLENGES_REQUEST } from '../../reducers/challenge';
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -54,22 +55,25 @@ const useStyles = makeStyles((theme) => ({
 
   }));
 
-  const ColorTeal = withStyles((theme) => ({
-    root: {
-      color: theme.palette.getContrastText(teal[500]),
-
-    },
-  }))
-  
-  const ColorButton = ColorTeal(Button);
-
-const Challenge = () => {
+const ChallengeHome = () => {
   const classes = useStyles();
   const dispatch = useDispatch()
-  let history = useHistory();
+  const history = useHistory();
 
+  const { challenges, newChallenges, recChallenges } = useSelector((state) => state.challenge)
 
-  
+  useEffect(() => {
+    dispatch({
+      type: LOAD_CHALLENGES_REQUEST
+    })
+    dispatch({
+      type: LOAD_NEW_CHALLENGES_REQUEST
+    })
+    dispatch({
+      type: LOAD_REC_CHALLENGES_REQUEST
+    })
+  }, [])
+
   return (       
       <Wrapper>
         <Layout>
@@ -81,12 +85,12 @@ const Challenge = () => {
                         <SearchIcon />
                         </div>
                         <InputBase
-                        placeholder="검색"
-                        classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'search' }}
+                          placeholder="검색"
+                          classes={{
+                              root: classes.inputRoot,
+                              input: classes.inputInput,
+                          }}
+                          inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
                 {/* </Grid>
@@ -103,23 +107,23 @@ const Challenge = () => {
                 </Grid>
             </Grid>
             
-            <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
-            <h1>신규</h1>
-            <Grid item xs={12}><hr/></Grid>
-                <Grid item xs={12} className="CardContent">
-                <RecommendChallenge></RecommendChallenge>
-                </Grid>
+            <Grid container xs={12} className="grid" style={{ margin: '10px'}}>
+              <h1>신규</h1>
+              <Grid item xs={12}><hr/></Grid>
+              <Grid item xs={12} className="CardContent">
+                <CardList challenges={newChallenges} />
+              </Grid>
             </Grid>
             <div style={{height: '150px'}}></div>
-            <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
-            <h1>신규</h1>
-            <Grid item xs={12}><hr/></Grid>
-                <Grid item xs={12} className="CardContent">
-                <NewChallenge></NewChallenge>
-                </Grid>
+            <Grid container xs={12} className="grid" style={{ margin: '10px'}}>
+              <h1>추천</h1>
+              <Grid item xs={12}><hr/></Grid>
+              <Grid item xs={12} className="CardContent">
+                <Typography>서비스 준비중입니다!</Typography>
+              </Grid>
             </Grid>
             <div style={{height: '150px'}}></div>
-            <Grid container xs={12} className="grid" style={{padding: '20px', margin: '10px'}}>
+            <Grid container xs={12} className="grid" style={{ margin: '10px'}}>
                 <Grid item xs={12} >
                 <h1 className="TotalCard">전체</h1>
                 <TotalChallenge></TotalChallenge>
@@ -131,7 +135,7 @@ const Challenge = () => {
   );
 }
 
-export default Challenge
+export default ChallengeHome
 
 // const Container = styled.div`
 //     min-height: 400px;

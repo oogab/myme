@@ -35,6 +35,15 @@ hr {
     margin-bottom: 20px;
   }
 }
+.term{
+  background-color: #66A091;
+  padding: 5px;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+  max-width: 45%;
+  margin: 0% 2.5% 0% 2.5%;
+}
 `;
 
 export default Wrapper;

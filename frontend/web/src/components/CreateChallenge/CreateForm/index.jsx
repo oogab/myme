@@ -33,7 +33,7 @@ import { useHistory } from 'react-router-dom';
 /* ************************ Main Component Start ************************ */
 const CreateChallenge = () => {
   const dispatch = useDispatch()
-  let history = useHistory()
+  const history = useHistory()
   const classes = useStyles();
   const imageInput = useRef()
   const { challengeImagePath, addChallengeDone } = useSelector((state) => state.challenge)
