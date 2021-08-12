@@ -11,7 +11,7 @@ import RoutineItemCheck from '../RoutineItemCheck/index';
 // import { useSelector } from 'react-redux';
 
 const App = (props) => {
-  const { routine } = props
+  const { routine, routineIdx } = props
 
   return(
     <Wrapper>
@@ -21,7 +21,7 @@ const App = (props) => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <h2 className="title">{routine.name}</h2>
+          <h3 className="title">{routine.name}</h3>
         </AccordionSummary>
         <AccordionDetails className='routine-list-item-detail'>
           <List className='accordian-detail-list'>
@@ -31,7 +31,7 @@ const App = (props) => {
                   routine.RoutinizedHabits.map((habit, idx) => {
                     return (
                       <ListItem className='items' key={idx}>
-                        <RoutineItemCheck habit={habit} />
+                        <RoutineItemCheck habit={habit} routineIdx={routineIdx} routinizedHabitIdx={idx} />
                       </ListItem>
                     )
                   })

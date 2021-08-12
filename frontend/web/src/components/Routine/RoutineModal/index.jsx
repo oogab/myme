@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import {connect, useDispatch, useSelector} from 'react-redux';
-import { CLOSE_ROUTINE_MODAL } from '../../../reducers/modal';
+import { CLOSE_ROUTINE_MODAL, OPEN_ALERT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION } from '../../../reducers/modal';
 import { ADD_MY_HABIT_REQUEST} from '../../../reducers/habit';
 import { ADD_ROUTINIZED_HABIT_REQUEST, LOAD_MY_ROUTINES_REQUEST } from '../../../reducers/routine';
 import {Paper, Grid, TextField} from '@material-ui/core';
@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     borderRadius:'10px',
+    maxWidth:'90%',
+    maxHeight:'90%'
   },
   routineItemList:{
     marginBottom:'60px',
@@ -88,7 +90,8 @@ function SimpleModal(props) {
   const dispatch = useDispatch()
   let [title,setTitle] = useState('');
   let [content,setContent] = useState('');
-  let [time,setTime] = useState(10);
+  let [link,setLink] = useState('');
+  let [time,setTime] = useState();
 
   let [newHabit, setNewHabit] = useState(false);
   let [existHabit, setExistHabit] = useState(false);
@@ -107,17 +110,23 @@ function SimpleModal(props) {
 
   //습관 추가 함수
   function addHabit(){
-    if(validate()){
       dispatch({
         type: ADD_MY_HABIT_REQUEST,
         data: {
           name: title,
           content,
-          "time_required": time
+          "time_required": time,
+          assist_link:filterLink(link)
         }
       })
+      closeRoutine()
+  }
+
+  function setAddHabit(){
+    if(validate()){
+      dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: addHabit})
+      dispatch({type: OPEN_ALERT_MODAL, message:'습관을 생성하시겠습니까?'})
     }
-    
   }
 
   function connectRoutinizedHabit(habitId){
@@ -136,7 +145,6 @@ function SimpleModal(props) {
     })
     closeRoutine()
   }
-
   function goBack(){
     setNewHabit(false);
     setExistHabit(false);
@@ -147,11 +155,25 @@ function SimpleModal(props) {
     let titlesEnglish =[title, content, time]
     for(let i=0;i<titlesKorean.length;i++){
       if(!titlesEnglish[i]){
-        alert(titlesKorean[i]+' 입력해주세요')
+        dispatch({
+          type:OPEN_CONFIRM_MODAL,
+          message:titlesKorean[i]+' 입력해주세요'
+        })
         return false;
       }
     }
     return true;
+  }
+
+  function filterLink(text){
+    text = text.replace('https://','')
+    text = text.replace('http://','')
+    text = text.replace('www.youtube.com/watch?v=','')
+    text = text.replace('www.youtube.com/watch?v=','')
+    text = text.replace('youtu.be/','')
+    text = text.replace('www.youtube.com/embed/','')
+
+    return text
   }
 
   const body = (
@@ -183,11 +205,11 @@ function SimpleModal(props) {
         <>
         <input onChange={(e)=>{setTitle(e.target.value)}} placeholder='제목' className={classes.input}></input>
         <textarea onChange ={(e)=>{setContent(e.target.value)}} className={classes.textArea+' '+classes.input} placeholder='내용'></textarea>
-        <div className={classes.input} style={{height:'auto',textAlign: '-webkit-center'}}><TextField type="number" onChange ={(e)=>{setTime(e.target.value)}} InputLabelProps={{ shrink: true }} placeholder='분' style={{textAlign:'center'}}></TextField></div>
-        
+        <input className={classes.input} type="number" onChange ={(e)=>{setTime(e.target.value)}} placeholder='분' defaultValue={time} min='1' max='50'/>
+        <textarea onChange ={(e)=>{setLink(e.target.value)}} className={classes.textArea+' '+classes.input} placeholder='유튜브 링크'></textarea>
         <div className={classes.buttonDiv}>
             <button className={classes.buttonLeft} onClick={goBack}>뒤로가기</button>
-            <button className={classes.buttonRight} onClick={addHabit}>저장</button>
+            <button className={classes.buttonRight} onClick={setAddHabit}>저장</button>
           </div>
         </>:
         null
