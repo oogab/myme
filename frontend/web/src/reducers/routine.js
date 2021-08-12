@@ -32,6 +32,10 @@ const initialState = {
   checkRoutinizedHabitDone: false,
   checkRoutinizedHabitError: null,
 
+  checkRoutineLoading: false,
+  checkRoutineDone: false,
+  checkRoutineError: null,
+
   setOrderLoading: false,
   setOrderDone:false,
   setOrderError:null,
@@ -72,6 +76,10 @@ export const DELETE_ROUTINIZED_HABIT_FAILURE = 'DELETE_ROUTINIZED_HABIT_FAILURE'
 export const CHECK_ROUTINIZED_HABIT_REQUEST = 'CHECK_ROUTINIZED_HABIT_REQUEST'
 export const CHECK_ROUTINIZED_HABIT_SUCCESS = 'CHECK_ROUTINIZED_HABIT_SUCCESS'
 export const CHECK_ROUTINIZED_HABIT_FAILURE = 'CHECK_ROUTINIZED_HABIT_FAILURE'
+
+export const CHECK_ROUTINE_REQUEST = 'CHECK_ROUTINE_REQUEST'
+export const CHECK_ROUTINE_SUCCESS = 'CHECK_ROUTINE_SUCCESS'
+export const CHECK_ROUTINE_FAILURE = 'CHECK_ROUTINE_FAILURE'
 
 export const CLEAR_MY_ROUTINES = 'CLEAR_MY_ROUTINES'
 
@@ -166,7 +174,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case ADD_ROUTINIZED_HABIT_SUCCESS:
       draft.addRoutinizedHabitLoading = false
       draft.addRoutinizedHabitDone = true
-      draft.myRoutines[draft.choosedRoutine].RoutinizedHabits.push({...action.data, Habit:{name:action.name}})
+      draft.myRoutines[draft.choosedRoutine].RoutinizedHabits.push(action.data)
       break
     case ADD_ROUTINIZED_HABIT_FAILURE:
       draft.addRoutinizedHabitLoading = false
@@ -202,29 +210,38 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.checkRoutinizedHabitLoading = false
       draft.checkRoutinizedHabitDone = true
       draft.myRoutines[action.routineIdx].RoutinizedHabits[action.routinizedHabitIdx].DailyAchieveHabits.push(action.data)
-      // draft.myRoutines[action.routineIdx].RoutinizedHabits.splice(action.habitIdx, 1)
       break
     case CHECK_ROUTINIZED_HABIT_FAILURE:
       draft.checkRoutinizedHabitLoading = false
       draft.checkRoutinizedHabitError = action.error
       break
 
+      case CHECK_ROUTINE_REQUEST:
+        draft.checkRoutineLoading = true
+        draft.checkRoutineDone = false
+        draft.checkRoutineError = null
+        break
+      case CHECK_ROUTINE_SUCCESS:
+        draft.checkRoutineLoading = false
+        draft.checkRoutineDone = true
+        draft.myRoutines[action.routineIdx].DailyAchieveRoutines.push(action.data)
+        break
+      case CHECK_ROUTINE_FAILURE:
+        draft.checkRoutineLoading = false
+        draft.checkRoutineError = action.error
+        break
+
     case SET_ORDER_REQUEST:
-      // draft.setOrderLoading = true
-      // draft.setOrderDone = false
+      draft.setOrderLoading = true
+      draft.setOrderDone = false
       break
     case SET_ORDER_SUCCESS:
-      // draft.setOrderLoading = false
-      // draft.setOrderDone = true
-
-      // for(let i=0;i<action.data.length;i++){
-      //   draft.myRoutines[action.idx].RoutinizedHabits[i].order = action.data[i].order
-      // }
-      // draft.myRoutines[action.idx].RoutinizedHabits = action.data
+      draft.setOrderLoading = false
+      draft.setOrderDone = true
       break
     case SET_ORDER_FAILURE:
-      // draft.setOrderLoading = false
-      // draft.setOrderError = action.error
+      draft.setOrderLoading = false
+      draft.setOrderError = action.error
       break
     case SET_CHOOSED_ROUTINE:
       draft.choosedRoutine = action.idx

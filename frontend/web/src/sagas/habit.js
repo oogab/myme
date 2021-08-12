@@ -22,8 +22,7 @@ import {
   DELETE_MY_HABIT_FAILURE
 } from '../reducers/habit'
 import {
-  ADD_ROUTINIZED_HABIT_SUCCESS,
-  ADD_ROUTINIZED_HABIT_FAILURE,
+  ADD_ROUTINIZED_HABIT_REQUEST,
 } from '../reducers/routine'
 import {
   OPEN_CONFIRM_MODAL
@@ -39,10 +38,6 @@ const myRoutines = state => {
 function loadHabitsAPI(){
   console.log('습관 로드')
   return axios.get('/habit')
-}
-function addRoutinizedHabitAPI(data, id) {
-  console.log('루틴 습관 등록 요청')
-  return axios.post('/routinizedHabit/'+id, data)
 }
 
 function* loadHabits(){
@@ -76,35 +71,20 @@ function* addHabit(action) {
       type: ADD_MY_HABIT_SUCCESS,
       data: resultHabit.data
     })
-    try{
-      const resultRoutinizedHabit = yield call(addRoutinizedHabitAPI, {habitId:resultHabit.data.id, "order":routines[choosed].RoutinizedHabits.length, "achieve_count":0 }, routines[choosed].id)
-      yield put({
-        type: ADD_ROUTINIZED_HABIT_SUCCESS,
-        data: resultRoutinizedHabit.data,
-        name : resultHabit.data.name
+    yield put({
+      type: ADD_ROUTINIZED_HABIT_REQUEST,
+      data:{
+        habitId:resultHabit.data.id,
+        "order":routines[choosed].RoutinizedHabits.length,
+        "achieve_count":0,
+        Habit:resultHabit
+      },
+      id:routines[choosed].id,
       })
-      yield put({
-        type:OPEN_CONFIRM_MODAL,
-        message:'등록이 완료되었습니다.'
-      })
-    }catch(error){
-      yield put({
-        type: ADD_ROUTINIZED_HABIT_FAILURE,
-        error: error.response.data
-      })
-      yield put({
-        type:OPEN_CONFIRM_MODAL,
-        message:'등록에 실패했습니다. 다시 시도해주세요.'
-      })
-    }
   } catch (error) {
     yield put({
       type: ADD_MY_HABIT_FAILURE,
       error: error.response.data
-    })
-    yield put({
-      type:OPEN_CONFIRM_MODAL,
-      message:'등록에 실패했습니다. 다시 시도해주세요.'
     })
   }
 }

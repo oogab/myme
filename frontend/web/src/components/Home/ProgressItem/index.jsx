@@ -84,12 +84,12 @@ function App(props){
 
     return(
         <Wrapper className='progress-item'>
-            <Grid container spacing={0}>
-                <Grid container item xs={4}>
+            <div>
+                <Grid container>
                     <Grid item xs={4}>
                     {
                         !timeInterval?<PlayIcon className="btn progress-btn" onClick={run}></PlayIcon>:<PauseIcon className="progress-btn" onClick={()=>{setTimeInterval(false)}}></PauseIcon>
-                }
+                    }
                     </Grid>
                     <Grid item xs={4}>
                         <CheckIcon onClick={checkRoutinizedHabit} className={isAlreadyComplete()?"btn progress-btn complete-btn":"btn progress-btn"} ></CheckIcon>
@@ -97,17 +97,18 @@ function App(props){
                     <Grid item xs={4}>
                         <NextIcon className="btn progress-btn"></NextIcon>
                     </Grid>
+                
                 </Grid>
-                <Grid item xs={4} className='time'>
-                    <Grid item xs={12}>
-                        {(min<10?'0'+min:min)+':'+(sec<10?'0'+sec:sec)}
-                    </Grid>
-                </Grid>
-                <Grid item xs={4} className='assist'>
+                <div>
+                {(min<10?'0'+min:min)+':'+(sec<10?'0'+sec:sec)}
+                </div>
+                <div>
                     <h3>Assist</h3>
-                    <a href={routinizedHabit?.assist_link}>{routinizedHabit?.assist_content}</a>
-                </Grid>
-            </Grid>
+                    <iframe src="https://www.youtube.com/embed/Cy-vnf2LGck" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    {/* <a href={habit.assist_link}>{habit.assist_content}</a> */}
+
+                </div>
+            </div>
         </Wrapper>
     );
 }

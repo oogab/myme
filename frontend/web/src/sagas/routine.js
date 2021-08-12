@@ -29,6 +29,10 @@ import {
   CHECK_ROUTINIZED_HABIT_SUCCESS,
   CHECK_ROUTINIZED_HABIT_FAILURE,
 
+  CHECK_ROUTINE_REQUEST,
+  CHECK_ROUTINE_SUCCESS,
+  CHECK_ROUTINE_FAILURE,
+
   SET_ORDER_REQUEST,
   SET_ORDER_SUCCESS,
   SET_ORDER_FAILURE,
@@ -38,6 +42,9 @@ import {
   OPEN_CONFIRM_MODAL
 } from '../reducers/modal'
 
+const myRoutines = state => {
+  return state.routine.myRoutines;
+}
 function addRoutineAPI(data) {
   console.log('요청함!')
   return axios.post('/routine', data)
@@ -204,6 +211,7 @@ function checkRoutinizedHabitAPI(routineId, habitId){
   console.log('루틴 습관 완료 체크 요청')
   return axios.post('/routinizedHabit/', {routineId, habitId})
 }
+
 function* checkRoutinizedHabit(action){
   try{
     console.log(action.routineId, action.habitId)
@@ -218,6 +226,24 @@ function* checkRoutinizedHabit(action){
       type:OPEN_CONFIRM_MODAL,
       message:'루틴 내 습관이 완료되었습니다.'
     })
+
+    const routine = yield select(myRoutines)
+    if(routine[action.routineIdx].DailyAchieveRoutines.length) return //이미 완료된 루틴이라면 종료
+
+    const habits = routine[action.routineIdx].RoutinizedHabits
+
+    for(let item of habits){
+      if(!item.DailyAchieveHabits.length){
+        return //완료되지 않은 습관이 있다면 종료
+      }
+    }
+
+    yield put({
+      type: CHECK_ROUTINE_REQUEST,
+      routineIdx: action.routineIdx,
+      routineId: action.routineId,
+    })
+
   }catch(error){
     yield put({
       type: CHECK_ROUTINIZED_HABIT_FAILURE,
@@ -263,6 +289,25 @@ function* setOrder(action){
 
 }
 
+function checkDailyAchieveRoutineAPI(routineId){
+  return axios.post('/routine/complete',{routineId})
+}
+function* checkDailyAchieveRoutine(action){
+  try{
+    const result = yield call(checkDailyAchieveRoutineAPI, action.routineId)
+    yield put({
+      type: CHECK_ROUTINE_SUCCESS,
+      routineIdx: action.routineIdx,
+    })
+  }catch(error){
+    yield put({
+      type: CHECK_ROUTINE_FAILURE,
+      error
+    })
+  }
+}
+
+
 function* watchAddRoutine() {
   yield takeLatest(ADD_ROUTINE_REQUEST, addRoutine)
 }
@@ -290,6 +335,10 @@ function* watchCheckRoutinizedHabit(){
   yield takeLatest(CHECK_ROUTINIZED_HABIT_REQUEST, checkRoutinizedHabit)
 }
 
+function* watchCheckRoutine(){
+  yield takeLatest(CHECK_ROUTINE_REQUEST, checkDailyAchieveRoutine)
+}
+
 function* watchSetOrder(){
   yield takeLatest(SET_ORDER_REQUEST, setOrder)
 }
@@ -304,6 +353,7 @@ export default function* routineSaga() {
     fork(watchAddRoutinizedHabit),
     fork(watchDeleteRoutinizedHabit),
     fork(watchCheckRoutinizedHabit),
+    fork(watchCheckRoutine),
     fork(watchSetOrder)
   ])
 }

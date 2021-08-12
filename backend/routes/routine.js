@@ -297,14 +297,14 @@ router.delete('/:routineId', isLoggedIn, async (req, res, next) => {
   }
 })
 
-// 루틴 내 습관 실행 완료 체크하기
+// 루틴 완료 체크하기
 /**
  * @swagger
  *  /routine/complete:
  *    post:
  *      tags:
  *      - routinizedHabit
- *      description: 루틴 내 습관 실행 완료 체크하기
+ *      description: 루틴 완료 체크하기
  *      requestBody:
  *        required: true
  *        content:
@@ -320,7 +320,7 @@ router.delete('/:routineId', isLoggedIn, async (req, res, next) => {
  */
  router.post('/complete', isLoggedIn, async (req, res, next) => {
   try {
-    const existDailyAchiveRoutine = await DailyAchiveRoutine.findOne({
+    const existDailyAchiveRoutine = await DailyAchieveRoutine.findOne({
       where:{
         RoutineId: req.body.routineId,
         achieve_datetime:{
@@ -329,11 +329,11 @@ router.delete('/:routineId', isLoggedIn, async (req, res, next) => {
       }
     })
     if(existDailyAchiveRoutine){
-      res.status(500).json(existDailyAchiveHabit)
+      res.status(500).json(existDailyAchiveRoutine)
       return
     }
 
-    const dailyAchieveRoutine =await DailyAchiveRoutine.create({
+    const dailyAchieveRoutine =await DailyAchieveRoutine.create({
       authorized: true,
       achieve_datetime: moment().toDate(),
       RoutineId: req.body.routineId
