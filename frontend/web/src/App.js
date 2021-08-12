@@ -24,6 +24,8 @@ import Auth from './pages/Auth/';
 import RoutineModal from './components/Routine/RoutineModal/index';
 import CreateRoutineModal from './components/Routine/CreateRoutineModal/index';
 import ModifyHabitModal from './components/Habit/ModifyHabitModal/index';
+import AlertModal from './components/Etc/AlertModal/index';
+import ConfirmModal from './components/Etc/ConfirmModal/index';
 
 // css
 import './index.css';
@@ -73,6 +75,8 @@ const App = () => {
         <RoutineModal/>
         <CreateRoutineModal/>
         <ModifyHabitModal/>
+        <AlertModal/>
+        <ConfirmModal/>
     </Provider>
   );
 };

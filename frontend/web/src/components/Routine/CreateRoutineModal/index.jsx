@@ -6,7 +6,7 @@ import DayTimeInput from './DayTimeInput/index';
 import Switch from '@material-ui/core/Switch';
 import {Close} from '@material-ui/icons';
 import {connect, useDispatch, useSelector} from 'react-redux';
-import { CLOSE_CREATE_ROUTINE_MODAL } from '../../../reducers/modal';
+import { CLOSE_CREATE_ROUTINE_MODAL, OPEN_ALERT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION } from '../../../reducers/modal';
 import { ADD_ROUTINE_REQUEST, SET_MODAL_INPUT_NAME, SET_MODAL_INPUT_ALARM, SET_MODAL_INPUT_ACTIVE_DAY, MODIFY_ROUTINE_REQUEST} from '../../../reducers/routine';
 function getModalStyle() {
   return {
@@ -125,16 +125,38 @@ function SimpleModal(props) {
     
   }
 
+  function setAdd(){
+    if(validate()){
+      dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: add})
+      if(choosedRoutine == -1){
+        dispatch({type: OPEN_ALERT_MODAL, message:'루틴을 생성하시겠습니까?'})
+      }else{
+        dispatch({type: OPEN_ALERT_MODAL, message:'루틴을 수정하시겠습니까?'})
+      }
+    }
+  }
   const validate = () =>{
     let titlesKorean = ['루틴 이름을']
     let titlesEnglish =['name']
     for(let i=0;i<titlesKorean.length;i++){
       if(!createRoutineInfo[titlesEnglish[i]]){
-        alert(titlesKorean[i]+' 입력해주세요')
+        dispatch({
+          type:OPEN_CONFIRM_MODAL,
+          message:titlesKorean[i]+' 입력해주세요.'
+        })
         return false;
       }
     }
-    return true;
+    for(let item of createRoutineInfo.active_day_of_week){
+      if(item.active){
+        return true;
+      }
+    }
+    dispatch({
+      type:OPEN_CONFIRM_MODAL,
+      message:'요일을 하나 이상 선택해주세요.'
+    })
+    return false;
   }
 
   const body = (
@@ -163,7 +185,7 @@ function SimpleModal(props) {
               </div>
         <div className={classes.buttonDiv}>
           {/* <button className={classes.buttonLeft +' btn'} onClick={handleClose}>취소</button> */}
-          <button className={classes.buttonRight +' btn'} onClick = {add}>완료</button>
+          <button className={classes.buttonRight +' btn'} onClick = {setAdd}>완료</button>
         </div>
     </div>
   );

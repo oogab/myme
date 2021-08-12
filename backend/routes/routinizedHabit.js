@@ -92,7 +92,7 @@ router.put('/order', isLoggedIn, async (req, res, next) => {
     for(let i=0; i<req.body.habits.length;i++){
       let routinizedHabit = req.body.habits[i]
       await RoutinizedHabit.update(
-        {order: routinizedHabit.order},
+        {order: i},
         {
           where: { id: routinizedHabit.id }
         }

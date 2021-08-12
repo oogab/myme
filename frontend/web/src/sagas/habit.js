@@ -25,12 +25,17 @@ import {
   ADD_ROUTINIZED_HABIT_SUCCESS,
   ADD_ROUTINIZED_HABIT_FAILURE,
 } from '../reducers/routine'
+import {
+  OPEN_CONFIRM_MODAL
+} from '../reducers/modal'
+
 const choosedRoutine = state => {
   return state.routine.choosedRoutine;
 }
 const myRoutines = state => {
   return state.routine.myRoutines;
 }
+
 function loadHabitsAPI(){
   console.log('습관 로드')
   return axios.get('/habit')
@@ -53,6 +58,7 @@ function* loadHabits(){
       type: LOAD_MY_HABITS_FAILURE,
       error: error.response.data
     })
+    
   }
 }
 
@@ -77,10 +83,18 @@ function* addHabit(action) {
         data: resultRoutinizedHabit.data,
         name : resultHabit.data.name
       })
+      yield put({
+        type:OPEN_CONFIRM_MODAL,
+        message:'등록이 완료되었습니다.'
+      })
     }catch(error){
       yield put({
         type: ADD_ROUTINIZED_HABIT_FAILURE,
         error: error.response.data
+      })
+      yield put({
+        type:OPEN_CONFIRM_MODAL,
+        message:'등록에 실패했습니다. 다시 시도해주세요.'
       })
     }
   } catch (error) {
@@ -88,7 +102,10 @@ function* addHabit(action) {
       type: ADD_MY_HABIT_FAILURE,
       error: error.response.data
     })
-    
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'등록에 실패했습니다. 다시 시도해주세요.'
+    })
   }
 }
 
@@ -99,12 +116,19 @@ function* addJustHabit(action) {
       type: ADD_JUST_HABIT_SUCCESS,
       data: resultHabit.data
     })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'등록이 완료되었습니다.'
+    })
   } catch (error) {
     yield put({
       type: ADD_JUST_HABIT_FAILURE,
       error: error.response.data
     })
-    
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'등록에 실패했습니다. 다시 시도해주세요.'
+    })
   }
 }
 
@@ -120,10 +144,18 @@ function* modifyMyHabit(action){
       type: MODIFY_MY_HABIT_SUCCESS,
       data: result.data
     })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'수정이 완료되었습니다.'
+    })
   }catch(error){
     yield put({
       type: MODIFY_MY_HABIT_FAILURE,
       error
+    })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'수정에 실패했습니다. 다시 시도해주세요.'
     })
   }
 }
@@ -140,10 +172,18 @@ function* deleteMyHabit(action){
       type: DELETE_MY_HABIT_SUCCESS,
       idx: action.idx
     })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'삭제되었습니다.'
+    })
   }catch(error){
     yield put({
       type: DELETE_MY_HABIT_FAILURE,
       error
+    })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'삭제에 실패했습니다. 다시 시도해주세요.'
     })
   }
 }

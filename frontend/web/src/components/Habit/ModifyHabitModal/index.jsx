@@ -4,7 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import {TextField} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
-import {CLOSE_MODIFY_HABIT_MODAL} from '../../../reducers/modal'
+import {CLOSE_MODIFY_HABIT_MODAL, OPEN_ALERT_MODAL, SET_ALERT_MODAL_FUNCTION} from '../../../reducers/modal'
 import {SET_MODIFY_HABIT_NAME, SET_MODIFY_HABIT_CONTENT, SET_MODIFY_HABIT_TIME_REQUIRED, MODIFY_MY_HABIT_REQUEST, ADD_JUST_HABIT_REQUEST} from '../../../reducers/habit'
 function getModalStyle() {
   return {
@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SimpleModal(props) {
-    const { modifyHabitModal, choosedHabit } = useSelector((state) => state.modal)
+    const { modifyHabitModal, alertModalFunction } = useSelector((state) => state.modal)
     const {habitInfo} = useSelector((state) => state.habit)
     const dispatch = useDispatch()
     const classes = useStyles();
@@ -97,7 +97,6 @@ function SimpleModal(props) {
 
   //습관 수정 함수
   function modifyHabit(){
-    if(validate()){
       if(habitInfo.id==-1){
         dispatch({
           type: ADD_JUST_HABIT_REQUEST,
@@ -119,6 +118,16 @@ function SimpleModal(props) {
         })
       }
       closeModal()
+  }
+
+  function setModifyHabit(){
+    if(validate()){
+      dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: modifyHabit})
+      if(habitInfo.id==-1){
+        dispatch({type: OPEN_ALERT_MODAL, message:'습관을 생성하시겠습니까?'})
+      }else{
+        dispatch({type: OPEN_ALERT_MODAL, message:'습관을 수정하시겠습니까?'})
+      }
     }
   }
 
@@ -127,6 +136,10 @@ function SimpleModal(props) {
     let titlesEnglish =[habitInfo.name, habitInfo.content, habitInfo.time_required]
     for(let i=0;i<titlesKorean.length;i++){
       if(!titlesEnglish[i]){
+        // dispatch({
+        //   type:OPEN_ALERT_MODAL,
+        //   message:titlesKorean[i]+' 입력해주세요'
+        // })
         alert(titlesKorean[i]+' 입력해주세요')
         return false;
       }
@@ -158,7 +171,7 @@ function SimpleModal(props) {
         </div>
         
         <div className={classes.buttonDiv}>
-            <button className={classes.buttonRight} onClick={modifyHabit}>저장</button>
+            <button className={classes.buttonRight} onClick={setModifyHabit}>저장</button>
           </div>
     </div>
   );

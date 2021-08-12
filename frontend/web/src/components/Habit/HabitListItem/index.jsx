@@ -2,7 +2,7 @@ import React from 'react';
 import Wrapper from './styles'
 import {Card, CardContent, Typography, CardActions, Grid, Button} from '@material-ui/core';
 import {useSelector, useDispatch} from 'react-redux'
-import {OPEN_MODIFY_HABIT_MODAL} from '../../../reducers/modal'
+import {OPEN_MODIFY_HABIT_MODAL, SET_ALERT_MODAL_FUNCTION, OPEN_ALERT_MODAL} from '../../../reducers/modal'
 import {SET_MODIFY_HABIT_MODAL, DELETE_MY_HABIT_REQUEST} from '../../../reducers/habit'
 function App(props){
   const dispatch = useDispatch()
@@ -15,7 +15,10 @@ function App(props){
   function deleteHabit(){
       dispatch({type: DELETE_MY_HABIT_REQUEST, idx: props.idx, id:myHabits[props.idx].id })
   }
-
+  function setDeleteHabit(){
+      dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: deleteHabit})
+      dispatch({type: OPEN_ALERT_MODAL, message:'습관을 삭제하시겠습니까? 이미 루틴에 등록된 습관이 있다면 같이 삭제됩니다.'})
+  }
   return(
       <Grid item md={3} className='habits'>
       <Wrapper>
@@ -35,7 +38,7 @@ function App(props){
             <Button size="small" color="primary" onClick={openModal}>
                 수정
             </Button>
-            <Button size="small" color="primary" onClick={deleteHabit}>
+            <Button size="small" color="primary" onClick={setDeleteHabit}>
                 삭제
             </Button>
             </CardActions>

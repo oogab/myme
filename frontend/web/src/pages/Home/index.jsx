@@ -18,9 +18,6 @@ const App = () => {
       type: LOAD_MY_ROUTINES_REQUEST
     })
     dispatch({
-      type: LOAD_MY_HABITS_REQUEST
-    })
-    dispatch({
       type: LOAD_MY_CHALLENGES_REQUEST
     })
   }, [])

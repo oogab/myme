@@ -34,7 +34,9 @@ import {
   SET_ORDER_FAILURE,
 } from '../reducers/routine'
 import { RestoreOutlined } from "@material-ui/icons";
-
+import {
+  OPEN_CONFIRM_MODAL
+} from '../reducers/modal'
 
 function addRoutineAPI(data) {
   console.log('요청함!')
@@ -49,10 +51,18 @@ function* addRoutine(action) {
       type: ADD_ROUTINE_SUCCESS,
       data: result.data
     })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'루틴 등록이 완료되었습니다.'
+    })
   } catch (error) {
     yield put({
       type: ADD_ROUTINE_FAILURE,
       error: error.response.data
+    })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'루틴 등록에 실패했습니다. 다시 시도해주세요.'
     })
   }
 }
@@ -89,10 +99,18 @@ function* deleteRoutine(action){
       type: DELETE_ROUTINE_SUCCESS,
       idx: action.idx
     })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'루틴 삭제가 완료되었습니다.'
+    })
   }catch(error){
     yield put({
       type: DELETE_ROUTINE_FAILURE,
       error: error.response.data
+    })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'루틴 삭제에 실패했습니다. 다시 시도해주세요.'
     })
   }
 }
@@ -108,10 +126,18 @@ function* modifyRoutine(action){
       type: MODIFY_ROUTINE_SUCCESS,
       data: result.data
     })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'루틴 수정이 완료되었습니다.'
+    })
   }catch(error){
     yield put({
       type: MODIFY_ROUTINE_FAILURE,
       error: error.response.data
+    })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'루틴 수정에 실패했습니다. 다시 시도해주세요.'
     })
   }
 }
@@ -129,11 +155,19 @@ function* addRoutinizedHabit(action) {
       data: result.data,
       name : action.name
     })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'루틴에 습관이 등록되었습니다.'
+    })
     console.log(result);
   } catch (error) {
     yield put({
       type: ADD_ROUTINIZED_HABIT_FAILURE,
       error: error.response.data
+    })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'루틴에 습관이 등록되지 않았습니다. 다시 시도해주세요.'
     })
   }
 }
@@ -150,10 +184,18 @@ function* deleteRoutinizedHabit(action){
       routineIdx: action.routineIdx , 
       id: action.id
     })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'습관이 정상적으로 삭제되었습니다.'
+    })
     console.log(result);
   } catch (error) {
     yield put({
       type: DELETE_ROUTINIZED_HABIT_FAILURE,
+    })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'습관이 정상적으로 삭제되지 않았습니다. 다시 시도해주세요.'
     })
   }
 }
@@ -172,10 +214,18 @@ function* checkRoutinizedHabit(action){
       routineIdx: action.routineIdx,
       routinizedHabitIdx: action.routinizedHabitIdx
     })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'루틴 내 습관이 완료되었습니다.'
+    })
   }catch(error){
     yield put({
       type: CHECK_ROUTINIZED_HABIT_FAILURE,
       error
+    })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'체크가 정상적으로 실행되지 않았습니다. 다시 시도해주세요.'
     })
   }
 }
@@ -193,10 +243,21 @@ function* setOrder(action){
       data: result.data,
       idx : action.idx
     })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'순서 변경이 완료되었습니다.'
+    })
+    yield put({
+      type: LOAD_MY_ROUTINES_REQUEST
+    })
   }catch(error){
     yield put({
       type: SET_ORDER_FAILURE,
       error: error
+    })
+    yield put({
+      type:OPEN_CONFIRM_MODAL,
+      message:'순서 변경에 실패했습니다. 다시 시도해주세요.'
     })
   }
 

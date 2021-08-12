@@ -113,7 +113,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   console.error(err)
-  res.status(200).send('에러 발생!')
+  res.status(500).send('에러 발생!')
 })
 
 app.listen(app.get('port'), () => {

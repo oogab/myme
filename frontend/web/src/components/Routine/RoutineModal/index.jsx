@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import {connect, useDispatch, useSelector} from 'react-redux';
-import { CLOSE_ROUTINE_MODAL } from '../../../reducers/modal';
+import { CLOSE_ROUTINE_MODAL, OPEN_ALERT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION } from '../../../reducers/modal';
 import { ADD_MY_HABIT_REQUEST} from '../../../reducers/habit';
 import { ADD_ROUTINIZED_HABIT_REQUEST, LOAD_MY_ROUTINES_REQUEST } from '../../../reducers/routine';
 import {Paper, Grid, TextField} from '@material-ui/core';
@@ -88,7 +88,7 @@ function SimpleModal(props) {
   const dispatch = useDispatch()
   let [title,setTitle] = useState('');
   let [content,setContent] = useState('');
-  let [time,setTime] = useState(10);
+  let [time,setTime] = useState(0);
 
   let [newHabit, setNewHabit] = useState(false);
   let [existHabit, setExistHabit] = useState(false);
@@ -107,7 +107,6 @@ function SimpleModal(props) {
 
   //습관 추가 함수
   function addHabit(){
-    if(validate()){
       dispatch({
         type: ADD_MY_HABIT_REQUEST,
         data: {
@@ -116,8 +115,14 @@ function SimpleModal(props) {
           "time_required": time
         }
       })
+      closeRoutine()
+  }
+
+  function setAddHabit(){
+    if(validate()){
+      dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: addHabit})
+      dispatch({type: OPEN_ALERT_MODAL, message:'습관을 생성하시겠습니까?'})
     }
-    
   }
 
   function connectRoutinizedHabit(habitId){
@@ -136,7 +141,6 @@ function SimpleModal(props) {
     })
     closeRoutine()
   }
-
   function goBack(){
     setNewHabit(false);
     setExistHabit(false);
@@ -147,7 +151,10 @@ function SimpleModal(props) {
     let titlesEnglish =[title, content, time]
     for(let i=0;i<titlesKorean.length;i++){
       if(!titlesEnglish[i]){
-        alert(titlesKorean[i]+' 입력해주세요')
+        dispatch({
+          type:OPEN_CONFIRM_MODAL,
+          message:titlesKorean[i]+' 입력해주세요'
+        })
         return false;
       }
     }
@@ -183,11 +190,11 @@ function SimpleModal(props) {
         <>
         <input onChange={(e)=>{setTitle(e.target.value)}} placeholder='제목' className={classes.input}></input>
         <textarea onChange ={(e)=>{setContent(e.target.value)}} className={classes.textArea+' '+classes.input} placeholder='내용'></textarea>
-        <div className={classes.input} style={{height:'auto',textAlign: '-webkit-center'}}><TextField type="number" onChange ={(e)=>{setTime(e.target.value)}} InputLabelProps={{ shrink: true }} placeholder='분' style={{textAlign:'center'}}></TextField></div>
+        <div className={classes.input} style={{height:'auto',textAlign: '-webkit-center'}}><TextField type="number" onChange ={(e)=>{setTime(e.target.value)}} InputLabelProps={{ shrink: true }} placeholder='분' style={{textAlign:'center'}} defaultValue={time}></TextField></div>
         
         <div className={classes.buttonDiv}>
             <button className={classes.buttonLeft} onClick={goBack}>뒤로가기</button>
-            <button className={classes.buttonRight} onClick={addHabit}>저장</button>
+            <button className={classes.buttonRight} onClick={setAddHabit}>저장</button>
           </div>
         </>:
         null

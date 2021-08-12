@@ -7,7 +7,7 @@ import CheckIcon from '@material-ui/icons/CheckCircleOutline'
 import NextIcon from '@material-ui/icons/SkipNext'
 import {useDispatch} from 'react-redux';
 import {CHECK_ROUTINIZED_HABIT_REQUEST} from '../../../reducers/routine'
-
+import {OPEN_CONFIRM_MODAL} from '../../../reducers/modal'
 function App(props){
     const dispatch = useDispatch()
 
@@ -34,8 +34,18 @@ function App(props){
     },[time, timeInterval])
 
     function run(){
+        if(props.checked){
+            dispatch({
+                type: OPEN_CONFIRM_MODAL,
+                message: '오늘 이미 완료한 습관입니다.'
+            })
+            return
+        }
         if(props.checked || isAlreadyComplete()){
-            alert('이미 필요 시간을 충족하였습니다.')
+            dispatch({
+                type: OPEN_CONFIRM_MODAL,
+                message: '이미 필요 시간을 충족하였습니다.'
+            })
             return
         }
         setTimeInterval(true)
@@ -43,7 +53,20 @@ function App(props){
     }
 
     function checkRoutinizedHabit(){
-        if(props.checked || !isAlreadyComplete()) return
+        if(props.checked){
+            dispatch({
+                type: OPEN_CONFIRM_MODAL,
+                message: '오늘 이미 완료한 습관입니다.'
+            })
+            return
+        }
+        if(!isAlreadyComplete()) {
+            dispatch({
+                type: OPEN_CONFIRM_MODAL,
+                message: '먼저 요구 시간을 채워주세요.'
+            })
+            return
+        }
         dispatch({
             type:CHECK_ROUTINIZED_HABIT_REQUEST, 
             routineId: routinizedHabit.RoutineId, 

@@ -79,6 +79,7 @@ export const SET_ORDER_REQUEST = 'SET_ORDER_REQUEST';
 export const SET_ORDER_SUCCESS = 'SET_ORDER_SUCCESS';
 export const SET_ORDER_FAILURE = 'SET_ORDER_FAILURE';
 
+export const SET_ROUTINIZED_HABITS = 'SET_ROUTINIZED_HABITS'
 export const SET_CHOOSED_ROUTINE='routine/setChoosedRoutine';
 export const DELETE_ROUTINE_ITEM='routine/deleteRoutineItem';
 export const SET_MODAL_INPUT='routine/setModalInput';
@@ -257,6 +258,9 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
     case SET_MODAL_INPUT_ACTIVE_DAY:
       draft.createRoutineInfo.active_day_of_week[action.idx] = action.activeDay
+      break
+    case SET_ROUTINIZED_HABITS:
+      draft.myRoutines[action.num].RoutinizedHabits = action.RoutinizedHabits
       break
   }
 })
