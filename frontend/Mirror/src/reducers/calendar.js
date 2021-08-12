@@ -14,7 +14,11 @@ const initialState = {
     loadEventLoading: false,
     loadEventDone: false,
     loadEventError: null,
-    
+    createEventInfo :{
+        "title" : '',
+        "start_time": '',
+        "end_time": '',
+    }
 }
 
 export const CREATE_EVENT_REQUEST = 'CREATE_EVENT_REQUEST'

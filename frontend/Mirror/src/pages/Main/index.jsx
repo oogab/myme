@@ -24,8 +24,7 @@ import "@fullcalendar/daygrid/main.css";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-import CustomCalendar from '../../components/Calendar/index.jsx';
-
+import CustomCalendar from '../../components/Calendar/index';
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
     height: 10,
@@ -102,8 +101,8 @@ const Main = props => {
             {/* 시계 */}
             <Grid item xs={3}  style={{padding: '50px', float: 'right'}}>
               <div style={{float: 'right'}}>
-                <Clock className="date" format={'YYYY 년 MM 월 DD 일'} ticking={true} timezone={'KR/Republic'}/> &nbsp;
-                <Clock className="clock" format={'HH:mm'} ticking={true} timezone={'KR/Republic'}/>
+                <Clock className="date" format={'YYYY 년 MM 월 DD 일'} ticking={true} /*timezone={'KR/Republic'}*//> &nbsp;
+                <Clock className="clock" format={'HH:mm'} ticking={true} /*timezone={'KR/Republic'}*//>
               </div>
               <br></br>
             {/* <img src="/images/weather.png" alt="" style={{width: '50%', float: 'right'}}/> */}
@@ -175,15 +174,6 @@ const Main = props => {
     
   );
 };
-
-function renderEventContent(eventInfo) {
-  return (
-    <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-    </>
-  )
-}
 
 export default Main;
 

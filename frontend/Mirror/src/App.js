@@ -3,27 +3,28 @@ import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 // ui
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 //redux
 import { Provider } from 'react-redux';
 
 // import store from './redux';
-// import store from './store/configureStore'
+import store from './store/configureStore'
 
 // page
 import Main from './pages/Main';
+import CreateEventModal from './components/Calendar/CreateEvent/index'
 
 //fullcalendar example용
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import rootReducer from './components/Calendar/reducer'
-let store = createStore(rootReducer, applyMiddleware(thunk))
+// import { createStore, applyMiddleware } from 'redux'
+// import thunk from 'redux-thunk'
+// import rootReducer from './components/Calendar/reducer'
+// let store = createStore(rootReducer, applyMiddleware(thunk))
 
 // css
 // import './index.css';
 
 /// theme
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: ['Noto Sans KR'].join(','),
     button: {
@@ -56,6 +57,7 @@ const App = () => {
           </Switch>
         </BrowserRouter>
       </MuiThemeProvider>
+      <CreateEventModal/>
     </Provider>
   );
 };

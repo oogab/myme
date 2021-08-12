@@ -16,31 +16,77 @@ import {
 } from '../reducers/calendar'
 
 function createEventAPI(data){
-
+    console.log('create event요청!')
 }
 function* createEvent(action){
+    try{
+        const result = yield call(createEventAPI, action.data)
+        console.log(result)
+        yield put({
+            type: CREATE_EVENT_SUCCESS,
+            data: result.data
+        })
+    }catch(error){
+        yield put({
+            type: CREATE_EVENT_FAILURE,
+            error: error.response.data
+        })
+    }
 
 }
 
 function deleteEventAPI(data){
-  
+    console.log('delete event 요청!')
 }
 function* deleteEvent(action){
-
+    try{
+        const result = yield call(deleteEventAPI, action.id)
+        yield put({
+            type: DELETE_EVENT_SUCCESS,
+            idx: action.idx
+        })
+    } catch(error){
+        yield put({
+            type: DELETE_EVENT_FAILURE,
+            error: error.response.data
+        })
+    }
 }
 
 function updateEventAPI(data){
-  
+    console.log('update event 요청!')
 }
 function* updateEvent(action){
-
+    try{
+        const result = yield call(updateEventAPI, action.data, action.id)
+        yield put({
+            type: UPDATE_EVENT_SUCCESS,
+            data: result.data
+        })
+    } catch(error){
+        yield put({
+            type: UPDATE_EVENT_FAILURE,
+            error: error.response.data
+        })
+    }
 }
 
 function loadEventAPI(data){
-  
+    console.log('load event 요청!')
 }
 function* loadEvent(action){
-
+    try{
+        const result = yield call(loadEventAPI)
+        yield put({
+            type: LOAD_EVENT_SUCCESS,
+            data: result.data
+        })
+    } catch(error){
+        yield put({
+            type: LOAD_EVENT_FAILURE,
+            error: error.response.data
+        })
+    }
 }
 
 function* watchCreateEvent(){
