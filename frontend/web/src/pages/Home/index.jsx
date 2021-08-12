@@ -32,7 +32,12 @@ const App = () => {
             return <ChallengeItem key={challenge.id} challengeId={challenge.Challenge.name} />
           })
         }
-        <div className='menu'><h2>Today's Routine</h2></div>
+        <div className='menu'><span className='menu-text'>Today's Routine</span>
+        <div style={{float:'right'}}>
+        <span className='menu-text' style={{color:'#776D61'}}>■</span><span>완료</span>
+        <span className='menu-text' style={{color:'#89DDBF'}}>■</span><span>할일</span>
+        </div>
+        </div>
         <hr/>
         {
           myRoutines.length?

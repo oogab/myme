@@ -22,8 +22,8 @@ function App(props){
     let min = Math.floor(time/60)
     let sec = time%60
 
-    // let requiredTime = habit.time_required*60 //진짜 코드
-    let requiredTime = 5 //테스트용 코드
+    let requiredTime = habit.time_required*60 //진짜 코드
+    // let requiredTime = 5 //테스트용 코드
 
     let requiredMin = Math.floor(requiredTime/60)
     let requiredSec = requiredTime%60

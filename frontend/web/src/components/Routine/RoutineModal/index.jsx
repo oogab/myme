@@ -80,6 +80,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '50px',
     display: 'block'
+  },
+  width50:{
+    width:'50%',
   }
 }));
 
@@ -185,16 +188,16 @@ function SimpleModal(props) {
       {
         !newHabit && !existHabit?
         <Grid container >
-          <Grid item md={6}>
+          <Grid item md={6} sm={6} className={classes.width50}>
             <Paper className={classes.habitBtn+' btn'} onClick={()=>{setNewHabit(true)}}>
             <Create className={classes.habitIcon} style={{color:'tan'}}></Create>
-            새로운 습관 생성
+            새로운 습관
             </Paper>
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={6} sm={6} className={classes.width50}>
             <Paper className={classes.habitBtn+' btn'} onClick={()=>{setExistHabit(true)}}>
             <Event className={classes.habitIcon} style={{color:'lightgray'}}></Event>
-            기존 습관 추가
+            기존 습관
             </Paper>
           </Grid>
         </Grid>
@@ -218,7 +221,7 @@ function SimpleModal(props) {
         existHabit?
         <>
         <div style={{overflowY: "scroll",
-    height: "500px"}}>
+    height: "480px"}}>
         {
           myHabits.map((item, idx) =>(<Habit key ={idx} habit={item} clickedHabit={clickedHabit} idx={idx} onClick={()=>{setClickedHabit(idx)}}></Habit>))
         }

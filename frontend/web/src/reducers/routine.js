@@ -139,6 +139,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
         action.data[i].RoutineActiveDays.sort((a,b)=>{return a.day_of_week-b.day_of_week})
       }
       draft.myRoutines = draft.myRoutines.concat(action.data)
+      draft.myRoutines.sort((a,b)=>{return a.DailyAchieveRoutines.length-b.DailyAchieveRoutines.length})
       break
     case LOAD_MY_ROUTINES_FAILURE:
       draft.loadMyRoutinesLoading = false
@@ -159,6 +160,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
         action.data[i].RoutineActiveDays.sort((a,b)=>{return a.day_of_week-b.day_of_week})
       }
       draft.myRoutines = draft.myRoutines.concat(action.data)
+      draft.myRoutines.sort((a,b)=>{return a.DailyAchieveRoutines.length-b.DailyAchieveRoutines.length})
       break
     case LOAD_TODAY_ROUTINES_FAILURE:
       draft.loadTodayRoutinesLoading = false

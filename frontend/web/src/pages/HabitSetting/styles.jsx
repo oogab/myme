@@ -13,9 +13,5 @@ const Wrapper = styled.div`
     .MuiContainer-root {
         margin-bottom: 10px;
     }
-    .habits{
-        max-width: calc(90%/4);
-        margin: 1.25%;
-    }
 `;
 export default Wrapper;

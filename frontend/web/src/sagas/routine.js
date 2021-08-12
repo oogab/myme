@@ -214,9 +214,12 @@ function* deleteRoutinizedHabit(action){
       routineIdx: action.routineIdx , 
       id: action.id
     })
+    let routine = yield select(myRoutines)
     yield put({
-      type:OPEN_CONFIRM_MODAL,
-      message:'습관이 정상적으로 삭제되었습니다.'
+      type: SET_ORDER_REQUEST,
+      habits: routine[action.routineIdx].RoutinizedHabits,
+      idx: action.routineIdx,
+      message: true
     })
     console.log(result);
   } catch (error) {
@@ -294,7 +297,7 @@ function* setOrder(action){
     })
     yield put({
       type:OPEN_CONFIRM_MODAL,
-      message:'순서 변경이 완료되었습니다.'
+      message:action.message?'루틴 내 습관이 정상적으로 삭제되었습니다.':'순서 변경이 완료되었습니다.'
     })
     yield put({
       type: LOAD_MY_ROUTINES_REQUEST

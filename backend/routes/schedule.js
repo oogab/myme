@@ -35,21 +35,21 @@ const router = express.Router()
  *            application/json:
  *              schema:
  *                type: object
- *        properties:
- *          id:
- *            type: integer
- *          title:
- *            type: string
- *          color:
- *            type: string
- *          start:
- *            type: string
- *          end:
- *            type: string
- *          allDay:
- *            type: integer
- *          UserId:
- *            type: integer
+ *                properties:
+ *                  id:
+ *                   type: integer
+ *                  title:
+ *                   type: string
+ *                  color:
+ *                   type: string
+ *                  start:
+ *                   type: string
+ *                  end:
+ *                   type: string
+ *                  allDay:
+ *                   type: boolean
+ *                  UserId:
+ *                   type: integer
  */
 router.get('/:year/:month', isLoggedIn, async (req, res, next) => { // GET /routine
   try {

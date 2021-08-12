@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     borderRadius:'10px',
+    maxWidth:'90%',
+    maxHeight:'90%'
   },
   routineItemList:{
     marginBottom:'60px',
@@ -64,7 +66,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight:'bold'
   },
   buttonDiv:{
-    marginTop:'20px',
   },
   habitBtn:{
     textAlign : 'center',

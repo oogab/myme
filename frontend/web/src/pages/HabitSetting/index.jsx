@@ -27,7 +27,7 @@ function App (props) {
       <Wrapper>
       <div className='menu daily-menu'><h2>Habit</h2><AddRoutineButton onClick={openModal} title='습관 생성'/></div>
         <hr/>
-        <Grid container>
+        <Grid container spacing={2}>
           {
             myHabits.map((item, idx)=>(<HabitListItem key={idx} idx={idx} habit={item} />))
           }

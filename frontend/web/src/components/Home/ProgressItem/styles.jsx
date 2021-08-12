@@ -43,6 +43,7 @@ const Wrapper = styled.div`
         height: 100%;
         min-height: 200px;
         padding: 0px;
+        border: 1px solid #EEEEEE;
     }
 
     .play-btns{

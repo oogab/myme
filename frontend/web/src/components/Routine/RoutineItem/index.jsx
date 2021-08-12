@@ -38,14 +38,7 @@ function App(props){
     }
 
     function saveRoutines(){
-      let tempRoutinesHabits = new Array();
-      for(let i=0;i<myRoutines[num].RoutinizedHabits.length;i++){
-        let tempHabit = Object.assign({},myRoutines[num].RoutinizedHabits[i])
-        tempHabit.order= i
-        tempRoutinesHabits.push(tempHabit)
-      }
-      dispatch({type:SET_ORDER_REQUEST, habits: tempRoutinesHabits, idx:num})
-
+      dispatch({type:SET_ORDER_REQUEST, habits: myRoutines[num].RoutinizedHabits, idx:num})
     }
     function setSaveRoutines(){
       console.log(myRoutines[num].RoutinizedHabits)
