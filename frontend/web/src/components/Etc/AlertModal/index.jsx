@@ -20,6 +20,8 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: "40px",
     borderRadius:'10px',
+    maxWidth:'90%',
+    maxHeight:'90%',
   },
   message:{
     fontSize: "18px",

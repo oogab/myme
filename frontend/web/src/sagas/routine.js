@@ -9,6 +9,10 @@ import {
   LOAD_MY_ROUTINES_SUCCESS,
   LOAD_MY_ROUTINES_FAILURE,
 
+  LOAD_TODAY_ROUTINES_REQUEST,
+  LOAD_TODAY_ROUTINES_SUCCESS,
+  LOAD_TODAY_ROUTINES_FAILURE,
+
   DELETE_ROUTINE_REQUEST,
   DELETE_ROUTINE_SUCCESS,
   DELETE_ROUTINE_FAILURE,
@@ -90,6 +94,25 @@ function* loadRoutines() {
   } catch (error) {
     yield put({
       type: LOAD_MY_ROUTINES_FAILURE,
+      error: error.response.data
+    })
+  }
+}
+
+function loadTodayRoutinesAPI(){
+  return axios.get('/routine/today')
+}
+
+function* loadTodayRoutines() {
+  try {
+    const result = yield call(loadTodayRoutinesAPI)
+    yield put({
+      type: LOAD_TODAY_ROUTINES_SUCCESS,
+      data: result.data
+    })
+  } catch (error) {
+    yield put({
+      type: LOAD_TODAY_ROUTINES_FAILURE,
       error: error.response.data
     })
   }
@@ -316,6 +339,10 @@ function* watchLoadRoutines() {
   yield takeLatest(LOAD_MY_ROUTINES_REQUEST, loadRoutines)
 }
 
+function* watchLoadTodayRoutines(){
+  yield takeLatest(LOAD_TODAY_ROUTINES_REQUEST, loadTodayRoutines)
+}
+
 function* watchDeleteRoutine(){
   yield takeLatest(DELETE_ROUTINE_REQUEST, deleteRoutine)
 }
@@ -348,6 +375,7 @@ export default function* routineSaga() {
   yield all([
     fork(watchAddRoutine),
     fork(watchLoadRoutines),
+    fork(watchLoadTodayRoutines),
     fork(watchDeleteRoutine),
     fork(watchModifyRoutine),
     fork(watchAddRoutinizedHabit),

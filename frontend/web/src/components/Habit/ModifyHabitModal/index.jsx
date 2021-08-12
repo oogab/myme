@@ -4,8 +4,8 @@ import Modal from '@material-ui/core/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import {TextField} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
-import {CLOSE_MODIFY_HABIT_MODAL, OPEN_ALERT_MODAL, SET_ALERT_MODAL_FUNCTION} from '../../../reducers/modal'
-import {SET_MODIFY_HABIT_NAME, SET_MODIFY_HABIT_CONTENT, SET_MODIFY_HABIT_TIME_REQUIRED, MODIFY_MY_HABIT_REQUEST, ADD_JUST_HABIT_REQUEST} from '../../../reducers/habit'
+import {CLOSE_MODIFY_HABIT_MODAL, OPEN_ALERT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION} from '../../../reducers/modal'
+import {SET_MODIFY_HABIT_NAME, SET_MODIFY_HABIT_CONTENT, SET_MODIFY_HABIT_TIME_REQUIRED, MODIFY_MY_HABIT_REQUEST, ADD_JUST_HABIT_REQUEST, SET_MODIFY_HABIT_ASSIST_LINK} from '../../../reducers/habit'
 function getModalStyle() {
   return {
     top: `50%`,
@@ -103,7 +103,8 @@ function SimpleModal(props) {
           data: {
             name: habitInfo.name,
             content: habitInfo.content,
-            "time_required": habitInfo.time_required
+            "time_required": habitInfo.time_required,
+            assist_link:setLink(habitInfo.assist_link)
           }
         })
       }else{
@@ -112,7 +113,8 @@ function SimpleModal(props) {
           data: {
             name: habitInfo.name,
             content: habitInfo.content,
-            "time_required": habitInfo.time_required
+            "time_required": habitInfo.time_required,
+            assist_link:setLink(habitInfo.assist_link)
           },
           id: habitInfo.id
         })
@@ -131,16 +133,26 @@ function SimpleModal(props) {
     }
   }
 
+  function setLink(text){
+    text = text.replace('https://','')
+    text = text.replace('http://','')
+    text = text.replace('www.youtube.com/watch?v=','')
+    text = text.replace('www.youtube.com/watch?v=','')
+    text = text.replace('youtu.be/','')
+    text = text.replace('www.youtube.com/embed/','')
+
+    return text
+  }
+
   const validate = () =>{
     let titlesKorean = ['습관 이름을','내용을', '소요 시간을']
     let titlesEnglish =[habitInfo.name, habitInfo.content, habitInfo.time_required]
     for(let i=0;i<titlesKorean.length;i++){
       if(!titlesEnglish[i]){
-        // dispatch({
-        //   type:OPEN_ALERT_MODAL,
-        //   message:titlesKorean[i]+' 입력해주세요'
-        // })
-        alert(titlesKorean[i]+' 입력해주세요')
+        dispatch({
+          type:OPEN_CONFIRM_MODAL,
+          message:titlesKorean[i]+' 입력해주세요'
+        })
         return false;
       }
     }
@@ -158,6 +170,10 @@ function SimpleModal(props) {
   function changeTimeRequired(e){
     dispatch({type: SET_MODIFY_HABIT_TIME_REQUIRED, time_required:e.target.value})
   }
+
+  function changeLink(e){
+    dispatch({type: SET_MODIFY_HABIT_ASSIST_LINK, assist_link:e.target.value})
+  }
   const body = (
     <div style={modalStyle} className={classes.paper}>
         <div style={{height:'30px'}}>
@@ -166,9 +182,8 @@ function SimpleModal(props) {
         </div>
         <input placeholder='제목' className={classes.input} onChange={changeName} defaultValue={habitInfo.name}></input>
         <textarea className={classes.textArea+' '+classes.input} placeholder='내용' onChange={changeContent} defaultValue={habitInfo.content}></textarea>
-        <div className={classes.input} style={{height:'auto',textAlign: '-webkit-center'}}>
-            <TextField type="number" onChange={changeTimeRequired} InputLabelProps={{ shrink: true }} placeholder='분' style={{textAlign:'center'}} defaultValue={habitInfo.time_required}/>
-        </div>
+        <input className={classes.input} type="number" onChange={changeTimeRequired} placeholder='분' defaultValue={habitInfo.time_required} min='1' max='50'/>
+        <textarea onChange ={changeLink} className={classes.textArea+' '+classes.input} placeholder='유튜브 링크' defaultValue={habitInfo.assist_link?'https://www.youtube.com/embed/'+habitInfo.assist_link:''}></textarea>
         
         <div className={classes.buttonDiv}>
             <button className={classes.buttonRight} onClick={setModifyHabit}>저장</button>

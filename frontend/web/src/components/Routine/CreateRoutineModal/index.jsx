@@ -13,6 +13,7 @@ function getModalStyle() {
     top: `50%`,
     left: `50%`,
     transform: `translate(-50%, -50%)`,
+    overflow:'auto'
   };
 }
 
@@ -23,12 +24,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#E5E3E3',
     border: '1px solid #66A091',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    padding: '16px',
     borderRadius:'10px',
+    maxWidth:'90%',
+    maxHeight:'90%'
   },
   day:{
     textAlign: 'center',
-    marginBottom:'20px'
+    marginBottom:'10px'
   },
   text:{
     textAlign: "center",
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:'white',
     padding:'10px',
     borderRadius:'20px',
-    marginBottom:'20px',
+    marginBottom:'10px',
     width:'100%',
     border:'#66A091 1px solid'
   },
@@ -53,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight:'bold'
   },
   buttonDiv:{
-    marginTop:'20px',
+    marginTop:'10px',
   },
   floatRight:{
     float:'right',
@@ -164,6 +167,7 @@ function SimpleModal(props) {
             <div>
            <h2 id="simple-modal-title" style={{marginBottom: "10px", float:'left'}}>루틴 {choosedRoutine==-1?'생성':'수정'}</h2><Close onClick={handleClose} style={{float:'right'}}></Close>
            </div>
+           <div>
            <input type="text" placeholder="루틴 이름 입력" className={classes.inputDiv} onChange={changeName} defaultValue={createRoutineInfo.name}></input>
             <div className={classes.day}>
                 {
@@ -182,6 +186,7 @@ function SimpleModal(props) {
               </div>
               <div className={classes.inputDiv}>
                 <span className={classes.text}>알림</span><div className={classes.floatRight}><Switch className={classes.switch} onChange={changeAlarm} defaultChecked={createRoutineInfo.alarm}/></div>
+              </div>
               </div>
         <div className={classes.buttonDiv}>
           {/* <button className={classes.buttonLeft +' btn'} onClick={handleClose}>취소</button> */}

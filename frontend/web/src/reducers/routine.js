@@ -12,6 +12,10 @@ const initialState = {
   loadMyRoutinesDone: false,
   loadMyRoutinesError: null,
 
+  loadTodayRoutinesLoading: false,
+  loadTodayRoutinesDone: false,
+  loadTodayRoutinesError: null,
+
   deleteRoutineLoading: false,
   deleteRoutineDone : false,
   deleteRoutineError : null,
@@ -56,6 +60,10 @@ export const ADD_ROUTINE_FAILURE = 'ADD_ROUTINE_FAILURE'
 export const LOAD_MY_ROUTINES_REQUEST = 'LOAD_MY_ROUTINES_REQUEST'
 export const LOAD_MY_ROUTINES_SUCCESS = 'LOAD_MY_ROUTINES_SUCCESS'
 export const LOAD_MY_ROUTINES_FAILURE = 'LOAD_MY_ROUTINES_FAILURE'
+
+export const LOAD_TODAY_ROUTINES_REQUEST = 'LOAD_TODAY_ROUTINES_REQUEST'
+export const LOAD_TODAY_ROUTINES_SUCCESS = 'LOAD_TODAY_ROUTINES_SUCCESS'
+export const LOAD_TODAY_ROUTINES_FAILURE = 'LOAD_TODAY_ROUTINES_FAILURE'
 
 export const DELETE_ROUTINE_REQUEST = 'DELETE_ROUTINE_REQUEST'
 export const DELETE_ROUTINE_SUCCESS = 'DELETE_ROUTINE_SUCCESS'
@@ -128,12 +136,33 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.myRoutines = []
       for(let i=0;i<action.data.length;i++){
         action.data[i].RoutinizedHabits.sort((a,b)=>{return a.order-b.order})
+        action.data[i].RoutineActiveDays.sort((a,b)=>{return a.day_of_week-b.day_of_week})
       }
       draft.myRoutines = draft.myRoutines.concat(action.data)
       break
     case LOAD_MY_ROUTINES_FAILURE:
       draft.loadMyRoutinesLoading = false
       draft.loadMyRoutinesError = action.error
+      break
+
+    case LOAD_TODAY_ROUTINES_REQUEST:
+      draft.loadTodayRoutinesLoading = true
+      draft.loadTodayRoutinesDone = false
+      draft.loadTodayRoutinesError = null
+      break
+    case LOAD_TODAY_ROUTINES_SUCCESS:
+      draft.loadTodayRoutinesLoading = false
+      draft.loadTodayRoutinesDone = true
+      draft.myRoutines = []
+      for(let i=0;i<action.data.length;i++){
+        action.data[i].RoutinizedHabits.sort((a,b)=>{return a.order-b.order})
+        action.data[i].RoutineActiveDays.sort((a,b)=>{return a.day_of_week-b.day_of_week})
+      }
+      draft.myRoutines = draft.myRoutines.concat(action.data)
+      break
+    case LOAD_TODAY_ROUTINES_FAILURE:
+      draft.loadTodayRoutinesLoading = false
+      draft.loadTodayRoutinesError = action.error
       break
 
     case DELETE_ROUTINE_REQUEST:

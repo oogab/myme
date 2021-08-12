@@ -72,6 +72,91 @@ router.get('/', isLoggedIn, async (req, res, next) => { // GET /routine
   }
 })
 
+// 오늘의 루틴 목록 가져오기
+/**
+ * @swagger
+ *  /routine/today:
+ *    get:
+ *      tags:
+ *        - routine
+ *      description: 오늘의 루틴 목록 가져오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  alarm:
+ *                    type: bool
+ *                  UserId:
+ *                    type: integer
+ */
+ router.get('/today', isLoggedIn, async (req, res, next) => { // GET /routine
+  try {
+    let today = moment().day()
+    today = today==0?7:today-1
+
+    const todayRoutines = await RoutineActiveDay.findAll({
+      where: {
+        day_of_week:today,
+        active:true
+      },
+      attributes: ['RoutineId']
+    })
+
+    console.log(todayRoutines)
+    let routineIds = []
+    for(let i=0;i<todayRoutines.length;i++){
+      routineIds.push(todayRoutines[i].RoutineId)
+    }
+    console.log(routineIds)
+    const routines = await Routine.findAll({
+      where: { 
+        UserId: req.user.id,
+        id: {[Op.in]:routineIds},
+      },
+      include: [{
+        model: User,
+        attributes: ['id', 'nickname']
+      }, {
+        model: RoutinizedHabit,
+        include: [{
+          model: Habit,
+        },{
+          model: DailyAchieveHabit,
+          required: false,
+          where:{
+            achieve_datetime:{
+              [Op.between]: [moment().startOf('day'), moment().endOf('day')],
+            }
+          }
+        }]
+      }, {
+        model: RoutineActiveDay,
+      },{
+        model: DailyAchieveRoutine,
+        required: false,
+        where:{
+          achieve_datetime:{
+            [Op.between]: [moment().startOf('day'), moment().endOf('day')],
+          }
+        }
+      }]
+    })
+    // console.log(routines)
+    res.status(200).json(routines)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
 // 루틴 생성하기
 /**
  * @swagger

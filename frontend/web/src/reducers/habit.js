@@ -28,7 +28,8 @@ const initialState = {
     id: -1,
     content: "",
     name: "",
-    time_required: 0
+    time_required: 0,
+    assist_link:"",
   }
 }
 
@@ -57,6 +58,7 @@ export const SET_MODIFY_HABIT_MODAL = 'SET_MODIFY_HABIT_MODAL'
 export const SET_MODIFY_HABIT_NAME = 'SET_MODIFY_HABIT_NAME'
 export const SET_MODIFY_HABIT_CONTENT = 'SET_MODIFY_HABIT_CONTENT'
 export const SET_MODIFY_HABIT_TIME_REQUIRED ='SET_MODIFY_HABIT_TIME_REQUIRED'
+export const SET_MODIFY_HABIT_ASSIST_LINK ='SET_MODIFY_HABIT_ASSIST_LINK'
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
@@ -161,6 +163,9 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
     case SET_MODIFY_HABIT_TIME_REQUIRED:
       draft.habitInfo.time_required = action.time_required
+      break
+    case SET_MODIFY_HABIT_ASSIST_LINK:
+      draft.habitInfo.assist_link = action.assist_link
       break
   }
 })

@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     borderRadius:'10px',
+    maxWidth:'90%',
+    maxHeight:'90%'
   },
   routineItemList:{
     marginBottom:'60px',
@@ -88,7 +90,8 @@ function SimpleModal(props) {
   const dispatch = useDispatch()
   let [title,setTitle] = useState('');
   let [content,setContent] = useState('');
-  let [time,setTime] = useState(0);
+  let [link,setLink] = useState('');
+  let [time,setTime] = useState();
 
   let [newHabit, setNewHabit] = useState(false);
   let [existHabit, setExistHabit] = useState(false);
@@ -112,7 +115,8 @@ function SimpleModal(props) {
         data: {
           name: title,
           content,
-          "time_required": time
+          "time_required": time,
+          assist_link:filterLink(link)
         }
       })
       closeRoutine()
@@ -161,6 +165,17 @@ function SimpleModal(props) {
     return true;
   }
 
+  function filterLink(text){
+    text = text.replace('https://','')
+    text = text.replace('http://','')
+    text = text.replace('www.youtube.com/watch?v=','')
+    text = text.replace('www.youtube.com/watch?v=','')
+    text = text.replace('youtu.be/','')
+    text = text.replace('www.youtube.com/embed/','')
+
+    return text
+  }
+
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <div style={{height:'30px'}}>
@@ -190,8 +205,8 @@ function SimpleModal(props) {
         <>
         <input onChange={(e)=>{setTitle(e.target.value)}} placeholder='제목' className={classes.input}></input>
         <textarea onChange ={(e)=>{setContent(e.target.value)}} className={classes.textArea+' '+classes.input} placeholder='내용'></textarea>
-        <div className={classes.input} style={{height:'auto',textAlign: '-webkit-center'}}><TextField type="number" onChange ={(e)=>{setTime(e.target.value)}} InputLabelProps={{ shrink: true }} placeholder='분' style={{textAlign:'center'}} defaultValue={time}></TextField></div>
-        
+        <input className={classes.input} type="number" onChange ={(e)=>{setTime(e.target.value)}} placeholder='분' defaultValue={time} min='1' max='50'/>
+        <textarea onChange ={(e)=>{setLink(e.target.value)}} className={classes.textArea+' '+classes.input} placeholder='유튜브 링크'></textarea>
         <div className={classes.buttonDiv}>
             <button className={classes.buttonLeft} onClick={goBack}>뒤로가기</button>
             <button className={classes.buttonRight} onClick={setAddHabit}>저장</button>

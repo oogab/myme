@@ -103,6 +103,7 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /habit
       name: req.body.name,
       content: req.body.content,
       time_required: req.body.time_required,
+      assist_link: req.body.assist_link,
       UserId: req.user.id
     })
     res.status(200).json(habit)
@@ -172,6 +173,7 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /habit
       name: req.body.name,
       content: req.body.content,
       time_required: req.body.time_required,
+      assist_link: req.body.assist_link,
     },{where: { UserId: req.user.id, id:req.params.habitId }},{ transaction: t })
     const habit = await Habit.findOne({
       where: { id:req.params.habitId}
