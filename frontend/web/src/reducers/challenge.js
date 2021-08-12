@@ -44,6 +44,10 @@ const initialState = {
   participateChallengeLoading: false,
   participateChallengeDone: false,
   participateChallengeError: null,
+  /*********************************************************** */
+  certifyChallengeLoading: false,
+  certifyChallengeDone: false,
+  certifyChallengeError: null,
 }
 
 export const UPLOAD_CHALLENGE_IMAGE_REQUEST = 'UPLOAD_CHALLENGE_IMAGE_REQUEST'
@@ -86,12 +90,14 @@ export const PARTICIPATE_CHALLENGE_REQUEST = 'PARTICIPATE_CHALLENGE_REQUEST'
 export const PARTICIPATE_CHALLENGE_SUCCESS = 'PARTICIPATE_CHALLENGE_SUCCESS'
 export const PARTICIPATE_CHALLENGE_FAILURE = 'PARTICIPATE_CHALLENGE_FAILURE'
 
+export const CERTIFY_CHALLENGE_REQUEST = 'CERTIFY_CHALLENGE_REQUEST'
+export const CERTIFY_CHALLENGE_SUCCESS = 'CERTIFY_CHALLENGE_SUCCESS'
+export const CERTIFY_CHALLENGE_FAILURE = 'CERTIFY_CHALLENGE_FAILURE'
+
 export const CLEAR_CHALLENGES = 'CLEAR_CHALLENGES'
 export const CLEAR_MY_CHALLENGES = 'CLEAR_MY_CHALLENGES'
 export const CLEAR_ADD_CHALLENGE_DONE = 'CLEAR_ADD_CHALLENGE_DONE'
 export const CLEAR_LOAD_CHALLENGE_DONE = 'CLEAR_LOAD_CHALLENGE_DONE'
-
-// export const ADD_CHALLENGE='challenge/addChallenge';
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
@@ -246,6 +252,21 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case PARTICIPATE_CHALLENGE_FAILURE:
       draft.participateChallengeLoading = false
       draft.participateChallengeError = action.error
+      break
+    /*********************************************************** */
+    case CERTIFY_CHALLENGE_REQUEST:
+      draft.certifyChallengeLoading = true
+      draft.certifyChallengeDone = false
+      draft.certifyChallengeError = null
+      break
+    case CERTIFY_CHALLENGE_SUCCESS:
+      draft.certifyChallengeLoading = false
+      draft.certifyChallengeDone = true
+      draft.challengeImagePath = null
+      break
+    case CERTIFY_CHALLENGE_FAILURE:
+      draft.certifyChallengeLoading = false
+      draft.certifyChallengeError = action.error
       break
   }
 })

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   Dialog,
   Slide,
@@ -7,8 +7,6 @@ import {
   Box
 } from '@material-ui/core/';
 import Layout from '../../layout/';
-import CloseIcon from '@material-ui/icons/Close';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Wrapper from './styles';
 import PersonIcon from '@material-ui/icons/Person';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -16,16 +14,25 @@ import { ColorButton } from '../../common/Buttons';
 import { ColorChip } from '../../common/Chips'
 import { useDispatch, useSelector } from 'react-redux';
 import { convertCertType } from '../../config/config';
-import { CLEAR_LOAD_CHALLENGE_DONE } from '../../reducers/challenge';
+import { PARTICIPATE_CHALLENGE_REQUEST } from '../../reducers/challenge';
 
 const ChallengeDetail = ({match}) => {
   const dispatch = useDispatch()
   const { singleChallenge } = useSelector((state) => state.challenge)
-  const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const onParticipateChallenge = useCallback(() => {
+    dispatch({
+      type: PARTICIPATE_CHALLENGE_REQUEST,
+      data: {
+        start_date: singleChallenge.start_date,
+        end_date: singleChallenge.end_date,
+        period: singleChallenge.period,
+        certification_count: 0,
+        total_number_of_certification: singleChallenge.total_number_of_certification,
+        challengeId: singleChallenge.id
+      }
+    })
+  }, [singleChallenge])
 
   return (
     <Layout>
@@ -68,7 +75,7 @@ const ChallengeDetail = ({match}) => {
               <FavoriteIcon/>좋아요 0 명
             </Grid>
             <Grid item xs={12}>
-            <ColorButton variant="outlined" onClick={handleClickOpen}>
+            <ColorButton variant="outlined" onClick={onParticipateChallenge}>
               참여하기!
             </ColorButton>
           </Grid>

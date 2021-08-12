@@ -24,7 +24,13 @@ import {
   LOAD_REC_CHALLENGES_FAILURE,
   LOAD_CHALLENGE_REQUEST,
   LOAD_CHALLENGE_SUCCESS,
-  LOAD_CHALLENGE_FAILURE
+  LOAD_CHALLENGE_FAILURE,
+  PARTICIPATE_CHALLENGE_REQUEST,
+  PARTICIPATE_CHALLENGE_SUCCESS,
+  PARTICIPATE_CHALLENGE_FAILURE,
+  CERTIFY_CHALLENGE_REQUEST,
+  CERTIFY_CHALLENGE_SUCCESS,
+  CERTIFY_CHALLENGE_FAILURE,
 } from '../reducers/challenge'
 
 function uploadChallengeImageAPI(data) {
@@ -186,6 +192,44 @@ function* loadMyCreateChallenges() {
   }
 }
 
+function participateChallengeAPI(data) {
+  return axios.post('/challengeParticipation', data)
+}
+
+function* participateChallenge(action) {
+  try {
+    const result = yield call(participateChallengeAPI, action.data)
+    yield put({
+      type: PARTICIPATE_CHALLENGE_SUCCESS,
+      data: result.data
+    })
+  } catch (error) {
+    yield put({
+      type: PARTICIPATE_CHALLENGE_FAILURE,
+      error: error.response.data
+    })
+  }
+}
+
+function certifyChallengeAPI(data) {
+  return axios.post(`/challengeParticipation/${data.challengeId}`, data)
+}
+
+function* certifyChallenge(action) {
+  try {
+    const result = yield call(certifyChallengeAPI, action.data)
+    yield put({
+      type: CERTIFY_CHALLENGE_SUCCESS,
+      data: result.data
+    })
+  } catch (error) {
+    yield put({
+      type: CERTIFY_CHALLENGE_FAILURE,
+      error: error.response.data
+    })
+  }
+}
+
 function* watchUploadChallengeImage() {
   yield takeLatest(UPLOAD_CHALLENGE_IMAGE_REQUEST, uploadChallengeImage)
 }
@@ -218,6 +262,14 @@ function* watchLoadMyCreateChallenges() {
   yield takeLatest(LOAD_MY_CREATE_CHALLENGES_REQUEST, loadMyCreateChallenges)
 }
 
+function* watchParticipateChallenge() {
+  yield takeLatest(PARTICIPATE_CHALLENGE_REQUEST, participateChallenge)
+}
+
+function* watchCertifyChallenge() {
+  yield takeLatest(CERTIFY_CHALLENGE_REQUEST, certifyChallenge)
+}
+
 export default function* challengeSaga() {
   yield all([
     fork(watchUploadChallengeImage),
@@ -227,6 +279,8 @@ export default function* challengeSaga() {
     fork(watchLoadNewChallenges),
     fork(watchLoadRecChallenges),
     fork(watchLoadMyChallenges),
-    fork(watchLoadMyCreateChallenges)
+    fork(watchLoadMyCreateChallenges),
+    fork(watchParticipateChallenge),
+    fork(watchCertifyChallenge)
   ])
 }

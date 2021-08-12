@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import Wrapper from './styles'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
-import { useDispatch } from 'react-redux';
 import { convertCertType } from '../../../config/config'
+import Modal from '@material-ui/core/Modal';
+import CertModal from '../../Challenge/CertModal';
+
 
 const App = (props) => {
-  const dispatch = useDispatch()
   const { challenge } = props
-  const randomImageUrl = 'https://picsum.photos/200/'
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const onCertModal = useCallback(() => {
+    setModalOpen(true)
+  }, [])
+
+  const closeCertModal = useCallback(() => {
+    setModalOpen(false)
+  }, [])
 
   return(
     <Wrapper>
       <Grid style={{textAlign: 'center'}}>
-        <img src={challenge.Challenge?.img_addr ? challenge.Challenge?.img_addr : randomImageUrl} style={{ maxWidth: '270px', maxHeight: '180px' }} />
+        <img src={challenge.Challenge?.img_addr ? challenge.Challenge?.img_addr : ''} style={{ maxWidth: '270px', maxHeight: '180px' }} />
       </Grid>
       <Grid container spacing={0}>
         <Grid item xs={12}>
@@ -34,7 +43,7 @@ const App = (props) => {
       <Grid container spacing={0}>
         <Grid item xs={12}>
           <span className='title'>
-            달성률 {challenge.certification_count/challenge.total_number_of_certification} %
+            달성률 {100*challenge.certification_count/challenge.total_number_of_certification} %
           </span>
         </Grid>
       </Grid>
@@ -44,8 +53,16 @@ const App = (props) => {
         </Grid>
       </Grid>
       <Grid container spacing={0}>
-        <Grid item xs={6} className='term confirm-btn btn'>인증하기</Grid>
+        <Grid item xs={6} className='term confirm-btn btn' onClick={onCertModal} >인증하기</Grid>
         <Grid item xs={6} className='term confirm-btn btn'>상세보기</Grid>
+        <Modal
+          open={modalOpen}
+          onClose={closeCertModal}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <CertModal challenge={challenge} closeCertModal={closeCertModal} />
+        </Modal>
       </Grid>
     </Wrapper>
   );
