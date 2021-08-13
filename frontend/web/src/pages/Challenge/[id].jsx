@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { 
   Grid,
   IconButton
@@ -48,8 +48,6 @@ const ChallengeDetail = ({match}) => {
     })
   }, [singleChallenge, dispatch])
 
-  
-
   return (
     <Layout>
       <Wrapper>
@@ -89,7 +87,7 @@ const ChallengeDetail = ({match}) => {
               <PersonIcon color="primary"/><span style={{ marginLeft: 10 }}>참가인원 {singleChallenge?.ChallengeParticipations.length} 명</span>
             </Grid>
             <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-              <FavoriteIcon color="secondary"/><span style={{ marginLeft: 10 }}>좋아요 0 명</span>
+              <FavoriteIcon color="secondary"/><span style={{ marginLeft: 10 }}>좋아요 {singleChallenge?.Likers.length} 명</span>
             </Grid>
             <Grid item xs={12}>
             <ColorButton variant="outlined" onClick={onParticipateChallenge}>

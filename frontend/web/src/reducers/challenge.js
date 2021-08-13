@@ -111,6 +111,7 @@ export const UNLIKE_CHALLENGE_SUCCESS = 'UNLIKE_CHALLENGE_SUCCESS'
 export const UNLIKE_CHALLENGE_FAILURE = 'UNLIKE_CHALLENGE_FAILURE'
 
 export const CLEAR_CHALLENGES = 'CLEAR_CHALLENGES'
+export const CLEAR_CHALLENGE = 'CLEAR_CHALLENGE'
 export const CLEAR_MY_CHALLENGES = 'CLEAR_MY_CHALLENGES'
 export const CLEAR_ADD_CHALLENGE_DONE = 'CLEAR_ADD_CHALLENGE_DONE'
 export const CLEAR_LOAD_CHALLENGE_DONE = 'CLEAR_LOAD_CHALLENGE_DONE'
@@ -119,6 +120,9 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
     case CLEAR_CHALLENGES:
       draft.challenges = []
+      break
+    case CLEAR_CHALLENGE:
+      draft.singleChallenge = null
       break
     case CLEAR_MY_CHALLENGES:
       draft.myChallenges = []
@@ -295,24 +299,33 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       if (challenge) {
         challenge.Likers.push({ id: action.data.UserId })
       }
+      // console.log('1', challenge)
       const oneChallenge = draft.singleChallenge
-      oneChallenge.Likers.push({ id: action.data.UserId })
+      if (oneChallenge) {
+        oneChallenge.Likers.push({ id: action.data.UserId })
+      }
+      // console.log('2', oneChallenge)
       const newChallenge = draft.newChallenges.find((v) => v.id === action.data.ChallengeId)
       if (newChallenge) {
         newChallenge.Likers.push({ id: action.data.UserId })
       }
+      // console.log('3', newChallenge)
       const recChallenge = draft.recChallenges.find((v) => v.id === action.data.ChallengeId)
       if (recChallenge) {
         recChallenge.Likers.push({ id: action.data.UserId })
       }
-      const myChallenge = draft.myChallenges.find((v) => v.id === action.data.ChallengeId)
+      // console.log('4', recChallenge)
+      const myChallenge = draft.myChallenges.map((v) => v.Challenge).find((v) => v.id === action.data.ChallengeId)
+      // console.log('4-1', myChallenge)
       if (myChallenge) {
         myChallenge.Likers.push({ id: action.data.UserId })
       }
+      // console.log('5', myChallenge)
       const myCreateChallenge = draft.myCreateChallenges.find((v) => v.id === action.data.ChallengeId)
       if (myCreateChallenge) {
         myCreateChallenge.Likers.push({ id: action.data.UserId })
       }
+      // console.log('6', myCreateChallenge)
       draft.likeChallengeLoading = false
       draft.likeChallengeDone = true
       break
@@ -332,24 +345,33 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       if (challenge) {
         challenge.Likers = challenge.Likers.filter((v) => v.id !== action.data.UserId)
       }
+      // console.log('1', challenge)
       const oneChallenge = draft.singleChallenge
-      oneChallenge.Likers = oneChallenge.Likers.filter((v) => v.id !== action.data.UserId)
+      if (oneChallenge) {
+        oneChallenge.Likers = oneChallenge.Likers.filter((v) => v.id !== action.data.UserId)
+      }
+      // console.log('2', oneChallenge)
       const newChallenge = draft.newChallenges.find((v) => v.id === action.data.ChallengeId)
       if (newChallenge) {
         newChallenge.Likers = newChallenge.Likers.filter((v) => v.id !== action.data.UserId)
       }
+      // console.log('3', newChallenge)
       const recChallenge = draft.recChallenges.find((v) => v.id === action.data.ChallengeId)
       if (recChallenge) {
         recChallenge.Likers = recChallenge.Likers.filter((v) => v.id !== action.data.UserId)
       }
-      const myChallenge = draft.myChallenges.find((v) => v.id === action.data.ChallengeId)
+      // console.log('4', recChallenge)
+      const myChallenge = draft.myChallenges.map((v) => v.Challenge).find((v) => v.id === action.data.ChallengeId)
+      // console.log('4-1', myChallenge)
       if (myChallenge) {
         myChallenge.Likers = myChallenge.Likers.filter((v) => v.id !== action.data.UserId)
       }
+      // console.log('5', myChallenge)
       const myCreateChallenge = draft.myCreateChallenges.find((v) => v.id === action.data.ChallengeId)
       if (myCreateChallenge) {
         myCreateChallenge.Likers = myCreateChallenge.Likers.filter((v) => v.id !== action.data.UserId)
       }
+      // console.log('6', myCreateChallenge)
       draft.unlikeChallengeLoading = false
       draft.unlikeChallengeDone = true
       break

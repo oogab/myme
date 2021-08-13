@@ -117,7 +117,7 @@ const CardList = (props) => {
                     <Grid item xs={12}>
                       <CardActions>
                         <PersonIcon /> {challenge.ChallengeParticipations.length}
-                        <FavoriteIcon /> 10
+                        <FavoriteIcon /> {challenge.Likers.length}
                       </CardActions>
                     </Grid>
                   </Grid>

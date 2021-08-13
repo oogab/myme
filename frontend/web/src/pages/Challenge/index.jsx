@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import Layout from '../../layout/index';
 import { teal } from '@material-ui/core/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_CHALLENGES_REQUEST, LOAD_NEW_CHALLENGES_REQUEST, LOAD_REC_CHALLENGES_REQUEST } from '../../reducers/challenge';
+import { CLEAR_CHALLENGE, LOAD_CHALLENGES_REQUEST, LOAD_NEW_CHALLENGES_REQUEST, LOAD_REC_CHALLENGES_REQUEST } from '../../reducers/challenge';
 
 const chipStyles = makeStyles((theme) => ({
   root: {
@@ -88,6 +88,12 @@ const ChallengeHome = () => {
       type: LOAD_REC_CHALLENGES_REQUEST
     })
   }, [])
+
+  // useEffect(() => {
+  //   dispatch({
+  //     type: CLEAR_CHALLENGE
+  //   })
+  // }, [])
 
   return (       
     <Wrapper>
