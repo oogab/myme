@@ -6,9 +6,11 @@ import { convertCertType, convertDaysWeek } from '../../../config/config'
 import Modal from '@material-ui/core/Modal';
 import CertModal from '../../Challenge/CertModal';
 import { Typography } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 
 const App = (props) => {
   const { challenge } = props
+  const dispatch = useDispatch()
   const [modalOpen, setModalOpen] = useState(false)
 
   const onCertModal = useCallback(() => {

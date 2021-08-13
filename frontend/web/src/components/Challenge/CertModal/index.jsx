@@ -50,6 +50,7 @@ const CertModal = (props) => {
         challengeId: challenge.id // challengeParticipation id...
       }
     })
+
     closeCertModal()
   }, [challengeImagePath])
 
