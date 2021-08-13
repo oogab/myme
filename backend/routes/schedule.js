@@ -10,24 +10,12 @@ const router = express.Router()
 // 월별 일정 목록 가져오기
 /**
  * @swagger
- *  /schedule/{year}/{month}:
+ *  /schedule:
  *    get:
  *      tags:
  *        - schedule
  *      description: 내 월별 일정 가져오기
- *      parameters:
- *        - in: path
- *          name: month
- *          required: true
- *          schema:
- *            type: integer
- *            minimum: 1
- *            maximum: 12
- *        - in: path
- *          name: year
- *          required: true
- *          schema:
- *            type: integer
+ *\
  *      responses:
  *        '200':
  *          description: Success
@@ -51,13 +39,13 @@ const router = express.Router()
  *                  UserId:
  *                   type: integer
  */
-router.get('/:year/:month', isLoggedIn, async (req, res, next) => { // GET /routine
+router.get('/', isLoggedIn, async (req, res, next) => { // GET /routine
   try {
     const schedule = await Schedule.findAll({
       where: { UserId: req.user.id,
-        [Op.or]:[{start:{[Op.between]:[moment(req.params.year+'-'+req.params.month+'-01','YYYY-MM-DD').startOf('month'),moment(req.params.year+'-'+req.params.month+'-01','YYYY-MM-DD').endOf('month')]}},
-        {end:{[Op.between]:[moment(req.params.year+'-'+req.params.month+'-01','YYYY-MM-DD').startOf('month'),moment(req.params.year+'-'+req.params.month+'-01','YYYY-MM-DD').endOf('month')]}}
-    ]
+    //     [Op.or]:[{start:{[Op.between]:[moment(req.params.year+'-'+req.params.month+'-01','YYYY-MM-DD').startOf('month'),moment(req.params.year+'-'+req.params.month+'-01','YYYY-MM-DD').endOf('month')]}},
+    //     {end:{[Op.between]:[moment(req.params.year+'-'+req.params.month+'-01','YYYY-MM-DD').startOf('month'),moment(req.params.year+'-'+req.params.month+'-01','YYYY-MM-DD').endOf('month')]}}
+    // ]
      },
     })
     res.status(200).json(schedule)
