@@ -48,6 +48,14 @@ const initialState = {
   certifyChallengeLoading: false,
   certifyChallengeDone: false,
   certifyChallengeError: null,
+  /*********************************************************** */
+  likeChallengeLoading: false,
+  likeChallengeDone: false,
+  likeChallengeError: null,
+  /*********************************************************** */
+  unlikeChallengeLoading: false,
+  unlikeChallengeDone: false,
+  unlikeChallengeError: null,
 }
 
 export const UPLOAD_CHALLENGE_IMAGE_REQUEST = 'UPLOAD_CHALLENGE_IMAGE_REQUEST'
@@ -93,6 +101,14 @@ export const PARTICIPATE_CHALLENGE_FAILURE = 'PARTICIPATE_CHALLENGE_FAILURE'
 export const CERTIFY_CHALLENGE_REQUEST = 'CERTIFY_CHALLENGE_REQUEST'
 export const CERTIFY_CHALLENGE_SUCCESS = 'CERTIFY_CHALLENGE_SUCCESS'
 export const CERTIFY_CHALLENGE_FAILURE = 'CERTIFY_CHALLENGE_FAILURE'
+
+export const LIKE_CHALLENGE_REQUEST = 'LIKE_CHALLENGE_REQUEST'
+export const LIKE_CHALLENGE_SUCCESS = 'LIKE_CHALLENGE_SUCCESS'
+export const LIKE_CHALLENGE_FAILURE = 'LIKE_CHALLENGE_FAILURE'
+
+export const UNLIKE_CHALLENGE_REQUEST = 'UNLIKE_CHALLENGE_REQUEST'
+export const UNLIKE_CHALLENGE_SUCCESS = 'UNLIKE_CHALLENGE_SUCCESS'
+export const UNLIKE_CHALLENGE_FAILURE = 'UNLIKE_CHALLENGE_FAILURE'
 
 export const CLEAR_CHALLENGES = 'CLEAR_CHALLENGES'
 export const CLEAR_MY_CHALLENGES = 'CLEAR_MY_CHALLENGES'
@@ -267,6 +283,82 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case CERTIFY_CHALLENGE_FAILURE:
       draft.certifyChallengeLoading = false
       draft.certifyChallengeError = action.error
+      break
+    /*********************************************************** */
+    case LIKE_CHALLENGE_REQUEST:
+      draft.likeChallengeLoading = true
+      draft.likeChallengeDone = false
+      draft.likeChallengeError = null
+      break
+    case LIKE_CHALLENGE_SUCCESS: {
+      const challenge = draft.challenges.find((v) => v.id === action.data.ChallengeId)
+      if (challenge) {
+        challenge.Likers.push({ id: action.data.UserId })
+      }
+      const oneChallenge = draft.singleChallenge
+      oneChallenge.Likers.push({ id: action.data.UserId })
+      const newChallenge = draft.newChallenges.find((v) => v.id === action.data.ChallengeId)
+      if (newChallenge) {
+        newChallenge.Likers.push({ id: action.data.UserId })
+      }
+      const recChallenge = draft.recChallenges.find((v) => v.id === action.data.ChallengeId)
+      if (recChallenge) {
+        recChallenge.Likers.push({ id: action.data.UserId })
+      }
+      const myChallenge = draft.myChallenges.find((v) => v.id === action.data.ChallengeId)
+      if (myChallenge) {
+        myChallenge.Likers.push({ id: action.data.UserId })
+      }
+      const myCreateChallenge = draft.myCreateChallenges.find((v) => v.id === action.data.ChallengeId)
+      if (myCreateChallenge) {
+        myCreateChallenge.Likers.push({ id: action.data.UserId })
+      }
+      draft.likeChallengeLoading = false
+      draft.likeChallengeDone = true
+      break
+    }
+    case LIKE_CHALLENGE_FAILURE:
+      draft.likeChallengeLoading = false
+      draft.likeChallengeError = action.error
+      break
+    /*********************************************************** */
+    case UNLIKE_CHALLENGE_REQUEST:
+      draft.unlikeChallengeLoading = true
+      draft.unlikeChallengeDone = false
+      draft.unlikeChallengeError = null
+      break
+    case UNLIKE_CHALLENGE_SUCCESS: {
+      const challenge = draft.challenges.find((v) => v.id === action.data.ChallengeId)
+      if (challenge) {
+        challenge.Likers = challenge.Likers.filter((v) => v.id !== action.data.UserId)
+      }
+      const oneChallenge = draft.singleChallenge
+      oneChallenge.Likers = oneChallenge.Likers.filter((v) => v.id !== action.data.UserId)
+      const newChallenge = draft.newChallenges.find((v) => v.id === action.data.ChallengeId)
+      if (newChallenge) {
+        newChallenge.Likers = newChallenge.Likers.filter((v) => v.id !== action.data.UserId)
+      }
+      const recChallenge = draft.recChallenges.find((v) => v.id === action.data.ChallengeId)
+      if (recChallenge) {
+        recChallenge.Likers = recChallenge.Likers.filter((v) => v.id !== action.data.UserId)
+      }
+      const myChallenge = draft.myChallenges.find((v) => v.id === action.data.ChallengeId)
+      if (myChallenge) {
+        myChallenge.Likers = myChallenge.Likers.filter((v) => v.id !== action.data.UserId)
+      }
+      const myCreateChallenge = draft.myCreateChallenges.find((v) => v.id === action.data.ChallengeId)
+      if (myCreateChallenge) {
+        myCreateChallenge.Likers = myCreateChallenge.Likers.filter((v) => v.id !== action.data.UserId)
+      }
+      draft.unlikeChallengeLoading = false
+      draft.unlikeChallengeDone = true
+      break
+    }
+    case UNLIKE_CHALLENGE_FAILURE:
+      draft.unlikeChallengeLoading = false
+      draft.unlikeChallengeError = action.error
+      break
+    default:
       break
   }
 })

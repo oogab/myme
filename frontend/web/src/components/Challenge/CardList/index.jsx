@@ -1,20 +1,16 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
-import Wrapper from './styles'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { 
-    makeStyles,
     Card,
     CardActionArea,
     CardActions,
     CardContent,
     CardMedia,
     Typography,
-    Chip,
     Grid,
-    Container,
     Box
 } from '@material-ui/core/';
 
@@ -23,14 +19,12 @@ import { ColorButton } from '../../../common/Buttons';
 import PersonIcon from '@material-ui/icons/Person';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { useHistory } from 'react-router-dom';
-import { CLEAR_LOAD_CHALLENGE_DONE, LOAD_CHALLENGE_REQUEST } from '../../../reducers/challenge';
+import { LOAD_CHALLENGE_REQUEST } from '../../../reducers/challenge';
 
 const CardList = (props) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { challenges } = props
-  const [favorite, setFavorite] = useState(false);
-  const { loadChallengeDone, singleChallenge } = useSelector((state) => state.challenge)
 
   // 슬라이더 세팅
   const settings = {
@@ -77,7 +71,7 @@ const CardList = (props) => {
       data: id,
     })
     history.push(`/Challenge/${id}`)
-  }, [])
+  }, [dispatch, history])
 
   return (
         <Slider

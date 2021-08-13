@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { Grid, IconButton } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { ColorButton } from '../../../common/Buttons'
@@ -20,10 +20,10 @@ const CertModal = (props) => {
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click()
-  }, [imageInput.current])
+  }, [])
 
   const onUploadImage = useCallback((e) => {
-    console.log('image', e.target.files[0])
+    // console.log('image', e.target.files[0])
 
     const imageFormData = new FormData()
     imageFormData.append('image', e.target.files[0])
@@ -33,7 +33,7 @@ const CertModal = (props) => {
       data: imageFormData
     })
 
-  }, [])
+  }, [dispatch])
 
   const certifyChallenge = useCallback(() => {
     if (challengeImagePath === '') {
@@ -52,7 +52,7 @@ const CertModal = (props) => {
     })
 
     closeCertModal()
-  }, [challengeImagePath])
+  }, [challengeImagePath, challenge.id, closeCertModal, dispatch])
 
   const checkCertAvailable = () => {
     const now = new Date()
@@ -68,9 +68,6 @@ const CertModal = (props) => {
 
     const checkCertTime = () => {
       // 24시간 일 경우 무조건 true
-
-      console.log(day)
-      console.log(activeDays)
       if (startHour === 0 && startMinute === 0 && endHour === 0 && endMinute === 0) {
         return true
       }
@@ -119,7 +116,7 @@ const CertModal = (props) => {
       </IconButton>
       <Grid container spacing={3}>
         <Grid item xs={12} style={{ textAlign: 'center' }} >
-          <img src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxWidth: 200, maxHeight: 200 }} />
+          <img alt={challenge.Challenge.name} src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxWidth: 200, maxHeight: 200 }} />
           <input type="file" name="image" hidden ref={imageInput} onChange={onUploadImage} />
         </Grid>
         <Grid item xs={12} >

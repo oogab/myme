@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_TODAY_ROUTINES_REQUEST } from '../../reducers/routine';
 import { LOAD_MY_CHALLENGES_REQUEST } from '../../reducers/challenge';
 import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
-import {Card, Grid, Paper, Tabs, Tab} from '@material-ui/core'
+import {Card, Grid, Tabs, Tab} from '@material-ui/core'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -31,15 +31,6 @@ const App = () => {
     dispatch({
       type: LOAD_EVENT_REQUEST
     })
-    // dispatch({
-    //   type: LOAD_CHALLENGES_REQUEST
-    // })
-    // dispatch({
-    //   type: LOAD_NEW_CHALLENGES_REQUEST
-    // })
-    // dispatch({
-    //   type: LOAD_REC_CHALLENGES_REQUEST
-    // })
   }, [])
 
   

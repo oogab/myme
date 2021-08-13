@@ -27,13 +27,11 @@ const DrawerListGroup = (props) => {
 
   let history = useHistory();
 
-  const onClickRedirectPathHandler = name => () => {
+  const onMovePage = useCallback(() => {
       dispatch({
         type: CLOSE_DRAWER
       })
-      window.scrollTo(0, 0);
-      history.push(name);
-  };
+  }, [])
 
   const onSignOut = useCallback(() => {
     dispatch({
@@ -80,7 +78,7 @@ const DrawerListGroup = (props) => {
               <AccordionDetails>
                 <List className="expansion-panel">
                   <NavLink to="/Profile" className='router'
-                    activeClassName='active-router'>
+                    activeClassName='active-router' onClick={onMovePage}>
                   <ListItem
                     button
                     key={'MyProfile'}
@@ -92,7 +90,7 @@ const DrawerListGroup = (props) => {
                   </ListItem>
                   </NavLink>
                   <NavLink to="/password" className='router'
-                    activeClassName='active-router'>
+                    activeClassName='active-router' onClick={onMovePage}>
                     <ListItem
                       button
                       key={'Change Password'}
@@ -116,7 +114,7 @@ const DrawerListGroup = (props) => {
             </Accordion>
           </ListItem>
         <NavLink to="/Home" className='router'
-        activeClassName='active-router'>
+        activeClassName='active-router' onClick={onMovePage}>
         <ListItem
           button
           key={'MyRoutine'}
@@ -128,7 +126,7 @@ const DrawerListGroup = (props) => {
         </ListItem>
         </NavLink>
         <NavLink to="/RoutineSetting" className='router'
-        activeClassName='active-router'>
+        activeClassName='active-router' onClick={onMovePage}>
               <ListItem
                 button
                 key={'RoutineSetting'}
@@ -138,7 +136,7 @@ const DrawerListGroup = (props) => {
               </ListItem>
         </NavLink>
         <NavLink to="/ChallengeHome" className='router'
-        activeClassName='active-router'>
+        activeClassName='active-router' onClick={onMovePage}>
               <ListItem
                 button
                 key={'ChallengeHome'}
@@ -148,7 +146,7 @@ const DrawerListGroup = (props) => {
               </ListItem>
         </NavLink>
         <NavLink to="/MirrorSetting" className='router'
-        activeClassName='active-router'>
+        activeClassName='active-router' onClick={onMovePage}>
           <ListItem
             button
             key={'ContactUs'}
@@ -158,7 +156,7 @@ const DrawerListGroup = (props) => {
           </ListItem>
         </NavLink>
         <NavLink to="/HabitSetting" className='router'
-        activeClassName='active-router'>
+        activeClassName='active-router' onClick={onMovePage}>
           <ListItem
             button
             key={'HabitSetting'}

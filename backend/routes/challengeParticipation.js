@@ -39,6 +39,10 @@ const router = express.Router()
           model: ChallengeCertificationDay,
         }, {
           model: ChallengeCertificationTime
+        }, {
+          model: User,
+          as: 'Likers',
+          attributes: ['id']
         }]
       }]
     })

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Wrapper from './styles'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
@@ -6,11 +6,9 @@ import { convertCertType, convertDaysWeek } from '../../../config/config'
 import Modal from '@material-ui/core/Modal';
 import CertModal from '../../Challenge/CertModal';
 import { Typography } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
 
 const App = (props) => {
   const { challenge } = props
-  const dispatch = useDispatch()
   const [modalOpen, setModalOpen] = useState(false)
 
   const onCertModal = useCallback(() => {
@@ -23,7 +21,7 @@ const App = (props) => {
 
   return(
     <Wrapper>
-      <img src={challenge.Challenge?.img_addr ? challenge.Challenge?.img_addr : ''} style={{ maxWidth: '270px', maxHeight: '100px' }} />
+      <img alt={challenge.Challenge?.name} src={challenge.Challenge?.img_addr ? challenge.Challenge?.img_addr : ''} style={{ maxWidth: '270px', maxHeight: '100px' }} />
       <Grid item xs={12} >
         <Typography gutterBottom className='title' variant="h6" style={{ maxWidth: 250, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>{challenge.Challenge?.name}</Typography>
       </Grid>
@@ -51,7 +49,7 @@ const App = (props) => {
         </Grid>
         <Grid item xs={4} >
           <span className='title' >
-            🏃🏼‍♂️ {100*challenge.certification_count/challenge.total_number_of_certification} %
+            <span role="img">🏃🏼‍♂️</span> {100*challenge.certification_count/challenge.total_number_of_certification} %
           </span>
         </Grid>
       </Grid>

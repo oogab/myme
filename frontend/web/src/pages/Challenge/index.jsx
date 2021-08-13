@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { Grid, Button, Typography, InputBase, makeStyles, alpha, withStyles, AppBar, Chip } from '@material-ui/core/';
 import CardList from '../../components/Challenge/CardList'
 
-import TotalChallenge from '../../components/Challenge/TotalChallenge';
 import Wrapper from './styles';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';

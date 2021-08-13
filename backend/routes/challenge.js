@@ -86,6 +86,10 @@ router.get('/', async (req, res, next) => { // GET /challenge
           model: User,
           attributes: ['id', 'nickname']
         }]
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
       }]
     })
     res.status(200).json(challenges)
@@ -156,6 +160,10 @@ router.get('/', async (req, res, next) => { // GET /challenge
         }]
       }, {
         model: ChallengeParticipation
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
       }]
     })
     res.status(200).json(challenges)
@@ -224,6 +232,10 @@ router.get('/', async (req, res, next) => { // GET /challenge
           model: User,
           attributes: ['id', 'nickname']
         }]
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
       }]
     })
     res.status(200).json(challenges)
@@ -290,6 +302,10 @@ router.get('/mychallenge', isLoggedIn, async (req, res, next) => { // GET /mycha
           model: User,
           attributes: ['id', 'nickname']
         }]
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
       }]
     })
     res.status(200).json(myChallenges)
@@ -456,9 +472,87 @@ router.post('/image', isLoggedIn, upload.single('image'), async (req, res, next)
         model: ChallengeCertificationDay
       }, {
         model: ChallengeCertificationTime
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
       }]
     })
     res.status(200).json(challenge)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ *  /challenge/:challengeId:
+ *    patch:
+ *      tags:
+ *        - challenge
+ *      description: 챌린지 좋아요
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  UserId:
+ *                    type: integer
+ *                  ChallengeId:
+ *                    type: integer
+ * 
+ */
+ router.patch('/:challengeId/like', async (req, res, next) => { // PATCH /challenge/{challengeID}/like
+  try {
+    const challenge = await Challenge.findOne({
+      where: { id : req.params.challengeId },
+    })
+    if (!challenge) {
+      return res.status(403).send('해당 챌린지가 존재하지 않습니다.')
+    }
+    await challenge.addLikers(req.user.id)
+    res.status(200).json({ UserId: req.user.id, ChallengeId: challenge.id})
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ *  /challenge/:challengeId:
+ *    delete:
+ *      tags:
+ *        - challenge
+ *      description: 챌린지 좋아요 취소
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  UserId:
+ *                    type: integer
+ *                  ChallengeId:
+ *                    type: integer
+ * 
+ */
+ router.delete('/:challengeId/like', async (req, res, next) => { // DELETE /challenge/{challengeID}/like
+  try {
+    const challenge = await Challenge.findOne({
+      where: { id : req.params.challengeId },
+    })
+    if (!challenge) {
+      return res.status(403).send('해당 챌린지가 존재하지 않습니다.')
+    }
+    await challenge.removeLikers(req.user.id)
+    res.status(200).json({ UserId: req.user.id, ChallengeId: challenge.id})
   } catch (error) {
     console.error(error)
     next(error)
