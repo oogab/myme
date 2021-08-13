@@ -58,7 +58,7 @@ function App() {
         <>
         <CardActions className='now-weather-div'>
           <img src={'http://openweathermap.org/img/wn/'+nowWeather.weather.icon+'@2x.png'} alt='' id='now-weather-icon'></img>
-          <Typography variant='h4' id='now-temp' className='text' style={{fontSize:'40px'}}>{Math.ceil(nowWeather.nowTemp)}°</Typography>
+          <Typography  id='now-temp' className='text' style={{fontSize:'40px'}}>{Math.ceil(nowWeather.nowTemp)}°</Typography>
           <Typography variant='h4' className='text' style={{fontSize:'30px',width: "100px", textAlign: "center"}}>{weatherToKorean(nowWeather.weather.id)}</Typography>
           <div id='min-max-temp' className='text'>
             <Typography variant='h6' style={{color:'blue'}}>{Math.ceil(nowWeather.minTemp)}°</Typography>
