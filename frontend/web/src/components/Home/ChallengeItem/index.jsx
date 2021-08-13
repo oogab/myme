@@ -49,7 +49,7 @@ const App = (props) => {
         </Grid>
         <Grid item xs={4} >
           <span className='title' >
-            <span role="img">🏃🏼‍♂️</span> {100*challenge.certification_count/challenge.total_number_of_certification} %
+            <span role="img">🏃🏼‍♂️</span> {Math.round(10*100*challenge.certification_count/challenge.total_number_of_certification) / 10} %
           </span>
         </Grid>
       </Grid>
