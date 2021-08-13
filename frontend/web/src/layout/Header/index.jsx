@@ -83,7 +83,7 @@ const Header = (state) => {
 
 
             <Grid item>
-              <Grid container alignItems="center">
+              <Grid container alignItems="center" style={{visibility: "hidden"}}>
                 <Grid item>
                   <IconButton
                     aria-label="delete"

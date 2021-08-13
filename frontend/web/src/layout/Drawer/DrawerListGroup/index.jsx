@@ -1,12 +1,14 @@
 import React, { Fragment, useCallback, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 
 import { connect, useDispatch, useSelector } from 'react-redux';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {ExpandMore, HomeRounded, EventNoteRounded, GavelRounded, LaptopWindowsRounded, FaceRounded} from '@material-ui/icons';
+
 import {
   Avatar,
   List,
   ListItem,
+  ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
 import {
@@ -60,7 +62,7 @@ const DrawerListGroup = (props) => {
             <Accordion className="panel">
               <AccordionSummary
                 className="panel-summary"
-                expandIcon={<ExpandMoreIcon />}
+                expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
@@ -77,27 +79,33 @@ const DrawerListGroup = (props) => {
               </AccordionSummary>
               <AccordionDetails>
                 <List className="expansion-panel">
+                  <NavLink to="/Profile" className='router'
+                    activeClassName='active-router'>
                   <ListItem
                     button
-                    key={'Edit Profile '}
+                    key={'MyProfile'}
                   >
                     <ListItemText
-                      primary={'Edit Profile'}
+                      primary={'프로필 수정'}
                       disableTypography
                     />
                   </ListItem>
-                  <ListItem
-                    button
-                    key={'Change Password'}
-                  >
-                    <ListItemText
-                      primary={'Change Password'}
-                      disableTypography
-                    />
-                  </ListItem>
+                  </NavLink>
+                  <NavLink to="/password" className='router'
+                    activeClassName='active-router'>
+                    <ListItem
+                      button
+                      key={'Change Password'}
+                    >
+                      <ListItemText
+                        primary={'비밀번호 변경'}
+                        disableTypography
+                      />
+                    </ListItem>
+                  </NavLink>
                   <ListItem button key={'Sign Out'}>
                     <ListItemText
-                      primary={'Sign Out'}
+                      primary={'로그아웃'}
                       disableTypography
                       className="list-item"
                       onClick={onSignOut}
@@ -107,51 +115,58 @@ const DrawerListGroup = (props) => {
               </AccordionDetails>
             </Accordion>
           </ListItem>
+        <NavLink to="/Home" className='router'
+        activeClassName='active-router'>
         <ListItem
           button
           key={'MyRoutine'}
-          onClick={onClickRedirectPathHandler('/Home')}
         >
+          <ListItemIcon>
+            <HomeRounded/>
+          </ListItemIcon>
           <ListItemText primary={'홈'} disableTypography />
         </ListItem>
-
+        </NavLink>
+        <NavLink to="/RoutineSetting" className='router'
+        activeClassName='active-router'>
               <ListItem
                 button
                 key={'RoutineSetting'}
-                onClick={onClickRedirectPathHandler('/RoutineSetting')}
               >
+                <ListItemIcon><EventNoteRounded/></ListItemIcon>
                 <ListItemText primary={'루틴 설정'} disableTypography />
               </ListItem>
-              
+        </NavLink>
+        <NavLink to="/ChallengeHome" className='router'
+        activeClassName='active-router'>
               <ListItem
                 button
                 key={'ChallengeHome'}
-                onClick={onClickRedirectPathHandler('/ChallengeHome')}
               >
+                <ListItemIcon><GavelRounded/></ListItemIcon>
                 <ListItemText primary={'챌린지'} disableTypography />
               </ListItem>
-            
-          <ListItem
-            button
-            key={'AboutMe'}
-            onClick={onClickRedirectPathHandler('/Profile')}
-          >
-            <ListItemText primary={'개인 정보'} disableTypography />
-          </ListItem>
+        </NavLink>
+        <NavLink to="/MirrorSetting" className='router'
+        activeClassName='active-router'>
           <ListItem
             button
             key={'ContactUs'}
-            onClick={onClickRedirectPathHandler('/MirrorSetting')}
           >
+            <ListItemIcon><LaptopWindowsRounded/></ListItemIcon>
             <ListItemText primary={'스마트 미러 관리'} disableTypography />
           </ListItem>
+        </NavLink>
+        <NavLink to="/HabitSetting" className='router'
+        activeClassName='active-router'>
           <ListItem
             button
             key={'HabitSetting'}
-            onClick={onClickRedirectPathHandler('/HabitSetting')}
           >
+            <ListItemIcon><FaceRounded/></ListItemIcon>
             <ListItemText primary={'습관 관리'} disableTypography />
           </ListItem>
+        </NavLink>
           </Fragment>
         
         </List>
