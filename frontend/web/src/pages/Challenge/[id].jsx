@@ -56,6 +56,7 @@ const ChallengeDetail = ({match}) => {
             <Grid item xs={12}>
               <ColorChip className="term" style={{ marginLeft: 0 }} label='분류'/>
               <ColorChip className="term" label={convertCertType(singleChallenge?.certification_cycle)}  />
+              
             </Grid>
             <Grid item xs={12}>
               <span>{singleChallenge?.start_date} ~ {singleChallenge?.end_date}</span>
