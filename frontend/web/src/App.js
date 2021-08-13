@@ -16,8 +16,9 @@ import RoutineSetting from './pages/RoutineSetting/';
 import HabitSetting from './pages/HabitSetting/';
 import Home from './pages/Home/';
 import NotFound from './pages/NotFound/';
-import Challenge from './pages/Challenge/';
-import CreateChallenge from './pages/CreateChallenge/';
+import ChallengeHome from './pages/Challenge/';
+import ChallengeDetail from './pages/Challenge/[id]';
+import CreateChallenge from './pages/Challenge/CreateChallenge';
 import Profile from './pages/Profile/';
 import MirrorSetting from './pages/MirrorSetting/';
 import Auth from './pages/Auth/';
@@ -64,10 +65,11 @@ const App = () => {
             <Route path="/RoutineSetting" component={RoutineSetting} />
             <Route path="/HabitSetting" component={HabitSetting} />
             <Route path="/not-found" component={NotFound} />
-            <Route path="/Challenge" component={Challenge} />
+            <Route path="/ChallengeHome" component={ChallengeHome} />
             <Route path="/CreateChallenge" component={CreateChallenge} />
             <Route path="/Profile" component={Profile} />
             <Route path="/MirrorSetting" component={MirrorSetting} />
+            <Route path="/Challenge/:challengeId" component={ChallengeDetail} />
             <Redirect to="/not-found" />
           </Switch>
         </BrowserRouter>

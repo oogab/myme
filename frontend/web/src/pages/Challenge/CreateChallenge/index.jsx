@@ -1,7 +1,7 @@
 import React from 'react';
-import CreateChallengeForm from '../../components/CreateChallenge/CreateForm/';
+import CreateChallengeForm from '../../../components/CreateChallenge/CreateForm';
 import {Grid} from '@material-ui/core';
-import Layout from '../../layout/index';
+import Layout from '../../../layout/index';
 const CreateChallenge = () => {
   return (
     <Layout>
