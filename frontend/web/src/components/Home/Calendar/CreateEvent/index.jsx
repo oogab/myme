@@ -156,15 +156,10 @@ const CreateCalendar = (props) => {
   const onChangeClose = () => {
       setClick(false);
   }
-  const [color, setColor] = useState({
-    r: '137',
-    g: '221',
-    b: '191',
-    a: '1',
-    // rgba(137, 221, 191, 1)
-  })
+  const [color, setColor] = useState('#89DDBF')
   const onChangeColor = (color)=>{
-    setColor(color);
+    console.log(color.hex);
+    setColor(color.hex);
   }
 
   const add = useCallback(() => {
@@ -172,7 +167,7 @@ const CreateCalendar = (props) => {
       type: CREATE_EVENT_REQUEST,
       data:{
         title,
-        color : '#89DDBF',
+        color,
         start:'2021-08-13',
         end:'2021-08-13',
         allDay
@@ -266,14 +261,14 @@ const CreateCalendar = (props) => {
             <div className={classes.container}>
             <LocalOfferTwoToneIcon className={classes.textField} width="100"/>
             <div className={classes.textField}>
-            <div className={ classes.swatch } onClick={ onChangeClick }>
-                <div className={ classes.color } style={{background: {styles}}}/>
+            <div className={ classes.swatch } onClick={ onChangeClick } onChange={onChangeColor}>
+                <div className={ classes.color } style={{background: '{ color }'}}/>
             </div>
             { 
                 click ? 
                 <div className={ classes.popover }>
                     <div className={ classes.cover } onClick={ onChangeClose }/>
-                    <CirclePicker color={ color } onChange={ onChangeColor } />
+                    <CirclePicker defaultValue={ color } onChange={ onChangeColor } />
                 </div> : null 
             }
             </div>
