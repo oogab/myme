@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   inputDiv:{
     backgroundColor:'white',
     padding:'10px',
-    borderRadius:'20px',
+    borderRadius:'5px',
     marginBottom:'10px',
     width:'100%',
     border:'#66A091 1px solid'
@@ -49,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     border: 'none',
     padding: '5px',
-    borderRadius: '20px',
+    borderRadius: '5px',
     height:'40px',
-    backgroundColor: '#89DDBF',
+    backgroundColor: '#776D61',
     color:'white',
     fontWeight:'bold'
   },

@@ -110,12 +110,10 @@ router.get('/', isLoggedIn, async (req, res, next) => { // GET /routine
       attributes: ['RoutineId']
     })
 
-    console.log(todayRoutines)
     let routineIds = []
     for(let i=0;i<todayRoutines.length;i++){
       routineIds.push(todayRoutines[i].RoutineId)
     }
-    console.log(routineIds)
     const routines = await Routine.findAll({
       where: { 
         UserId: req.user.id,

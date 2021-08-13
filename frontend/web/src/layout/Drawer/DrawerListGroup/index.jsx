@@ -27,12 +27,11 @@ const DrawerListGroup = (props) => {
 
   let history = useHistory();
 
-  const onClickRedirectPathHandler = name => () => {
+  function closeDrawer(){
       dispatch({
         type: CLOSE_DRAWER
       })
       window.scrollTo(0, 0);
-      history.push(name);
   };
 
   const onSignOut = useCallback(() => {
@@ -79,7 +78,7 @@ const DrawerListGroup = (props) => {
               </AccordionSummary>
               <AccordionDetails>
                 <List className="expansion-panel">
-                  <NavLink to="/Profile" className='router'
+                  <NavLink to="/Profile" className='router' onClick={closeDrawer}
                     activeClassName='active-router'>
                   <ListItem
                     button
@@ -91,7 +90,7 @@ const DrawerListGroup = (props) => {
                     />
                   </ListItem>
                   </NavLink>
-                  <NavLink to="/password" className='router'
+                  <NavLink to="/password" className='router' onClick={closeDrawer}
                     activeClassName='active-router'>
                     <ListItem
                       button
@@ -115,7 +114,7 @@ const DrawerListGroup = (props) => {
               </AccordionDetails>
             </Accordion>
           </ListItem>
-        <NavLink to="/Home" className='router'
+        <NavLink to="/Home" className='router' onClick={closeDrawer}
         activeClassName='active-router'>
         <ListItem
           button
@@ -127,7 +126,7 @@ const DrawerListGroup = (props) => {
           <ListItemText primary={'홈'} disableTypography />
         </ListItem>
         </NavLink>
-        <NavLink to="/RoutineSetting" className='router'
+        <NavLink to="/RoutineSetting" className='router' onClick={closeDrawer}
         activeClassName='active-router'>
               <ListItem
                 button
@@ -137,7 +136,7 @@ const DrawerListGroup = (props) => {
                 <ListItemText primary={'루틴 설정'} disableTypography />
               </ListItem>
         </NavLink>
-        <NavLink to="/ChallengeHome" className='router'
+        <NavLink to="/ChallengeHome" className='router' onClick={closeDrawer}
         activeClassName='active-router'>
               <ListItem
                 button
@@ -147,7 +146,7 @@ const DrawerListGroup = (props) => {
                 <ListItemText primary={'챌린지'} disableTypography />
               </ListItem>
         </NavLink>
-        <NavLink to="/MirrorSetting" className='router'
+        <NavLink to="/MirrorSetting" className='router' onClick={closeDrawer}
         activeClassName='active-router'>
           <ListItem
             button
@@ -157,7 +156,7 @@ const DrawerListGroup = (props) => {
             <ListItemText primary={'스마트 미러 관리'} disableTypography />
           </ListItem>
         </NavLink>
-        <NavLink to="/HabitSetting" className='router'
+        <NavLink to="/HabitSetting" className='router' onClick={closeDrawer}
         activeClassName='active-router'>
           <ListItem
             button

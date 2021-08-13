@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../../layout/';
-import Wrapper from './styles';
+import {Wrapper, useStyles} from './styles';
 import ChallengeItem from '../../components/Home/ChallengeItem/index';
-import RoutineListItem from '../../components/Home/RoutineListItem/index';
 import Calendar from '../../components/Home/Calendar/index'
 import TodayEvent from '../../components/Home/Calendar/TodayEvent/index'
-
+import TodayRoutineTab from './TodayRoutineTab/'
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import {LocalMoviesRounded, EventAvailableRounded} from '@material-ui/icons'
 import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_TODAY_ROUTINES_REQUEST } from '../../reducers/routine';
+import { LOAD_TODAY_ROUTINES_REQUEST, SET_CHOOSED_ROUTINE } from '../../reducers/routine';
 import { LOAD_MY_CHALLENGES_REQUEST } from '../../reducers/challenge';
 import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
 import {Card, Grid, Paper, Tabs, Tab} from '@material-ui/core'
-
 const App = () => {
   const dispatch = useDispatch()
-  const { myRoutines } = useSelector((state) => state.routine)
+  // const { myRoutines } = useSelector((state) => state.routine)
   const { myChallenges } = useSelector((state) => state.challenge)
   const { events } = useSelector((state) => state.calendar)
-
+  const classes = useStyles()
   let [tabValue, setTabValue] = useState(0)
+  
   useEffect(() => {
     dispatch({
       type: LOAD_TODAY_ROUTINES_REQUEST
@@ -31,6 +30,7 @@ const App = () => {
     dispatch({
       type: LOAD_EVENT_REQUEST
     })
+    dispatch({type: SET_CHOOSED_ROUTINE, idx:-1})
     // dispatch({
     //   type: LOAD_CHALLENGES_REQUEST
     // })
@@ -59,13 +59,15 @@ const App = () => {
           value={tabValue}
           onChange={handleChange}
           variant="fullWidth"
-          indicatorColor="primary"
-          textColor="primary"
+          classes={{
+            indicator: classes.indicator,
+          }}
+          className='tab'
           aria-label="icon label tabs example"
         >
-          <Tab icon={<DashboardIcon />} label="나의 챌린지" />
-          <Tab icon={<LocalMoviesRounded />} label="오늘의 루틴" />
-          <Tab icon={<EventAvailableRounded />} label="나의 일정" />
+          <Tab className={tabValue !==0?'':'active-tab'} icon={<DashboardIcon />} label="나의 챌린지" />
+          <Tab className={tabValue !==1?'':'active-tab'} icon={<LocalMoviesRounded />} label="오늘의 루틴" />
+          <Tab className={tabValue !==2?'':'active-tab'} icon={<EventAvailableRounded />} label="나의 일정" />
         </Tabs>
         <div hidden={tabValue !== 0}>
           <Grid container>
@@ -85,20 +87,7 @@ const App = () => {
           </Grid>
         </div>
         <div hidden={tabValue !== 1}>
-          {
-            myRoutines.length?
-            <>
-              {
-                myRoutines.map((routine,idx) => {
-                  return <RoutineListItem key={idx} routine={routine} routineIdx={idx} />
-                })
-              }
-            </>
-            :
-            <Card>
-              <h4 style={{height: "50px",lineHeight: "50px", textAlign: "center"}}>오늘은 일정이 없어요!</h4>
-            </Card>
-          }
+          <TodayRoutineTab/>
         </div>
         <div hidden={tabValue !== 2}>
           <h3>오늘의 일정</h3>

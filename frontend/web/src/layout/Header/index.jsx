@@ -25,10 +25,6 @@ const Header = (state) => {
   const dispatch = useDispatch()
   const { drawerOpen } = useSelector((state) => state.layout)
 
-  const handleSignInDialogOpen = () => {
-    history.push('/Auth');
-  };
-
   const onClickRedirectPathHandler = name => e => {
     window.scrollTo(0, 0);
     if (name === '/SearchVote') {
