@@ -55,7 +55,8 @@ const CertModal = (props) => {
 
   const checkCertAvailable = () => {
     const now = new Date()
-    const day = now.getDay()
+    // 이건 이후에 최적화 시키자... 일요일을 0번으로!
+    const day = ( now.getDay() === 0 ? 6 : now.getDay()-1 )
     const hour = now.getHours()
     const minute = now.getMinutes()
 
@@ -66,6 +67,9 @@ const CertModal = (props) => {
 
     const checkCertTime = () => {
       // 24시간 일 경우 무조건 true
+
+      console.log(day)
+      console.log(activeDays)
       if (startHour === 0 && startMinute === 0 && endHour === 0 && endMinute === 0) {
         return true
       }
