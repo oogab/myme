@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Grid, Button, Typography, InputBase, makeStyles, alpha, withStyles } from '@material-ui/core/';
+import { Grid, Button, Typography, InputBase, makeStyles, alpha, withStyles, AppBar, Chip } from '@material-ui/core/';
 import CardList from '../../components/Challenge/CardList'
 
 import TotalChallenge from '../../components/Challenge/TotalChallenge';
@@ -13,6 +13,18 @@ import Layout from '../../layout/index';
 import { teal } from '@material-ui/core/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_CHALLENGES_REQUEST, LOAD_NEW_CHALLENGES_REQUEST, LOAD_REC_CHALLENGES_REQUEST } from '../../reducers/challenge';
+
+const chipStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'left',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(1.5),
+    },
+    background: '#66A091'
+  },
+}));
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -59,6 +71,10 @@ const ChallengeHome = () => {
   const classes = useStyles();
   const dispatch = useDispatch()
   const history = useHistory();
+  const chipClasses = chipStyles();
+  const handleClick = () => {
+    console.info('You clicked the Chip.');
+  };
 
   const { challenges, newChallenges, recChallenges } = useSelector((state) => state.challenge)
 
@@ -75,99 +91,66 @@ const ChallengeHome = () => {
   }, [])
 
   return (       
-      <Wrapper>
-        <Layout>
-          <Grid container xs={12} style={{padding: '20px', margin: '10px'}}>
-              <Grid item xs={4} className="CardContent"></Grid>
-                <Grid item xs={8} className="CardContent">
-                    <div className={classes.search} style={{float:'right'}}>
-                        <div className={classes.searchIcon}>
-                        <SearchIcon />
-                        </div>
-                        <InputBase
-                          placeholder="검색"
-                          classes={{
-                              root: classes.inputRoot,
-                              input: classes.inputInput,
-                          }}
-                          inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </div>
-                {/* </Grid>
-                <Grid item xs={5} className="CardContent"> */}
-                    <Button
-                        variant="outlined"
-                        // color="default"
-                        startIcon={<AddIcon />}
-                        style={{float: 'right', width:'auto'}}
-                        onClick={()=>{history.push('/CreateChallenge/')}}
-                    >
-                        챌린지 생성하기
-                    </Button>
-                </Grid>
-            </Grid>
-            
-            <Grid container xs={12} className="grid" style={{ margin: '10px'}}>
-              <h1>신규</h1>
+    <Wrapper>
+      <Layout>
+        <Grid container >
+          <Grid item xs={6}>
+            <div className={classes.search} style={{float:'right'}}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="검색"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="outlined"
+              fullWidth
+              startIcon={<AddIcon />}
+              onClick={()=>{history.push('/CreateChallenge/')}}
+            >
+              챌린지 생성
+            </Button>
+          </Grid>
+            <Grid container className="grid">
+              <h3>신규 챌린지</h3>
               <Grid item xs={12}><hr/></Grid>
               <Grid item xs={12} className="CardContent">
                 <CardList challenges={newChallenges} />
               </Grid>
             </Grid>
-            <div style={{height: '150px'}}></div>
-            <Grid container xs={12} className="grid" style={{ margin: '10px'}}>
-              <h1>추천</h1>
+            <Grid container className="grid">
+              <h3>추천 챌린지</h3>
               <Grid item xs={12}><hr/></Grid>
               <Grid item xs={12} className="CardContent">
                 <Typography>서비스 준비중입니다!</Typography>
               </Grid>
             </Grid>
-            <div style={{height: '150px'}}></div>
-            <Grid container xs={12} className="grid" style={{ margin: '10px'}}>
-                <Grid item xs={12} >
-                <h1 className="TotalCard">전체</h1>
-                <TotalChallenge></TotalChallenge>
-                </Grid>
+            <Grid container className="grid">
+              <h3>전체</h3>
+              <AppBar position="static" style={{background: '#66A091'}}>
+                <div className={chipClasses.root}>
+                  <Chip label="전체" onClick={handleClick} color="#66A091"/>
+                  <Chip label="#운동" onClick={handleClick} />
+                  <Chip label="#공부" onClick={handleClick} />
+                  <Chip label="#식사" onClick={handleClick} />
+                  <Chip label="#취미" onClick={handleClick} />
+                  <Chip label="#다이어트" onClick={handleClick} />
+                </div>
+              </AppBar>
+              {/* <TotalChallenge /> */}
             </Grid>
-            </Layout>
-        </Wrapper>
-      
+        </Grid>
+      </Layout>
+    </Wrapper>
   );
 }
 
 export default ChallengeHome
-
-// const Container = styled.div`
-//     min-height: 400px;
-//     background: #1ab394;
-//   `,
-//   StyledSlider = styled(Slider)`
-//     & .slick-slide img {
-//       max-width: 100%;
-//       min-height: 500px;
-//     }
-//   `,
-//   ImageContainer = styled.div`
-//     position: relative;
-//     color: white;
-//     margin: 0 20px;
-//   `,
-//   Image = styled.img``,
-//   BottomLeft = styled.div`
-//     position: absolute;
-//     bottom: 8px;
-//     left: 16px;
-//   `;
-
-// const items = [
-//   { id: 1, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 2, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 3, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 4, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 5, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 6, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 7, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 8, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 9, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" },
-//   { id: 10, url: "http://placekitten.com/g/400/200", caption: "Cute Kitten" }
-// ];

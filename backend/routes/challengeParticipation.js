@@ -142,11 +142,15 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /challengeParti
  */
 router.post('/:challengeId', isLoggedIn, async (req, res, next) => {  // POST /challengeParticipation/1
   try {
-    console.log(req.user.id, req.params.challengeId)
     const challengeParticipation = await ChallengeParticipation.findOne({
       where: { id: req.params.challengeId }
     })
-    console.log(challengeParticipation)
+    const exDailyCertifyChallenge = await DailyCertifyChallenge.findOne({
+      where: { ChallengeParticipationId: challengeParticipation.id }
+    })
+    if (exDailyCertifyChallenge) {
+      return res.status(403).send('이미 인증했습니다!')
+    }
     const dailyCertifyChallenge = await DailyCertifyChallenge.create({
       img_addr: req.body.img_addr,
       content: req.body.content,

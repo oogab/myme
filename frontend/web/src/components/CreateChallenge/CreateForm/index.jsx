@@ -24,7 +24,8 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import ko from "date-fns/locale/ko"
-import category from './category';
+import category from './category'
+import { ColorButton } from '../../../common/Buttons'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_CHALLENGE_REQUEST, CLEAR_ADD_CHALLENGE_DONE, UPLOAD_CHALLENGE_IMAGE_REQUEST } from '../../../reducers/challenge';
@@ -612,16 +613,16 @@ const CreateChallenge = () => {
           <Grid item xs={12} >
             <h3>6. 챌린지를 소개해 주세요!</h3>
           </Grid>
-          <Grid item xs={12}>
-            <ColorButton variant="contained" onClick={onClickImageUpload}>챌린지 대표 사진 업로드</ColorButton>
+          <Grid item xs={12} sm={3} >
+            <ColorButton fullWidth variant="contained" onClick={onClickImageUpload}>챌린지 대표 사진 업로드</ColorButton>
           </Grid>
-          <Grid item xs={12} sm={3} md={2}>
+          <Grid item xs={12} sm={3} >
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <img src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxHeight: '100px', maxWidth: '100px' }} />
+              <img src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxHeight: '150px', maxWidth: '150px' }} />
             </div>
             <input type="file" name="image" hidden ref={imageInput} onChange={onChangeImage} />
           </Grid>
-          <Grid item xs={12} sm={9} md={10}>
+          <Grid item xs={12} sm={6} >
             <TextField
               id="outlined-multiline-static"
               multiline
@@ -655,7 +656,6 @@ const GreenCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-
 const TealRadio = withStyles({
   root: {
     color: teal[400],
@@ -665,19 +665,6 @@ const TealRadio = withStyles({
   },
   checked: {},
 })((props) => <Radio color="default" {...props} />);
-
-
-const ColorTeal = withStyles((theme) => ({
-  root: {
-    color: theme.palette.getContrastText(teal[500]),
-    backgroundColor: teal[500],
-    '&:hover': {
-      backgroundColor: teal[700],
-    },
-  },
-}))
-
-const ColorButton = ColorTeal(Button);
 
 const useStyles = makeStyles((theme) => ({
   root: {

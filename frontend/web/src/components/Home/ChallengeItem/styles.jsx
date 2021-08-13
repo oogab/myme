@@ -27,18 +27,21 @@ const Wrapper = styled(Paper)`
         background-color:#C30707;
     }
     .term{
-        background-color: #66A091;
-        padding: 5px;
-        text-align: center;
-        color: white;
-        border-radius: 5px;
-        max-width: 45%;
-        margin: 0% 2.5% 0% 2.5%;
-}
+      background-color: #66A091;
+      padding: 5px;
+      text-align: center;
+      color: white;
+      border-radius: 5px;
+      margin: 0 5px;
     }
     .confirm-btn{
-        background-color: #776D61;
-
+      background-color: #776D61;
+      cursor: pointer;
+      padding: 5px;
+      text-align: center;
+      color: white;
+      border-radius: 5px;
+      margin: 0 5px;
     }
 `;
 export default Wrapper;

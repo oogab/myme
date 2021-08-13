@@ -19,6 +19,24 @@ export const convertCertType = (type) => {
   return types[type]
 }
 
+export const convertNumDay = (type) => {
+  const types = [
+    '월',
+    '화',
+    '수',
+    '목',
+    '금',
+    '토',
+    '일'
+  ]
+  return types[type]
+}
+
+export const convertDaysWeek = (type) => {
+  const weekNum = type/7
+  return weekNum + '주'
+}
+
 export const ColorTeal = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText(teal[500]),

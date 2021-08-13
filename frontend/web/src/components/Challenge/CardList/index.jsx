@@ -90,10 +90,10 @@ const CardList = (props) => {
           {challenges ? challenges.map(challenge => {
             return (
               <Box key={challenge.id}>
-                <Card style={{ maxWidth: 260 }} >
+                <Card style={{ maxWidth: 270 }} >
                   <CardActionArea>
                     <CardMedia
-                      style={{ maxHeight: 190}}
+                      style={{ maxWidth: '270px', maxHeight: '100px' }}
                       component="img"
                       alt="Contemplative Reptile"
                       image={challenge.img_addr}
@@ -103,15 +103,13 @@ const CardList = (props) => {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           {/* 챌린지 이름 */}
-                          <Typography gutterBottom variant="h5" component="h2">
+                          <Typography gutterBottom variant="h6" style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
                             {challenge.name}
                           </Typography>
                         </Grid>
-                        <Grid item xs={12}>
-                        </Grid>
                       </Grid>
                       {/* 챌린지 설명 */}
-                      <Typography variant="body2" color="textSecondary" component="p">
+                      <Typography variant="body2" color="textSecondary" style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
                         {challenge.content}
                       </Typography>
                     </CardContent>

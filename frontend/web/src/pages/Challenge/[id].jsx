@@ -52,27 +52,23 @@ const ChallengeDetail = ({match}) => {
             <Grid item xs={12}>
               <h2>{singleChallenge?.name}</h2>
             </Grid>
-            {/* 좋아요 */}
-            
             {/* 태그 */}
             <Grid item xs={12}>
-                <div className="chip">
-                  <ColorChip className="term" label='분류'/>
-                  <ColorChip className="term" label={singleChallenge?.period} />
-                  <ColorChip className="term" label={convertCertType(singleChallenge?.certification_cycle)}  />
-                </div>
+              <ColorChip className="term" style={{ marginLeft: 0 }} label='분류'/>
+              <ColorChip className="term" label={convertCertType(singleChallenge?.certification_cycle)}  />
+            </Grid>
+            <Grid item xs={12}>
+              <span>{singleChallenge?.start_date} ~ {singleChallenge?.end_date}</span>
             </Grid>
             {/* 설명 */}
             <Grid item xs={12} >
               <h3>{singleChallenge?.content}</h3>
             </Grid>
-            <Grid item xs={12} >
-              <div style={{ display:'flex', justifyContent: 'center' }}>
-                <PersonIcon />참가인원 {singleChallenge?.ChallengeParticipations.length} 명
-              </div>
+            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+              <PersonIcon color="primary"/><span style={{ marginLeft: 10 }}>참가인원 {singleChallenge?.ChallengeParticipations.length} 명</span>
             </Grid>
-            <Grid item xs={12}>
-              <FavoriteIcon/>좋아요 0 명
+            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+              <FavoriteIcon color="secondary"/><span style={{ marginLeft: 10 }}>좋아요 0 명</span>
             </Grid>
             <Grid item xs={12}>
             <ColorButton variant="outlined" onClick={onParticipateChallenge}>
