@@ -17,8 +17,8 @@ const initialState = {
     createEventInfo :{
         "title" : '',
         "color" : '#89DDBF',
-        "start": '2021-08-13',
-        "end": '2021-08-13',
+        "start": '',
+        "end": '',
         "allDay": true,
 
     }

@@ -5,21 +5,28 @@ import ChallengeItem from '../../components/Home/ChallengeItem/index';
 import RoutineListItem from '../../components/Home/RoutineListItem/index';
 import Calendar from '../../components/Home/Calendar/index'
 import TodayEvent from '../../components/Home/Calendar/TodayEvent/index'
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import {LocalMoviesRounded, EventAvailableRounded} from '@material-ui/icons'
 import { useDispatch, useSelector } from 'react-redux';
+import { OPEN_CREATE_EVENT_MODAL } from '../../reducers/modal';
 import { LOAD_TODAY_ROUTINES_REQUEST } from '../../reducers/routine';
 import { LOAD_MY_CHALLENGES_REQUEST } from '../../reducers/challenge';
 import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
-import {Card, Grid, Paper, Tabs, Tab} from '@material-ui/core'
+import {Card, Grid, Paper, Tabs, Tab, Button} from '@material-ui/core'
 
 const App = () => {
   const dispatch = useDispatch()
   const { myRoutines } = useSelector((state) => state.routine)
   const { myChallenges } = useSelector((state) => state.challenge)
   const { events } = useSelector((state) => state.calendar)
-
+  
+  //일정 추가 모달
+  const openCreateEventModal=()=>{
+    dispatch({type: OPEN_CREATE_EVENT_MODAL});
+  }
   let [tabValue, setTabValue] = useState(0)
   useEffect(() => {
     dispatch({
@@ -101,15 +108,17 @@ const App = () => {
           }
         </div>
         <div hidden={tabValue !== 2}>
-          <h3>오늘의 일정</h3>
-          {
-            
-            events.map((event) => {
-              return <TodayEvent key={event.id} event={event}/>
-            })
+          <div display="inline-block" style={{width: 'auto', display: 'inline-block'}}><h3>오늘의 일정</h3><Button style={{background: '#89DDBF'}} onClick={openCreateEventModal}>일정추가</Button></div>
+          <Table>
+            <TableBody>
+              {
+                events.map((event) => {
+                  return <TodayEvent key={event.id} event={event}/>
+                })
+              }
+            </TableBody>
+          </Table>
           
-          }
-          {/* <TodayEvent eventTitle={myEvents} ></TodayEvent> */}
           <Calendar myEvent={events} />
         </div>
       </div>

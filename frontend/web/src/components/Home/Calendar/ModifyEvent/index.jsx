@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { CLOSE_CREATE_EVENT_MODAL } from '../../../../reducers/modal';
+import { CLOSE_MODIFY_EVENT_MODAL } from '../../../../reducers/modal';
 import { CREATE_EVENT_REQUEST } from '../../../../reducers/calendar';
 import { Button } from '@material-ui/core'
 import { CirclePicker } from 'react-color';
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     
   },
   container: {
-    // display: 'flex',
+    display: 'flex',
     flexWrap: 'wrap',
   },
   textField: {
@@ -115,14 +115,14 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
-const CreateCalendar = (props) => {
+const ModifyEvent = (props) => {
 
   const dispatch = useDispatch()
 
-    const { createEventModal } = useSelector((state) => state.modal)
-    function closeRoutine(){
+    const { modifyEventModal } = useSelector((state) => state.modal)
+    function closeModifyEvent(){
         dispatch({
-          type: CLOSE_CREATE_EVENT_MODAL
+          type: CLOSE_MODIFY_EVENT_MODAL
         })
     }
 
@@ -183,17 +183,17 @@ const CreateCalendar = (props) => {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={createEventModal}
-        onClose={closeRoutine}
+        open={modifyEventModal}
+        onClose={closeModifyEvent}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={createEventModal}>
+        <Fade in={modifyEventModal}>
           <div className={classes.paper}>
-            <h1 id="transition-modal-title">일정추가</h1>
+            <h1 id="transition-modal-title">{today}</h1>
             <input type="text" className={classes.inputDiv} placeholder="일정 입력" width="200px" value={title} onChange={onChangeTitle}></input>
             <form className={classes.container} noValidate>
                 
@@ -267,7 +267,7 @@ const CreateCalendar = (props) => {
             </div>
             <div className={classes.buttonDiv}>
                 <button className={classes.btn} onClick={add}>추가</button>
-                <button className={classes.btn} style={{backgroundColor: '#b8b8b8'}} onClick={closeRoutine}>취소</button>
+                <button className={classes.btn} style={{backgroundColor: '#b8b8b8'}} onClick={closeModifyEvent}>취소</button>
             </div>
           </div>
         </Fade>
@@ -281,4 +281,4 @@ const mapStateToProps = (state) =>{
       state
   }
 }
-export default connect(mapStateToProps)(CreateCalendar)
+export default connect(mapStateToProps)(ModifyEvent)
