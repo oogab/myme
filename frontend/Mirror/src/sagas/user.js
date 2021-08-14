@@ -44,9 +44,9 @@ import {
   // LOAD_USER_SUCCESS,
   // LOAD_USER_FAILURE,
 } from '../reducers/user'
-import {
-  OPEN_CONFIRM_MODAL
-} from '../reducers/modal'
+// import {
+//   OPEN_CONFIRM_MODAL
+// } from '../reducers/modal'
 // function loadFollowersAPI(data) {
 //   return axios.get('/user/followers', data)
 // }
@@ -153,19 +153,19 @@ function* updateMyInfo(action) {
           type: UPDATE_MY_INFO_SUCCESS,
           data: action.data
       })
-      yield put({
-        type:OPEN_CONFIRM_MODAL,
-        message: '정보 수정이 완료되었습니다.'
-      })
+      // yield put({
+      //   type:OPEN_CONFIRM_MODAL,
+      //   message: '정보 수정이 완료되었습니다.'
+      // })
   } catch (err) {
       yield put({
           type: UPDATE_MY_INFO_FAILURE,
           error: err.response.data
       })
-      yield put({
-        type:OPEN_CONFIRM_MODAL,
-        message: '중복된 닉네임입니다. 변경 후 시도해주세요.'
-      })
+      // yield put({
+      //   type:OPEN_CONFIRM_MODAL,
+      //   message: '중복된 닉네임입니다. 변경 후 시도해주세요.'
+      // })
   }
 }
 

@@ -8,10 +8,6 @@ hr{
 .daily-menu{
     width:auto;
 }
-.daily-menu > h3{
-    height: 39px;
-    line-height: 39px;
-}
 .BottomTitle{
     height: 50px;
     margin-top: 10px;

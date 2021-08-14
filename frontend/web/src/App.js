@@ -22,6 +22,7 @@ import CreateChallenge from './pages/Challenge/CreateChallenge';
 import Profile from './pages/Profile/';
 import MirrorSetting from './pages/MirrorSetting/';
 import Auth from './pages/Auth/';
+import ChangePassword from './pages/ChangePassword'
 import RoutineModal from './components/Routine/RoutineModal/index';
 import CreateRoutineModal from './components/Routine/CreateRoutineModal/index';
 import ModifyHabitModal from './components/Habit/ModifyHabitModal/index';
@@ -70,6 +71,7 @@ const App = () => {
             <Route path="/Profile" component={Profile} />
             <Route path="/MirrorSetting" component={MirrorSetting} />
             <Route path="/Challenge/:challengeId" component={ChallengeDetail} />
+            <Route path='/ChangePassword' component={ChangePassword}/>
             <Redirect to="/not-found" />
           </Switch>
         </BrowserRouter>

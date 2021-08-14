@@ -90,7 +90,7 @@ const DrawerListGroup = (props) => {
                     />
                   </ListItem>
                   </NavLink>
-                  <NavLink to="/password" className='router' onClick={closeDrawer}
+                  <NavLink to="/ChangePassword" className='router' onClick={closeDrawer}
                     activeClassName='active-router'>
                     <ListItem
                       button

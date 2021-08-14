@@ -31,3 +31,16 @@ html::-webkit-scrollbar {
 .btn{
   cursor: pointer;
 }
+
+hr{
+  border: white 1px solid;
+  margin-bottom: 11px;
+}
+.daily-menu{
+  width:auto;
+}
+
+.daily-menu > h3{
+  height: 39px;
+  line-height: 39px;
+}

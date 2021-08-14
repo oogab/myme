@@ -1,12 +1,11 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
-import PersonalInformation from '../../components/Profile/';
+import ChangePasswordForm from '../../components/ChangePassword'
 import Layout from '../../layout/index'
 
 const Profile = () => {
   return (
     <Layout>
-        <PersonalInformation/>
+        <ChangePasswordForm/>
     </Layout>             
   );
 }

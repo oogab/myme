@@ -21,7 +21,7 @@ import CreateEventModal from './components/Calendar/CreateEvent/index'
 // let store = createStore(rootReducer, applyMiddleware(thunk))
 
 // css
-// import './index.css';
+import './index.css';
 
 /// theme
 const theme = createTheme({
@@ -38,7 +38,8 @@ const theme = createTheme({
     MuiCssBaseline: {
       '@global': {
         body: {
-          backgroundColor: 'white',
+          backgroundColor: 'black',
+          color:'white'
         },
       },
     },
