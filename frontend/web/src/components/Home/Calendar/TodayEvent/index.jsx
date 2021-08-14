@@ -13,6 +13,12 @@ import TableCell from "@material-ui/core/TableCell";
 import Edit from "@material-ui/icons/Edit";
 import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 const TodayEvent = (props) => {
 
 var today = new Date();
@@ -29,9 +35,13 @@ var eventEndDate = moment(eventEndDay).format('YYYY-MM-DD')
 var eventStartTime = moment(eventStartDay).format('hh:mm')
 var eventEndTime = moment(eventEndDay).format('HH:mm')
   const [checked, setChecked] = React.useState(false);
+  const [todayEventNull, setTodayCheckedNull] = React.useState(false)
   const handleToggle = (event) => {
     setChecked(event.target.checked);
   };
+  const eventCheck = (e) => {
+      setTodayCheckedNull(true)
+  }
   const bool = props.event.allDay
     return(
         <div className='demo-app'>
@@ -39,36 +49,27 @@ var eventEndTime = moment(eventEndDay).format('HH:mm')
            {
                moment(eventStartDate).isSame(moment(todayDate)) || moment(eventEndDate).isSame(moment(todayDate))?
          
-               
-                    <TableRow style={{width:"100%"}}>
-                        <TableCell>
+               <>
+                    <ListItem>
                         <Checkbox
                             checked={checked}
                             onChange={handleToggle}
                             inputProps={{ 'aria-label': 'primary checkbox' }}
-                            checkedIcon={<Check/>}
-                            icon={<Check/>} 
+                            style={{marginRight: '10px'}}
                             />
-                        </TableCell>
                         {
-                            bool ? null : <TableCell>{eventStartTime} - {eventEndTime}</TableCell> 
+                            bool ? <ListItemText>종일</ListItemText> : <ListItemText>{eventStartTime}</ListItemText> 
                         }
-                        <TableCell >{props.event.title}</TableCell>
-                        {/* <TableCell >
-                            <IconButton aria-label="Edit">
-                            <Edit/>
-                            </IconButton>
-                            <IconButton aria-label="Close">
-                            <Close/>
-                            </IconButton>
-                        </TableCell> */}
-                    </TableRow>
-   
-               
+                        <ListItemText>{props.event.title}</ListItemText>
+                        
+                    </ListItem>
+                    <Divider component="li" />
+                    </>
+                    
                : null
            }
-       
-
+ 
+               
         </div>
     )
 }
