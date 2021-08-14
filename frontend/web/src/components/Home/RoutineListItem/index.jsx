@@ -36,7 +36,7 @@ const App = (props) => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <h3 className="title">{routine.name}  | {getTime(routine.RoutineActiveDays[getDay()].start_time)} 시작</h3>
+          <h3 className="title">{routine.name} | {getTime(routine.RoutineActiveDays[getDay()].start_time)} 시작</h3>
         </AccordionSummary>
         <AccordionDetails className='routine-list-item-detail'>
           <List className='accordian-detail-list'>

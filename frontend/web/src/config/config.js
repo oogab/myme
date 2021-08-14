@@ -4,6 +4,37 @@ import { teal } from '@material-ui/core/colors';
 
 export const backUrl = 'http://localhost:3065'
 
+export const categories = [
+  {
+    name: "1",
+    label: "운동",
+  },
+  {
+    name: "2",
+    label: "공부",
+  },
+  {
+    name: "3",
+    label: "생활",
+  },
+  {
+    name: "4",
+    label: "식사",
+  },
+  {
+    name: "5",
+    label: "역량",
+  },
+  {
+    name: "6",
+    label: "취미",
+  },
+  {
+    name: "7",
+    label: "자산",
+  },
+]
+
 export const convertCertType = (type) => {
   const types = ['',
     '매일',

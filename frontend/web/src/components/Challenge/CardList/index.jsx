@@ -29,7 +29,7 @@ const CardList = (props) => {
   // 슬라이더 세팅
   const settings = {
     dots: false,           // 캐러셀이미지가 몇번째인지 알려주는 점을 보여줄지 정한다.
-    infinite: true,        // loop를 만들지(마지막 이미지-처음 이미지-중간 이미지들-마지막 이미지)
+    // infinite: true,     // loop를 만들지(마지막 이미지-처음 이미지-중간 이미지들-마지막 이미지)
     speed: 500,            // 애미메이션의 속도, 단위는 milliseconds
     slidesToShow: ( challenges?.length > 4 ? 4 : challenges?.length ),    // 한번에 몇개의 슬라이드를 보여줄 지
     slidesToScroll: 1,     // 한번 스크롤시 몇장의 슬라이드를 넘길지
@@ -42,7 +42,6 @@ const CardList = (props) => {
         settings: {
           slidesToShow: ( challenges?.length > 3 ? 3 : challenges?.length ),
           slidesToScroll: 1,
-          centerMode: true
         }
       },
       {
@@ -50,7 +49,6 @@ const CardList = (props) => {
         settings: {
           slidesToShow: ( challenges?.length > 2 ? 2 : challenges?.length ),
           slidesToScroll: 1,
-          centerMode: true
         }
       },
       {
@@ -58,8 +56,6 @@ const CardList = (props) => {
         settings: {
           slidesToShow: ( challenges?.length > 1 ? 1 : challenges?.length ),
           slidesToScroll: 1,
-          centerMode: false,
-          dots: true
         }
       },
     ]
@@ -81,8 +77,8 @@ const CardList = (props) => {
         >
           {challenges ? challenges.map(challenge => {
             return (
-              <Box key={challenge.id}>
-                <Card style={{ maxWidth: 270 }} >
+              <Box key={challenge.id} >
+                <Card style={{ maxWidth: 270, marginRight: 5, marginLeft: 5 }} >
                   <CardActionArea>
                     <CardMedia
                       style={{ maxWidth: '270px', maxHeight: '100px' }}
@@ -116,8 +112,8 @@ const CardList = (props) => {
                     </Grid>
                     <Grid item xs={12}>
                       <CardActions>
-                        <PersonIcon /> {challenge.ChallengeParticipations.length}
-                        <FavoriteIcon /> {challenge.Likers.length}
+                        <PersonIcon color='primary' /> {challenge.ChallengeParticipations.length}
+                        <FavoriteIcon color='secondary' fontSize='small' /> {challenge.Likers.length}
                       </CardActions>
                     </Grid>
                   </Grid>

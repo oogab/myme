@@ -19,6 +19,7 @@ import NotFound from './pages/NotFound/';
 import ChallengeHome from './pages/Challenge/';
 import ChallengeDetail from './pages/Challenge/[id]';
 import CreateChallenge from './pages/Challenge/CreateChallenge';
+import SearchChallenge from './pages/Challenge/SearchChallenge';
 import Profile from './pages/Profile/';
 import MirrorSetting from './pages/MirrorSetting/';
 import Auth from './pages/Auth/';
@@ -67,6 +68,7 @@ const App = () => {
             <Route path="/not-found" component={NotFound} />
             <Route path="/ChallengeHome" component={ChallengeHome} />
             <Route path="/CreateChallenge" component={CreateChallenge} />
+            <Route path="/SearchChallenge" component={SearchChallenge} />
             <Route path="/Profile" component={Profile} />
             <Route path="/MirrorSetting" component={MirrorSetting} />
             <Route path="/Challenge/:challengeId" component={ChallengeDetail} />

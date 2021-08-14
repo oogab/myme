@@ -24,12 +24,13 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import ko from "date-fns/locale/ko"
-import category from './category'
+import { categories } from '../../../config/config';
 import { ColorButton } from '../../../common/Buttons'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_CHALLENGE_REQUEST, CLEAR_ADD_CHALLENGE_DONE, UPLOAD_CHALLENGE_IMAGE_REQUEST } from '../../../reducers/challenge';
 import { useHistory } from 'react-router-dom';
+import { OPEN_ALERT_MODAL } from '../../../reducers/modal';
 
 /* ************************ Main Component Start ************************ */
 const CreateChallenge = () => {
@@ -37,9 +38,7 @@ const CreateChallenge = () => {
   const history = useHistory()
   const classes = useStyles();
   const imageInput = useRef()
-  const { challengeImagePath, addChallengeDone } = useSelector((state) => state.challenge)
-
-  const [categories, setCategories] = useState(category);
+  const { challengeImagePath, addChallengeDone, addChallengeError } = useSelector((state) => state.challenge)
   const [submitDisable, setSubmitDisable] = useState(true)
   
   // 챌린지 이름
@@ -267,13 +266,13 @@ const CreateChallenge = () => {
   }, [])
 
   useEffect(() => {
-    if (name === '' || challengeImagePath === '' || content === '' || startDate === '' || endDate === '' || period <= 0 || totalNumOfCert <= 0 || certStartTime === '' || certEndTime === '' || activeWeekError || weekError || certTimeError || totalCertError) {
+    if (name === '' || subject === '' || challengeImagePath === '' || content === '' || startDate === '' || endDate === '' || period <= 0 || totalNumOfCert <= 0 || certStartTime === '' || certEndTime === '' || activeWeekError || weekError || certTimeError || totalCertError) {
       setSubmitDisable(true)
     }
-    if (name !== '' && challengeImagePath !== '' && content !== '' && startDate !== '' && endDate !== '' && period !== 0 && totalNumOfCert !== 0 && certStartTime !== '' && certEndTime !== '' && !activeWeekError && !weekError && !certTimeError && !totalCertError) {
+    if (name !== '' && subject !== '' && challengeImagePath !== '' && content !== '' && startDate !== '' && endDate !== '' && period !== 0 && totalNumOfCert !== 0 && certStartTime !== '' && certEndTime !== '' && !activeWeekError && !weekError && !certTimeError && !totalCertError) {
       setSubmitDisable(false)
     }
-  }, [name, challengeImagePath, content, startDate, endDate, period, totalNumOfCert, certStartTime, certEndTime])
+  }, [name, subject, challengeImagePath, content, startDate, endDate, period, totalNumOfCert, certStartTime, certEndTime])
   
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click()
@@ -293,7 +292,6 @@ const CreateChallenge = () => {
   
   const onSubmit = useCallback((e) => {
     e.preventDefault()
-    console.log(challengeImagePath)
 
     dispatch({
       type: ADD_CHALLENGE_REQUEST,
@@ -319,20 +317,30 @@ const CreateChallenge = () => {
           {data: sat},
           {data: sun}
         ],
-        CategoryId: ''
+        CategoryId: subject*1
       }
     })
-  }, [name, challengeImagePath, content, startDate, endDate, period, certCycle, totalNumOfCert, certStartTime, certEndTime,
+  }, [name, subject, challengeImagePath, content, startDate, endDate, period, certCycle, totalNumOfCert, certStartTime, certEndTime,
     mon, tue, wed, thu, fri, sat, sun, categories]);
 
   useEffect(() => {
     if (addChallengeDone) {
-      history.push('/Home')
+      dispatch({
+        type: OPEN_ALERT_MODAL,
+        message: '챌린지를 생성하였습니다!'
+      })
       dispatch({
         type: CLEAR_ADD_CHALLENGE_DONE
       })
+      history.push('/Home')
     }
-  }, [addChallengeDone])
+    if (addChallengeError) {
+      dispatch({
+        type: OPEN_ALERT_MODAL,
+        message: addChallengeError
+      })
+    }
+  }, [addChallengeDone, addChallengeError])
 
   const onCancel = useCallback(() => {
     history.push('/Challenge')
@@ -367,7 +375,7 @@ const CreateChallenge = () => {
               <RadioGroup name="주제" value={subject} onChange={onChangeSubject}>
                 {
                   categories.map((e, i)=>{
-                    return  <FormControlLabel value={e.label} control={<TealRadio />} label={e.label} />
+                    return  <FormControlLabel key={i} value={e.name} control={<TealRadio />} label={e.label} />
                   })
                 }
               </RadioGroup>
@@ -413,7 +421,6 @@ const CreateChallenge = () => {
                     minDate={Date.now()}
                     onChange={date => setStartDate(date)}
                     selected={startDate}
-                    startDate={startDate}
                     value={startDate}
                     variant="inline"
                   />
@@ -463,7 +470,6 @@ const CreateChallenge = () => {
                     margin="normal"
                     value={startDate}
                     onChange={date => setStartDate(date)}
-                    startDate={startDate}
                     selected={startDate}
                     minDate={Date.now()}
                     locale={ko}
@@ -618,7 +624,7 @@ const CreateChallenge = () => {
           </Grid>
           <Grid item xs={12} sm={3} >
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <img src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxHeight: '150px', maxWidth: '150px' }} />
+              <img accept="image/*" src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxHeight: '150px', maxWidth: '150px' }} />
             </div>
             <input type="file" name="image" hidden ref={imageInput} onChange={onChangeImage} />
           </Grid>

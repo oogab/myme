@@ -37,6 +37,9 @@ import {
   UNLIKE_CHALLENGE_REQUEST,
   UNLIKE_CHALLENGE_SUCCESS,
   UNLIKE_CHALLENGE_FAILURE,
+  SEARCH_CHALLENGE_REQUEST,
+  SEARCH_CHALLENGE_SUCCESS,
+  SEARCH_CHALLENGE_FAILURE,
 } from '../reducers/challenge'
 
 function uploadChallengeImageAPI(data) {
@@ -274,6 +277,25 @@ function* unlikeChallenge(action) {
   }
 }
 
+function searchChallengeAPI(data) {
+  return axios.post(`/challenge/search/${data}`)
+}
+
+function* searchChallenge(action) {
+  try {
+    const result = yield call(searchChallengeAPI, action.data)
+    yield put({
+      type: SEARCH_CHALLENGE_SUCCESS,
+      data: result.data
+    })
+  } catch (error) {
+    yield put({
+      type: SEARCH_CHALLENGE_FAILURE,
+      error: error.response.data
+    })
+  }
+}
+
 function* watchUploadChallengeImage() {
   yield takeLatest(UPLOAD_CHALLENGE_IMAGE_REQUEST, uploadChallengeImage)
 }
@@ -322,6 +344,10 @@ function* watchUnlikeChallenge() {
   yield takeLatest(UNLIKE_CHALLENGE_REQUEST, unlikeChallenge)
 }
 
+function* watchSearchChallenge() {
+  yield takeLatest(SEARCH_CHALLENGE_REQUEST, searchChallenge)
+}
+
 export default function* challengeSaga() {
   yield all([
     fork(watchUploadChallengeImage),
@@ -335,6 +361,7 @@ export default function* challengeSaga() {
     fork(watchParticipateChallenge),
     fork(watchCertifyChallenge),
     fork(watchLikeChallenge),
-    fork(watchUnlikeChallenge)
+    fork(watchUnlikeChallenge),
+    fork(watchSearchChallenge),
   ])
 }

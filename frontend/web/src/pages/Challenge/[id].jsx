@@ -9,7 +9,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import { ColorButton } from '../../common/Buttons';
 import { ColorChip } from '../../common/Chips'
 import { useDispatch, useSelector } from 'react-redux';
-import { convertCertType } from '../../config/config';
+import { categories, convertCertType } from '../../config/config';
 import { LIKE_CHALLENGE_REQUEST, PARTICIPATE_CHALLENGE_REQUEST, UNLIKE_CHALLENGE_REQUEST } from '../../reducers/challenge';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -48,6 +48,11 @@ const ChallengeDetail = ({match}) => {
     })
   }, [singleChallenge, dispatch])
 
+  useEffect(() => {
+    console.log(singleChallenge)
+    // console.log(categories[singleChallenge.Categories[0].id].label)
+  }, [singleChallenge])
+
   return (
     <Layout>
       <Wrapper>
@@ -68,7 +73,7 @@ const ChallengeDetail = ({match}) => {
             </Grid>
             {/* 태그 */}
             <Grid item xs={12}>
-              <ColorChip className="term" style={{ marginLeft: 0 }} label='분류'/>
+              <ColorChip className="term" style={{ marginLeft: 0 }} label={singleChallenge ? categories[singleChallenge?.Categories[0]?.id]?.label : '분류'}/>
               <ColorChip className="term" label={convertCertType(singleChallenge?.certification_cycle)}  />
               {
                 liked

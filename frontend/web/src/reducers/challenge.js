@@ -7,6 +7,7 @@ const initialState = {
   recChallenges: [], // 추천 챌린지 목록
   myChallenges: [], // 내가 참여하는 챌린지
   myCreateChallenges: [], // 내가 생성한 챌린지
+  searchChallenges: [],
   challengeImagePath: '', // 챌린지 대표 이미지 경로
   /*********************************************************** */
   uploadChallengeImageLoading: false, // 챌린지 대표 이미지 업로드 중
@@ -56,6 +57,10 @@ const initialState = {
   unlikeChallengeLoading: false,
   unlikeChallengeDone: false,
   unlikeChallengeError: null,
+  /*********************************************************** */
+  searchChallengeLoading: false,
+  searchChallengeDone: false,
+  searchChallengeError: null,
 }
 
 export const UPLOAD_CHALLENGE_IMAGE_REQUEST = 'UPLOAD_CHALLENGE_IMAGE_REQUEST'
@@ -86,29 +91,40 @@ export const LOAD_REC_CHALLENGES_REQUEST = 'LOAD_REC_CHALLENGES_REQUEST'
 export const LOAD_REC_CHALLENGES_SUCCESS = 'LOAD_REC_CHALLENGES_SUCCESS'
 export const LOAD_REC_CHALLENGES_FAILURE = 'LOAD_REC_CHALLENGES_FAILURE'
 
+// 내가 참여하고 있는 챌린지 불러오기
 export const LOAD_MY_CHALLENGES_REQUEST = 'LOAD_MY_CHALLENGES_REQUEST'
 export const LOAD_MY_CHALLENGES_SUCCESS = 'LOAD_MY_CHALLENGES_SUCCESS'
 export const LOAD_MY_CHALLENGES_FAILURE = 'LOAD_MY_CHALLENGES_FAILURE'
 
+// 내가 생성한 챌린지 불러오기
 export const LOAD_MY_CREATE_CHALLENGES_REQUEST = 'LOAD_MY_CREATE_CHALLENGES_REQUEST'
 export const LOAD_MY_CREATE_CHALLENGES_SUCCESS = 'LOAD_MY_CREATE_CHALLENGES_SUCCESS'
 export const LOAD_MY_CREATE_CHALLENGES_FAILURE = 'LOAD_MY_CREATE_CHALLENGES_FAILURE'
 
+// 챌린지 참여하기
 export const PARTICIPATE_CHALLENGE_REQUEST = 'PARTICIPATE_CHALLENGE_REQUEST'
 export const PARTICIPATE_CHALLENGE_SUCCESS = 'PARTICIPATE_CHALLENGE_SUCCESS'
 export const PARTICIPATE_CHALLENGE_FAILURE = 'PARTICIPATE_CHALLENGE_FAILURE'
 
+// 챌린지 인증하기
 export const CERTIFY_CHALLENGE_REQUEST = 'CERTIFY_CHALLENGE_REQUEST'
 export const CERTIFY_CHALLENGE_SUCCESS = 'CERTIFY_CHALLENGE_SUCCESS'
 export const CERTIFY_CHALLENGE_FAILURE = 'CERTIFY_CHALLENGE_FAILURE'
 
+// 챌린지 좋아요
 export const LIKE_CHALLENGE_REQUEST = 'LIKE_CHALLENGE_REQUEST'
 export const LIKE_CHALLENGE_SUCCESS = 'LIKE_CHALLENGE_SUCCESS'
 export const LIKE_CHALLENGE_FAILURE = 'LIKE_CHALLENGE_FAILURE'
 
+// 챌린지 안좋아요
 export const UNLIKE_CHALLENGE_REQUEST = 'UNLIKE_CHALLENGE_REQUEST'
 export const UNLIKE_CHALLENGE_SUCCESS = 'UNLIKE_CHALLENGE_SUCCESS'
 export const UNLIKE_CHALLENGE_FAILURE = 'UNLIKE_CHALLENGE_FAILURE'
+
+// 챌린지 검색하기
+export const SEARCH_CHALLENGE_REQUEST = 'SEARCH_CHALLENGE_REQUEST'
+export const SEARCH_CHALLENGE_SUCCESS = 'SEARCH_CHALLENGE_SUCCESS'
+export const SEARCH_CHALLENGE_FAILURE = 'SEARCH_CHALLENGE_FAILURE'
 
 export const CLEAR_CHALLENGES = 'CLEAR_CHALLENGES'
 export const CLEAR_CHALLENGE = 'CLEAR_CHALLENGE'
@@ -379,6 +395,22 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case UNLIKE_CHALLENGE_FAILURE:
       draft.unlikeChallengeLoading = false
       draft.unlikeChallengeError = action.error
+      break
+    /*********************************************************** */
+    case SEARCH_CHALLENGE_REQUEST:
+      draft.searchChallengeLoading = true
+      draft.searchChallengeDone = false
+      draft.searchChallengeError = null
+      break
+    case SEARCH_CHALLENGE_SUCCESS:
+      draft.searchChallengeLoading = false
+      draft.searchChallengeDone = true
+      draft.searchChallenges = []
+      draft.searchChallenges = draft.searchChallenges.concat(action.data)
+      break
+    case SEARCH_CHALLENGE_FAILURE:
+      draft.searchChallengeLoading = false
+      draft.searchChallengeError = action.error
       break
     default:
       break

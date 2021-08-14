@@ -1,17 +1,18 @@
-import React, { useCallback, useRef } from 'react'
+import React, { forwardRef, useCallback, useEffect, useRef } from 'react'
 import { Grid, IconButton } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { ColorButton } from '../../../common/Buttons'
 import { convertNumDay } from '../../../config/config'
 import { CERTIFY_CHALLENGE_REQUEST, UPLOAD_CHALLENGE_IMAGE_REQUEST } from '../../../reducers/challenge'
 import CloseIcon from '@material-ui/icons/Close';
+import { OPEN_ALERT_MODAL } from '../../../reducers/modal'
 
-const CertModal = (props) => {
+// forwardRef를 써서 warning을 없애긴 했는데 어떤 문제인지 정확히는 모르겠다...
+const CertModal = forwardRef((props, ref) => {
   const { challenge, closeCertModal } = props
   const dispatch = useDispatch()
   const imageInput = useRef()
-
-  const { challengeImagePath } = useSelector((state) => state.challenge)
+  const { challengeImagePath, certifyChallengeError, certifyChallengeDone } = useSelector((state) => state.challenge)
   const activeDays = challenge.Challenge.ChallengeCertificationDays.filter((day) => day.certification_available === true)
   const activeTime = {
     startTime: challenge.Challenge.ChallengeCertificationTimes[0].certification_available_start_time.substring(0, 5),
@@ -37,7 +38,10 @@ const CertModal = (props) => {
 
   const certifyChallenge = useCallback(() => {
     if (challengeImagePath === '') {
-      alert('인증샷을 첨부해주세요!')
+      dispatch({
+        type: OPEN_ALERT_MODAL,
+        message: '인증샷을 첨부해주세요!'
+      })
       return
     }
 
@@ -50,9 +54,23 @@ const CertModal = (props) => {
         challengeId: challenge.id // challengeParticipation id...
       }
     })
-
-    closeCertModal()
   }, [challengeImagePath, challenge.id, closeCertModal, dispatch])
+
+  useEffect(() => {
+    if (certifyChallengeDone) {
+      dispatch({
+        type: OPEN_ALERT_MODAL,
+        message: '인증되었습니다!'
+      })
+      closeCertModal()
+    }
+    if (certifyChallengeError) {
+      dispatch({
+        type: OPEN_ALERT_MODAL,
+        message: certifyChallengeError
+      })
+    }
+  }, [certifyChallengeDone, certifyChallengeError])
 
   const checkCertAvailable = () => {
     const now = new Date()
@@ -116,7 +134,7 @@ const CertModal = (props) => {
       </IconButton>
       <Grid container spacing={3}>
         <Grid item xs={12} style={{ textAlign: 'center' }} >
-          <img alt={challenge.Challenge.name} src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxWidth: 200, maxHeight: 200 }} />
+          <img accept="image/*" alt={challenge.Challenge.name} src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxWidth: 200, maxHeight: 200 }} />
           <input type="file" name="image" hidden ref={imageInput} onChange={onUploadImage} />
         </Grid>
         <Grid item xs={12} >
@@ -141,6 +159,6 @@ const CertModal = (props) => {
       </Grid>
     </div>
   )
-}
+})
 
 export default CertModal

@@ -4,7 +4,7 @@ const path = require('path')
 const multerS3 = require('multer-s3')
 const AWS = require('aws-sdk')
 
-const { Challenge, User, Comment, ChallengeParticipation, ChallengeCertificationTime, ChallengeCertificationDay, Sequelize } = require('../models')
+const { Challenge, User, Comment, ChallengeParticipation, ChallengeCertificationTime, ChallengeCertificationDay, Sequelize, Category } = require('../models')
 const { isLoggedIn } = require('./middlewares')
 const router = express.Router()
 
@@ -90,6 +90,8 @@ router.get('/', async (req, res, next) => { // GET /challenge
         model: User,
         as: 'Likers',
         attributes: ['id']
+      }, {
+        model: Category
       }]
     })
     res.status(200).json(challenges)
@@ -159,7 +161,13 @@ router.get('/', async (req, res, next) => { // GET /challenge
           attributes: ['id', 'nickname']
         }]
       }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
         model: ChallengeParticipation
+      }, {
+        model: Category
       }, {
         model: User,
         as: 'Likers',
@@ -236,6 +244,103 @@ router.get('/', async (req, res, next) => { // GET /challenge
         model: User,
         as: 'Likers',
         attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }, {
+        model: Category
+      }]
+    })
+    res.status(200).json(challenges)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ *  /challenge/search/:searchWord:
+ *    post:
+ *      tags:
+ *        - challenge
+ *      description: 챌린지 제목 검색
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.post('/search/:searchWord', isLoggedIn, async (req, res, next) => { // GET /challenge/search/{searchWord}
+  const searchWord = req.params.searchWord
+
+  try {
+    const user = await User.findOne({
+      where: { name: searchWord },
+      attributes: ['id']
+    })
+    const challenges = await Challenge.findAll({
+      where: {
+        name: {
+          [Op.like]: '%'+searchWord+'%'
+        }
+      },
+      limit: 10,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: User,
+        attributes: ['id', 'nickname']
+      }, {
+        model: Comment,
+        include: [{
+          model: User,
+          attributes: ['id', 'nickname']
+        }]
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }, {
+        model: Category
       }]
     })
     res.status(200).json(challenges)
@@ -306,6 +411,14 @@ router.get('/mychallenge', isLoggedIn, async (req, res, next) => { // GET /mycha
         model: User,
         as: 'Likers',
         attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }, {
+        model: Category
       }]
     })
     res.status(200).json(myChallenges)
@@ -339,7 +452,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
       certification_cycle: req.body.certification_cycle,
       total_number_of_certification: req.body.total_number_of_certification,
       UserId: req.user.id,
-      CategoryId: ''
+      CategoryId: req.body.CategoryId
     })
     // 챌린지 인증 가능 시간 생성
     await ChallengeCertificationTime.create({
@@ -356,6 +469,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
         ChallengeId: challenge.id
       })
     }
+    await challenge.addCategories(req.body.CategoryId)
     // 내가 생성한 챌린지는 자동으로 참여하기! 챌린지 참여 생성
     await ChallengeParticipation.create({
       start_date: req.body.start_date,
@@ -378,6 +492,8 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
         model: ChallengeCertificationDay
       }, {
         model: ChallengeParticipation
+      }, {
+        model: Category
       }]
     })
     res.status(200).json(fullChallenge)
@@ -405,7 +521,6 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
  *                  data:
  *                    type: string
  *                    description: S3에 저장된 사진의 주소
- *                  
  */
 router.post('/image', isLoggedIn, upload.single('image'), async (req, res, next) => { // POST /challenge/image
   // console.log(req.file)
@@ -467,15 +582,17 @@ router.post('/image', isLoggedIn, upload.single('image'), async (req, res, next)
           attributes: ['id', 'nickname']
         }]
       }, {
-        model: ChallengeParticipation
-      }, {
-        model: ChallengeCertificationDay
-      }, {
-        model: ChallengeCertificationTime
-      }, {
         model: User,
         as: 'Likers',
         attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }, {
+        model: Category
       }]
     })
     res.status(200).json(challenge)
@@ -541,7 +658,6 @@ router.post('/image', isLoggedIn, upload.single('image'), async (req, res, next)
  *                    type: integer
  *                  ChallengeId:
  *                    type: integer
- * 
  */
  router.delete('/:challengeId/like', async (req, res, next) => { // DELETE /challenge/{challengeID}/like
   try {

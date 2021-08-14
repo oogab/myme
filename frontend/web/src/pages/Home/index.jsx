@@ -67,8 +67,8 @@ const App = () => {
               ?
                 myChallenges.map((challenge) => {
                   return (
-                    <Grid item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
-                      <ChallengeItem key={challenge.id} challenge={challenge} />
+                    <Grid key={challenge.id} item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
+                      <ChallengeItem challenge={challenge} />
                     </Grid>
                   ) 
                 })
