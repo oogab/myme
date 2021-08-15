@@ -12,15 +12,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_TODAY_ROUTINES_REQUEST } from '../../reducers/routine';
 import { LOAD_MY_CHALLENGES_REQUEST } from '../../reducers/challenge';
 import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
-import {Card, Grid, Tabs, Tab} from '@material-ui/core'
+import {Card, Grid, Tabs, Tab, Typography} from '@material-ui/core'
+import MyChallengeHome from './MyChallenge';
 
 const App = () => {
   const dispatch = useDispatch()
   const { myRoutines } = useSelector((state) => state.routine)
-  const { myChallenges } = useSelector((state) => state.challenge)
+  // const { myChallenges } = useSelector((state) => state.challenge)
   const { events } = useSelector((state) => state.calendar)
 
-  let [tabValue, setTabValue] = useState(0)
+  const [tabValue, setTabValue] = useState(0)
   useEffect(() => {
     dispatch({
       type: LOAD_TODAY_ROUTINES_REQUEST
@@ -40,7 +41,6 @@ const App = () => {
   var day = ('0' + today.getDate()).slice(-2);  
   var dateString = year + '-' + month  + '-' + day;
 
-  
   const handleChange = (event, newValue) => {
     setTabValue(newValue);
   };
@@ -61,21 +61,7 @@ const App = () => {
           <Tab icon={<EventAvailableRounded />} label="나의 일정" />
         </Tabs>
         <div hidden={tabValue !== 0}>
-          <Grid container>
-          {
-            myChallenges.length !== 0
-              ?
-                myChallenges.map((challenge) => {
-                  return (
-                    <Grid key={challenge.id} item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
-                      <ChallengeItem challenge={challenge} />
-                    </Grid>
-                  ) 
-                })
-              :
-                <div>나에게 맞는 챌린지에 참여해보세요!</div>
-          }
-          </Grid>
+          <MyChallengeHome />
         </div>
         <div hidden={tabValue !== 1}>
           {

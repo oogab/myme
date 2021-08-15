@@ -177,6 +177,7 @@ const Calendar = (props) => {
             <div className='demo-app-main'>
            <Button style={{background: '#89DDBF'}} onClick={openModal}>일정추가</Button>
                 <FullCalendar
+                height='auto'
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 headerToolbar={{
                     left: 'prev',
@@ -263,9 +264,5 @@ function reportNetworkError() {
 function reportNetworkError() {
   alert('에러발생')
 }
-const mapStateToProps = (state) =>{
-  return {
-      state
-  }
-}
-export default connect(mapStateToProps)(Calendar)
+
+export default Calendar

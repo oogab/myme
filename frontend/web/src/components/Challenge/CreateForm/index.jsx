@@ -30,7 +30,7 @@ import { ColorButton } from '../../../common/Buttons'
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_CHALLENGE_REQUEST, CLEAR_ADD_CHALLENGE_DONE, UPLOAD_CHALLENGE_IMAGE_REQUEST } from '../../../reducers/challenge';
 import { useHistory } from 'react-router-dom';
-import { OPEN_ALERT_MODAL } from '../../../reducers/modal';
+import { OPEN_CONFIRM_MODAL } from '../../../reducers/modal';
 
 /* ************************ Main Component Start ************************ */
 const CreateChallenge = () => {
@@ -326,7 +326,7 @@ const CreateChallenge = () => {
   useEffect(() => {
     if (addChallengeDone) {
       dispatch({
-        type: OPEN_ALERT_MODAL,
+        type: OPEN_CONFIRM_MODAL,
         message: '챌린지를 생성하였습니다!'
       })
       dispatch({
@@ -336,7 +336,7 @@ const CreateChallenge = () => {
     }
     if (addChallengeError) {
       dispatch({
-        type: OPEN_ALERT_MODAL,
+        type: OPEN_CONFIRM_MODAL,
         message: addChallengeError
       })
     }

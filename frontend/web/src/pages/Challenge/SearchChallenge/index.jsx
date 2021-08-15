@@ -7,6 +7,7 @@ import Layout from '../../../layout/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { SEARCH_CHALLENGE_REQUEST } from '../../../reducers/challenge';
 import CardList from '../../../components/Challenge/CardList';
+import { OPEN_CONFIRM_MODAL } from '../../../reducers/modal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +43,22 @@ const SearchChallenge = () => {
   const onSubmit = useCallback((e) => {
     e.preventDefault()
 
+    if (searchWord.length < 2) {
+      dispatch({
+        type: OPEN_CONFIRM_MODAL,
+        message: '검색어는 최소 2글자 이상으로 입력해주세요!'
+      })
+      return
+    }
+
+    if (searchWord.length > 50) {
+      dispatch({
+        type: OPEN_CONFIRM_MODAL,
+        message: '검색어는 50자를 초과하여 입력할 수 없습니다!'
+      })
+      return
+    }
+
     dispatch({
       type: SEARCH_CHALLENGE_REQUEST,
       data: searchWord
@@ -73,9 +90,17 @@ const SearchChallenge = () => {
             </Paper>
           </Grid>
           <Grid item xs={12} ><hr/></Grid>
-          <Grid item xs={12} className="CardContent">
-            <CardList challenges={searchChallenges} />
-          </Grid>
+          {
+            searchChallenges?.length === 0
+              ?
+                <Grid item xs={12} style={{ textAlign: 'center', marginTop: 20 }}>
+                  <Typography>검색 결과가 없습니다.</Typography>
+                </Grid>
+              :
+                <Grid item xs={12} className="CardContent">
+                  <CardList challenges={searchChallenges} />
+                </Grid>
+          }
         </Grid>
       </Layout>
     </Wrapper>

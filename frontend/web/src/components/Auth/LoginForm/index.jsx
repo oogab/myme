@@ -15,9 +15,9 @@ import {
 } from '@material-ui/core';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CHANGE_SIGN_UP_MODE, loginRequestAction } from '../../../reducers/user';
-import { OPEN_ALERT_MODAL } from '../../../reducers/modal';
+import { OPEN_CONFIRM_MODAL } from '../../../reducers/modal';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 const regExpEm = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -25,6 +25,7 @@ const regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50
 
 const LoginForm = () => {
   const dispatch = useDispatch()
+  const { logInDone, logInError } = useSelector((state) => state.user)
 
   const [email, setEmail] = useState('')
   const onChangeEmail = useCallback((e) => {
@@ -50,7 +51,7 @@ const LoginForm = () => {
   const onLogin = useCallback(() => {
     if (!password || !email) {
       dispatch({
-        type: OPEN_ALERT_MODAL,
+        type: OPEN_CONFIRM_MODAL,
         message: '이메일 또는 비밀번호를 입력해주세요.'
       })
       return;
@@ -58,7 +59,7 @@ const LoginForm = () => {
 
     if (!regExpEm.test(email)) {
       dispatch({
-        type: OPEN_ALERT_MODAL,
+        type: OPEN_CONFIRM_MODAL,
         message: '이메일 형식에 맞게 입력해주세요.'
       })
       return;
@@ -66,7 +67,7 @@ const LoginForm = () => {
 
     if (!regExpPw.test(password)) {
       dispatch({
-        type: OPEN_ALERT_MODAL,
+        type: OPEN_CONFIRM_MODAL,
         message: '비밀번호는 숫자, 특문 각 1회 이상, 영문은 2개 이상 사용하여 8자리 이상 입력하세요.'
       })
       return
@@ -90,6 +91,15 @@ const LoginForm = () => {
       setDisabled(true);
     }
   }, [email, password]);
+
+  useEffect(() => {
+    if (logInError) {
+      dispatch({
+        type: OPEN_CONFIRM_MODAL,
+        message: logInError
+      })
+    }
+  }, [logInDone, logInError])
 
   return (
     <Container maxWidth="xs" style={{margin: '0 20px', padding: '20px', background: '#ffffff', border: 'solid 1px #eeeeee', borderRadius: '10px', boxShadow: '2px 2px 2px #eeeeee'}}>

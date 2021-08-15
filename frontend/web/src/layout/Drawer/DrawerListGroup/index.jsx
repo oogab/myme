@@ -20,10 +20,12 @@ import { logoutRequestAction } from '../../../reducers/user';
 import { CLEAR_MY_ROUTINES } from '../../../reducers/routine';
 import { CLEAR_MY_CHALLENGES } from '../../../reducers/challenge';
 import { CLOSE_DRAWER } from '../../../reducers/layout';
+import { OPEN_CONFIRM_MODAL } from '../../../reducers/modal';
+import { persistor } from '../../../store/configureStore';
 
 const DrawerListGroup = (props) => {
   const dispatch = useDispatch()
-  const { me } = useSelector((state) => state.user)
+  const { me, logOutError } = useSelector((state) => state.user)
 
   let history = useHistory();
 
@@ -34,12 +36,12 @@ const DrawerListGroup = (props) => {
   }, [])
 
   const onSignOut = useCallback(() => {
-    dispatch({
-      type: CLEAR_MY_ROUTINES
-    })
-    dispatch({
-      type: CLEAR_MY_CHALLENGES
-    })
+    // dispatch({
+    //   type: CLEAR_MY_ROUTINES
+    // })
+    // dispatch({
+    //   type: CLEAR_MY_CHALLENGES
+    // })
     dispatch({
       type: CLOSE_DRAWER
     })
@@ -49,8 +51,15 @@ const DrawerListGroup = (props) => {
   useEffect(() => {
     if (!me) {
       history.push('/')
+      persistor.purge()
     }
-  }, [me])
+    if (logOutError) {
+      dispatch({
+        type: OPEN_CONFIRM_MODAL,
+        message: logOutError
+      })
+    }
+  }, [me, logOutError])
 
   return (
     <>

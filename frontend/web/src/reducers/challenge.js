@@ -1,12 +1,14 @@
 import produce from 'immer'
+import { PURGE } from 'redux-persist/es/constants'
 
 const initialState = {
-  challenges: [], // 전체 챌린지 목록
-  singleChallenge: null, // 챌린지 하나의 정보
-  newChallenges: [], // 신규 챌린지 목록
-  recChallenges: [], // 추천 챌린지 목록
-  myChallenges: [], // 내가 참여하는 챌린지
-  myCreateChallenges: [], // 내가 생성한 챌린지
+  challenges: [],         // 전체 챌린지 목록
+  singleChallenge: null,  // 챌린지 하나
+  newChallenges: [],      // 신규 챌린지 목록
+  recChallenges: [],      // 추천 챌린지 목록
+  myChallenges: [],       // 내가 참여하는 챌린지 목록
+  myChallenge: null,      // 내가 참여하는 챌린지 하나
+  myCreateChallenges: [], // 내가 생성한 챌린지 목록
   searchChallenges: [],
   challengeImagePath: '', // 챌린지 대표 이미지 경로
   /*********************************************************** */
@@ -61,6 +63,10 @@ const initialState = {
   searchChallengeLoading: false,
   searchChallengeDone: false,
   searchChallengeError: null,
+  /*********************************************************** */
+  deleteChallengeParticipationLoading: false,
+  deleteChallengeParticipationDone: false,
+  deleteChallengeParticipationError: null,
 }
 
 export const UPLOAD_CHALLENGE_IMAGE_REQUEST = 'UPLOAD_CHALLENGE_IMAGE_REQUEST'
@@ -110,6 +116,7 @@ export const PARTICIPATE_CHALLENGE_FAILURE = 'PARTICIPATE_CHALLENGE_FAILURE'
 export const CERTIFY_CHALLENGE_REQUEST = 'CERTIFY_CHALLENGE_REQUEST'
 export const CERTIFY_CHALLENGE_SUCCESS = 'CERTIFY_CHALLENGE_SUCCESS'
 export const CERTIFY_CHALLENGE_FAILURE = 'CERTIFY_CHALLENGE_FAILURE'
+export const CLEAR_CERTIFY_CHALLENGE = 'CLEAR_CERTIFY_CHALLENGE'
 
 // 챌린지 좋아요
 export const LIKE_CHALLENGE_REQUEST = 'LIKE_CHALLENGE_REQUEST'
@@ -126,14 +133,27 @@ export const SEARCH_CHALLENGE_REQUEST = 'SEARCH_CHALLENGE_REQUEST'
 export const SEARCH_CHALLENGE_SUCCESS = 'SEARCH_CHALLENGE_SUCCESS'
 export const SEARCH_CHALLENGE_FAILURE = 'SEARCH_CHALLENGE_FAILURE'
 
+// 참여중인 챌린지 탈퇴하기
+export const DELETE_CHALLENGE_PARTICIPATION_REQUEST = 'DELETE_CHALLENGE_PARTICIPATION_REQUEST'
+export const DELETE_CHALLENGE_PARTICIPATION_SUCCESS = 'DELETE_CHALLENGE_PARTICIPATION_SUCCESS'
+export const DELETE_CHALLENGE_PARTICIPATION_FAILURE = 'DELETE_CHALLENGE_PARTICIPATION_FAILURE'
+export const CLEAR_DELETE_CHALLENGE_PARTICIPATION = 'CLEAR_DELETE_CHALLENGE_PARTICIPATION'
+
+// 참여중인 챌린지의 상세정보 보여주기
+export const SHOW_MY_CHALLENGE = 'SHOW_MY_CHALLENGE'
+export const CLEAR_SHOW_MY_CHALLENGE = 'CLEAR_SHOW_MY_CHALLENGE'
+
 export const CLEAR_CHALLENGES = 'CLEAR_CHALLENGES'
 export const CLEAR_CHALLENGE = 'CLEAR_CHALLENGE'
 export const CLEAR_MY_CHALLENGES = 'CLEAR_MY_CHALLENGES'
 export const CLEAR_ADD_CHALLENGE_DONE = 'CLEAR_ADD_CHALLENGE_DONE'
 export const CLEAR_LOAD_CHALLENGE_DONE = 'CLEAR_LOAD_CHALLENGE_DONE'
+export const CLEAR_IMAGE_PATH = 'CLEAR_IMAGE_PATH'
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
+    case PURGE:
+      return { ...initialState }
     case CLEAR_CHALLENGES:
       draft.challenges = []
       break
@@ -148,6 +168,9 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
     case CLEAR_LOAD_CHALLENGE_DONE:
       draft.loadChallengeDone = false
+      break
+    case CLEAR_IMAGE_PATH:
+      draft.challengeImagePath = ''
       break
     /*********************************************************** */
     case UPLOAD_CHALLENGE_IMAGE_REQUEST:
@@ -173,6 +196,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case ADD_CHALLENGE_SUCCESS:
       draft.addChallengeLoading = false
       draft.addChallengeDone = true
+      draft.challengeImagePath = ''
       break
     case ADD_CHALLENGE_FAILURE:
       draft.addChallengeLoading = false
@@ -295,14 +319,22 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.certifyChallengeDone = false
       draft.certifyChallengeError = null
       break
-    case CERTIFY_CHALLENGE_SUCCESS:
+    case CERTIFY_CHALLENGE_SUCCESS: {
       draft.certifyChallengeLoading = false
       draft.certifyChallengeDone = true
-      draft.challengeImagePath = null
+      draft.challengeImagePath = ''
+      const challenge = draft.myChallenges.find((v) => v.id === action.data.ChallengeParticipationId)
+      challenge.certification_count += 1
       break
+    }
     case CERTIFY_CHALLENGE_FAILURE:
       draft.certifyChallengeLoading = false
       draft.certifyChallengeError = action.error
+      break
+    case CLEAR_CERTIFY_CHALLENGE:
+      draft.certifyChallengeLoading = false
+      draft.certifyChallengeDone = false
+      draft.certifyChallengeError = null
       break
     /*********************************************************** */
     case LIKE_CHALLENGE_REQUEST:
@@ -411,6 +443,34 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case SEARCH_CHALLENGE_FAILURE:
       draft.searchChallengeLoading = false
       draft.searchChallengeError = action.error
+      break
+    /*********************************************************** */
+    case SHOW_MY_CHALLENGE:
+      const tempChallenge = draft.myChallenges.find((v) => v.id === action.data)
+      draft.myChallenge = tempChallenge
+      break
+    case CLEAR_SHOW_MY_CHALLENGE:
+      draft.myChallenge = null
+      break
+    /*********************************************************** */
+    case DELETE_CHALLENGE_PARTICIPATION_REQUEST:
+      draft.deleteChallengeParticipationLoading = true
+      draft.deleteChallengeParticipationDone = false
+      draft.deleteChallengeParticipationError = null
+      break
+    case DELETE_CHALLENGE_PARTICIPATION_SUCCESS:
+      draft.deleteChallengeParticipationLoading = false
+      draft.deleteChallengeParticipationDone = true
+      draft.myChallenges = draft.myChallenges.filter((v) => v.id !== action.data)
+      break
+    case DELETE_CHALLENGE_PARTICIPATION_FAILURE:
+      draft.deleteChallengeParticipationLoading = false
+      draft.deleteChallengeParticipationError = action.error
+      break
+    case CLEAR_DELETE_CHALLENGE_PARTICIPATION:
+      draft.deleteChallengeParticipationLoading = true
+      draft.deleteChallengeParticipationDone = false
+      draft.deleteChallengeParticipationError = null
       break
     default:
       break

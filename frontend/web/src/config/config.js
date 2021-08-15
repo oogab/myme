@@ -32,7 +32,7 @@ export const categories = [
   {
     name: "7",
     label: "자산",
-  },
+  }
 ]
 
 export const convertCertType = (type) => {

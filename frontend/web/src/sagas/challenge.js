@@ -40,6 +40,9 @@ import {
   SEARCH_CHALLENGE_REQUEST,
   SEARCH_CHALLENGE_SUCCESS,
   SEARCH_CHALLENGE_FAILURE,
+  DELETE_CHALLENGE_PARTICIPATION_REQUEST,
+  DELETE_CHALLENGE_PARTICIPATION_SUCCESS,
+  DELETE_CHALLENGE_PARTICIPATION_FAILURE,
 } from '../reducers/challenge'
 
 function uploadChallengeImageAPI(data) {
@@ -296,6 +299,25 @@ function* searchChallenge(action) {
   }
 }
 
+function deleteChallengeParticipationAPI(data) {
+  return axios.delete(`/challengeParticipation/${data}`)
+}
+
+function* deleteChallengeParticipation(action) {
+  try {
+    const result = yield call(deleteChallengeParticipationAPI, action.data)
+    yield put({
+      type: DELETE_CHALLENGE_PARTICIPATION_SUCCESS,
+      data: result.data
+    })
+  } catch (error) {
+    yield put({
+      type: DELETE_CHALLENGE_PARTICIPATION_FAILURE,
+      error: error.response.data
+    })
+  }
+}
+
 function* watchUploadChallengeImage() {
   yield takeLatest(UPLOAD_CHALLENGE_IMAGE_REQUEST, uploadChallengeImage)
 }
@@ -348,6 +370,10 @@ function* watchSearchChallenge() {
   yield takeLatest(SEARCH_CHALLENGE_REQUEST, searchChallenge)
 }
 
+function* watchDeleteChallengeParticipation() {
+  yield takeLatest(DELETE_CHALLENGE_PARTICIPATION_REQUEST, deleteChallengeParticipation)
+}
+
 export default function* challengeSaga() {
   yield all([
     fork(watchUploadChallengeImage),
@@ -363,5 +389,6 @@ export default function* challengeSaga() {
     fork(watchLikeChallenge),
     fork(watchUnlikeChallenge),
     fork(watchSearchChallenge),
+    fork(watchDeleteChallengeParticipation),
   ])
 }

@@ -100,7 +100,7 @@ router.get('/', isLoggedIn, async (req, res, next) => { // GET /routine
  router.get('/today', isLoggedIn, async (req, res, next) => { // GET /routine
   try {
     let today = moment().day()
-    today = today==0?7:today-1
+    today = today == 0 ? 7 : today-1
 
     const todayRoutines = await RoutineActiveDay.findAll({
       where: {
