@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { 
   Grid,
-  IconButton
+  IconButton,
+  Paper,
+  Typography
 } from '@material-ui/core/';
 import Layout from '../../layout/';
 import Wrapper from './styles';
@@ -9,7 +11,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import { ColorButton } from '../../common/Buttons';
 import { ColorChip } from '../../common/Chips'
 import { useDispatch, useSelector } from 'react-redux';
-import { categories, convertCertType } from '../../config/config';
+import { categories, convertCertType, convertNumDay } from '../../config/config';
 import { CLEAR_LOAD_CHALLENGE_DONE, CLEAR_PARTICIPATE_CHALLENGE, LIKE_CHALLENGE_REQUEST, PARTICIPATE_CHALLENGE_REQUEST, UNLIKE_CHALLENGE_REQUEST } from '../../reducers/challenge';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -67,11 +69,11 @@ const ChallengeDetail = ({match}) => {
 
   // loadChallengeDone이 true면 뒤로가기 해도 다시 이 페이지로 돌아온다.
   // 이 페이지가 렌더링 되면 바로 loadChallengeDone을 false로 바꿔준다.
-  useEffect(() => {
-    dispatch({
-      type: CLEAR_LOAD_CHALLENGE_DONE
-    })
-  }, [])
+  // useEffect(() => {
+  //   dispatch({
+  //     type: CLEAR_LOAD_CHALLENGE_DONE
+  //   })
+  // }, [])
 
   useEffect(() => {
     if (participateChallengeDone) {
@@ -97,48 +99,90 @@ const ChallengeDetail = ({match}) => {
   return (
     <Layout>
       <Wrapper>
-          <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={3}
-          >
-            {/* 대표이미지 */}
-            <Grid item xs={12} className="titleImg" style={{ textAlign: 'center' }}>
-              <img src={singleChallenge.img_addr} alt={singleChallenge.name} style={{width: '50%', maxWidth: 300 }} />
-            </Grid>
-            {/* 제목 */}
-            <Grid item xs={12}>
-              <h2>{singleChallenge.name}</h2>
-            </Grid>
-            {/* 태그 */}
-            <Grid item xs={12}>
-              <ColorChip className="term" style={{ marginLeft: 0 }} label={singleChallenge ? categories[singleChallenge?.Categories[0]?.id]?.label : '분류'}/>
-              <ColorChip className="term" label={convertCertType(singleChallenge.certification_cycle)}  />
-              {
-                liked
-                  ? <IconButton onClick={onLike}><FavoriteIcon /></IconButton>
-                  : <IconButton onClick={onUnlike}><FavoriteBorderIcon /></IconButton>
-              }
-            </Grid>
-            <Grid item xs={12}>
-              <span>{singleChallenge.start_date} ~ {singleChallenge.end_date}</span>
-            </Grid>
-            {/* 설명 */}
-            <Grid item xs={12} >
-              <h3>{singleChallenge?.content}</h3>
-            </Grid>
-            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-              <PersonIcon color="primary"/><span style={{ marginLeft: 10 }}>참가인원 {singleChallenge?.ChallengeParticipations.length} 명</span>
-            </Grid>
-            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-              <FavoriteIcon color="secondary"/><span style={{ marginLeft: 10 }}>좋아요 {singleChallenge?.Likers.length} 명</span>
-            </Grid>
-            <Grid item xs={12}>
-            <ColorButton variant="outlined" onClick={onSetParticipateChallenge}>
-              참여하기!
-            </ColorButton>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={1}
+        >
+          <Grid item xs={12}>
+            <Paper style={{ padding: '10px' }}>
+              <Grid item xs={12} className="titleImg" style={{ textAlign: 'center' }}>
+                <img src={singleChallenge.img_addr} alt={singleChallenge.name} style={{width: '100%', maxWidth: 300 }} />
+              </Grid>
+              <Grid item xs={12} style={{ textAlign: 'center' }}>
+                <h2>{singleChallenge.name}</h2>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <Grid container item xs={12}>
+                <Grid item xs={3} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <ColorChip className="term" style={{ marginLeft: 0 }} label={singleChallenge ? categories[singleChallenge?.Categories[0]?.id]?.label : '분류'}/>
+                </Grid>
+                <Grid item xs={3} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <ColorChip className="term" style={{ margin: 0, padding: '5px 0' }} label={singleChallenge.period % 7 === 0 ? convertNumDay(singleChallenge.period) : `${singleChallenge.period}일`} />
+                </Grid>
+                <Grid item xs={3} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <ColorChip className="term" style={{ margin: 0, padding: '5px 0' }} label={convertCertType(singleChallenge.certification_cycle)}  />
+                </Grid>
+                <Grid item xs={3} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {
+                    liked
+                      ? <IconButton onClick={onLike}><FavoriteIcon /></IconButton>
+                      : <IconButton onClick={onUnlike}><FavoriteBorderIcon /></IconButton>
+                  }
+                </Grid>
+                <Grid item xs={12} style={{ textAlign: 'center', margin: '5px' }}>
+                  <span><span role="img">📅 </span>총 기간 : {singleChallenge.start_date} ~ {singleChallenge.end_date}</span>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} >
+            <Paper>
+              <Grid container item xs={12} >
+                <Grid item xs={12} style={{ padding: '10px', paddingBottom: 0 }}>
+                  <h3>챌린지 설명</h3>
+                </Grid>
+                <Grid item xs={12} style={{ padding: '10px' }}>
+                  <Typography>{singleChallenge?.content}</Typography>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <Grid container item xs={12} style={{ padding: '10px' }}>
+                <Grid item xs={6} style={{ display: 'flex', alignItems: 'center' }}>
+                  <PersonIcon color="primary"/><span style={{ marginLeft: 10 }}>참가인원 {singleChallenge?.ChallengeParticipations.length} 명</span>
+                </Grid>
+                <Grid item xs={6} style={{ display: 'flex', alignItems: 'center' }}>
+                  <FavoriteIcon color="secondary"/><span style={{ marginLeft: 10 }}>좋아요 {singleChallenge?.Likers.length} 명</span>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <Grid container style={{ padding: '10px' }}>
+                <h3><span role="img">🙂</span> 챌린지 개설자</h3>
+                <Grid item xs={12} style={{ marginTop: '5px' }}>
+                  <Typography><strong>{singleChallenge.User.nickname}</strong> / email : {singleChallenge.User.email}</Typography>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper>
+              <Grid item xs={12} style={{ padding: '10px' }}>
+                <ColorButton fullWidth onClick={onSetParticipateChallenge}>
+                  참여하기!
+                </ColorButton>
+              </Grid>
+            </Paper>
           </Grid>
         </Grid>
       </Wrapper>

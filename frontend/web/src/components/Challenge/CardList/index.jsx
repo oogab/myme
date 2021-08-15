@@ -14,13 +14,14 @@ import {
     Box
 } from '@material-ui/core/';
 
-import { ColorButton } from '../../../common/Buttons';
-
 import PersonIcon from '@material-ui/icons/Person';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { useHistory } from 'react-router-dom';
-import { LOAD_CHALLENGE_REQUEST } from '../../../reducers/challenge';
+import { ColorButton } from '../../../common/Buttons';
+import { LOAD_CHALLENGE_REQUEST, SHOW_CHALLENGE } from '../../../reducers/challenge';
 import { OPEN_CONFIRM_MODAL } from '../../../reducers/modal';
+import { convertCertType } from '../../../config/config';
+import './style.css'
 
 const CardList = (props) => {
   const dispatch = useDispatch()
@@ -65,22 +66,23 @@ const CardList = (props) => {
 
   const onChallengeDetail = useCallback((id) => {
     dispatch({
-      type: LOAD_CHALLENGE_REQUEST,
+      type: SHOW_CHALLENGE,
       data: id,
     })
+    history.push(`/Challenge/${id}`)
   }, [dispatch])
 
-  useEffect(() => {
-    if (loadChallengeDone) {
-      history.push(`/Challenge/${singleChallenge.id}`)
-    }
-    if (loadChallengeError) {
-      dispatch({
-        type: OPEN_CONFIRM_MODAL,
-        message: loadChallengeError
-      })
-    }
-  }, [loadChallengeDone, loadChallengeError])
+  // useEffect(() => {
+  //   if (loadChallengeDone) {
+  //     history.push(`/Challenge/${singleChallenge.id}`)
+  //   }
+  //   if (loadChallengeError) {
+  //     dispatch({
+  //       type: OPEN_CONFIRM_MODAL,
+  //       message: loadChallengeError
+  //     })
+  //   }
+  // }, [loadChallengeDone, loadChallengeError])
 
   return (
         <Slider
@@ -100,34 +102,41 @@ const CardList = (props) => {
                       image={challenge.img_addr}
                       title="Contemplative Reptile"
                     />
-                    <CardContent>
-                      <Grid container spacing={2}>
+                    <CardContent style={{ padding: '15px', paddingBottom: '5px' }}>
+                      <Grid container >
                         <Grid item xs={12}>
-                          {/* 챌린지 이름 */}
-                          <Typography gutterBottom variant="h6" style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', fontFamily: 'SCDream4' }}>
+                          <h3 style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', fontFamily: 'SCDream4' }}>
                             {challenge.name}
-                          </Typography>
+                          </h3>
+                        </Grid>
+                        <Grid item xs={12} style={{ marginTop: '5px' }}>
+                          <span style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', fontFamily: 'SCDream4', color: '#AAAAAA' }}>
+                            {challenge.content}
+                          </span>
                         </Grid>
                       </Grid>
-                      {/* 챌린지 설명 */}
-                      <Typography variant="body2" color="textSecondary" style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', fontFamily: 'SCDream4' }}>
-                        {challenge.content}
-                      </Typography>
                     </CardContent>
                   </CardActionArea>
-                  <Grid container>
-                    <Grid item xs={12}>
-                      <CardActions>
-                        <ColorButton fullWidth onClick={() => onChallengeDetail(challenge.id)} >
-                          상세보기
-                        </ColorButton>
-                      </CardActions>
+                  <Grid container style={{ padding: '5px' }}>
+                    <Grid item xs={6} style={{ padding: '5px' }}>
+                      <div className="term" style={{ margin: 0 }}>{challenge.Categories[0]?.name}</div>
                     </Grid>
-                    <Grid item xs={12}>
-                      <CardActions>
+                    <Grid item xs={6} style={{ padding: '5px' }}>
+                      <div className="term" style={{ margin: 0 }}>{convertCertType(challenge.certification_cycle)}</div>
+                    </Grid>
+                    <Grid item xs={12} style={{ padding: '5px', fontSize: 12 }}>
+                      <div className="term" style={{ margin: 0, color: 'black', backgroundColor: 'white' }}><span role="img">📅 </span>{challenge.start_date} ~ {challenge.end_date}</div>
+                    </Grid>
+                    <Grid item xs={6} style={{ padding: '5px', display: 'flex', justifyContent: 'center' }}>
+                      <div style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
                         <PersonIcon color='primary' /> {challenge.ChallengeParticipations.length}
                         <FavoriteIcon color='secondary' fontSize='small' /> {challenge.Likers.length}
-                      </CardActions>
+                      </div>
+                    </Grid>
+                    <Grid item xs={6} style={{ padding: '5px' }}>
+                      <ColorButton fullWidth onClick={() => onChallengeDetail(challenge.id)} >
+                        상세보기
+                      </ColorButton>
                     </Grid>
                   </Grid>
                 </Card>

@@ -33,7 +33,7 @@ const ChallengeHome = () => {
     console.info('You clicked the Chip.');
   };
 
-  const { challenges, newChallenges, recChallenges } = useSelector((state) => state.challenge)
+  const { challenges, newChallenges, recChallenges, loadChallengesDone } = useSelector((state) => state.challenge)
 
   useEffect(() => {
     dispatch({
@@ -47,51 +47,60 @@ const ChallengeHome = () => {
     })
   }, [])
 
-  return (       
+  return (  
     <Wrapper>
       <Layout>
         <Grid container >
-          <Grid item xs={6}>
-            <Button
-              variant="outlined"
-              fullWidth
-              startIcon={<SearchIcon />}
-              onClick={()=>{history.push('/SearchChallenge/')}}
-            >
-              <Typography>챌린지 검색</Typography>
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant="outlined"
-              fullWidth
-              startIcon={<AddIcon />}
-              onClick={()=>{history.push('/CreateChallenge/')}}
-            >
-              <Typography>챌린지 생성</Typography>
-            </Button>
-          </Grid>
-          <Grid container className="grid">
-            <h3>신규 챌린지</h3>
-            <Grid item xs={12}><hr/></Grid>
-            <Grid item xs={12} className="CardContent">
-              <CardList challenges={newChallenges} />
-            </Grid>
-          </Grid>
-          <Grid container className="grid">
-            <h3>추천 챌린지</h3>
-            <Grid item xs={12}><hr/></Grid>
-            <Grid item xs={12} className="CardContent">
-              <Typography>서비스 준비중입니다!</Typography>
-            </Grid>
-          </Grid>
-          <Grid container className="grid">
-            <h3>카테고리별 챌린지</h3>
-            <Grid item xs={12}><hr/></Grid>
-            <Grid item xs={12}>
-              <ChallengeCategory />
-            </Grid>
-          </Grid>
+          {
+            loadChallengesDone ?
+              <>
+                <Grid item xs={6}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    startIcon={<SearchIcon />}
+                    onClick={()=>{history.push('/SearchChallenge/')}}
+                  >
+                    <Typography>챌린지 검색</Typography>
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    startIcon={<AddIcon />}
+                    onClick={()=>{history.push('/CreateChallenge/')}}
+                  >
+                    <Typography>챌린지 생성</Typography>
+                  </Button>
+                </Grid>
+                <Grid container className="grid">
+                  <h3>신규 챌린지</h3>
+                  <Grid item xs={12}><hr/></Grid>
+                  <Grid item xs={12} className="CardContent">
+                    <CardList challenges={newChallenges} />
+                  </Grid>
+                </Grid>
+                <Grid container className="grid">
+                  <h3>추천 챌린지</h3>
+                  <Grid item xs={12}><hr/></Grid>
+                  <Grid item xs={12} className="CardContent">
+                    <Typography>서비스 준비중입니다!</Typography>
+                  </Grid>
+                </Grid>
+                <Grid container className="grid">
+                  <h3>카테고리별 챌린지</h3>
+                  <Grid item xs={12}><hr/></Grid>
+                  <Grid item xs={12}>
+                    <ChallengeCategory />
+                  </Grid>
+                </Grid>
+              </>
+              :
+                <Grid item xs={12} style={{ marginTop: '20px' }}>
+                  <Typography >챌린지를 준비중입니다.</Typography>
+                </Grid>
+          }
         </Grid>
       </Layout>
     </Wrapper>

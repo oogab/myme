@@ -24,9 +24,9 @@ const initialState = {
   loadChallengesDone: false,
   loadChallengesError: null,
   /*********************************************************** */
-  loadChallengeLoading: false,
-  loadChallengeDone: false,
-  loadChallengeError: null,
+  // loadChallengeLoading: false,
+  // loadChallengeDone: false,
+  // loadChallengeError: null,
   /*********************************************************** */
   loadNewChallengesLoading: false,
   loadNewChallengesDone: false,
@@ -144,6 +144,10 @@ export const CLEAR_DELETE_CHALLENGE_PARTICIPATION = 'CLEAR_DELETE_CHALLENGE_PART
 export const SHOW_MY_CHALLENGE = 'SHOW_MY_CHALLENGE'
 export const CLEAR_SHOW_MY_CHALLENGE = 'CLEAR_SHOW_MY_CHALLENGE'
 
+// 챌린지 하나의 정보 보여주기
+export const SHOW_CHALLENGE = 'SHOW_CHALLENGE'
+export const CLEAR_SHOW_CHALLENGE = 'CLEAR_SHOW_CHALLENGE'
+
 export const CLEAR_CHALLENGES = 'CLEAR_CHALLENGES'
 export const CLEAR_CHALLENGE = 'CLEAR_CHALLENGE'
 export const CLEAR_MY_CHALLENGES = 'CLEAR_MY_CHALLENGES'
@@ -220,21 +224,21 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.loadChallengesError = action.error
       break
     /*********************************************************** */
-    case LOAD_CHALLENGE_REQUEST:
-      draft.loadChallengeLoading = true
-      draft.loadChallengeDone = false
-      draft.loadChallengeError = null
-      break
-    case LOAD_CHALLENGE_SUCCESS:
-      draft.loadChallengeLoading = false
-      draft.loadChallengeDone = true
-      draft.singleChallenge = null
-      draft.singleChallenge = action.data
-      break
-    case LOAD_CHALLENGE_FAILURE:
-      draft.loadChallengeLoading = false
-      draft.loadChallengeError = action.error
-      break
+    // case LOAD_CHALLENGE_REQUEST:
+    //   draft.loadChallengeLoading = true
+    //   draft.loadChallengeDone = false
+    //   draft.loadChallengeError = null
+    //   break
+    // case LOAD_CHALLENGE_SUCCESS:
+    //   draft.loadChallengeLoading = false
+    //   draft.loadChallengeDone = true
+    //   draft.singleChallenge = null
+    //   draft.singleChallenge = action.data
+    //   break
+    // case LOAD_CHALLENGE_FAILURE:
+    //   draft.loadChallengeLoading = false
+    //   draft.loadChallengeError = action.error
+    //   break
     /*********************************************************** */
     case LOAD_NEW_CHALLENGES_REQUEST:
       draft.loadNewChallengesLoading = true
@@ -457,6 +461,15 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
     case CLEAR_SHOW_MY_CHALLENGE:
       draft.myChallenge = null
+      break
+    /*********************************************************** */
+    case SHOW_CHALLENGE: {
+      const tempChallenge = draft.challenges.find((v) => v.id === action.data)
+      draft.singleChallenge = tempChallenge
+      break
+    }
+    case CLEAR_SHOW_CHALLENGE:
+      draft.singleChallenge = null
       break
     /*********************************************************** */
     case DELETE_CHALLENGE_PARTICIPATION_REQUEST:
