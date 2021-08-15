@@ -109,7 +109,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.createEventModal = false
 
     case OPEN_MODIFY_EVENT_MODAL:
-      draft.modifyEventModal = true
+      draft.modifyEventModal = false
       break
     case TOGGLE_MODIFY_EVENT_MODAL:
       draft.modifyEventModal = !draft.modifyEventModal

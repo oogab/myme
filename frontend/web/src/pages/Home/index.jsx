@@ -15,7 +15,7 @@ import { OPEN_CREATE_EVENT_MODAL } from '../../reducers/modal';
 import { LOAD_TODAY_ROUTINES_REQUEST } from '../../reducers/routine';
 import { LOAD_MY_CHALLENGES_REQUEST } from '../../reducers/challenge';
 import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
-import {Card, Grid, Paper, Tabs, Tab, Button, List} from '@material-ui/core'
+import {Card, Grid, Paper, Tabs, Tab, Button, List, Container} from '@material-ui/core'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -108,14 +108,15 @@ const App = () => {
           }
         </div>
         <div hidden={tabValue !== 2}>
-          <div display="inline-block" style={{width: 'auto', display: 'inline-block'}}><h3>오늘의 일정</h3><Button style={{background: '#89DDBF'}} onClick={openCreateEventModal}>일정추가</Button></div>
-          <Paper style={{marginBottom: '10px'}}>
-          <List component="nav" aria-label="mailbox folders">
-              {
-                events.map((event) => {
-                  return <TodayEvent key={event.id} event={event}/>
-                })
-              }
+          <div className='menu daily-menu'><h3>오늘의 일정</h3><Button className='btn' onClick={openCreateEventModal}>+일정추가</Button></div>
+        
+          <Paper style={{margin: '0 0 20px 0'}}>
+            <List component="nav" aria-label="mailbox folders">
+                {
+                  events.map((event,idx) => {
+                    return <TodayEvent key={idx} event={event}/>
+                  })
+                }
             </List>
           </Paper>
           <Calendar myEvent={events} />

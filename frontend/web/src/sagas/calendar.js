@@ -15,9 +15,6 @@ import {
   LOAD_EVENT_FAILURE,
 } from '../reducers/calendar'
 
-import {
-    ADD_ROUTINIZED_HABIT_REQUEST,
-  } from '../reducers/routine'
   import {
     OPEN_CONFIRM_MODAL
   } from '../reducers/modal'
@@ -57,7 +54,7 @@ function deleteEventAPI(id){
 }
 function* deleteEvent(action){
     try{
-        const result = yield call(deleteEventAPI, action.id)
+        yield call(deleteEventAPI, action.id)
         yield put({
             type: DELETE_EVENT_SUCCESS,
             idx: action.idx
@@ -96,7 +93,7 @@ function* modifyEvent(action){
     } catch(error){
         yield put({
             type: MODIFY_EVENT_FAILURE,
-            error: error.response.data
+            error: error
         })
         yield put({
             type:OPEN_CONFIRM_MODAL,

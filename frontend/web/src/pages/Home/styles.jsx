@@ -8,5 +8,25 @@ const Wrapper = styled.div`
         font-size: 1.5em;
         font-weight: bold;
     }
+    .daily-menu{
+        width:auto;
+        margin-bottom: 10px;
+    }
+    .daily-menu > * {
+        display: inline-block;
+    }
+    .MuiContainer-root {
+       
+    }
+    .btn{
+        background-color:#B5E3D8;
+    border-radius: 30px;
+    width:100px;
+    text-align:center;
+    
+    margin-left: 20px;
+    border: none;
+    font-weight: bold;
+    }
 `;
 export default Wrapper;

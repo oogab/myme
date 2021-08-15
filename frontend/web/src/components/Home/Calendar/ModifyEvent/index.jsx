@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-  
+import moment from 'moment';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -132,72 +132,59 @@ function ModifyModal(props) {
   const {eventInfo} = useSelector((state) => state.calendar)
   const { modifyEventModal } = useSelector((state) => state.modal)
 
-  const [title, setTitle] = useState(eventInfo.title)
-  const onChangeTitle = useCallback((e) => {
-    setTitle(e.target.value)
-  }, [])
-
-  const [startDate, setStartDate] = useState(eventInfo.start);
-  const startDateChange = (e) => {
-    setStartDate(e.target.value);
-    console.log(startDate)
-  };
-
-  const [endDate, setEndDate] = useState(eventInfo.start);
-  const endDateChange = (e) => {
-    setEndDate(e.target.value);
-    console.log('end:'+endDate)
-  };
- const bool = eventInfo.allDay
-  const [allDay, setAllDay] = useState({bool});
-  const onChangeSwitch = () =>{
-    console.log(eventInfo.allDay)
-    setAllDay((prev) => !prev)
-  }
-  
   const [click, setClick] = useState(false)
   const onChangeClick = () =>{
+    console.log("#color:"+eventInfo.backgroundColor)
       setClick(true);
   }
   const onChangeClose = () => {
       setClick(false);
   }
-  const [color, setColor] = useState(eventInfo.backgroundColor)
-  const onChangeColor = (color)=>{
-    setColor(color.hex);
-  }
-  
+
   function changeTitle(e){
     dispatch({type: SET_CHOOSED_EVENT_TITLE, title:e.target.value})
   }
+
+  function changeColor(e){
+    dispatch({type: SET_CHOOSED_EVENT_COLOR, color: e.hex})
+  }
+
+  function changeSwitch(e){
+    dispatch({type: SET_CHOOSED_EVENT_ALLDAY, allDay: e.target.checked})
+  }
+
+  function changeStartDate(e){
+    dispatch({type: SET_CHOOSED_EVENT_START, start: e.target.value})
+  }
+
+  function changeEndDate(e){
+    dispatch({type: SET_CHOOSED_EVENT_END, end: e.target.value})
+  }
+
   function closeModifyEvent(){  
-      dispatch({
-        type: CLOSE_MODIFY_EVENT_MODAL
-      })
-    }
+      dispatch({type: CLOSE_MODIFY_EVENT_MODAL})
+  }
 
   function modifyEvent(){
     dispatch({
       type: MODIFY_EVENT_REQUEST,
       data:{
-        title: title,
-        color: color,
-        start: startDate,
-        end: endDate,
-        allDay: allDay
+        title: eventInfo.title,
+        color: eventInfo.color,
+        start: eventInfo.start,
+        end: eventInfo.end,
+        allDay: eventInfo.allDay
       },
-      id: eventInfo.id
+      id: eventInfo.id 
     })
     closeModifyEvent()
   }
 
   function setModifyEvent(){
     if(validate()){
-      
       dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: modifyEvent})
-      
       dispatch({type: OPEN_ALERT_MODAL, message:'일정을 수정하시겠습니까?'})
-      
+      console.log("time:"+moment.duration(moment(eventInfo.start)-moment(eventInfo.end)))
     }
   }
 
@@ -206,15 +193,15 @@ function ModifyModal(props) {
     closeModifyEvent()
   }
   function setDeleteEvent(){
+    // console.log(allDay)
       dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: deleteEvent})
       dispatch({type: OPEN_ALERT_MODAL, message:'일정을 삭제하시겠습니까?'})
   }
 
   const validate = () =>{
     console.log('start: '+eventInfo.start)
-      console.log('bool: '+bool)
     let titlesKorean = ['일정을','시작일을', '종료일을']
-    let titlesEnglish =[eventInfo.title, eventInfo.start, endDate]
+    let titlesEnglish =[eventInfo.title, eventInfo.start, eventInfo.end]
     for(let i=0;i<titlesKorean.length;i++){
       if(!titlesEnglish[i]){
         dispatch({
@@ -224,6 +211,13 @@ function ModifyModal(props) {
         return false;
       }
     }
+    if(moment.duration(moment(eventInfo.end)-moment(eventInfo.start)) < 0){
+      dispatch({
+        type:OPEN_CONFIRM_MODAL,
+        message:'시간을 다시 설정해주세요'
+      })
+      return false;
+    }
     return true;
   }
    const body = (
@@ -232,21 +226,21 @@ function ModifyModal(props) {
    <h2 id="simple-modal-title" style={{marginBottom: "10px", float:'left'}}>일정 수정</h2><Close onClick={closeModifyEvent} style={{float:'right'}}></Close>
    </div>
    <div>
-   <input className={classes.inputDiv} defaultValue={eventInfo.title} onChange={changeTitle}></input>
+   <input className={classes.inputDiv} value={eventInfo.title} onChange={changeTitle}></input>
 
     <div className={classes.inputDiv}>
       <div className={classes.inputDiv} style={{border:'none'}}>
-        <span className={classes.text}>종일</span><div className={classes.floatRight}><Switch className={classes.switch} checked={allDay} onChange={onChangeSwitch}/></div>
+        <span className={classes.text}>종일</span><div className={classes.floatRight}><Switch className={classes.switch} checked={eventInfo.allDay} onChange={changeSwitch}/></div>
       </div>
         {
-          allDay ? <>
+          eventInfo.allDay ? <>
             <div className={classes.inputDiv} style={{border:'none'}}>
               <span className={classes.text} style={{marginTop:'100px'}}>시작일</span>
               <TextField
                   id="date"
                   type="date"
-                  onChange={startDateChange}
-                  defaultValue={eventInfo.start}
+                  onChange={changeStartDate}
+                  value={eventInfo.start}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,
@@ -259,8 +253,8 @@ function ModifyModal(props) {
               <TextField
                   id="date"
                   type="date"
-                  onChange={endDateChange}
-                  defaultValue={eventInfo.end}
+                  onChange={changeEndDate}
+                  value={eventInfo.end=="" ? eventInfo.end=eventInfo.start && eventInfo.start : eventInfo.end}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,
@@ -275,8 +269,8 @@ function ModifyModal(props) {
               <TextField
                   id="datetime-local"
                   type="datetime-local"
-                  onChange={startDateChange}
-                  defaultValue={eventInfo.start}
+                  onChange={changeStartDate}
+                  value={moment(eventInfo.start).format('YYYY-MM-DDTHH:mm:ss')}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,
@@ -289,8 +283,8 @@ function ModifyModal(props) {
               <TextField
                   id="datetime-local"
                   type="datetime-local"
-                  onChange={endDateChange}
-                  // defaultValue={eventInfo.end}
+                  onChange={changeEndDate}
+                  value={moment(eventInfo.end).format('YYYY-MM-DDTHH:mm:ss')}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,
@@ -305,8 +299,8 @@ function ModifyModal(props) {
    
       <span className={classes.text}> <LocalOfferTwoToneIcon width="100"/></span>
       {/* <div className={classes.floatRight}> */}
-        <div className={ classes.swatch } onClick={ onChangeClick } onChange={onChangeColor} style={{float:'right'}}>
-            <div className={ classes.color } style={{background: eventInfo.backgroundColor}}/>
+        <div className={ classes.swatch } onClick={ onChangeClick } style={{float:'right'}}>
+            <div className={ classes.color } style={{backgroundColor: eventInfo.color}}/>
             </div>
         { 
             click ? 
@@ -314,7 +308,7 @@ function ModifyModal(props) {
             alignItems: 'center',
             justifyContent: 'center',}}>
                 <div className={ classes.cover } onClick={ onChangeClose }/>
-                <CirclePicker defaultValue={ color } onChange={ onChangeColor }/>
+                <CirclePicker color={ eventInfo.backgroundColor } onChange={ changeColor }/>
             </div>: null 
         }
       {/* </div> */}

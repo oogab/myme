@@ -1,3 +1,4 @@
+import { SystemUpdate } from '@material-ui/icons'
 import produce from 'immer'
 
 const initialState = {
@@ -18,8 +19,8 @@ const initialState = {
     loadChoosedEventLoading: false,
     loadChoosedEventDone: false,
     loadChoosedEventError: null,
-
-    choosedEvent : -1,
+    tempEvents: null,
+    choosedEvent : 0,
     eventInfo :{
         "id": -1,
         "title" : '',
@@ -30,6 +31,13 @@ const initialState = {
 
     }
 }
+// const tempEvents = '';
+// const tempEvents = action.data.map((v) => { title: v.title; 
+//                                             start: v.start; 
+//                                             end: v.end; 
+//                                             allDay: v.allDay; 
+//                                             color: v.color; 
+//                                             id: v.id})
 
 export const CREATE_EVENT_REQUEST = 'CREATE_EVENT_REQUEST'
 export const CREATE_EVENT_SUCCESS = 'CREATE_EVENT_SUCCESS'
@@ -88,6 +96,10 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
         case DELETE_EVENT_SUCCESS:
             draft.deleteEventLoading = false
             draft.deleteEventDone = true
+            const index = draft.events.findIndex(event => event.id === action.id)
+            draft.events.splice(index,1)
+            // draft.events=[]
+            // draft.events=draft.events.concat(action.data)
             break
         case DELETE_EVENT_FAILURE:
             draft.deleteEventLoading = false
@@ -101,6 +113,14 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
         case MODIFY_EVENT_SUCCESS:
             draft.modifyEventLoading = false
             draft.modifyEventDone = true
+            for(let i=0;i<draft.events.length;i++){
+                if(draft.events[i].id == draft.choosedEvent){
+                    draft.events[i] = action.data
+                }
+            }
+            draft.events=draft.events.concat()
+
+
             break
         case MODIFY_EVENT_FAILURE:
             draft.modifyEventLoading = false
@@ -116,7 +136,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
             draft.loadEventDone = true
             draft.events=[]
             draft.events=draft.events.concat(action.data)
-            
+                                
             break
         case LOAD_EVENT_FAILURE:
             draft.loadEventLoading = false
@@ -142,11 +162,13 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
             draft.choosedEvent = action.idx
             break
         case SET_CHOOSED_EVENT_MODAL:
-            draft.choosedEvent = action.idx
+            draft.choosedEvent = action.data.id
+            console.log(draft.choosedEvent)
+            draft.eventInfo=null
             draft.eventInfo={
                 id: action.data.id,
                 title : action.data.title,
-                backgroundColor : action.data.backgroundColor,
+                color : action.data.backgroundColor,
                 start: action.data.startStr,
                 end: action.data.endStr,
                 allDay: action.data.allDay,

@@ -1,10 +1,10 @@
 import React, {useState, useCallback}  from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-
+import moment from 'moment';
 import {Close} from '@material-ui/icons';
 import {connect, useDispatch, useSelector} from 'react-redux';
-import { CLOSE_CREATE_EVENT_MODAL, OPEN_CONFIRM_MODAL } from '../../../../reducers/modal';
+import { CLOSE_CREATE_EVENT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION, OPEN_ALERT_MODAL } from '../../../../reducers/modal';
 
 import { CREATE_EVENT_REQUEST } from '../../../../reducers/calendar';
 import { Button, TextField } from '@material-ui/core'
@@ -122,18 +122,14 @@ const useStyles = makeStyles((theme) => ({
 
 function CreateCalendar(props) {
  
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
 
     const { createEventModal } = useSelector((state) => state.modal)
-    function closeRoutine(){
-        dispatch({
-          type: CLOSE_CREATE_EVENT_MODAL
-        })
-    }
+
 //모달 닫는 함수
-const handleClose = () => {
+function handleClose() {
   dispatch({type:CLOSE_CREATE_EVENT_MODAL});
 };
   //캘린더에 일정 추가
@@ -172,16 +168,9 @@ const handleClose = () => {
   const onChangeColor = (color)=>{
     setColor(color.hex);
   }
+  const [todo, setTodo] = useState(false)
 
-  const add = useCallback(() => {
-    console.log(startDate + endDate)
-    if(!title){
-      dispatch({
-        type:OPEN_CONFIRM_MODAL,
-        message: '일정을 입력해주세요.'
-      })
-      return false;
-    } 
+  function addEvent(){
     dispatch({
       type: CREATE_EVENT_REQUEST,
       data:{
@@ -189,11 +178,36 @@ const handleClose = () => {
         color,
         start : startDate,
         end : endDate,
-        allDay
+        allDay,
       }
     })
-  },[title, color, startDate, endDate, allDay]);
+    handleClose()
+  }
 
+  const validate=() =>{
+    if(!title){
+      dispatch({
+        type:OPEN_CONFIRM_MODAL,
+        message: '일정을 입력해주세요.'
+      })
+      return false;
+    } 
+    if(moment.duration(moment(endDate)-moment(startDate)) < 0){
+      dispatch({
+        type:OPEN_CONFIRM_MODAL,
+        message:'시간을 다시 설정해주세요'
+      })
+      return false;
+    }
+    else return true;
+  }
+  
+  function setAddEvent(){
+    if(validate()){
+      dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: addEvent})
+      dispatch({type: OPEN_ALERT_MODAL, message:'일정을 추가하시겠습니까?'})
+    }
+  }
   const body = (
     <div style={modalStyle} className={classes.paper}>
             <div>
@@ -288,7 +302,7 @@ const handleClose = () => {
             </div>
           </div>
         <div className={classes.buttonDiv}>
-          <button className={classes.buttonRight +' btn'} onClick = {add}>완료</button>
+          <button className={classes.buttonRight +' btn'} onClick = {setAddEvent}>완료</button>
         </div>
     </div>
   );
@@ -296,7 +310,7 @@ const handleClose = () => {
   return (
     <Modal
       open={createEventModal}
-      onClose={closeRoutine}
+      onClose={handleClose}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
     >
@@ -305,10 +319,4 @@ const handleClose = () => {
   );
 }
 
-
-const mapStateToProps = (state) =>{
-  return {
-      state
-  }
-}
-export default connect(mapStateToProps)(CreateCalendar);
+export default CreateCalendar;
