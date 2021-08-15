@@ -17,10 +17,3 @@ html::-webkit-scrollbar {
   list-style: none;
   text-decoration: none;
 }
-
-body{
-  background-color: black;
-  color: white;
-  height: 1080px;
-  padding: 20px;
-}

@@ -12,6 +12,7 @@ import store from './store/configureStore'
 
 // page
 import Main from './pages/Main';
+import Auth from './pages/Auth'
 import CreateEventModal from './components/Calendar/CreateEvent/index'
 
 //fullcalendar example용
@@ -54,7 +55,8 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={Main} />
+            <Route exact path="/" component={Auth} />
+            <Route exact path="/Home" component={Main} />
           </Switch>
         </BrowserRouter>
       </MuiThemeProvider>

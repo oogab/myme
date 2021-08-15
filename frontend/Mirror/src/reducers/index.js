@@ -3,6 +3,8 @@ import { combineReducers } from "redux"
 import calendar from './calendar'
 import modal from './modal'
 import user from './user'
+import weather from './weather'
+import routine from './routine'
 // (이전상태, 액션) => 다음 상태
 const rootReducer = (state, action) =>{
     switch (action.type) {
@@ -11,6 +13,8 @@ const rootReducer = (state, action) =>{
                 calendar,
                 modal,
                 user,
+                weather,
+                routine,
             });
             return combinedReducer(state, action)
         }

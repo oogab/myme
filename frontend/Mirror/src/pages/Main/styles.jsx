@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  height:1080px;
+  color:white;
+  background-color:black;
+  padding:30px;
  & .date {
    font-size: 20px;
  }

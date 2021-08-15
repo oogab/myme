@@ -142,32 +142,32 @@ function* loadMyInfo(action) {
   }
 }
 
-function updateMyInfoAPI(data) {
-  return axios.put('/user/profile', data)
-}
+// function updateMyInfoAPI(data) {
+//   return axios.put('/user/profile', data)
+// }
 
-function* updateMyInfo(action) {
-  try {
-      const result = yield call(updateMyInfoAPI, action.data)
-      yield put({
-          type: UPDATE_MY_INFO_SUCCESS,
-          data: action.data
-      })
-      // yield put({
-      //   type:OPEN_CONFIRM_MODAL,
-      //   message: '정보 수정이 완료되었습니다.'
-      // })
-  } catch (err) {
-      yield put({
-          type: UPDATE_MY_INFO_FAILURE,
-          error: err.response.data
-      })
-      // yield put({
-      //   type:OPEN_CONFIRM_MODAL,
-      //   message: '중복된 닉네임입니다. 변경 후 시도해주세요.'
-      // })
-  }
-}
+// function* updateMyInfo(action) {
+//   try {
+//       const result = yield call(updateMyInfoAPI, action.data)
+//       yield put({
+//           type: UPDATE_MY_INFO_SUCCESS,
+//           data: action.data
+//       })
+//       // yield put({
+//       //   type:OPEN_CONFIRM_MODAL,
+//       //   message: '정보 수정이 완료되었습니다.'
+//       // })
+//   } catch (err) {
+//       yield put({
+//           type: UPDATE_MY_INFO_FAILURE,
+//           error: err.response.data
+//       })
+//       // yield put({
+//       //   type:OPEN_CONFIRM_MODAL,
+//       //   message: '중복된 닉네임입니다. 변경 후 시도해주세요.'
+//       // })
+//   }
+// }
 
 // function loadUserAPI(data) {
 //   return axios.get(`/user/${data}`);
@@ -305,9 +305,9 @@ function* watchLoadMyInfo() {
   yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo)
 }
 
-function* watchUpdateMyInfo() {
-  yield takeLatest(UPDATE_MY_INFO_REQUEST, updateMyInfo)
-}
+// function* watchUpdateMyInfo() {
+//   yield takeLatest(UPDATE_MY_INFO_REQUEST, updateMyInfo)
+// }
 
 // function* watchLoadUser() {
 //   yield takeLatest(LOAD_USER_REQUEST, loadUser);
@@ -342,7 +342,7 @@ export default function* userSaga() {
       // fork(watchUnfollow),
       // fork(watchLoadUser),
       fork(watchLoadMyInfo),
-      fork(watchUpdateMyInfo),
+      // fork(watchUpdateMyInfo),
       // fork(watchChangeNickname),
       // fork(watchLoadFollowers),
       // fork(watchLoadFollowings),

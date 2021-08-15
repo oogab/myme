@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 const Wrapper = styled.div`
     width: 900px;
+    margin-top: -30px;
+    margin-left: -30px;
     #now-weather-icon{
         width:150px;
     }
@@ -24,8 +26,11 @@ const Wrapper = styled.div`
 
     #next-weather{
         position: absolute;
-        top: 100px;
-        left: 140px;
+        top: 70px;
+        left: 120px;
+    }
+    .MuiCardActions-root{
+        padding:0px;
     }
 `;
 export default Wrapper;
