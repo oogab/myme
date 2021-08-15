@@ -7,7 +7,6 @@ import routine from './routine'
 import habit from './habit'
 import challenge from './challenge'
 import calendar from './calendar'
-import { PURGE } from "redux-persist/es/constants";
 
 // (이전상태, 액션) => 다음 상태
 const rootReducer = (state, action) =>{

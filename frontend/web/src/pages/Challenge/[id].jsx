@@ -10,10 +10,10 @@ import { ColorButton } from '../../common/Buttons';
 import { ColorChip } from '../../common/Chips'
 import { useDispatch, useSelector } from 'react-redux';
 import { categories, convertCertType } from '../../config/config';
-import { CLEAR_LOAD_CHALLENGE_DONE, LIKE_CHALLENGE_REQUEST, PARTICIPATE_CHALLENGE_REQUEST, UNLIKE_CHALLENGE_REQUEST } from '../../reducers/challenge';
+import { CLEAR_LOAD_CHALLENGE_DONE, CLEAR_PARTICIPATE_CHALLENGE, LIKE_CHALLENGE_REQUEST, PARTICIPATE_CHALLENGE_REQUEST, UNLIKE_CHALLENGE_REQUEST } from '../../reducers/challenge';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import { OPEN_ALERT_MODAL } from '../../reducers/modal';
+import { OPEN_ALERT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION } from '../../reducers/modal';
 
 const ChallengeDetail = ({match}) => {
   const dispatch = useDispatch()
@@ -37,10 +37,6 @@ const ChallengeDetail = ({match}) => {
 
   const onParticipateChallenge = useCallback(() => {
     dispatch({
-
-    })
-
-    dispatch({
       type: PARTICIPATE_CHALLENGE_REQUEST,
       data: {
         start_date: singleChallenge.start_date,
@@ -51,7 +47,18 @@ const ChallengeDetail = ({match}) => {
         challengeId: singleChallenge.id
       }
     })
-  }, [singleChallenge, dispatch])
+  }, [dispatch, singleChallenge])
+
+  const onSetParticipateChallenge = useCallback(() => {
+    dispatch({
+      type: SET_ALERT_MODAL_FUNCTION,
+      alertModalFunction: onParticipateChallenge
+    })
+    dispatch({
+      type: OPEN_ALERT_MODAL,
+      message: '챌린지에 참여하시겠습니까?'
+    })
+  }, [dispatch])
 
   // useEffect(() => {
   //   console.log(singleChallenge)
@@ -69,8 +76,20 @@ const ChallengeDetail = ({match}) => {
   useEffect(() => {
     if (participateChallengeDone) {
       dispatch({
-        type: OPEN_ALERT_MODAL,
-        message: ''
+        type: OPEN_CONFIRM_MODAL,
+        message: '챌린지에 참여하였습니다!'
+      })
+      dispatch({
+        type: CLEAR_PARTICIPATE_CHALLENGE
+      })
+    }
+    if (participateChallengeError) {
+      dispatch({
+        type: OPEN_CONFIRM_MODAL,
+        message: participateChallengeError
+      })
+      dispatch({
+        type: CLEAR_PARTICIPATE_CHALLENGE
       })
     }
   }, [participateChallengeDone, participateChallengeError])
@@ -117,7 +136,7 @@ const ChallengeDetail = ({match}) => {
               <FavoriteIcon color="secondary"/><span style={{ marginLeft: 10 }}>좋아요 {singleChallenge?.Likers.length} 명</span>
             </Grid>
             <Grid item xs={12}>
-            <ColorButton variant="outlined" onClick={onParticipateChallenge}>
+            <ColorButton variant="outlined" onClick={onSetParticipateChallenge}>
               참여하기!
             </ColorButton>
           </Grid>

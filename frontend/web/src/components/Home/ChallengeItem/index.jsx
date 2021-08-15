@@ -42,7 +42,7 @@ const App = (props) => {
     <Wrapper>
       <img alt={challenge.Challenge?.name} src={challenge.Challenge?.img_addr ? challenge.Challenge?.img_addr : ''} style={{ maxWidth: '270px', maxHeight: '100px' }} />
       <Grid item xs={12} >
-        <Typography gutterBottom className='title' variant="h6" style={{ maxWidth: 250, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', fontFamily: 'SCDream4' }}>{challenge.Challenge?.name}</Typography>
+        <Typography gutterBottom className='title' component="div" variant="h6" style={{ maxWidth: 250, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', fontFamily: 'SCDream4' }}>{challenge.Challenge?.name}</Typography>
       </Grid>
       <Grid container spacing={0}>
         <Grid item xs={6} >

@@ -20,9 +20,9 @@ const upload = multer({
   storage: multerS3({
     s3: new AWS.S3(),
     bucket: 'ssafymyme',
-    key(req, file, cb) {
-      cb(null, `original/${Date.now()}_${path.basename(file.originalname).replace(/(\s*)/g, "_")}`)
-    }
+    key (req, file, cb) {
+      cb(null, `original/${Date.now()}_${path.basename(file.originalname).replace(/ /g, "_")}`)
+    },
   }),
   limits: { fileSize: 20*1024*1024 } // 20MB
 })
@@ -73,23 +73,22 @@ router.get('/', async (req, res, next) => { // GET /challenge
     const where = {}
     const challenges = await Challenge.findAll({
       where,
-      limit: 10,
       order: [
         ['createdAt', 'DESC']
       ],
       include: [{
         model: User,
-        attributes: ['id', 'nickname']
-      }, {
-        model: Comment,
-        include: [{
-          model: User,
-          attributes: ['id', 'nickname']
-        }]
+        attributes: ['id', 'email', 'nickname']
       }, {
         model: User,
         as: 'Likers',
         attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
       }, {
         model: Category
       }]
@@ -153,13 +152,7 @@ router.get('/', async (req, res, next) => { // GET /challenge
       ],
       include: [{
         model: User,
-        attributes: ['id', 'nickname']
-      }, {
-        model: Comment,
-        include: [{
-          model: User,
-          attributes: ['id', 'nickname']
-        }]
+        attributes: ['id', 'email', 'nickname']
       }, {
         model: ChallengeCertificationTime
       }, {
@@ -227,19 +220,12 @@ router.get('/', async (req, res, next) => { // GET /challenge
     const where = {}
     const challenges = await Challenge.findAll({
       where,
-      limit: 10,
       order: [
         ['createdAt', 'DESC']
       ],
       include: [{
         model: User,
-        attributes: ['id', 'nickname']
-      }, {
-        model: Comment,
-        include: [{
-          model: User,
-          attributes: ['id', 'nickname']
-        }]
+        attributes: ['id', 'email', 'nickname']
       }, {
         model: User,
         as: 'Likers',
@@ -322,13 +308,7 @@ router.get('/', async (req, res, next) => { // GET /challenge
       ],
       include: [{
         model: User,
-        attributes: ['id', 'nickname']
-      }, {
-        model: Comment,
-        include: [{
-          model: User,
-          attributes: ['id', 'nickname']
-        }]
+        attributes: ['id', 'email', 'nickname']
       }, {
         model: User,
         as: 'Likers',
@@ -400,13 +380,7 @@ router.get('/mychallenge', isLoggedIn, async (req, res, next) => { // GET /mycha
       ],
       include: [{
         model: User,
-        attributes: ['id', 'nickname']
-      }, {
-        model: Comment,
-        include: [{
-          model: User,
-          attributes: ['id', 'nickname']
-        }]
+        attributes: ['id', 'email', 'nickname']
       }, {
         model: User,
         as: 'Likers',
@@ -485,7 +459,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
       where: { id: challenge.id },
       include: [{
         model: User, // 챌린지 개설자 아이디
-        attributes: ['id', 'nickname']
+        attributes: ['id', 'email', 'nickname']
       }, {
         model: ChallengeCertificationTime
       }, {
@@ -574,13 +548,7 @@ router.post('/image', isLoggedIn, upload.single('image'), async (req, res, next)
       where: { id : req.params.challengeId },
       include: [{
         model: User,
-        attributes: ['id', 'nickname']
-      }, {
-        model: Comment,
-        include: [{
-          model: User,
-          attributes: ['id', 'nickname']
-        }]
+        attributes: ['id', 'email', 'nickname']
       }, {
         model: User,
         as: 'Likers',

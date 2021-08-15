@@ -111,6 +111,7 @@ export const LOAD_MY_CREATE_CHALLENGES_FAILURE = 'LOAD_MY_CREATE_CHALLENGES_FAIL
 export const PARTICIPATE_CHALLENGE_REQUEST = 'PARTICIPATE_CHALLENGE_REQUEST'
 export const PARTICIPATE_CHALLENGE_SUCCESS = 'PARTICIPATE_CHALLENGE_SUCCESS'
 export const PARTICIPATE_CHALLENGE_FAILURE = 'PARTICIPATE_CHALLENGE_FAILURE'
+export const CLEAR_PARTICIPATE_CHALLENGE = 'CLEAR_PARTICIPATE_CHALLENGE'
 
 // 챌린지 인증하기
 export const CERTIFY_CHALLENGE_REQUEST = 'CERTIFY_CHALLENGE_REQUEST'
@@ -313,6 +314,11 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.participateChallengeLoading = false
       draft.participateChallengeError = action.error
       break
+    case CLEAR_PARTICIPATE_CHALLENGE:
+      draft.participateChallengeLoading = false
+      draft.participateChallengeDone = false
+      draft.participateChallengeError = null
+      break
     /*********************************************************** */
     case CERTIFY_CHALLENGE_REQUEST:
       draft.certifyChallengeLoading = true
@@ -468,7 +474,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.deleteChallengeParticipationError = action.error
       break
     case CLEAR_DELETE_CHALLENGE_PARTICIPATION:
-      draft.deleteChallengeParticipationLoading = true
+      draft.deleteChallengeParticipationLoading = false
       draft.deleteChallengeParticipationDone = false
       draft.deleteChallengeParticipationError = null
       break

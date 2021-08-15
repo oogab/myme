@@ -36,9 +36,14 @@ const router = express.Router()
       include: [{
         model: Challenge,
         include: [{
+          model: User,
+          attributes: ['id', 'nickname', 'email']
+        }, {
           model: ChallengeCertificationDay,
         }, {
           model: ChallengeCertificationTime
+        }, {
+          model: ChallengeParticipation
         }, {
           model: User,
           as: 'Likers',
@@ -106,7 +111,23 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /challengeParti
         model: User,
         attributes: ['id', 'nickname']
       }, {
-        model: Challenge
+        model: Challenge,
+        include: [{
+          model: User,
+          attributes: ['id', 'email', 'nickname']
+        }, {
+          model: User,
+          as: 'Likers',
+          attributes: ['id']
+        }, {
+          model: ChallengeCertificationTime
+        }, {
+          model: ChallengeCertificationDay
+        }, {
+          model: ChallengeParticipation
+        }, {
+          model: Category
+        }]
       }, {
         model: DailyCertifyChallenge
       }]

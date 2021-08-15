@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 import Layout from '../../layout/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_CHALLENGE, LOAD_CHALLENGES_REQUEST, LOAD_NEW_CHALLENGES_REQUEST, LOAD_REC_CHALLENGES_REQUEST } from '../../reducers/challenge';
+import ChallengeCategory from '../../components/Challenge/ChallengeCategory';
 
 const chipStyles = makeStyles((theme) => ({
   root: {
@@ -70,34 +71,27 @@ const ChallengeHome = () => {
               <Typography>챌린지 생성</Typography>
             </Button>
           </Grid>
-            <Grid container className="grid">
-              <h3>신규 챌린지</h3>
-              <Grid item xs={12}><hr/></Grid>
-              <Grid item xs={12} className="CardContent">
-                <CardList challenges={newChallenges} />
-              </Grid>
+          <Grid container className="grid">
+            <h3>신규 챌린지</h3>
+            <Grid item xs={12}><hr/></Grid>
+            <Grid item xs={12} className="CardContent">
+              <CardList challenges={newChallenges} />
             </Grid>
-            <Grid container className="grid">
-              <h3>추천 챌린지</h3>
-              <Grid item xs={12}><hr/></Grid>
-              <Grid item xs={12} className="CardContent">
-                <Typography>서비스 준비중입니다!</Typography>
-              </Grid>
+          </Grid>
+          <Grid container className="grid">
+            <h3>추천 챌린지</h3>
+            <Grid item xs={12}><hr/></Grid>
+            <Grid item xs={12} className="CardContent">
+              <Typography>서비스 준비중입니다!</Typography>
             </Grid>
-            <Grid container className="grid">
-              <h3>전체</h3>
-              <AppBar position="static" style={{background: '#66A091'}}>
-                <div className={chipClasses.root}>
-                  <Chip label="전체" onClick={handleClick} />
-                  <Chip label="#운동" onClick={handleClick} />
-                  <Chip label="#공부" onClick={handleClick} />
-                  <Chip label="#식사" onClick={handleClick} />
-                  <Chip label="#취미" onClick={handleClick} />
-                  <Chip label="#다이어트" onClick={handleClick} />
-                </div>
-              </AppBar>
-              {/* <TotalChallenge /> */}
+          </Grid>
+          <Grid container className="grid">
+            <h3>카테고리별 챌린지</h3>
+            <Grid item xs={12}><hr/></Grid>
+            <Grid item xs={12}>
+              <ChallengeCategory />
             </Grid>
+          </Grid>
         </Grid>
       </Layout>
     </Wrapper>

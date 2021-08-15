@@ -34,7 +34,6 @@ const App = () => {
     })
   }, [])
 
-  
   var today = new Date();
   var year = today.getFullYear();
   var month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -92,23 +91,6 @@ const App = () => {
           <Calendar myEvent={events} />
         </div>
       </div>
-        {/* <div className='menu' style={{ display: 'flex', alignItems: 'center' }} >
-          <DashboardIcon color="primary" fontSize="large" style={{ marginRight: 10 }} />
-          <h1>나의 챌린지</h1>
-        </div>
-        <hr/> */}
-        
-        {/* <div className='menu'><span className='menu-text'>오늘의 루틴</span>
-        <div style={{float:'right'}}>
-        <span className='menu-text' style={{color:'#776D61'}}>■</span><span>완료</span>
-        <span className='menu-text' style={{color:'#89DDBF'}}>■</span><span>할일</span>
-        </div>
-        </div>
-        <hr/> */}
-        
-        {/* <div className='menu'><h2>나의 일정</h2></div>
-        <hr/> */}
-        
       </Wrapper>
     </Layout>
   );

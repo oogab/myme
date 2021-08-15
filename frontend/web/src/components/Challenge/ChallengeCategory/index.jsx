@@ -24,7 +24,7 @@ function TabPanel(props) {
   );
 }
 
-const MyChallengeHome = () => {
+const ChallengeCategory = () => {
   const { myChallenges } = useSelector((state) => state.challenge)
   const [value, setValue] = useState(0);
 
@@ -42,12 +42,6 @@ const MyChallengeHome = () => {
   const abilityChallenges = myChallenges.filter((challenge) => challenge.Challenge.Categories[0].id === 5)
   const hobbyChallenges = myChallenges.filter((challenge) => challenge.Challenge.Categories[0].id === 6)
   const assetChallenges = myChallenges.filter((challenge) => challenge.Challenge.Categories[0].id === 7)
-
-  // console.log(workoutChallenges.length)
-  // console.log(studyChallenges)
-  // console.log(lifeChallenges)
-  // console.log(mealChallenges)
-  // console.log(abilityChallenges)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -220,4 +214,4 @@ const MyChallengeHome = () => {
   )
 }
 
-export default MyChallengeHome
+export default ChallengeCategory
