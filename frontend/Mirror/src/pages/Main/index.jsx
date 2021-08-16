@@ -12,7 +12,8 @@ import {
    LinearProgress,
    Grid,
    List,
-   ListItem
+   ListItem,
+   Typography
   } from '@material-ui/core';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -94,23 +95,26 @@ const Main = props => {
                 <Clock/>
                 <br></br>
               </Grid>
-              <Grid item xs={12}  >
-              <List component="nav" aria-label="mailbox folders">           
-              {  
-                  todayEvent.length == 0 ?
-                  <ListItem>오늘의 일정이 없습니다</ListItem> :
-                  <>
-                  {
-                  todayEvent.map((event, idx) => {
-                    return <TodayEvent key={idx} event={event}/>  
-                  })
-                  }
-                  </>
-              }
-          </List>
-              </Grid>
               {/* 아래쪽으로 맞출 공간 */}
               <Grid container item xs={12} spacing={0} style={{height:'104px'}}></Grid>
+              <Grid item xs={12}>
+                <Typography variant='h5'>오늘의 일정</Typography>
+                <List component="nav" aria-label="mailbox folders">           
+                {  
+                    todayEvent.length == 0 ?
+                    <ListItem>오늘의 일정이 없습니다</ListItem> :
+                    <>
+                    {
+                    todayEvent.map((event, idx) => {
+                      return <TodayEvent key={idx} event={event}/>  
+                    })
+                    }
+                    </>
+                }
+                </List>
+              </Grid>
+              {/* 아래쪽으로 맞출 공간 */}
+              <Grid container item xs={12} spacing={0} style={{height:'50px'}}></Grid>
               {/* 달력 */}
               <Grid item xs={12}>
                <CustomCalendar myEvent={events}/>
