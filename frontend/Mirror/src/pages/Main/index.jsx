@@ -24,7 +24,7 @@ import "@fullcalendar/daygrid/main.css";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import {LOAD_TODAY_ROUTINES_REQUEST} from '../../reducers/routine'
-
+import {LOAD_MY_CHALLENGES_REQUEST} from '../../reducers/challenge'
 //달력&일정
 import CustomCalendar from '../../components/Calendar/index';
 import TodayEvent from '../../components/TodayEvent/index';
@@ -52,6 +52,9 @@ const Main = props => {
   useEffect(()=>{
     dispatch({type:LOAD_TODAY_ROUTINES_REQUEST})
     dispatch({type: LOAD_EVENT_REQUEST})
+    dispatch({
+      type: LOAD_MY_CHALLENGES_REQUEST
+    })
   },[])
   const { events } = useSelector((state) => state.calendar)
   const todayEvent = events.filter((event)=>
@@ -93,6 +96,9 @@ const Main = props => {
               <Grid item xs={12}  >
                 <Clock/>
                 <br></br>
+              </Grid>
+              <Grid item xs={12}  >
+                <SettingButtons/>
               </Grid>
               <Grid item xs={12}  >
               <List component="nav" aria-label="mailbox folders">           

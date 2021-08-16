@@ -4,6 +4,7 @@ const Wrapper = styled.div`
   color:white;
   background-color:black;
   padding:30px;
+  height:1020px;
  & .date {
    font-size: 20px;
  }

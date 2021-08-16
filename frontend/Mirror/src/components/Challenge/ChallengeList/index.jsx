@@ -5,8 +5,10 @@ import ChallengtItem from '../ChallengeItem'
 import { Typography } from '@material-ui/core';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {useSelector} from 'react-redux'
 const App = (props) => {
-  let challenge= [0,1,2,3]
+
+  let {myChallenges} = useSelector((state)=>{return state.challenge})
   let settings = {
     arrows:false,
     dots: true,
@@ -21,7 +23,7 @@ const App = (props) => {
       <div className='slider-div'>
       <Slider {...settings}>
         {
-          challenge.map(()=>(<ChallengtItem/>))
+          myChallenges.map((item, idx)=>(<ChallengtItem key={idx} challenge={item} idx={idx}/>))
         }
       </Slider>
       </div>
