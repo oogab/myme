@@ -25,17 +25,17 @@ const Calendar = (props) => {
                     center: 'title',
                     right: 'today next'
                 }}
+               
                 initialView='dayGridMonth'
                 locale='ko'
                 dayCellContent={(info)=>{return info.date.getDate()}}
                 buttonText={{today:'오늘'}}
-                editable={true}
+                // editable={true}
                 selectMirror={true}
-                selectable={true}
+                // selectable={true}
                 height='500px'
                 dayMaxEvents={true}
                 events={events}
-
                 // eventClick={openModifyEventModal}
                 />
                
