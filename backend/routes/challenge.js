@@ -245,6 +245,503 @@ router.get('/', async (req, res, next) => { // GET /challenge
 
 /**
  * @swagger
+ *  /challenge/workout:
+ *    get:
+ *      tags:
+ *        - challenge
+ *      description: 운동 챌린지 목록 불러오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.get('/workout', async (req, res, next) => { // GET /challenge/workout
+  try {
+    const where = { category: 1 }
+    const challenges = await Challenge.findAll({
+      where,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: User,
+        attributes: ['id', 'email', 'nickname']
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }]
+    })
+    res.status(200).json(challenges)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ *  /challenge/study:
+ *    get:
+ *      tags:
+ *        - challenge
+ *      description: 공부 챌린지 목록 불러오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.get('/study', async (req, res, next) => { // GET /challenge/study
+  try {
+    const where = { category: 2 }
+    const challenges = await Challenge.findAll({
+      where,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: User,
+        attributes: ['id', 'email', 'nickname']
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }]
+    })
+    res.status(200).json(challenges)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ *  /challenge/life:
+ *    get:
+ *      tags:
+ *        - challenge
+ *      description: 생활 챌린지 목록 불러오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.get('/life', async (req, res, next) => { // GET /challenge/life
+  try {
+    const where = { category: 3 }
+    const challenges = await Challenge.findAll({
+      where,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: User,
+        attributes: ['id', 'email', 'nickname']
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }]
+    })
+    res.status(200).json(challenges)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ *  /challenge/meal:
+ *    get:
+ *      tags:
+ *        - challenge
+ *      description: 식사 챌린지 목록 불러오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.get('/meal', async (req, res, next) => { // GET /challenge/meal
+  try {
+    const where = { category: 4 }
+    const challenges = await Challenge.findAll({
+      where,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: User,
+        attributes: ['id', 'email', 'nickname']
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }]
+    })
+    res.status(200).json(challenges)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ *  /challenge/ability:
+ *    get:
+ *      tags:
+ *        - challenge
+ *      description: 역량 챌린지 목록 불러오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.get('/ability', async (req, res, next) => { // GET /challenge/ability
+  try {
+    const where = { category: 5 }
+    const challenges = await Challenge.findAll({
+      where,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: User,
+        attributes: ['id', 'email', 'nickname']
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }]
+    })
+    res.status(200).json(challenges)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ *  /challenge/hobby:
+ *    get:
+ *      tags:
+ *        - challenge
+ *      description: 취미 챌린지 목록 불러오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.get('/hobby', async (req, res, next) => { // GET /challenge/hobby
+  try {
+    const where = { category: 6 }
+    const challenges = await Challenge.findAll({
+      where,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: User,
+        attributes: ['id', 'email', 'nickname']
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }]
+    })
+    res.status(200).json(challenges)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
+ *  /challenge/asset:
+ *    get:
+ *      tags:
+ *        - challenge
+ *      description: 자산 챌린지 목록 불러오기
+ *      responses:
+ *        '200':
+ *          description: Success
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  id:
+ *                    type: integer
+ *                  name:
+ *                    type: string
+ *                  img_addr:
+ *                    type: string
+ *                  content:
+ *                    type: text
+ *                  start_date:
+ *                    type: date
+ *                  period:
+ *                    type: integer
+ *                  repeat_cycle:
+ *                    type: integer
+ *                  auth_count:
+ *                    type: integer
+ *                  UserId:
+ *                    type: integer
+ *                  User:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ *                  Comments:
+ *                    type: array
+ *                    description: 어떤 형태로 들어올지 모르겠다.
+ * 
+ */
+ router.get('/asset', async (req, res, next) => { // GET /challenge/asset
+  try {
+    const where = { category: 7 }
+    const challenges = await Challenge.findAll({
+      where,
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: User,
+        attributes: ['id', 'email', 'nickname']
+      }, {
+        model: User,
+        as: 'Likers',
+        attributes: ['id']
+      }, {
+        model: ChallengeCertificationTime
+      }, {
+        model: ChallengeCertificationDay
+      }, {
+        model: ChallengeParticipation
+      }]
+    })
+    res.status(200).json(challenges)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+/**
+ * @swagger
  *  /challenge/search/:searchWord:
  *    post:
  *      tags:
