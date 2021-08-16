@@ -4,20 +4,20 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import { convertCertType, convertDaysWeek } from '../../../config/config'
 import Modal from '@material-ui/core/Modal';
-// import CertModal from '../../Challenge/CertModal';
+import CertModal from '../CertModal';
 import { Typography } from '@material-ui/core';
 
 const App = (props) => {
-  const { challenge } = props
-  // const [modalOpen, setModalOpen] = useState(false)
+  const { challenge, idx } = props
+  const [modalOpen, setModalOpen] = useState(false)
 
-  // const onCertModal = useCallback(() => {
-  //   setModalOpen(true)
-  // }, [])
+  const onCertModal = useCallback(() => {
+    setModalOpen(true)
+  }, [])
 
-  // const closeCertModal = useCallback(() => {
-  //   setModalOpen(false)
-  // }, [])
+  const closeCertModal = useCallback(() => {
+    setModalOpen(false)
+  }, [])
 
   return(
     <Wrapper>
@@ -59,8 +59,7 @@ const App = (props) => {
         </Grid>
       </Grid>
       <Grid container spacing={0}>
-        {/* <Grid item xs={6} onClick={onCertModal}> */}
-        <Grid item xs={6}>
+        <Grid item xs={6} onClick={()=>{props.changeChoosedChellenge(idx)}}>
           <div className='confirm-btn'>
             인증하기  
           </div>
@@ -70,14 +69,6 @@ const App = (props) => {
             상세보기
           </div>
         </Grid>
-        {/* <Modal
-          open={modalOpen}
-          onClose={closeCertModal}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-        >
-          <CertModal challenge={challenge} closeCertModal={closeCertModal} />
-        </Modal> */}
       </Grid>
     </Wrapper>
   );

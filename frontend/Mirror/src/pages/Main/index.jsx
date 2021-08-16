@@ -77,18 +77,18 @@ const Main = props => {
                 <Weather/>
               </Grid>
               {/* 챌린지 */}
-              <Grid item xs={9}>
+              <Grid item xs={12}>
                 <ChallengeList/>
               </Grid>
               {/* 빈공간 */}
               <Grid item xs={3}></Grid>
                {/* 아래쪽으로 맞출 공간 */}
-              <Grid container item xs={12} spacing={0} style={{height:'104px'}}></Grid>
+              <Grid container item xs={12} spacing={0} style={{height:'44px'}}></Grid>
               {/* 루틴 */}
-              <Grid item xs={9} className="routine">
+              <Grid item xs={8} className="routine">
                 <RoutineRootComponent/>
               </Grid>
-              <Grid item xs={3} className="routine"></Grid>
+              <Grid item xs={4} className="routine"></Grid>
             </Grid>
 
             {/* 오른쪽 3 */}

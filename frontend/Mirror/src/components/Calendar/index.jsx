@@ -4,14 +4,14 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-
+import Wrapper from './styles'
 
 const Calendar = (props) => {
   const dispatch = useDispatch()
   const {events} = useSelector((state) => state.calendar)
  
     return(
-        <div className='demo-app'>
+        <Wrapper className='demo-app'>
             <div>
            
             </div>
@@ -40,7 +40,7 @@ const Calendar = (props) => {
                 />
                
             </div>
-        </div>
+        </Wrapper>
     )
   }
 

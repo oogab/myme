@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import CustomCard from '../CustomCard';
 const Wrapper = styled(CustomCard)`
-    height:460.41px;
+    height: 428.41px;
     .progress-header{
         border-bottom: 2px solid #666666;
         height:49px;

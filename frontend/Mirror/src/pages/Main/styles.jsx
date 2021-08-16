@@ -68,6 +68,20 @@ const Wrapper = styled.div`
   .react-calendar .react-calendar__tile, .react-calendar .react-calendar__month-view__days__day {
     font-size: 18px;
   }
+
+  .left-btn{
+    background-color:#C2BDAC;
+  }
+  .left-btn:hover{
+    background-color:#A29D8C;
+  }
+  .right-btn{
+    background-color:#111a37;
+    color:white;
+  }
+  .right-btn:hover{
+    background-color:#010a27;
+  }
 `;
 
 export default Wrapper;
