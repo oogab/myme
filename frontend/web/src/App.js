@@ -33,6 +33,7 @@ import AlertModal from './components/Etc/AlertModal/index';
 import ConfirmModal from './components/Etc/ConfirmModal/index';
 import CreateEventModal from './components/Home/Calendar/CreateEvent/index';
 import ModifyEventModal from './components/Home/Calendar/ModifyEvent/index';
+import PostCodeModal from './components/Auth/PostCodeModal';
 // css
 import './index.css';
 import ScrollToTop from './common/ScrollToTop';
@@ -94,6 +95,7 @@ const App = () => {
           <AlertModal/>
           <ConfirmModal/>
           <CreateEventModal/>
+          <PostCodeModal/>
       </PersistGate>
     </Provider>
   );

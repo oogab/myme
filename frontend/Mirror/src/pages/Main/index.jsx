@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Weather from '../../components/Weather/WeatherWidget'
 import RoutineRootComponent from '../../components/Routine/RoutineRootComponent'
 import ChallengeList from '../../components/Challenge/ChallengeList/'
+import SettingButtons from '../../components/Etc/SettingButtons'
 import {
    LinearProgress,
    Grid,
@@ -68,6 +69,7 @@ const Main = props => {
               </Grid>
             {/* 거울용 공간 */}
               <Grid item xs={6}>
+                <SettingButtons/>
               </Grid>
             </Grid>
             {/* 아래쪽으로 맞출 공간 */}

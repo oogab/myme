@@ -4,7 +4,7 @@ import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-
+import Wrapper from './styles'
 import { makeStyles } from '@material-ui/core/styles';
 import { CLOSE_CREATE_EVENT_MODAL } from '../../../reducers/modal';
 import { OPEN_MODIFY_EVENT_MODAL, TOGGLE_MODIFY_EVENT_MODAL } from '../../../reducers/modal';
@@ -48,9 +48,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Calendar = (props) => {
+const App = (props) => {
   const dispatch = useDispatch()
-
   //일정 수정 모달
   function openModifyEventModal(selectInfo){
     dispatch({type: TOGGLE_MODIFY_EVENT_MODAL});
@@ -59,7 +58,7 @@ const Calendar = (props) => {
   }
 
     return(
-        <div className='demo-app'>
+        <Wrapper className='demo-app'>
             <Paper>
             <div className='demo-app-main' style={{padding: '20px'}}>
            
@@ -80,11 +79,12 @@ const Calendar = (props) => {
                 dayMaxEvents={true}
                 events={props.myEvent}
                 eventClick={openModifyEventModal}
+                dayCellContent={(info)=>{return info.date.getDate()}}
                 />
             </div>
             </Paper>
-        </div>
+        </Wrapper>
     )
   }
 
-export default Calendar
+export default App
