@@ -67,6 +67,7 @@ const App = () => {
           <ConfirmModal/>
           <CreateEventModal/>
           <PostCodeModal/>
+          <ModifyEventModal/>
       </PersistGate>
     </Provider>
   );
