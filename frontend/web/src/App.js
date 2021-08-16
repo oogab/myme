@@ -29,6 +29,7 @@ import ModifyHabitModal from './components/Habit/ModifyHabitModal/index';
 import AlertModal from './components/Etc/AlertModal/index';
 import ConfirmModal from './components/Etc/ConfirmModal/index';
 import CreateEventModal from './components/Home/Calendar/CreateEvent/index';
+import ModifyEventModal from './components/Home/Calendar/ModifyEvent/index';
 // css
 import './index.css';
 
@@ -82,6 +83,7 @@ const App = () => {
         <AlertModal/>
         <ConfirmModal/>
         <CreateEventModal/>
+        <ModifyEventModal/>
     </Provider>
   );
 };

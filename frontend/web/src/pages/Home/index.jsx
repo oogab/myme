@@ -5,19 +5,28 @@ import ChallengeItem from '../../components/Home/ChallengeItem/index';
 import Calendar from '../../components/Home/Calendar/index'
 import TodayEvent from '../../components/Home/Calendar/TodayEvent/index'
 import TodayRoutineTab from './TodayRoutineTab/'
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import {LocalMoviesRounded, EventAvailableRounded} from '@material-ui/icons'
-import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_TODAY_ROUTINES_REQUEST, SET_CHOOSED_ROUTINE } from '../../reducers/routine';
 import { LOAD_MY_CHALLENGES_REQUEST } from '../../reducers/challenge';
 import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
-import {Card, Grid, Paper, Tabs, Tab} from '@material-ui/core'
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import {LocalMoviesRounded, EventAvailableRounded} from '@material-ui/icons'
+import { useDispatch, useSelector } from 'react-redux';
+import { OPEN_CREATE_EVENT_MODAL } from '../../reducers/modal';
+import {Card, Grid, Paper, Tabs, Tab, Button, List, Container} from '@material-ui/core'
+
 const App = () => {
   const dispatch = useDispatch()
   // const { myRoutines } = useSelector((state) => state.routine)
   const { myChallenges } = useSelector((state) => state.challenge)
   const { events } = useSelector((state) => state.calendar)
+
   const classes = useStyles()
+
+  //일정 추가 모달
+  const openCreateEventModal=()=>{
+    dispatch({type: OPEN_CREATE_EVENT_MODAL});
+  }
+
   let [tabValue, setTabValue] = useState(0)
   
   useEffect(() => {
@@ -31,15 +40,6 @@ const App = () => {
       type: LOAD_EVENT_REQUEST
     })
     dispatch({type: SET_CHOOSED_ROUTINE, idx:-1})
-    // dispatch({
-    //   type: LOAD_CHALLENGES_REQUEST
-    // })
-    // dispatch({
-    //   type: LOAD_NEW_CHALLENGES_REQUEST
-    // })
-    // dispatch({
-    //   type: LOAD_REC_CHALLENGES_REQUEST
-    // })
   }, [])
   var today = new Date();
   var year = today.getFullYear();
@@ -90,34 +90,20 @@ const App = () => {
           <TodayRoutineTab/>
         </div>
         <div hidden={tabValue !== 2}>
-          <h3>오늘의 일정</h3>
-          {
-            
-            events.map((event) => {
-              return <TodayEvent key={event.id} event={event}/>
-            })
-          
-          }
-          {/* <TodayEvent eventTitle={myEvents} ></TodayEvent> */}
+          <div className='menu daily-menu'><h3>오늘의 일정</h3><Button className='btn' onClick={openCreateEventModal}>+일정추가</Button></div>
+        
+          <Paper style={{margin: '0 0 20px 0'}}>
+            <List component="nav" aria-label="mailbox folders">
+                {
+                  events.map((event,idx) => {
+                    return <TodayEvent key={idx} event={event}/>
+                  })
+                }
+            </List>
+          </Paper>
           <Calendar myEvent={events} />
         </div>
       </div>
-        {/* <div className='menu' style={{ display: 'flex', alignItems: 'center' }} >
-          <DashboardIcon color="primary" fontSize="large" style={{ marginRight: 10 }} />
-          <h1>나의 챌린지</h1>
-        </div>
-        <hr/> */}
-        
-        {/* <div className='menu'><span className='menu-text'>오늘의 루틴</span>
-        <div style={{float:'right'}}>
-        <span className='menu-text' style={{color:'#776D61'}}>■</span><span>완료</span>
-        <span className='menu-text' style={{color:'#89DDBF'}}>■</span><span>할일</span>
-        </div>
-        </div>
-        <hr/> */}
-        
-        {/* <div className='menu'><h2>나의 일정</h2></div>
-        <hr/> */}
         
       </Wrapper>
     </Layout>
