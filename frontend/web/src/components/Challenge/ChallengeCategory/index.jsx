@@ -73,10 +73,10 @@ const ChallengeCategory = () => {
               indicatorColor="primary"
               textColor="primary"
             >
-              <Tab label="전체" {...a11yProps(0)} onClick={() => onSetCategory(0)} />
+              <Tab label="전체" {...a11yProps(0)} />
               {
                 categories.map((subject, i) => {
-                  return <Tab key={subject.name} label={subject.label} {...a11yProps(i+1)} onClick={() => onSetCategory(i+1)} />
+                  return <Tab key={subject.name} label={subject.label} {...a11yProps(i+1)} />
                 })
               }
             </Tabs>
