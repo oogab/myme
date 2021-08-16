@@ -11,9 +11,10 @@ import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import {LocalMoviesRounded, EventAvailableRounded} from '@material-ui/icons'
 import { useDispatch, useSelector } from 'react-redux';
-import { OPEN_CREATE_EVENT_MODAL } from '../../reducers/modal';
-import {Card, Grid, Paper, Tabs, Tab, Button, List, Container} from '@material-ui/core'
 
+import { OPEN_CREATE_EVENT_MODAL } from '../../reducers/modal';
+import {Card, Grid, Paper, Tabs, Tab, Button, List, Container,Typography} from '@material-ui/core'
+import MyChallengeHome from './MyChallenge';
 const App = () => {
   const dispatch = useDispatch()
   // const { myRoutines } = useSelector((state) => state.routine)
@@ -29,6 +30,7 @@ const App = () => {
 
   let [tabValue, setTabValue] = useState(0)
   
+
   useEffect(() => {
     dispatch({
       type: LOAD_TODAY_ROUTINES_REQUEST
@@ -41,13 +43,13 @@ const App = () => {
     })
     dispatch({type: SET_CHOOSED_ROUTINE, idx:-1})
   }, [])
+
   var today = new Date();
   var year = today.getFullYear();
   var month = ('0' + (today.getMonth() + 1)).slice(-2);
   var day = ('0' + today.getDate()).slice(-2);  
   var dateString = year + '-' + month  + '-' + day;
 
-  
   const handleChange = (event, newValue) => {
     setTabValue(newValue);
   };
@@ -70,21 +72,7 @@ const App = () => {
           <Tab className={tabValue !==2?'':'active-tab'} icon={<EventAvailableRounded />} label="나의 일정" />
         </Tabs>
         <div hidden={tabValue !== 0}>
-          <Grid container>
-          {
-            myChallenges.length !== 0
-              ?
-                myChallenges.map((challenge) => {
-                  return (
-                    <Grid item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
-                      <ChallengeItem key={challenge.id} challenge={challenge} />
-                    </Grid>
-                  ) 
-                })
-              :
-                <div>나에게 맞는 챌린지에 참여해보세요!</div>
-          }
-          </Grid>
+          <MyChallengeHome />
         </div>
         <div hidden={tabValue !== 1}>
           <TodayRoutineTab/>

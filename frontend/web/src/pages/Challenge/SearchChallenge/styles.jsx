@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  width: auto;
-  padding: 10px;
   hr {
     border: white 1px solid;
     margin-top: 10px;
@@ -18,16 +16,6 @@ const Wrapper = styled.div`
       margin-bottom: 20px;
     }
   }
-  .term{
-    background-color: #66A091;
-    padding: 5px;
-    text-align: center;
-    color: white;
-    border-radius: 5px;
-    margin: 0% 2.5% 0% 2.5%;
-  }
-  
 `;
 
 export default Wrapper;
-

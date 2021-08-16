@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import Wrapper from './styles';
+import './index.css';
 
 const Header = (state) => {
   let history = useHistory();
@@ -71,9 +72,10 @@ const Header = (state) => {
               <Typography
                 variant="h6"
                 className="logo"
+                style={{ fontFamily: 'BAUHS93' }}
                 onClick={onClickRedirectPathHandler('/')}
               >
-                Logo
+                MYME
               </Typography>
             </Grid>
 

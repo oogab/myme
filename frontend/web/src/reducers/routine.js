@@ -316,6 +316,8 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case SET_ROUTINIZED_HABITS:
       draft.myRoutines[action.num].RoutinizedHabits = action.RoutinizedHabits
       break
+    default:
+      break
   }
 })
 

@@ -64,6 +64,7 @@ const Calendar = (props) => {
             <div className='demo-app-main' style={{padding: '20px'}}>
            
                 <FullCalendar
+                height='auto'
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 headerToolbar={{
                     left: 'prev',
