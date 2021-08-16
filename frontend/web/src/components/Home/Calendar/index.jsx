@@ -32,6 +32,7 @@ const Calendar = (props) => {
                     left: 'prev',
                     center: 'title',
                     right: 'today next'
+                  
                 }}
                 
                 formatDate={{day:'numeric'}}

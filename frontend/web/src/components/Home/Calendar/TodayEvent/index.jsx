@@ -15,33 +15,30 @@ const TodayEvent = (props) => {
     const eventEndDate = moment(eventEndDay).format('YYYY-MM-DD')
     const eventStartTime = moment(eventStartDay).format('HH:mm')
     const bool = props.event.allDay
+
+    function check(){
+        console.log("check= "+props.event)
+    }
     return(
         <div className='demo-app'>
-           
-           {
-               moment(eventStartDate).isSame(moment(todayDate)) || moment(eventEndDate).isSame(moment(todayDate)) || moment(todayDate).isBetween(moment(eventStartDate),moment(eventEndDate))?
-         
-               <>
-                    <ListItem style={{whiteSpace: 'nowrap'}}>
-                        {/* <Checkbox
-                            checked={checked}
-                            onChange={handleToggle}
-                            inputProps={{ 'aria-label': 'primary checkbox' }}
-                            style={{marginRight: '10px'}}
-                            /> */}
-                            <CheckIcon style={{marginRight: '20px'}}/>
-                        {
-                            bool ? <ListItemText style={{width:'30px'}}>종일</ListItemText> : <ListItemText>{eventStartTime}</ListItemText> 
-                        }
-                        
-                        <ListItemText whiteSpace= 'nowrap' style={{width:'30px', whiteSpace:'nowrap', overflow:'hidden', marginRight:'0'}}>{props.event.title}</ListItemText>
-                        
-                    </ListItem>
-                    <Divider component="li" />
-                    </>
-                    
-               : null
-           } 
+            <ListItem style={{whiteSpace: 'nowrap'}}>
+               {/* <Checkbox
+                   checked={checked}
+                   onChange={handleToggle}
+                   inputProps={{ 'aria-label': 'primary checkbox' }}
+                   style={{marginRight: '10px'}}
+                   /> */}
+                   
+                   <CheckIcon style={{marginRight: '20px'}} onClick={check}/>   
+               {
+                   bool ? <ListItemText style={{width:'30px'}}>종일</ListItemText> : <ListItemText>{eventStartTime}</ListItemText> 
+               }
+               
+               <ListItemText whiteSpace= 'nowrap' style={{width:'30px', whiteSpace:'nowrap', overflow:'hidden', marginRight:'0'}}>{props.event.title}</ListItemText>
+           </ListItem>
+           <Divider component="li" />
+          
+            
         </div>
     )
 }

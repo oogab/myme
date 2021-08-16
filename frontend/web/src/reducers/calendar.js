@@ -1,5 +1,6 @@
 import { SystemUpdate } from '@material-ui/icons'
 import produce from 'immer'
+import moment from 'moment'
 
 const initialState = {
     events: [], // 전체 일정
@@ -127,7 +128,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
             draft.loadEventDone = true
             draft.events=[]
             draft.events=draft.events.concat(action.data)
-                                
+           
             break
         case LOAD_EVENT_FAILURE:
             draft.loadEventLoading = false
