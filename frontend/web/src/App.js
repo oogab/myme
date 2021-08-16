@@ -94,6 +94,7 @@ const App = () => {
           <AlertModal/>
           <ConfirmModal/>
           <CreateEventModal/>
+          <ModifyEventModal/>
       </PersistGate>
     </Provider>
   );

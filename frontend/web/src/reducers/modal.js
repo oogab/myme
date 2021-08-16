@@ -107,15 +107,17 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
     case CLOSE_CREATE_EVENT_MODAL:
       draft.createEventModal = false
+      break
 
     case OPEN_MODIFY_EVENT_MODAL:
-      draft.modifyEventModal = false
+      draft.modifyEventModal = true
       break
     case TOGGLE_MODIFY_EVENT_MODAL:
       draft.modifyEventModal = !draft.modifyEventModal
       break
     case CLOSE_MODIFY_EVENT_MODAL:
       draft.modifyEventModal = false
+      break
 
     case SET_ALERT_MODAL_FUNCTION:
       draft.alertModalFunction = action.alertModalFunction
