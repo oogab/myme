@@ -21,6 +21,8 @@ const upload = multer({
     s3: new AWS.S3(),
     bucket: 'ssafymyme',
     key (req, file, cb) {
+      console.log(file.originalname)
+      console.log(file.mimetype)
       cb(null, `original/${Date.now()}_${path.basename(file.originalname).replace(/ /g, "_")}`)
     },
   }),
