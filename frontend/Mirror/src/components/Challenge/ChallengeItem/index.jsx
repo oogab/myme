@@ -3,12 +3,16 @@ import Wrapper from './styles'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import { convertCertType, convertDaysWeek } from '../../../config/config'
+
+import {useDispatch, useSelector} from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import CertModal from '../CertModal';
 import { Typography } from '@material-ui/core';
+import { CLEAR_CERTIFY_CHALLENGE, CLEAR_IMAGE_PATH, SHOW_MY_CHALLENGE } from '../../../reducers/challenge';
 
 const App = (props) => {
   const { challenge, idx } = props
+  const dispatch = useDispatch()
   const [modalOpen, setModalOpen] = useState(false)
 
   const onCertModal = useCallback(() => {
@@ -17,6 +21,15 @@ const App = (props) => {
 
   const closeCertModal = useCallback(() => {
     setModalOpen(false)
+  }, [])
+
+  //상세보기 버튼 누르면
+  const onChallengeDashboard = useCallback((id) => {
+    dispatch({
+      type: SHOW_MY_CHALLENGE,
+      data: id
+    })
+    // history.push(`/ChallengeDashboard/${id}`)
   }, [])
 
   return(
@@ -64,7 +77,7 @@ const App = (props) => {
             인증하기  
           </div>
         </Grid>
-        <Grid item xs={6} >
+        <Grid item xs={6} onClick={() => onChallengeDashboard(challenge.id)} >
           <div className='confirm-btn more-btn'>
             상세보기
           </div>
