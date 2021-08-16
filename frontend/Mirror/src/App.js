@@ -13,7 +13,6 @@ import store from './store/configureStore'
 // page
 import Main from './pages/Main';
 import Auth from './pages/Auth'
-import CreateEventModal from './components/Calendar/CreateEvent/index'
 
 //fullcalendar example용
 // import { createStore, applyMiddleware } from 'redux'
@@ -60,7 +59,6 @@ const App = () => {
           </Switch>
         </BrowserRouter>
       </MuiThemeProvider>
-      <CreateEventModal/>
     </Provider>
   );
 };

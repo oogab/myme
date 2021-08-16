@@ -40,7 +40,7 @@ function App (props) {
               }
           </List>
         </Paper>
-        <Calendar myEvent={events} />
+        <Calendar myEvent={events}/>
     </Container>
   );
 }

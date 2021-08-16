@@ -4,6 +4,7 @@ import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import googleCalendarPlugin from '@fullcalendar/google-calendar';
 
 import { OPEN_MODIFY_EVENT_MODAL } from '../../../reducers/modal';
 import { SET_CHOOSED_EVENT_MODAL } from '../../../reducers/calendar';
@@ -21,42 +22,33 @@ const Calendar = (props) => {
   }
 
     return(
-        <div className='demo-app'>
-            <Paper>
-            <div className='demo-app-main' style={{padding: '20px'}}>
+        <div className='demo-app' style={{marginTop:'30px'}}>
+            {/* <Paper> */}
+            {/* <div className='demo-app-main' > */}
            
                 <FullCalendar
                 height='auto'
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin ]}
                 headerToolbar={{
                     left: 'prev',
                     center: 'title',
                     right: 'today next'
-                  
                 }}
-                
                 formatDate={{day:'numeric'}}
                 expandRows= 'true'
                 initialView='dayGridMonth'
                 locale='ko'
-                views={{
-                  
-                  // months: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-                  // monthsShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-                }}
-                // dayHeaderFormat={{
-                //   weekday: 'short',
-                //   weekNamesShort:['월','화','수','목','금','토','일']
-                // }}
+                dayCellContent={(info)=>{return info.date.getDate()}}
+                buttonText={{today:'오늘'}}
                 editable={true}
                 selectable={true}
-                height='600px'
+                // height='600px'
                 dayMaxEvents={true}
                 events={events}
                 eventClick={openModifyEventModal}
                 />
-            </div>
-            </Paper>
+            {/* </div> */}
+            {/* </Paper> */}
         </div>
     )
   }
