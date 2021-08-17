@@ -117,7 +117,7 @@ const CertModal = forwardRef((props, ref) => {
     <div 
       style={{
         backgroundColor: 'black',
-        border: '2px solid #666666',
+        border: '2px solid #ffffff',
         padding: "15px",
         borderRadius:'5px',
       }}

@@ -5,12 +5,15 @@ const Wrapper = styled.div`
   background-color:black;
   padding:30px;
   height:1020px;
- & .date {
+ & .am {
    font-size: 20px;
  }
   & .clock {  
     font-size: 80px;
   }  
+  & .date{
+    font-size: 27px;
+  }
 & .calendarTop{
   height: 300px;
 }
@@ -70,17 +73,21 @@ const Wrapper = styled.div`
   }
 
   .left-btn{
-    background-color:#C2BDAC;
+    background-color:lightcoral;
   }
   .left-btn:hover{
-    background-color:#A29D8C;
+    background-color:indianred;
   }
   .right-btn{
-    background-color:#111a37;
+    background-color:cornflowerblue;
     color:white;
   }
   .right-btn:hover{
-    background-color:#010a27;
+    background-color:royalblue;
+  }
+
+  .btn{
+    cursor:pointer
   }
 `;
 

@@ -37,6 +37,9 @@ const Auth = () => {
             : <LoginForm />
           }
         </div>
+        <div className="box2">
+          
+        </div>
       </div>
     </Wrapper>
   ) ;
