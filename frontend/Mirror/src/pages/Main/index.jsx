@@ -30,7 +30,7 @@ import {LOAD_MY_CHALLENGES_REQUEST} from '../../reducers/challenge'
 import CustomCalendar from '../../components/Calendar/index';
 import TodayEvent from '../../components/TodayEvent/index';
 import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
-
+import { FixedSizeList } from 'react-window';
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
     height: 10,
@@ -105,7 +105,8 @@ const Main = props => {
               <Grid container item xs={12} spacing={0} style={{height:'104px'}}></Grid>
               <Grid item xs={12}>
                 <Typography variant='h5'>오늘의 일정</Typography>
-                <List component="nav" aria-label="mailbox folders">           
+                <List className="listScroll" component="nav" aria-label="mailbox folders"
+                style={{ maxHeight: '150px'}}>           
                 {  
                     todayEvent.length == 0 ?
                     <ListItem>오늘의 일정이 없습니다</ListItem> :
@@ -126,6 +127,7 @@ const Main = props => {
                <CustomCalendar myEvent={events}/>
               </Grid>
             </Grid>
+           
           </Grid>
         </Wrapper>
       
