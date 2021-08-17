@@ -175,7 +175,7 @@ const SignupForm = () => {
       >
         
         <Grid item xs={1}>
-          <AssignmentIndIcon fontSize="large" style={{ color: '#89DDBF' }}/>
+          <AssignmentIndIcon fontSize="large"  color="action"/>
         </Grid>
         <Grid item xs={11}>
           <Typography >회원가입</Typography>

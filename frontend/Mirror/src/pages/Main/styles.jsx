@@ -4,7 +4,18 @@ const Wrapper = styled.div`
   color:white;
   background-color:black;
   padding:30px;
-  height:1020px;
+  height:1040px;
+ 
+  .listScroll{
+    position: relative;
+    overflow: auto;
+    -ms-overflow-style: none; /* IE, Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .listScroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
  & .date {
    font-size: 20px;
  }
@@ -82,6 +93,7 @@ const Wrapper = styled.div`
   .right-btn:hover{
     background-color:#010a27;
   }
+  
 `;
 
 export default Wrapper;
