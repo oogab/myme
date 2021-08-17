@@ -177,14 +177,14 @@ function SimpleModal(props) {
   }
   const body = (
     <div style={modalStyle} className={classes.paper}>
-        <div style={{height:'30px'}}>
+        <div style={{height:'30px', marginBottom: '10px'}}>
         <h2 id="simple-modal-title" style={{float:'left'}}>{habitInfo.id==-1?'습관 추가하기':'습관 수정하기'}</h2>
         <Close style={{ float:'right'}} onClick={closeModal}></Close>
         </div>
-        <input placeholder='제목' className={classes.input} onChange={changeName} defaultValue={habitInfo.name}></input>
-        <textarea className={classes.textArea+' '+classes.input} placeholder='내용' onChange={changeContent} defaultValue={habitInfo.content} maxLength='100'></textarea>
-        <input className={classes.input} type="number" onChange={changeTimeRequired} placeholder='분' defaultValue={habitInfo.time_required} min='1' max='50'/>
-        <textarea onChange ={changeLink} className={classes.textArea+' '+classes.input} placeholder='유튜브 링크' maxLength='50' defaultValue={habitInfo.assist_link?'https://www.youtube.com/embed/'+habitInfo.assist_link:''}></textarea>
+        <input placeholder='제목' className={classes.input} onChange={changeName} defaultValue={habitInfo.name} style={{fontFamily: 'SCDream4'}}></input>
+        <textarea className={classes.textArea+' '+classes.input} placeholder='내용' onChange={changeContent} defaultValue={habitInfo.content} maxLength='100' style={{fontFamily: 'SCDream4'}}></textarea>
+        <input className={classes.input} type="number" onChange={changeTimeRequired} placeholder='분' defaultValue={habitInfo.time_required} min='1' max='50'  style={{fontFamily: 'SCDream4'}}/>
+        <textarea onChange ={changeLink} className={classes.textArea+' '+classes.input} placeholder='유튜브 링크' maxLength='50'  style={{fontFamily: 'SCDream4'}}defaultValue={habitInfo.assist_link?'https://www.youtube.com/embed/'+habitInfo.assist_link:''}></textarea>
         
         <div className={classes.buttonDiv}>
             <button className={classes.buttonRight} onClick={setModifyHabit}>저장</button>

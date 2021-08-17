@@ -7,11 +7,17 @@ import { CERTIFY_CHALLENGE_REQUEST, UPLOAD_CHALLENGE_IMAGE_REQUEST } from '../..
 import { OPEN_KEY_BOARD, CLOSE_KEY_BOARD } from '../../../reducers/keyboard'
 import CloseIcon from '@material-ui/icons/Close';
 import DarkTextField from '../../Etc/DarkTextField'
-import Keyboard from 'react-simple-keyboard';
+//keyboard
+import Keyboard from 'react-hangul-virtual-keyboard';
 import "react-simple-keyboard/build/css/index.css";
+import Hangul from "hangul-js";
+import "hangul-virtual-keyboard/build/css/index.css";
+
 import Wrapper from './styles'
 // import KeyBoard from '../../Keyboard/index';
 // forwardRef를 써서 warning을 없애긴 했는데 어떤 문제인지 정확히는 모르겠다...
+let inputText="";
+let buttonArray=[];
 const CertModal = forwardRef((props, ref) => {
   const { challenge, closeCertModal } = props
   const dispatch = useDispatch()
@@ -22,43 +28,54 @@ const CertModal = forwardRef((props, ref) => {
     startTime: challenge.Challenge.ChallengeCertificationTimes[0].certification_available_start_time.substring(0, 5),
     endTime: challenge.Challenge.ChallengeCertificationTimes[0].certification_available_end_time.substring(0, 5)
   }
-  //키보드 관련 변수
+
   const keyboard = useRef(null);
-  const [layout, setLayoutName] = useState("default")
+  const [layout, setLayout] = useState("default")
   const [language, setLanguage] = useState("default")
   const [input, setInput] = useState('')
-
+ 
   //키보드 열기
   const [keyboardopen, setKeyboardOpen] = useState(false)
-  function onChangeKeyBoard(){
-    setKeyboardOpen(!keyboardopen)
-  }
+  function onChangeKeyBoard(){ setKeyboardOpen(!keyboardopen) }
    //키보드 값 변경
-   const onChange = e => {
-    setContent(e)
-    };
+   const onChange = e => {setContent(e)};
     //키보드 누를때
    const onKeyPress = button => {
      console.log("Button pressed", button);
-     if (button === "{shift}" || button === "{lock}") handleShift();
-    //  if( button === "{language}") handleLanguage();
+     if(button !== "{shift}" && button !== "{language}" && button !== "{enter}" && button !=="{bksp}" && button !== "{space}"&& button !=="{tab}"){
+       buttonArray.push(button)
+     }
+     if (button === "{bksp}") {
+      buttonArray.pop();
+    }
+    if (button === "{space}") {
+      buttonArray.push(" ");
+    }
+    if (button === "{tab}") {
+      buttonArray.push("  ");
+    }
+    if (button === "{enter}"){
+      buttonArray.push("\n");
+    }
+      inputText = Hangul.assemble(buttonArray);
+    if (button === "{shift}" || button === "{lock}") {
+      setLayout(layout === "default" ? "shift" : "default")
+    } 
+     if( button === "{language}"){
+      setLanguage(language == "default" ? "english" : "default")
+     }
    };
-   //shift키
-   const handleShift = () => {
-     const layoutName = {layout};
-     setLayoutName(layoutName === "default" ? "shift" : "default")
-   };
-   const handleLanguage=() =>{
-      const selectLanguage = {language};
-      setLanguage(selectLanguage === "default" ? "english" : "default")
-   }
+
   const [content, setContent] = useState('')
   const onChangeContent = event => {
      const content = event.target.value;
      setContent(content)
      keyboard.setContent(content);
    };
-
+   function reset(){
+    inputText="";
+    buttonArray=[];
+  }
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click()
   }, [])
@@ -101,6 +118,7 @@ const CertModal = forwardRef((props, ref) => {
   useEffect(() => {
     if (certifyChallengeDone) {
       alert('인증되었습니다!')
+      reset()
       closeCertModal()
     }
     if (certifyChallengeError) {
@@ -149,7 +167,7 @@ const CertModal = forwardRef((props, ref) => {
   }
 
   const canCert = checkCertAvailable()
-
+  
   return (
     <Wrapper>
     <div 
@@ -161,7 +179,7 @@ const CertModal = forwardRef((props, ref) => {
       }}
     >
       <IconButton style={{ position: 'absoulte', float: 'right', color: '#CCCCCC', padding: 0 }} onClick={closeCertModal}>
-        <CloseIcon />
+        <CloseIcon onClick={reset}/>
       </IconButton>
       <Grid container spacing={3}>
         <Grid item xs={12} style={{ textAlign: 'center' }} >
@@ -173,7 +191,7 @@ const CertModal = forwardRef((props, ref) => {
             label="인증 메모"
             multiline
             rows={3}
-            value={content}
+            value={inputText}
             placeholder="인증 메모를 남겨보세요!"
             variant="outlined"
             onClick={onChangeKeyBoard}
@@ -185,7 +203,7 @@ const CertModal = forwardRef((props, ref) => {
           keyboardopen ? <Keyboard
           keyboardRef={r=>keyboard.r}
           layoutName={layout}
-          // language={language}
+          language={language}
           onChange={onChange}
           onKeyPress={onKeyPress}
           className='keyboard'

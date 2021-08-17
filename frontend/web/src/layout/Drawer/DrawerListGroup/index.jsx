@@ -3,7 +3,7 @@ import { useHistory, NavLink } from 'react-router-dom';
 
 import { connect, useDispatch, useSelector } from 'react-redux';
 import {ExpandMore, HomeRounded, EventNoteRounded, GavelRounded, LaptopWindowsRounded, FaceRounded} from '@material-ui/icons';
-
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import {
   Avatar,
   List,
@@ -72,12 +72,11 @@ const DrawerListGroup = (props) => {
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
+                style={{marginTop:'5px'}}
               >
-                <Avatar
-                  alt="profile picture"
-                  src={`https://picsum.photos/id/82/200/300.webp`}
-                  className="avatar"
-                />
+                {/* <Avatar alt="profile picture"> */}
+                  <InsertEmoticonIcon fontSize="large" style={{marginRight: '10px'}}/>
+                  {/* </Avatar> */}
                 <ListItemText
                   primary={me?.nickname}
                   disableTypography
