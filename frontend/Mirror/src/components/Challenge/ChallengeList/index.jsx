@@ -5,13 +5,14 @@ import ChallengtItem from '../ChallengeItem'
 import { Typography, Grid, CardContent,CardActions } from '@material-ui/core';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import Cert from '../CertModal';
 import CustomCard from '../../Routine/CustomCard'
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import { advice } from '../../../config/config';
+import { CLEAR_IMAGE_PATH } from '../../../reducers/challenge';
 const App = (props) => {
-
+  const dispatch = useDispatch()
   let {myChallenges} = useSelector((state)=>{return state.challenge})
   let [choosedChellenge, setChoosedChellenge] = useState(-1)
 
@@ -20,7 +21,12 @@ const App = (props) => {
   }
   function closeCert(){
     setChoosedChellenge(-1)
+    dispatch({
+      type: CLEAR_IMAGE_PATH
+    })
   }
+
+ 
   let settings = {
     arrows:false,
     dots: true,

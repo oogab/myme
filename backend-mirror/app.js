@@ -23,7 +23,7 @@ const habitRouter = require('./routes/habit')
 const scheduleRouter = require('./routes/schedule')
 const weatherRouter = require('./routes/weather')
 
-app.set('port', process.env.PORT || 3066)
+app.set('port', process.env.PORT || 3065)
 passportConfig()
 sequelize.sync()
   .then(() => {
