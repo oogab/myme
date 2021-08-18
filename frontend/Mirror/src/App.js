@@ -13,13 +13,6 @@ import store from './store/configureStore'
 // page
 import Main from './pages/Main';
 import Auth from './pages/Auth'
-import PostCodeModal from './components/Auth/PostCodeModal';
-import KeyBoard from './components/Keyboard/index';
-//fullcalendar example용
-// import { createStore, applyMiddleware } from 'redux'
-// import thunk from 'redux-thunk'
-// import rootReducer from './components/Calendar/reducer'
-// let store = createStore(rootReducer, applyMiddleware(thunk))
 
 // css
 import './index.css';
@@ -60,8 +53,6 @@ const App = () => {
           </Switch>
         </BrowserRouter>
       </MuiThemeProvider>
-      <PostCodeModal/>
-      {/* <KeyBoard/> */}
     </Provider>
   );
 };

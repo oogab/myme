@@ -11,6 +11,7 @@ function App (props) {
   const { events } = useSelector((state) => state.calendar)
   //일정 추가 모달
     const openCreateEventModal=()=>{
+      console.log(moment())
         dispatch({type: OPEN_CREATE_EVENT_MODAL});
     }
   
