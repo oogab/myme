@@ -37,7 +37,7 @@ const App = (props) => {
   return(
     <Wrapper>
       <Grid container spacing={2}>
-        <Grid item md={8} className='challenge-div'>
+        <Grid item md={6} className='challenge-div'>
           <CustomCard className='challenge-card'>
           <CardActions className='progress-header'>
           <EmojiEventsIcon/>
@@ -55,13 +55,16 @@ const App = (props) => {
             </CardActions>
           </CustomCard>
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={3}>
             {
               myChallenges[choosedChellenge]?
               <Cert challenge={myChallenges[choosedChellenge]} closeCertModal={closeCert}/>
               :
               null
             }
+        </Grid>
+        <Grid item md={3}>
+          
         </Grid>
       </Grid>
       
