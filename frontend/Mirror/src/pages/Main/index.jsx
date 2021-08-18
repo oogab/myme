@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import Wrapper from './styles';
 import moment from 'moment';
 import {useDispatch, useSelector} from 'react-redux';
@@ -19,7 +19,9 @@ import {
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
-
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
 import { advice } from '../../config/config';
@@ -32,6 +34,7 @@ import CustomCalendar from '../../components/Calendar/index';
 import TodayEvent from '../../components/TodayEvent/index';
 import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
 import { FixedSizeList } from 'react-window';
+import {SnackbarProvider} from 'notistack'
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
     height: 10,
@@ -46,12 +49,6 @@ const BorderLinearProgress = withStyles((theme) => ({
   },
 }))(LinearProgress);
 
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min; 
-}
 const Main = props => {
   let today = new Date()
   let msg = advice(today.getDate()%10)
@@ -85,6 +82,9 @@ const Main = props => {
 
   
   return (
+    <SnackbarProvider maxSnack={2}
+    TransitionComponent={Fade}
+    >
         <Wrapper>
           
           
@@ -155,10 +155,9 @@ const Main = props => {
                <CustomCalendar myEvent={events}/>
               </Grid>
             </Grid>
-           
           </Grid>
         </Wrapper>
-      
+      </SnackbarProvider>
     
   );
 };

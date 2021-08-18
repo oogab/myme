@@ -9,7 +9,6 @@ import {useSelector, useDispatch} from 'react-redux'
 import Cert from '../CertModal';
 import CustomCard from '../../Routine/CustomCard'
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
-import { CLEAR_IMAGE_PATH } from '../../../reducers/challenge';
 const App = (props) => {
   let {msg} = props
   const dispatch = useDispatch()
@@ -21,9 +20,6 @@ const App = (props) => {
   }
   function closeCert(){
     setChoosedChellenge(-1)
-    dispatch({
-      type: CLEAR_IMAGE_PATH
-    })
   }
 
  

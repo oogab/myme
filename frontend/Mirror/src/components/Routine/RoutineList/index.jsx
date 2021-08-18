@@ -29,8 +29,9 @@ function App(props){
                     </>
                     :
                     <CustomCard className='no-routine'>
-                        오늘 진행할 루틴이 없어요.<br/>
+                        <Typography variant='p'>오늘 진행할 루틴이 없어요.<br/>
                         웹사이트에서 루틴을 설정해주세요!
+                        </Typography>
                     </CustomCard>
                 }
                 </List>

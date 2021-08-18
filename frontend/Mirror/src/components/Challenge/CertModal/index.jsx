@@ -5,6 +5,7 @@ import { ColorButton } from '../../../common/Buttons'
 import { convertNumDay } from '../../../config/config'
 import { CERTIFY_CHALLENGE_REQUEST, UPLOAD_CHALLENGE_IMAGE_REQUEST, CLEAR_CERTIFY_CHALLENGE, CLEAR_IMAGE_PATH } from '../../../reducers/challenge'
 import { OPEN_KEY_BOARD, CLOSE_KEY_BOARD } from '../../../reducers/keyboard'
+import { useSnackbar } from 'notistack';
 import CloseIcon from '@material-ui/icons/Close';
 import DarkTextField from '../../Etc/DarkTextField'
 //keyboard
@@ -19,6 +20,7 @@ import Wrapper from './styles'
 let inputText="";
 let buttonArray=[];
 const CertModal = forwardRef((props, ref) => {
+  const { enqueueSnackbar } = useSnackbar();
   const { challenge, closeCertModal } = props
   const dispatch = useDispatch()
   const imageInput = useRef()
@@ -95,7 +97,7 @@ const CertModal = forwardRef((props, ref) => {
 
   const certifyChallenge = useCallback(() => {
     if (challengeImagePath === '') {
-      alert('인증샷을 첨부해주세요!')
+      enqueueSnackbar('인증샷을 첨부해주세요!', {variant:'warning'})
       return
     }
 
@@ -117,7 +119,7 @@ const CertModal = forwardRef((props, ref) => {
 
   useEffect(() => {
     if (certifyChallengeDone) {
-      alert('인증되었습니다!')
+      enqueueSnackbar('인증되었습니다!',{variant:'success'})
       reset()
       closeCertModal()
       dispatch({
@@ -125,9 +127,12 @@ const CertModal = forwardRef((props, ref) => {
       })
     }
     if (certifyChallengeError) {
-      alert(certifyChallengeError)
+      enqueueSnackbar(certifyChallengeError,{variant:'error'})
       dispatch({
         type: CLEAR_IMAGE_PATH
+      })
+      dispatch({
+        type:CLEAR_CERTIFY_CHALLENGE
       })
     }
   }, [certifyChallengeDone, certifyChallengeError])

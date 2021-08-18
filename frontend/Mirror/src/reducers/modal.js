@@ -3,7 +3,6 @@ import produce from 'immer'
 const initialState = {
   createEventModal: false,
   addressModal: false,
-
   addressInfo:{}
 }
 
@@ -16,6 +15,7 @@ export const CLOSE_ADDRESS_MODAL = 'CLOSE_ADDRESS_MODAL'
 export const TOGGLE_ADDRESS_MODAL = 'TOGGLE_ADDRESS_MODAL'
 
 export const SET_ADDRESS_INFO = 'SET_ADDRESS_INFO'
+
 
 const reducer = (state = initialState, action) => produce(state, (draft) => {
   switch(action.type) {
