@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app -p 3065",
-    "start": "pm2 start app.js"
+    "start": "cross-env NODE=production pm2 start app.js"
   },
   "author": "wook",
   "license": "MIT",

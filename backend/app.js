@@ -63,14 +63,7 @@ app.use(session({
   name: 'connect.sid',
   store: new RedisStore({ client: redisClient })
 }))
-// app.use('요청경로', express.static(path.join('실제 경로'))) -> 보안에 좋음, 서버 구조를 예측 불가능!
-// app.use('/', (req, res, next) => {
-//   if(req.session.id) {
-//     express.static(path.join(__dirname, 'public'))(req, res, next)
-//   } else {
-//     next()
-//   }
-// })
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })) // true면 qs, false면 querystring
 app.use(passport.initialize())
@@ -95,36 +88,11 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/', (req, res) => {
-  // req.data // wook비번 // 이 라우터가 끝나고 나면 메모리가 정리되면서 req.data가 사라진다.
-
-  // req.cookies // { mycookie: 'test' }
-  // req.signedCookies // 서명된 쿠키
-  // // 'Set-Cookie': `name=${encodeURIComponent(name)}; Expires=${expires.toGMTString()}; HttpOnly; Path=/`,
-  // res.cookie('name', encodeURIComponent(name), {
-  //   expires: new Date(),
-  //   httpOnly: true,
-  //   path: '/',
-  // })
-  // res.clearCookie('name', encodeURIComponent(name), {
-  //   httpOnly: true,
-  //   path: '/',
-  // })
-
-  
+app.get('/', (req, res) => {  
   res.sendFile(path.join(__dirname, 'index.html'))
-
-  // res.writeHead(200, { 'Content-Type': 'application/json' })
-  // res.end(JSON.stringify({ hello: 'wook' }))
-  // 위 아래 같은 동작
-  // res.json({ hello: 'wook' })
 })
 
 app.post('/', (req, res) => {
-  res.send('hello MYME')
-})
-
-app.get('/about', (req, res) => {
   res.send('hello MYME')
 })
 
