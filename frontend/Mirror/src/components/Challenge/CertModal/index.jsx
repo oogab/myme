@@ -3,7 +3,7 @@ import { Grid, IconButton, TextField,Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { ColorButton } from '../../../common/Buttons'
 import { convertNumDay } from '../../../config/config'
-import { CERTIFY_CHALLENGE_REQUEST, UPLOAD_CHALLENGE_IMAGE_REQUEST } from '../../../reducers/challenge'
+import { CERTIFY_CHALLENGE_REQUEST, UPLOAD_CHALLENGE_IMAGE_REQUEST, CLEAR_CERTIFY_CHALLENGE } from '../../../reducers/challenge'
 import { OPEN_KEY_BOARD, CLOSE_KEY_BOARD } from '../../../reducers/keyboard'
 import CloseIcon from '@material-ui/icons/Close';
 import DarkTextField from '../../Etc/DarkTextField'
@@ -120,6 +120,9 @@ const CertModal = forwardRef((props, ref) => {
       alert('인증되었습니다!')
       reset()
       closeCertModal()
+      dispatch({
+        type:CLEAR_CERTIFY_CHALLENGE
+      })
     }
     if (certifyChallengeError) {
       alert(certifyChallengeError)

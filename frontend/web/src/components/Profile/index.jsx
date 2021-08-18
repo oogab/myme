@@ -158,11 +158,6 @@ const Profile = () => {
   const onChangeSubAddress = useCallback((e) => {
     setSubAddress(e.target.value)
   }, [])
-
-  const [address, setAddress] = useState(me?me.address:'')
-  const onChangeAddress = useCallback((e) => {
-    setAddress(e.target.value)
-  }, [])
   
   useEffect(()=>{
     if(addressInfo.sigunguCode){

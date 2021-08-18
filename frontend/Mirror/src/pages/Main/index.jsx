@@ -13,7 +13,8 @@ import {
    Grid,
    List,
    ListItem,
-   Typography
+   Typography,
+   Fade
   } from '@material-ui/core';
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -21,7 +22,7 @@ import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
-
+import { advice } from '../../config/config';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import {LOAD_TODAY_ROUTINES_REQUEST} from '../../reducers/routine'
@@ -46,8 +47,14 @@ const BorderLinearProgress = withStyles((theme) => ({
 }))(LinearProgress);
 
 
-
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; 
+}
 const Main = props => {
+  let today = new Date()
+  let msg = advice(today.getDate()%10)
   const dispatch = useDispatch()
   const [value, onChange] = useState(new Date());
   useEffect(()=>{
@@ -58,12 +65,25 @@ const Main = props => {
     })
   },[])
   const { events } = useSelector((state) => state.calendar)
+
+  const [routineVisible, setRoutineVisible] = useState(true);
+  const [challengeVisible, setChallengeVisible] = useState(true);
+
+  const routineHandleChange = () => {
+    setRoutineVisible((prev) => !prev);
+  };
+
+  const challengeHandleChange = () =>{
+    setChallengeVisible((prev) => !prev);
+  }
+
   const todayEvent = events.filter((event)=>
     moment(moment(event.start).format('YYYY-MM-DD')).isSame(moment(moment().format('YYYY-MM-DD'))) || 
     moment(moment(event.end).format('YYYY-MM-DD')).isSame(moment(moment().format('YYYY-MM-DD'))) ||
     moment(moment().format('YYYY-MM-DD')).isBetween(moment(event.start).format('YYYY-MM-DD'), moment(event.end).format('YYYY-MM-DD'))
     ) 
 
+  
   return (
         <Wrapper>
           
@@ -80,13 +100,21 @@ const Main = props => {
               <Grid container item xs={12} spacing={0} style={{height:'22px'}}></Grid>
               {/* 챌린지 */}
               <Grid item xs={12}>
-                <ChallengeList/>
+                <Fade in={challengeVisible} >
+                  <div>
+                  <ChallengeList msg={msg}/>
+                  </div>
+                </Fade>
               </Grid>
                {/* 아래쪽으로 맞출 공간 */}
               <Grid container item xs={12} spacing={0} style={{height:'22px'}}></Grid>
               {/* 루틴 */}
               <Grid item xs={8} className="routine">
-                <RoutineRootComponent/>
+                <Fade in={routineVisible}>
+                  <div>
+                    <RoutineRootComponent/>
+                  </div>
+                </Fade>
               </Grid>
               <Grid item xs={4} className="routine"></Grid>
             </Grid>
@@ -99,7 +127,7 @@ const Main = props => {
                 <br></br>
               </Grid>
               <Grid item xs={12}  >
-                <SettingButtons/>
+                <SettingButtons routineHandleChange={routineHandleChange} routineVisible={routineVisible} challengeHandleChange={challengeHandleChange} challengeVisible={challengeVisible}/>
               </Grid>
               {/* 아래쪽으로 맞출 공간 */}
               <Grid container item xs={12} spacing={0} style={{height:'104px'}}></Grid>

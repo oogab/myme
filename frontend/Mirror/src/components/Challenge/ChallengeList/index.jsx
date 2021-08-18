@@ -9,9 +9,8 @@ import {useSelector} from 'react-redux'
 import Cert from '../CertModal';
 import CustomCard from '../../Routine/CustomCard'
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
-import { advice } from '../../../config/config';
 const App = (props) => {
-
+  let {msg} = props
   let {myChallenges} = useSelector((state)=>{return state.challenge})
   let [choosedChellenge, setChoosedChellenge] = useState(-1)
 
@@ -29,11 +28,7 @@ const App = (props) => {
     slidesToShow: 3,
     slidesToScroll: 3
   };
-  function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min; 
-  }
+  
   return(
     <Wrapper>
       <Grid container spacing={2}>
@@ -51,7 +46,7 @@ const App = (props) => {
             </Slider>
             </CardContent>
             <CardActions>
-              <Typography variant='p'>{advice(getRandomInt(0,10))}</Typography>
+              <Typography variant='p'>{msg}</Typography>
             </CardActions>
           </CustomCard>
         </Grid>

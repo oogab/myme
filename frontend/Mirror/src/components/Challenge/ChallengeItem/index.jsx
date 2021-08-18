@@ -39,26 +39,10 @@ const App = (props) => {
         
       </Grid>
       <Grid container spacing={0}>
-        <Grid item xs={6} >
-          <div className='term'>
-            {
-              challenge.period % 7 === 0
-                ? convertDaysWeek(challenge.period)
-                : <> {challenge.period} 일 </>
-            }
-          </div>
-        </Grid>
-        <Grid item xs={6} >
-          <div className='term'>
-            {convertCertType(challenge.Challenge?.certification_cycle)}
-          </div>
-        </Grid>
-      </Grid>
-      <Grid container spacing={0}>
         <Grid item xs={9}>
           <span className='period'>
             {moment(challenge.start_date).format('YY-MM-DD')}~
-            {moment(challenge.end_date).format('YY-MM-DD')} /
+            {moment(challenge.end_date).format('YY-MM-DD')}
           </span>
         </Grid>
         <Grid item xs={3} >
@@ -73,14 +57,14 @@ const App = (props) => {
         </Grid>
       </Grid>
       <Grid container spacing={0}>
-        <Grid item xs={6} onClick={()=>{props.changeChoosedChellenge(idx)}}>
-          <div className='confirm-btn btn left-btn'>
-            인증하기  
+        <Grid item xs={6}>
+        <div className='term'>
+            {convertCertType(challenge.Challenge?.certification_cycle)}
           </div>
         </Grid>
-        <Grid item xs={6} onClick={() => onChallengeDashboard(challenge.id)} >
-          <div className='confirm-btn more-btn btn right-btn'>
-            상세보기
+        <Grid item xs={6} onClick={()=>{props.changeChoosedChellenge(idx)}} >
+          <div className='confirm-btn btn left-btn'>
+            인증하기  
           </div>
         </Grid>
       </Grid>

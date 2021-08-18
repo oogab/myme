@@ -104,11 +104,18 @@ function SimpleModal(props) {
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
 
+  function initState(){
+    setTitle('')
+    setContent('')
+    setTime(1)
+    setLink('')
+  }
   //모달 닫는 함수
   function closeRoutine(){
     dispatch({
       type: CLOSE_ROUTINE_MODAL
     })
+    initState()
     goBack()
   }
 
