@@ -97,7 +97,7 @@ const DrawerListGroup = (props) => {
                     />
                   </ListItem>
                   </NavLink>
-                  <NavLink to="/ChangePassword" className='router'
+                  {/* <NavLink to="/ChangePassword" className='router'
                     activeClassName='active-router' onClick={onMovePage}>
                     <ListItem
                       button
@@ -108,7 +108,7 @@ const DrawerListGroup = (props) => {
                         disableTypography
                       />
                     </ListItem>
-                  </NavLink>
+                  </NavLink> */}
                   <ListItem button key={'Sign Out'}>
                     <ListItemText
                       primary={'로그아웃'}
@@ -153,7 +153,7 @@ const DrawerListGroup = (props) => {
                 <ListItemText primary={'챌린지'} disableTypography />
               </ListItem>
         </NavLink>
-        <NavLink to="/MirrorSetting" className='router'
+        {/* <NavLink to="/MirrorSetting" className='router'
         activeClassName='active-router' onClick={onMovePage}>
           <ListItem
             button
@@ -162,7 +162,7 @@ const DrawerListGroup = (props) => {
             <ListItemIcon><LaptopWindowsRounded/></ListItemIcon>
             <ListItemText primary={'스마트 미러 관리'} disableTypography />
           </ListItem>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/HabitSetting" className='router'
         activeClassName='active-router' onClick={onMovePage}>
           <ListItem

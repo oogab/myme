@@ -21,9 +21,9 @@ import CreateChallenge from './pages/Challenge/CreateChallenge';
 import SearchChallenge from './pages/Challenge/SearchChallenge';
 import MoreChallenges from './pages/Challenge/ChallengeMore';
 import Profile from './pages/Profile/';
-import MirrorSetting from './pages/MirrorSetting/';
+// import MirrorSetting from './pages/MirrorSetting/';
 import Auth from './pages/Auth/';
-import ChangePassword from './pages/ChangePassword'
+// import ChangePassword from './pages/ChangePassword'
 import RoutineModal from './components/Routine/RoutineModal/index';
 import CreateRoutineModal from './components/Routine/CreateRoutineModal/index';
 import ModifyHabitModal from './components/Habit/ModifyHabitModal/index';
@@ -55,10 +55,10 @@ const App = () => {
                 <Route path="/SearchChallenge" component={SearchChallenge} />
                 <Route path="/ChallengeMore/:category" component={MoreChallenges} />
                 <Route path="/Profile" component={Profile} />
-                <Route path="/MirrorSetting" component={MirrorSetting} />
+                {/* <Route path="/MirrorSetting" component={MirrorSetting} /> */}
                 <Route path="/Challenge/:challengeId" component={ChallengeDetail} />
                 <Route path="/ChallengeDashboard/:challengeId" component={ChallengeDashboard} />
-                <Route path='/ChangePassword' component={ChangePassword}/>
+                {/* <Route path='/ChangePassword' component={ChangePassword}/> */}
                 <Redirect to="/not-found" />
               </Switch>
             </ScrollToTop>

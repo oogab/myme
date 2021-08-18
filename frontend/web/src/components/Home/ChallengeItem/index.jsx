@@ -40,9 +40,9 @@ const App = (props) => {
 
   return(
     <Wrapper>
-      <img alt={challenge.Challenge?.name} src={challenge.Challenge?.img_addr ? challenge.Challenge?.img_addr : ''} style={{ maxWidth: '270px', maxHeight: '100px' }} />
+      <img alt={challenge.Challenge?.name} src={challenge.Challenge?.img_addr ? challenge.Challenge?.img_addr : ''} style={{ width: '270px', height: '100px', objectFit: 'contain' }} />
       <Grid item xs={12} >
-        <Typography gutterBottom className='title' component="div" variant="h6" style={{ maxWidth: 250, textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', fontFamily: 'SCDream4' }}>{challenge.Challenge?.name}</Typography>
+        <Typography gutterBottom className='title' component="div" variant="h6" style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', fontFamily: 'SCDream4' }}>{challenge.Challenge?.name}</Typography>
       </Grid>
       <Grid container spacing={0}>
         <Grid item xs={6} >

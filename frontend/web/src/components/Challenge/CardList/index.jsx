@@ -96,7 +96,7 @@ const CardList = (props) => {
                 <Card style={{ maxWidth: 270, marginRight: 5, marginLeft: 5 }} >
                   <CardActionArea>
                     <CardMedia
-                      style={{ maxWidth: '270px', maxHeight: '100px' }}
+                      style={{ width: '270px', height: '100px', objectFit: 'cover' }}
                       component="img"
                       alt="Contemplative Reptile"
                       image={challenge.img_addr}

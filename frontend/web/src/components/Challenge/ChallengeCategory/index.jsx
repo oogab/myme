@@ -90,9 +90,10 @@ const ChallengeCategory = () => {
         <span onClick={onChallengeMore} style={{ color: 'GrayText', cursor: 'pointer' }}>{category === 0 ? '전체' : categories[category-1].label} 더보기</span>
       </div>
       <TabPanel value={value} index={0}>
+        <Grid container>
         {
           challenges.length !== 0 ?
-            <Grid item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
+            <Grid item xs={12} style={{ textAlign: 'center' }} >
               <CardList challenges={challenges}/>
             </Grid>
           :
@@ -100,11 +101,12 @@ const ChallengeCategory = () => {
               <Typography component={'div'} >전체 챌린지를 준비중입니다!</Typography>
             </Grid>
         }
+        </Grid>
       </TabPanel>
       <TabPanel value={value} index={1}>
         {
           workoutChallenges.length !== 0 ?
-            <Grid item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
+            <Grid item xs={12} style={{ textAlign: 'center' }} >
               <CardList challenges={workoutChallenges}/>
             </Grid>
           :
@@ -116,7 +118,7 @@ const ChallengeCategory = () => {
       <TabPanel value={value} index={2}>
         {
           studyChallenges.length !== 0 ?
-            <Grid item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
+            <Grid item xs={12} style={{ textAlign: 'center' }} >
               <CardList challenges={studyChallenges} />
             </Grid>
           :
@@ -128,7 +130,7 @@ const ChallengeCategory = () => {
       <TabPanel value={value} index={3}>
         {
           lifeChallenges.length !== 0 ?
-            <Grid item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
+            <Grid item xs={12} style={{ textAlign: 'center' }} >
               <CardList challenges={lifeChallenges}/>
             </Grid>
           :
@@ -140,7 +142,7 @@ const ChallengeCategory = () => {
       <TabPanel value={value} index={4}>
       {
           mealChallenges.length !== 0 ?
-            <Grid item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
+            <Grid item xs={12} style={{ textAlign: 'center' }} >
               <CardList challenges={mealChallenges}/>
             </Grid>
           :  
@@ -152,7 +154,7 @@ const ChallengeCategory = () => {
       <TabPanel value={value} index={5}>
         {
           abilityChallenges.length !== 0 ?
-            <Grid item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
+            <Grid item xs={12} style={{ textAlign: 'center' }} >
               <CardList challenges={abilityChallenges}/>
             </Grid>
           :
@@ -164,7 +166,7 @@ const ChallengeCategory = () => {
       <TabPanel value={value} index={6}>
         {
           hobbyChallenges.length !== 0 ?
-            <Grid item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
+            <Grid item xs={12} style={{ textAlign: 'center' }} >
               <CardList challenges={hobbyChallenges}/>
             </Grid>
           :
@@ -176,7 +178,7 @@ const ChallengeCategory = () => {
       <TabPanel value={value} index={7}>
         {
           assetChallenges.length !== 0 ?
-              <Grid item xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }} >
+              <Grid item xs={12} style={{ textAlign: 'center' }} >
                 <CardList challenges={assetChallenges}/>
               </Grid>
           :

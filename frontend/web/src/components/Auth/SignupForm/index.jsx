@@ -246,7 +246,9 @@ const SignupForm = () => {
             InputLabelProps={{ style:{fontFamily: 'SCDream4'}}}
           />
         </Grid>
+        <Grid item xs={12}>
         {passwordError && <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>}
+        </Grid>
         <Grid item xs={6} className="sign-up-grid-item1">
           <CssTextField
             required

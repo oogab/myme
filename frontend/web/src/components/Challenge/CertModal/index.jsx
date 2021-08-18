@@ -6,7 +6,7 @@ import { convertNumDay } from '../../../config/config'
 import { CERTIFY_CHALLENGE_REQUEST, UPLOAD_CHALLENGE_IMAGE_REQUEST } from '../../../reducers/challenge'
 import CloseIcon from '@material-ui/icons/Close';
 import { OPEN_CONFIRM_MODAL } from '../../../reducers/modal'
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 // forwardRef를 써서 warning을 없애긴 했는데 어떤 문제인지 정확히는 모르겠다...
 const CertModal = forwardRef((props, ref) => {
   const { challenge, closeCertModal } = props
@@ -19,6 +19,7 @@ const CertModal = forwardRef((props, ref) => {
     endTime: challenge.Challenge.ChallengeCertificationTimes[0].certification_available_end_time.substring(0, 5)
   }
   const [content, setContent] = useState('')
+  const {uploadChallengeImageLoading} = useSelector((state)=>{return state.challenge})
   const onChangeContent = useCallback((e) => {
     setContent(e.target.value)
   }, [])
@@ -29,7 +30,7 @@ const CertModal = forwardRef((props, ref) => {
 
   const onUploadImage = useCallback((e) => {
     // console.log('image', e.target.files[0])
-
+    if(!e.target.files[0]) return
     const imageFormData = new FormData()
     imageFormData.append('image', e.target.files[0])
 
@@ -143,7 +144,13 @@ const CertModal = forwardRef((props, ref) => {
       </IconButton>
       <Grid container spacing={3}>
         <Grid item xs={12} style={{ textAlign: 'center' }} >
-          <img alt={challenge.Challenge.name} src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxWidth: 200, maxHeight: 200 }} />
+          {
+            uploadChallengeImageLoading?
+            <CircularProgress />
+            :
+            <img alt={challenge.Challenge.name} src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxWidth: 200, maxHeight: 200 }} />
+          }
+          
           <input accept="image/*" type="file" name="image" hidden ref={imageInput} onChange={onUploadImage} />
         </Grid>
         <Grid item xs={12}>
