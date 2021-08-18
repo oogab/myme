@@ -49,7 +49,6 @@ const App = () => {
                 <Route path="/Home" component={Home} />
                 <Route path="/RoutineSetting" component={RoutineSetting} />
                 <Route path="/HabitSetting" component={HabitSetting} />
-                <Route path="/not-found" component={NotFound} />
                 <Route path="/ChallengeHome" component={ChallengeHome} />
                 <Route path="/CreateChallenge" component={CreateChallenge} />
                 <Route path="/SearchChallenge" component={SearchChallenge} />
@@ -59,6 +58,7 @@ const App = () => {
                 <Route path="/Challenge/:challengeId" component={ChallengeDetail} />
                 <Route path="/ChallengeDashboard/:challengeId" component={ChallengeDashboard} />
                 <Route path='/ChangePassword' component={ChangePassword}/>
+                <Route path="/not-found" component={NotFound} />
                 <Redirect to="/not-found" />
               </Switch>
             </ScrollToTop>
