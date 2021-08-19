@@ -4,11 +4,11 @@
 
 <table>
   <tr>
-  <td align="center"><a href="https://lab.ssafy.com/gjskarb1492"><img alt="namgyu" src="https://user-images.githubusercontent.com/48434764/130107068-7840228e-b8e2-419f-a352-77259bc2674a.png" width="100px;"/><br /><sub><b>팀장_허남규(Embedded)</b></sub></a><br /></td>
-    <td align="center"><a href="https://lab.ssafy.com/minjoo0112"><img alt="minjoo" src="https://user-images.githubusercontent.com/48434764/130104515-3ea67786-79e7-4e8b-824b-e553a0f3ec8b.png" width="100px;"/><br /><sub><b>김민주(Frontend)</b></sub></a><br /></td>
-  <td align="center"><a href="https://lab.ssafy.com/kimminji0527"><img alt="minji" src="https://user-images.githubusercontent.com/48434764/130106965-62d4e73d-f3dc-4899-a331-0a1e549089f8.png" width="100px;" /><br /><sub><b>김민지(Embedded)</b></sub></a><br /></td>
-   <td align="center"><a href="https://lab.ssafy.com/oogab"><img  src="https://user-images.githubusercontent.com/48434764/130107140-fbbb49a0-3004-441c-b9d0-98ee32dc17bd.png" width="100px;" /><br /><sub><b>백상욱(Backend)</b></sub></a><br /></td>
-    <td align="center"><a href="https://lab.ssafy.com/chsem145"><img alt="yuri" src="https://user-images.githubusercontent.com/48434764/130107209-358a270f-d2dc-4462-a056-5ac90d3fef20.png" width="100px;" /><br /><sub><b>백유리(Frontend)</b></sub></a><br /></td>
+  <td align="center"><a href="https://lab.ssafy.com/gjskarb1492"><img alt="namgyu" src="https://user-images.githubusercontent.com/48434764/130107068-7840228e-b8e2-419f-a352-77259bc2674a.png" width="150px;"/><br /><sub><b>팀장_허남규(Embedded)</b></sub></a><br /></td>
+    <td align="center"><a href="https://lab.ssafy.com/minjoo0112"><img alt="minjoo" src="https://user-images.githubusercontent.com/48434764/130104515-3ea67786-79e7-4e8b-824b-e553a0f3ec8b.png" width="150px;"/><br /><sub><b>김민주(Frontend)</b></sub></a><br /></td>
+  <td align="center"><a href="https://lab.ssafy.com/kimminji0527"><img alt="minji" src="https://user-images.githubusercontent.com/48434764/130106965-62d4e73d-f3dc-4899-a331-0a1e549089f8.png" width="150px;" /><br /><sub><b>김민지(Embedded)</b></sub></a><br /></td>
+   <td align="center"><a href="https://lab.ssafy.com/oogab"><img alt="sankwook" src="https://user-images.githubusercontent.com/48434764/130107140-fbbb49a0-3004-441c-b9d0-98ee32dc17bd.png" width="150px;" /><br /><sub><b>백상욱(Backend)</b></sub></a><br /></td>
+    <td align="center"><a href="https://lab.ssafy.com/chsem145"><img alt="yuri" src="https://user-images.githubusercontent.com/48434764/130107209-358a270f-d2dc-4462-a056-5ac90d3fef20.png" width="150px;" /><br /><sub><b>백유리(Frontend)</b></sub></a><br /></td>
   </tr>
 </table>
 <br/>
