@@ -1,4 +1,4 @@
-import { all, fork, put, takeLatest, call, take, select } from "redux-saga/effects";
+import { all, fork, put, takeLatest, call, select } from "redux-saga/effects";
 import axios from 'axios'
 import {
   ADD_ROUTINE_REQUEST,
@@ -41,7 +41,6 @@ import {
   SET_ORDER_SUCCESS,
   SET_ORDER_FAILURE,
 } from '../reducers/routine'
-import { RestoreOutlined } from "@material-ui/icons";
 import {
   OPEN_CONFIRM_MODAL
 } from '../reducers/modal'
@@ -62,6 +61,11 @@ function* addRoutine(action) {
       type: ADD_ROUTINE_SUCCESS,
       data: result.data
     })
+    const routine = yield select(myRoutines)
+    yield put({
+      type:CHECK_ROUTINE_REQUEST,
+      routineIdx: routine[routine.length-1],
+      routineId: routine[routine.length-1].id})
     yield put({
       type:OPEN_CONFIRM_MODAL,
       message:'루틴 등록이 완료되었습니다.'
@@ -124,7 +128,7 @@ function deleteRoutineAPI(id){
 }
 function* deleteRoutine(action){
   try{
-    const result = yield call(deleteRoutineAPI, action.id)
+    yield call(deleteRoutineAPI, action.id)
     yield put({
       type: DELETE_ROUTINE_SUCCESS,
       idx: action.idx
@@ -189,7 +193,6 @@ function* addRoutinizedHabit(action) {
       type:OPEN_CONFIRM_MODAL,
       message:'루틴에 습관이 등록되었습니다.'
     })
-    console.log(result);
   } catch (error) {
     yield put({
       type: ADD_ROUTINIZED_HABIT_FAILURE,
@@ -221,6 +224,20 @@ function* deleteRoutinizedHabit(action){
       idx: action.routineIdx,
       message: true
     })
+
+    if(routine[action.routineIdx].DailyAchieveRoutines.length>0) return
+    let isComplete = true
+    for(let item of routine[action.routineIdx].RoutinizedHabits){
+      if(item.DailyAchieveHabits.length===0){
+        isComplete = false
+      }
+    }
+    if(isComplete){
+      yield put({
+        type:CHECK_ROUTINE_REQUEST,
+        routineIdx: action.routineIdx,
+        routineId: routine[action.routineIdx].id})
+    }
     console.log(result);
   } catch (error) {
     yield put({
@@ -320,7 +337,7 @@ function checkDailyAchieveRoutineAPI(routineId){
 }
 function* checkDailyAchieveRoutine(action){
   try{
-    const result = yield call(checkDailyAchieveRoutineAPI, action.routineId)
+    yield call(checkDailyAchieveRoutineAPI, action.routineId)
     yield put({
       type: CHECK_ROUTINE_SUCCESS,
       routineIdx: action.routineIdx,

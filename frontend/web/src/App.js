@@ -13,7 +13,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import RoutineSetting from './pages/RoutineSetting/';
 import HabitSetting from './pages/HabitSetting/';
 import Home from './pages/Home/';
-import NotFound from './pages/NotFound/';
 import ChallengeHome from './pages/Challenge/';
 import ChallengeDetail from './pages/Challenge/[id]';
 import ChallengeDashboard from './pages/Challenge/ChallengeDashboard/[id]';
@@ -49,7 +48,6 @@ const App = () => {
                 <Route path="/Home" component={Home} />
                 <Route path="/RoutineSetting" component={RoutineSetting} />
                 <Route path="/HabitSetting" component={HabitSetting} />
-                <Route path="/not-found" component={NotFound} />
                 <Route path="/ChallengeHome" component={ChallengeHome} />
                 <Route path="/CreateChallenge" component={CreateChallenge} />
                 <Route path="/SearchChallenge" component={SearchChallenge} />

@@ -524,6 +524,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.challengeImagePath = ''
       const challenge = draft.myChallenges.find((v) => v.id === action.data.ChallengeParticipationId)
       challenge.certification_count += 1
+      challenge.DailyCertifyChallenges = challenge.DailyCertifyChallenges.concat(action.data)
       break
     }
     case CERTIFY_CHALLENGE_FAILURE:
@@ -546,33 +547,33 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       if (challenge) {
         challenge.Likers.push({ id: action.data.UserId })
       }
-      // console.log('1', challenge)
+      console.log('1', challenge)
       const oneChallenge = draft.singleChallenge
       if (oneChallenge) {
         oneChallenge.Likers.push({ id: action.data.UserId })
       }
-      // console.log('2', oneChallenge)
+      console.log('2', oneChallenge)
       const newChallenge = draft.newChallenges.find((v) => v.id === action.data.ChallengeId)
       if (newChallenge) {
         newChallenge.Likers.push({ id: action.data.UserId })
       }
-      // console.log('3', newChallenge)
+      console.log('3', newChallenge)
       const recChallenge = draft.recChallenges.find((v) => v.id === action.data.ChallengeId)
       if (recChallenge) {
         recChallenge.Likers.push({ id: action.data.UserId })
       }
-      // console.log('4', recChallenge)
+      console.log('4', recChallenge)
       const myChallenge = draft.myChallenges.map((v) => v.Challenge).find((v) => v.id === action.data.ChallengeId)
-      // console.log('4-1', myChallenge)
+      console.log('4-1', myChallenge)
       if (myChallenge) {
         myChallenge.Likers.push({ id: action.data.UserId })
       }
-      // console.log('5', myChallenge)
+      console.log('5', myChallenge)
       const myCreateChallenge = draft.myCreateChallenges.find((v) => v.id === action.data.ChallengeId)
       if (myCreateChallenge) {
         myCreateChallenge.Likers.push({ id: action.data.UserId })
       }
-      // console.log('6', myCreateChallenge)
+      console.log('6', myCreateChallenge)
       draft.likeChallengeLoading = false
       draft.likeChallengeDone = true
       break

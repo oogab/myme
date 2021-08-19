@@ -8,7 +8,7 @@ function App (props) {
   const { myRoutines } = useSelector((state) => state.routine)
 
   return(
-    <Container>
+    <div>
         <div>
           <CardActions>
           <span className='menu-text' style={{color:'#776D61'}}>■</span><span>완료</span>
@@ -30,7 +30,7 @@ function App (props) {
             </Card>
           }
         
-    </Container>
+    </div>
   );
 }
 

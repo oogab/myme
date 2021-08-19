@@ -4,7 +4,6 @@ import {
   Grid,
   Typography,
   Divider,
-  TextField,
   Checkbox,
   Container,
   FormControlLabel,
@@ -23,7 +22,7 @@ const ErrorMessage = styled.div`
 
 const regExpEm = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 const regExpPw = /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
-const regExpPN = /(\d{3}).*(\d{3}).*(\d{4})/
+const regExpPN = /^\d{3}-\d{3,4}-\d{4}$/;
 
 const SignupForm = () => {
   const dispatch = useDispatch()
@@ -42,7 +41,7 @@ const SignupForm = () => {
       setMainAddress('')
       setFirstLoad(false)
     }
-  },[addressInfo])
+  },[addressInfo,firstLoad])
   const [name, setName] = useState('')
   const onChangeName = useCallback((e) => {
     setName(e.target.value)
@@ -151,14 +150,14 @@ const SignupForm = () => {
     dispatch({
       type: CHANGE_SIGN_UP_MODE
     })
-  }, [password, passwordCheck, term])
+  }, [password, passwordCheck, term, age, dispatch, email, gender, mainAddress, name, nickname, phoneNumber, postCode, subAddress])
 
   const onChangeSignupMode = useCallback(() => {
     dispatch({
       type: CHANGE_SIGN_UP_MODE
     })
     setFirstLoad(true)
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     if (name !== '' && email !== '' && nickname !== '' && password !== '' && passwordCheck !== '' && phoneNumber !== '' && mainAddress!==''&& subAddress !== '' && term === true) {
