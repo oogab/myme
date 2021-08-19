@@ -225,7 +225,7 @@ const CreateChallenge = () => {
       setEndDate(tempEnd)
       setTotalNumOfCert(period*(10-certCycle)/7)
     }
-  }, [period, certCycle, getWeekdayNum, getWeekendNum, startDate])
+  }, [period, certCycle, startDate])
 
   // 총 인증 일 수 확인...
   // useEffect(() => {
