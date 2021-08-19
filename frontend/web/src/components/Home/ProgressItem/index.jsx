@@ -6,7 +6,6 @@ import PlayIcon from '@material-ui/icons/PlayArrow'
 import PauseIcon from '@material-ui/icons/Pause'
 import CheckIcon from '@material-ui/icons/CheckCircle';
 import NextIcon from '@material-ui/icons/SkipNext'
-import {useDispatch} from 'react-redux';
 function App(props){
     const history = useHistory()
     const habit = props.habit.Habit
@@ -56,7 +55,7 @@ function App(props){
                                 <CardContent style={{height:'77%'}}>
                                 습관에 유튜브 링크를 등록하시면,<br/> 습관을 실행하면서 동영상을 감상하실 수 있습니다.
                                 </CardContent>
-                                <CardActions style={{height:'20%'}} style={{float:'right'}}>
+                                <CardActions style={{height:'20%',float:'right'}}>
                                 <Button color='primary' onClick={()=>{history.push('/HabitSetting')}}>바로가기</Button>
                                 </CardActions>
                             </Card>

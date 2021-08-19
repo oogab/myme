@@ -66,7 +66,7 @@ const CertModal = forwardRef((props, ref) => {
         challengeId: challenge.id // challengeParticipation id...
       }
     })
-  }, [challengeImagePath, content, challenge.id, closeCertModal, dispatch])
+  }, [challengeImagePath, content, challenge.id, dispatch])
 
   useEffect(() => {
     if (certifyChallengeDone) {
@@ -82,7 +82,7 @@ const CertModal = forwardRef((props, ref) => {
         message: certifyChallengeError
       })
     }
-  }, [certifyChallengeDone, certifyChallengeError])
+  }, [certifyChallengeDone, certifyChallengeError,closeCertModal, dispatch])
 
   const checkCertAvailable = () => {
     const now = new Date()

@@ -1,11 +1,10 @@
 import React, { Fragment, useCallback, useEffect } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 
-import { connect, useDispatch, useSelector } from 'react-redux';
-import {ExpandMore, HomeRounded, EventNoteRounded, GavelRounded, LaptopWindowsRounded, FaceRounded} from '@material-ui/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import {ExpandMore, HomeRounded, EventNoteRounded, GavelRounded, FaceRounded} from '@material-ui/icons';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import {
-  Avatar,
   List,
   ListItem,
   ListItemIcon,
@@ -17,8 +16,6 @@ import {
   AccordionDetails,
 } from '@material-ui/core';
 import { logoutRequestAction } from '../../../reducers/user';
-import { CLEAR_MY_ROUTINES } from '../../../reducers/routine';
-import { CLEAR_MY_CHALLENGES } from '../../../reducers/challenge';
 import { CLOSE_DRAWER } from '../../../reducers/layout';
 import { OPEN_CONFIRM_MODAL } from '../../../reducers/modal';
 import { persistor } from '../../../store/configureStore';
@@ -33,7 +30,7 @@ const DrawerListGroup = (props) => {
       dispatch({
         type: CLOSE_DRAWER
       })
-  }, [])
+  }, [dispatch])
 
   const onSignOut = useCallback(() => {
     // dispatch({
@@ -46,7 +43,7 @@ const DrawerListGroup = (props) => {
       type: CLOSE_DRAWER
     })
     dispatch(logoutRequestAction())
-  }, [me])
+  }, [dispatch])
 
   useEffect(() => {
     console.log('로그아웃 준비')
@@ -62,7 +59,7 @@ const DrawerListGroup = (props) => {
         message: logOutError
       })
     }
-  }, [me, logOutDone, logOutError])
+  }, [me, logOutDone, logOutError, dispatch, history])
 
   return (
     <>

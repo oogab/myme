@@ -1,4 +1,4 @@
-import { all, fork, put, takeLatest, call, take, select } from "redux-saga/effects";
+import { all, fork, put, takeLatest, call, select } from "redux-saga/effects";
 import axios from 'axios'
 import {
   ADD_ROUTINE_REQUEST,
@@ -41,7 +41,6 @@ import {
   SET_ORDER_SUCCESS,
   SET_ORDER_FAILURE,
 } from '../reducers/routine'
-import { RestoreOutlined } from "@material-ui/icons";
 import {
   OPEN_CONFIRM_MODAL
 } from '../reducers/modal'
@@ -129,7 +128,7 @@ function deleteRoutineAPI(id){
 }
 function* deleteRoutine(action){
   try{
-    const result = yield call(deleteRoutineAPI, action.id)
+    yield call(deleteRoutineAPI, action.id)
     yield put({
       type: DELETE_ROUTINE_SUCCESS,
       idx: action.idx
@@ -229,7 +228,7 @@ function* deleteRoutinizedHabit(action){
     if(routine[action.routineIdx].DailyAchieveRoutines.length>0) return
     let isComplete = true
     for(let item of routine[action.routineIdx].RoutinizedHabits){
-      if(item.DailyAchieveHabits.length==0){
+      if(item.DailyAchieveHabits.length===0){
         isComplete = false
       }
     }
@@ -338,7 +337,7 @@ function checkDailyAchieveRoutineAPI(routineId){
 }
 function* checkDailyAchieveRoutine(action){
   try{
-    const result = yield call(checkDailyAchieveRoutineAPI, action.routineId)
+    yield call(checkDailyAchieveRoutineAPI, action.routineId)
     yield put({
       type: CHECK_ROUTINE_SUCCESS,
       routineIdx: action.routineIdx,

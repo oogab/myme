@@ -94,7 +94,7 @@ const ChallengeCategory = () => {
         type: LOAD_ASSET_CHALLENGES_REQUEST
       })
     }
-  }, [])
+  }, [dispatch])
 
   const onChallengeMore = useCallback(() => {
     history.push(`/ChallengeMore/${category}`)

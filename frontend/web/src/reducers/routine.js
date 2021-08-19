@@ -224,7 +224,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.deleteRoutinizedHabitLoading = false
       draft.deleteRoutinizedHabitDone = true
       for(let i=0;i<draft.myRoutines[action.routineIdx].RoutinizedHabits.length;i++){
-        if(draft.myRoutines[action.routineIdx].RoutinizedHabits[i].id==action.id){
+        if(draft.myRoutines[action.routineIdx].RoutinizedHabits[i].id===action.id){
           draft.myRoutines[action.routineIdx].RoutinizedHabits.splice(i, 1)
           break
         }

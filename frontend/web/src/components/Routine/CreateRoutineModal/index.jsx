@@ -102,7 +102,7 @@ function SimpleModal(props) {
   
   const add = () =>{
     if(validate()){
-      if(choosedRoutine == -1){
+      if(choosedRoutine === -1){
         dispatch({
           type: ADD_ROUTINE_REQUEST,
           data: {
@@ -131,7 +131,7 @@ function SimpleModal(props) {
   function setAdd(){
     if(validate()){
       dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: add})
-      if(choosedRoutine == -1){
+      if(choosedRoutine === -1){
         dispatch({type: OPEN_ALERT_MODAL, message:'루틴을 생성하시겠습니까?'})
       }else{
         dispatch({type: OPEN_ALERT_MODAL, message:'루틴을 수정하시겠습니까?'})
@@ -165,7 +165,7 @@ function SimpleModal(props) {
   const body = (
     <div style={modalStyle} className={classes.paper}>
             <div>
-           <h2 id="simple-modal-title" style={{marginBottom: "10px", float:'left'}}>루틴 {choosedRoutine==-1?'생성':'수정'}</h2><Close onClick={handleClose} style={{float:'right'}}></Close>
+           <h2 id="simple-modal-title" style={{marginBottom: "10px", float:'left'}}>루틴 {choosedRoutine===-1?'생성':'수정'}</h2><Close onClick={handleClose} style={{float:'right'}}></Close>
            </div>
            <div>
            <input type="text" placeholder="루틴 이름 입력" className={classes.inputDiv} onChange={changeName} defaultValue={createRoutineInfo.name} maxLength='50'></input>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Grid, Button, Typography, InputBase, makeStyles, alpha, withStyles, AppBar, Chip, IconButton, Paper } from '@material-ui/core/';
+import { Grid, Button, Typography } from '@material-ui/core/';
 import CardList from '../../components/Challenge/CardList'
 
 import Wrapper from './styles';
@@ -17,22 +17,10 @@ import {
 } from '../../reducers/challenge';
 import ChallengeCategory from '../../components/Challenge/ChallengeCategory';
 
-const chipStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'left',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(1.5),
-    },
-    background: '#66A091'
-  },
-}));
 
 const ChallengeHome = () => {
   const dispatch = useDispatch()
   const history = useHistory();
-  const chipClasses = chipStyles();
 
   const {
     newChallenges,
@@ -72,7 +60,7 @@ const ChallengeHome = () => {
     // dispatch({
     //   type: LOAD_ASSET_CHALLENGES_REQUEST
     // })
-  }, [])
+  }, [dispatch])
 
   return (  
     <Wrapper>

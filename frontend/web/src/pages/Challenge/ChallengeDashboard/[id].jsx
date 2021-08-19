@@ -50,7 +50,7 @@ const ChallengeDashboard = ({match}) => {
       type: OPEN_ALERT_MODAL,
       message: '정말 그만 두시겠어요?'
     })
-  }, [dispatch])
+  }, [onResignChallenge, dispatch])
 
   useEffect(() => {
     if (deleteChallengeParticipationDone) {
@@ -72,7 +72,7 @@ const ChallengeDashboard = ({match}) => {
         type: CLEAR_DELETE_CHALLENGE_PARTICIPATION
       })
     }
-  }, [deleteChallengeParticipationDone, deleteChallengeParticipationError])
+  }, [deleteChallengeParticipationDone, deleteChallengeParticipationError, dispatch, history])
 
   // 로그 확인용
   // useEffect(() => {
@@ -92,7 +92,7 @@ const ChallengeDashboard = ({match}) => {
                     {myChallenge.Challenge.name}
                   </Typography>
                   <div style={{ textAlign: 'center', marginTop: 10 }}>
-                    <img src={myChallenge.Challenge.img_addr} style={{ maxWidth:200, maxHeight: 200 }} />
+                    <img src={myChallenge.Challenge.img_addr} style={{ maxWidth:200, maxHeight: 200 }} alt=''/>
                   </div>
                 </Paper>
               </Grid>
@@ -113,10 +113,10 @@ const ChallengeDashboard = ({match}) => {
                   <LinearProgress style={{ height: '15px', marginBottom: '10px' }} variant="determinate" value={achieveRate}/>
                   <Grid container item xs={12} style={{ marginTop: '10px', marginBottom: '10px' }} >
                     <Grid item xs={6}>
-                      <div><span role="img">✔</span> 인증한 일 수 : {myChallenge.certification_count}</div>
+                      <div><span role="img" aria-label='certi-day'>✔</span> 인증한 일 수 : {myChallenge.certification_count}</div>
                     </Grid>
                     <Grid item xs={6}>
-                      <div><span role="img">📌</span> 남은 인증 일 수 : {myChallenge.total_number_of_certification - myChallenge.certification_count}</div>
+                      <div><span role="img" aria-label='more-certi-day'>📌</span> 남은 인증 일 수 : {myChallenge.total_number_of_certification - myChallenge.certification_count}</div>
                     </Grid>
                   </Grid>
                   <div><span role="img">📅 </span>총 기간 : {myChallenge.start_date} ~ {myChallenge.end_date}</div>
@@ -157,7 +157,7 @@ const ChallengeDashboard = ({match}) => {
               </Grid>
               <Grid item xs={12}>
                 <Paper style={{ marginTop: '10px', padding: '10px' }}>
-                  <h3><span role="img">🙂</span> 챌린지 개설자</h3>
+                  <h3><span role="img" aria-label='challenge-writer'>🙂</span> 챌린지 개설자</h3>
                   <Grid item xs={12} style={{ marginTop: '5px' }}>
                     <Typography><strong>{myChallenge.Challenge.User.nickname}</strong> / email : {myChallenge.Challenge.User.email}</Typography>
                   </Grid>

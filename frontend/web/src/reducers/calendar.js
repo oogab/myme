@@ -164,8 +164,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
             break
         case SET_CHOOSED_EVENT_COLOR:
             draft.eventInfo.color = action.color
-            break
-
+            default:break
     }
 })
 

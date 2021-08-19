@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Grid, Container, Paper, Button } from '@material-ui/core/';
-import { teal } from '@material-ui/core/colors';
 import {  MenuItem} from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import CssTextField from './CssTextField';
@@ -169,7 +168,7 @@ const Profile = () => {
     if(firstLoad){
       setFirstLoad(false)
     }
-  },[addressInfo])
+  },[addressInfo, firstLoad])
 
   function openAddressModal(){
     dispatch({type:OPEN_ADDRESS_MODAL})
@@ -207,7 +206,7 @@ const Profile = () => {
     dispatch({
       type: LOAD_MY_INFO_REQUEST
     })
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     console.log(nickname)

@@ -5,7 +5,7 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 import { CLOSE_ROUTINE_MODAL, OPEN_ALERT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION } from '../../../reducers/modal';
 import { ADD_MY_HABIT_REQUEST} from '../../../reducers/habit';
 import { ADD_ROUTINIZED_HABIT_REQUEST, LOAD_MY_ROUTINES_REQUEST } from '../../../reducers/routine';
-import {Paper, Grid, TextField, Card, CardContent} from '@material-ui/core';
+import {Paper, Grid, Card, CardContent} from '@material-ui/core';
 import {Create, Event, Close} from '@material-ui/icons';
 import Habit from '../Habit/';
 function getModalStyle() {
@@ -230,7 +230,7 @@ function SimpleModal(props) {
         <>
         <div >
           {
-            myHabits.length!=0?
+            myHabits.length!==0?
             <>
             {
               myHabits.map((item, idx) =>(<Habit key ={idx} habit={item} clickedHabit={clickedHabit} idx={idx} onClick={()=>{setClickedHabit(idx)}}></Habit>))
