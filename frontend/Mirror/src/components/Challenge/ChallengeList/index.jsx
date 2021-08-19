@@ -1,17 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick'
 import Wrapper from './styles'
 import ChallengtItem from '../ChallengeItem'
 import { Typography, Grid, CardContent,CardActions } from '@material-ui/core';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import Cert from '../CertModal';
 import CustomCard from '../../Routine/CustomCard'
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 const App = (props) => {
   let {msg} = props
-  const dispatch = useDispatch()
   let {myChallenges} = useSelector((state)=>{return state.challenge})
   let [choosedChellenge, setChoosedChellenge] = useState(-1)
 

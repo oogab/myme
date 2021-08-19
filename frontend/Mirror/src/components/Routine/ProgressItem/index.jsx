@@ -1,6 +1,6 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import Wrapper from './styles'
-import {Typography, Card, CardContent, CardHeader, CardActions, Tabs, Tab, IconButton, Grid} from '@material-ui/core'
+import {Typography, CardContent, CardActions, Tabs, Tab, IconButton, Grid} from '@material-ui/core'
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import NoteIcon from '@material-ui/icons/Note';
 import PlayIcon from '@material-ui/icons/PlayArrow'
@@ -30,7 +30,7 @@ function App(props){
     let requiredMin = Math.floor(requiredTime/60)
     let requiredSec = requiredTime%60
     function isChecked(){
-        if(dailyAchieveHabits!= undefined && dailyAchieveHabits.length){
+        if(dailyAchieveHabits!== undefined && dailyAchieveHabits.length){
         return true
         }
         return false
