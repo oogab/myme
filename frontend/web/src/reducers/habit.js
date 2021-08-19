@@ -170,7 +170,8 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break
     case SET_MODIFY_HABIT_ASSIST_LINK:
       draft.habitInfo.assist_link = action.assist_link
-      default:break
+      break
+    default:break
   }
 })
 

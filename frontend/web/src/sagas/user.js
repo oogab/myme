@@ -148,7 +148,7 @@ function updateMyInfoAPI(data) {
 
 function* updateMyInfo(action) {
   try {
-      const result = yield call(updateMyInfoAPI, action.data)
+      yield call(updateMyInfoAPI, action.data)
       yield put({
           type: UPDATE_MY_INFO_SUCCESS,
           data: action.data

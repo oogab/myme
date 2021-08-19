@@ -124,7 +124,7 @@ const ChallengeDashboard = ({match}) => {
               </Grid>
               <Grid item xs={12}>
                 <Paper style={{ marginTop: '10px', padding: '10px' }}>
-                  <h3><span role="img">🗒</span> MYME Advice</h3>
+                  <h3><span role="img" aria-label="advice">🗒</span> MYME Advice</h3>
                   <div style={{ marginTop: '10px' }}>{advice(Math.floor(achieveRate/10))}</div>
                 </Paper>
               </Grid>

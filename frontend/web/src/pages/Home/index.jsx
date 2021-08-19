@@ -9,7 +9,7 @@ import { LOAD_MY_CHALLENGES_REQUEST } from '../../reducers/challenge';
 import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import {LocalMoviesRounded, EventAvailableRounded} from '@material-ui/icons'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 
 import {Tabs, Tab, Fab} from '@material-ui/core'

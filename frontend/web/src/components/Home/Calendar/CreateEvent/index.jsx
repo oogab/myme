@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { CLOSE_CREATE_EVENT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION, OPEN_ALERT_MODAL } from '../../../../reducers/modal';
 import { CREATE_EVENT_REQUEST} from '../../../../reducers/calendar';
 
-import { Button, TextField } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import { CirclePicker } from 'react-color';
 
 //icons
