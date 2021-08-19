@@ -22,7 +22,7 @@ const ChallengeDetail = ({match}) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { singleChallenge, participateChallengeDone, participateChallengeError } = useSelector((state) => state.challenge)
-  const id = useSelector((state) => state.user.me.id)
+  const id = useSelector((state) => state.user.me?.id)
   const liked = singleChallenge.Likers.find((v) => v.id === id)
 
   const onLike = useCallback(() => {

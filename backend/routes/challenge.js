@@ -1120,7 +1120,7 @@ router.post('/image', isLoggedIn, upload.single('image'), async (req, res, next)
 /**
  * @swagger
  *  /challenge/:challengeId:
- *    patch:
+ *    put:
  *      tags:
  *        - challenge
  *      description: 챌린지 좋아요
@@ -1138,7 +1138,7 @@ router.post('/image', isLoggedIn, upload.single('image'), async (req, res, next)
  *                    type: integer
  * 
  */
- router.patch('/:challengeId/like', async (req, res, next) => { // PATCH /challenge/{challengeID}/like
+ router.put('/:challengeId/like', async (req, res, next) => { // PUT /challenge/{challengeID}/like
   try {
     const challenge = await Challenge.findOne({
       where: { id : req.params.challengeId },

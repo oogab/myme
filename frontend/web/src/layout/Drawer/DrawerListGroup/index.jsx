@@ -25,7 +25,7 @@ import { persistor } from '../../../store/configureStore';
 
 const DrawerListGroup = (props) => {
   const dispatch = useDispatch()
-  const { me, logOutError } = useSelector((state) => state.user)
+  const { me, logOutError, logOutDone } = useSelector((state) => state.user)
 
   let history = useHistory();
 
@@ -49,7 +49,10 @@ const DrawerListGroup = (props) => {
   }, [me])
 
   useEffect(() => {
-    if (!me) {
+    console.log('로그아웃 준비')
+    console.log(me)
+    if (logOutDone || !me) {
+      console.log('로그아웃 성공')
       history.push('/')
       persistor.purge()
     }
@@ -59,7 +62,7 @@ const DrawerListGroup = (props) => {
         message: logOutError
       })
     }
-  }, [me, logOutError])
+  }, [me, logOutDone, logOutError])
 
   return (
     <>

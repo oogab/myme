@@ -128,9 +128,12 @@ const CardList = (props) => {
                       <div className="term" style={{ margin: 0, color: 'black', backgroundColor: 'white' }}><span role="img">📅 </span>{challenge.start_date} ~ {challenge.end_date}</div>
                     </Grid>
                     <Grid item xs={6} style={{ padding: '5px', display: 'flex', justifyContent: 'center' }}>
-                      <div style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
-                        <PersonIcon color='primary' /> {challenge.ChallengeParticipations.length}
-                        <FavoriteIcon color='secondary' fontSize='small' /> {challenge.Likers.length}
+                      <div style={{ margin: 0, display: 'flex', alignItems: 'center' }} className='like-and-paticipant'>
+
+                        <PersonIcon color='primary' /> 
+                        <span>{challenge.ChallengeParticipations.length}</span>
+                        <FavoriteIcon color='secondary' fontSize='small' /> 
+                        <span>{challenge.Likers.length}</span>
                       </div>
                     </Grid>
                     <Grid item xs={6} style={{ padding: '5px' }}>

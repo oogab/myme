@@ -424,7 +424,7 @@ function* certifyChallenge(action) {
 }
 
 function likeChallengeAPI(data) {
-  return axios.patch(`/challenge/${data}/like`)
+  return axios.put(`/challenge/${data}/like`)
 }
 
 function* likeChallenge(action) {
