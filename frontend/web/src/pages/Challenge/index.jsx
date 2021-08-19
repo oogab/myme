@@ -11,16 +11,9 @@ import { Link, useHistory } from 'react-router-dom';
 import Layout from '../../layout/index';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  LOAD_ABILITY_CHALLENGES_REQUEST,
-  LOAD_ASSET_CHALLENGES_REQUEST,
   LOAD_CHALLENGES_REQUEST,
-  LOAD_HOBBY_CHALLENGES_REQUEST,
-  LOAD_LIFE_CHALLENGES_REQUEST,
-  LOAD_MEAL_CHALLENGES_REQUEST,
   LOAD_NEW_CHALLENGES_REQUEST,
   LOAD_REC_CHALLENGES_REQUEST,
-  LOAD_STUDY_CHALLENGES_REQUEST,
-  LOAD_WORKOUT_CHALLENGES_REQUEST
 } from '../../reducers/challenge';
 import ChallengeCategory from '../../components/Challenge/ChallengeCategory';
 
@@ -42,26 +35,10 @@ const ChallengeHome = () => {
   const chipClasses = chipStyles();
 
   const {
-    challenges,
     newChallenges,
-    recChallenges,
-    workoutChallenges,
-    studyChallenges,
-    lifeChallenges,
-    mealChallenges,
-    abilityChallenges,
-    hobbyChallenges,
-    assetChallenges,
     loadChallengesDone,
     loadNewChallengesDone,
     loadRecChallengesDone,
-    loadWorkoutChallengesDone,
-    loadStudyChallengesDone,
-    loadLifeChallengesDone,
-    loadMealChallengesDone,
-    loadAbilityChallengesDone,
-    loadHobbyChallengesDone,
-    loadAssetChallengesDone,
   } = useSelector((state) => state.challenge)
 
   useEffect(() => {
@@ -74,27 +51,27 @@ const ChallengeHome = () => {
     dispatch({
       type: LOAD_REC_CHALLENGES_REQUEST
     })
-    dispatch({
-      type: LOAD_WORKOUT_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_STUDY_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_LIFE_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_MEAL_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_ABILITY_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_HOBBY_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_ASSET_CHALLENGES_REQUEST
-    })
+    // dispatch({
+    //   type: LOAD_WORKOUT_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_STUDY_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_LIFE_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_MEAL_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_ABILITY_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_HOBBY_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_ASSET_CHALLENGES_REQUEST
+    // })
   }, [])
 
   return (  
@@ -104,14 +81,15 @@ const ChallengeHome = () => {
           {
             loadChallengesDone &&
             loadNewChallengesDone &&
-            loadRecChallengesDone &&
-            loadWorkoutChallengesDone &&
-            loadStudyChallengesDone &&
-            loadLifeChallengesDone &&
-            loadMealChallengesDone &&
-            loadAbilityChallengesDone &&
-            loadHobbyChallengesDone &&
-            loadAssetChallengesDone ?
+            loadRecChallengesDone
+            // loadWorkoutChallengesDone &&
+            // loadStudyChallengesDone &&
+            // loadLifeChallengesDone &&
+            // loadMealChallengesDone &&
+            // loadAbilityChallengesDone &&
+            // loadHobbyChallengesDone &&
+            // loadAssetChallengesDone ?
+            ?
               <>
                 <Grid item xs={6}>
                   <Button
