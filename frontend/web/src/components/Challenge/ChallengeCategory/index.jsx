@@ -1,9 +1,19 @@
 import React, { useCallback, useState } from 'react'
 import { Box, Grid, Paper, Tab, Tabs, Typography } from '@material-ui/core';
 import { categories } from '../../../config/config';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CardList from '../CardList';
 import { useHistory } from 'react-router-dom';
+import {
+  LOAD_ABILITY_CHALLENGES_REQUEST,
+  LOAD_ASSET_CHALLENGES_REQUEST,
+  LOAD_CHALLENGES_REQUEST,
+  LOAD_HOBBY_CHALLENGES_REQUEST,
+  LOAD_LIFE_CHALLENGES_REQUEST,
+  LOAD_MEAL_CHALLENGES_REQUEST,
+  LOAD_STUDY_CHALLENGES_REQUEST,
+  LOAD_WORKOUT_CHALLENGES_REQUEST
+} from '../../../reducers/challenge';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -27,6 +37,7 @@ function TabPanel(props) {
 
 const ChallengeCategory = () => {
   const history = useHistory()
+  const dispatch = useDispatch()
   const {
     challenges,
     workoutChallenges,
@@ -46,17 +57,43 @@ const ChallengeCategory = () => {
     };
   }
 
-  // const workoutChallenges = challenges?.filter((challenge) => challenge.category === 1)
-  // const studyChallenges = challenges?.filter((challenge) => challenge.category === 2)
-  // const lifeChallenges = challenges?.filter((challenge) => challenge.category === 3)
-  // const mealChallenges = challenges?.filter((challenge) => challenge.category === 4)
-  // const abilityChallenges = challenges?.filter((challenge) => challenge.category === 5)
-  // const hobbyChallenges = challenges?.filter((challenge) => challenge.category === 6)
-  // const assetChallenges = challenges?.filter((challenge) => challenge.category === 7)
-
   const [category, setCategory] = useState(0)
   const onSetCategory = useCallback((i) => {
     setCategory(i)
+    if (i === 0) {
+      dispatch({
+        type: LOAD_CHALLENGES_REQUEST
+      })
+    }
+    else if (i === 1) {
+      dispatch({
+        type: LOAD_WORKOUT_CHALLENGES_REQUEST
+      })
+    } else if (i === 2) {
+      dispatch({
+        type: LOAD_STUDY_CHALLENGES_REQUEST
+      })
+    } else if (i === 3) {
+      dispatch({
+        type: LOAD_LIFE_CHALLENGES_REQUEST
+      })
+    } else if (i === 4) {
+      dispatch({
+        type: LOAD_MEAL_CHALLENGES_REQUEST
+      })
+    } else if (i === 5) {
+      dispatch({
+        type: LOAD_ABILITY_CHALLENGES_REQUEST
+      })
+    } else if (i === 6) {
+      dispatch({
+        type: LOAD_HOBBY_CHALLENGES_REQUEST
+      })
+    } else if (i === 7) {
+      dispatch({
+        type: LOAD_ASSET_CHALLENGES_REQUEST
+      })
+    }
   }, [])
 
   const onChallengeMore = useCallback(() => {

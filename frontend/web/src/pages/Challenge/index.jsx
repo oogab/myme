@@ -74,27 +74,27 @@ const ChallengeHome = () => {
     dispatch({
       type: LOAD_REC_CHALLENGES_REQUEST
     })
-    dispatch({
-      type: LOAD_WORKOUT_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_STUDY_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_LIFE_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_MEAL_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_ABILITY_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_HOBBY_CHALLENGES_REQUEST
-    })
-    dispatch({
-      type: LOAD_ASSET_CHALLENGES_REQUEST
-    })
+    // dispatch({
+    //   type: LOAD_WORKOUT_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_STUDY_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_LIFE_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_MEAL_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_ABILITY_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_HOBBY_CHALLENGES_REQUEST
+    // })
+    // dispatch({
+    //   type: LOAD_ASSET_CHALLENGES_REQUEST
+    // })
   }, [])
 
   return (  
@@ -104,14 +104,15 @@ const ChallengeHome = () => {
           {
             loadChallengesDone &&
             loadNewChallengesDone &&
-            loadRecChallengesDone &&
-            loadWorkoutChallengesDone &&
-            loadStudyChallengesDone &&
-            loadLifeChallengesDone &&
-            loadMealChallengesDone &&
-            loadAbilityChallengesDone &&
-            loadHobbyChallengesDone &&
-            loadAssetChallengesDone ?
+            loadRecChallengesDone
+            // loadWorkoutChallengesDone &&
+            // loadStudyChallengesDone &&
+            // loadLifeChallengesDone &&
+            // loadMealChallengesDone &&
+            // loadAbilityChallengesDone &&
+            // loadHobbyChallengesDone &&
+            // loadAssetChallengesDone ?
+            ?
               <>
                 <Grid item xs={6}>
                   <Button
