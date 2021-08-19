@@ -1,46 +1,37 @@
-# MYME (Make Your Miracle Effectively)
+# MYME(Make Your Miracle Effectively)
 
-### ⚠️ 통합 Merge를 아직 진행하지 않기 때문에 각 브랜치 별 내용이 상이합니다. 참고해주세요! ⚠️
-
-## 멤버
+## **👪Member**
 
 <table>
   <tr>
-  <td align="center"><a href="https://lab.ssafy.com/gjskarb1492"><img src="https://secure.gravatar.com/avatar/a4c9fdf08da5e60991b7500f8d1eb3fd?s=800&d=identicon" width="100px;" alt=""/><br /><sub><b>팀장_허남규(Embedded)</b></sub></a><br /></td>
-    <td align="center"><a href="https://lab.ssafy.com/minjoo0112"><img src="https://secure.gravatar.com/avatar/9bdc67a1ff49729909fada0f0f14a994?s=800&d=identicon" width="100px;" alt=""/><br /><sub><b>김민주(Frontend)</b></sub></a><br /></td>
-  <td align="center"><a href="https://lab.ssafy.com/kimminji0527"><img src="https://secure.gravatar.com/avatar/412622f7088aed79d62bc18920419398?s=800&d=identicon" width="100px;" alt=""/><br /><sub><b>김민지(Embedded)</b></sub></a><br /></td>
-   <td align="center"><a href="https://lab.ssafy.com/oogab"><img src="https://secure.gravatar.com/avatar/6e15cc29042fae604985a713eaab73d4?s=800&d=identicon" width="100px;" alt=""/><br /><sub><b>백상욱(Backend)</b></sub></a><br /></td>
-    <td align="center"><a href="https://lab.ssafy.com/chsem145"><img src="https://secure.gravatar.com/avatar/1ab28e30db5ab260293838db47df9ce7?s=800&d=identicon" width="100px;" alt=""/><br /><sub><b>백유리(Frontend)</b></sub></a><br /></td>
+  <td align="center"><a href="https://lab.ssafy.com/gjskarb1492"><img alt="namgyu" src="https://user-images.githubusercontent.com/48434764/130107068-7840228e-b8e2-419f-a352-77259bc2674a.png" width="100px;"/><br /><sub><b>팀장_허남규(Embedded)</b></sub></a><br /></td>
+    <td align="center"><a href="https://lab.ssafy.com/minjoo0112"><img alt="minjoo" src="https://user-images.githubusercontent.com/48434764/130104515-3ea67786-79e7-4e8b-824b-e553a0f3ec8b.png" width="100px;"/><br /><sub><b>김민주(Frontend)</b></sub></a><br /></td>
+  <td align="center"><a href="https://lab.ssafy.com/kimminji0527"><img alt="minji" src="https://user-images.githubusercontent.com/48434764/130106965-62d4e73d-f3dc-4899-a331-0a1e549089f8.png" width="100px;" /><br /><sub><b>김민지(Embedded)</b></sub></a><br /></td>
+   <td align="center"><a href="https://lab.ssafy.com/oogab"><img  src="https://user-images.githubusercontent.com/48434764/130107140-fbbb49a0-3004-441c-b9d0-98ee32dc17bd.png" width="100px;" /><br /><sub><b>백상욱(Backend)</b></sub></a><br /></td>
+    <td align="center"><a href="https://lab.ssafy.com/chsem145"><img alt="yuri" src="https://user-images.githubusercontent.com/48434764/130107209-358a270f-d2dc-4462-a056-5ac90d3fef20.png" width="100px;" /><br /><sub><b>백유리(Frontend)</b></sub></a><br /></td>
   </tr>
 </table>
+<br/>
+
+## **🧩Tech Stack**
+
+Frontend:
+![react](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black)
+![redux](https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=black)
+![redux-saga](https://img.shields.io/badge/ReduxSaga-999999?style=flat-square&logo=Redux-Saga&logoColor=black)
+
+Backend:
+![node](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=black)
+![express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=Express&logoColor=white)
+![mysql](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=black)
+
+Embedded:
+![raspberryPi](https://img.shields.io/badge/RaspberryPi-A22846?style=flat-square&logo=RaspberryPi&logoColor=black)
+![arduino](https://img.shields.io/badge/Arduino-00979D?style=flat-square&logo=Arduino&logoColor=black)
 
 <br/>
 
-## History
-
-- **07-12 ~ 07-16** : 아이디어 및 주제 기획 완료, 명세 초안 작업, 와이어 프레임 및 목업 작업, 아키텍쳐 설계 진행중
-- **07-16** : 조유식🎉
-- **07-19** : 함건유🎉
-- **07-19 ~ 07-23** : 하드웨어 구입 및 테스트, 펌웨어 제작(초음파, 소리감지, 카메라), 화면 구성(Mock up), DB 설계, aws server check, boiler plate 구성, 간단한 프론트 페이지 만들기
-- **07-26 ~ 07-30** : 하드웨어 제작 완료, 서버 통신, 로그인 및 회원가입 구현
-- **07-27** : 백유리🙌
-- **08-02 ~ 08-06** : api 구현 완료, 서버 구축, 웹 UI 구현 완료, 웹 데이터 redux & redux-saga로 전달, 펌웨어 최종 구성 완료, 초음파/소리센서 테스트, 화면 on/off 구현
-
-<br/>
-
-## 목차
-
-- [프로젝트 소개](#프로젝트-소개)
-- [프로젝트 명세](#프로젝트-명세)
-  - [배포 환경](#배포-환경)
-  - [개발 환경](#개발-환경)
-  - [Design Resources](#design-resources)
-  - [핵심 라이브러리](#핵심-라이브러리)
-- [회의록](#회의록)
-
-<br/>
-
-## 📌프로젝트 소개
+## **🎈프로젝트 소개**
 
 ### **MYME** (Make Your Miracle Effectively)
 
@@ -54,78 +45,72 @@
 
 <br>
 
-## 📌프로젝트 명세
+## **🎞History**
 
-- ### 배포 환경
+- **07-12 ~ 07-16** : 아이디어 및 주제 기획 완료, 명세 초안 작업, 와이어 프레임 및 목업 작업, 아키텍쳐 설계 진행중
+- **07-16** : 조유식🎉
+- **07-19** : 함건유🎉
+- **07-19 ~ 07-23** : 하드웨어 구입 및 테스트, 펌웨어 제작(초음파, 소리감지, 카메라), 화면 구성(Mock up), DB 설계, aws server check, boiler plate 구성, 간단한 프론트 페이지 만들기
+- **07-26 ~ 07-30** : 하드웨어 제작 완료, 서버 통신, 로그인 및 회원가입 구현
+- **07-27** : 백유리🙌
+- **08-02 ~ 08-06** : api 구현 완료, 서버 구축, 웹 UI 구현 완료, 웹 데이터 redux & redux-saga로 전달, 펌웨어 최종 구성 완료, 초음파/소리센서 테스트, 화면 on/off 구현
+- **08-09 ~ 08-13** : 챌린지, 루틴, 습관, 일정 페이지 구현, 초음파/소리센서 테스트 완료, 카메라 테스트 완료
+- **08-16 ~ 08-20** : 챌린지, 루틴, 습관, 일정 페이지 구현 완료 및 버그 수정, 미러용 페이지 구현 완료, 하드웨어 구현 완료
 
-  - **URL** : http://myme.today:3000 (mirror display page)
-  - **배포 여부** : O
-  - **접속 가능** : 접속 가능
-  - **HTTPS 적용** : X
-  - **PORT** : // 3rd Party에서 사용하는 포트가 있다면 기입해주세요. <- 기입 후 해당 주석 삭제
-    <br>
+<br/>
 
-- ### 개발 환경
+## 💻Pages
 
-  - #### Front-end
+- ### Web 메인페이지
 
-    - **Framework** : React
-    - **지원 환경** : Web / Mobile / Web App
-    - **담당자** : 김민주, 백유리
+  ![myme_main](https://user-images.githubusercontent.com/48434764/130113302-61a27e18-28ce-428c-b8e6-d2864dbbfe20.png)
+  <br/>
 
-  - #### Back-end
+- ### Mirror 메인페이지
+  ![mirror](https://user-images.githubusercontent.com/48434764/130112832-c6cad2fc-650a-4a4c-a9ff-05df2140b01d.PNG)
 
-    - **Framework** : Node.js
-    - **Database** : MySQL
-    - **담당자** : 백상욱
+<br/>
 
-  - #### Smart-mirror client
+## 🌎배포 URL
 
-    - **Device** : RaspberryPi
-    - **지원 환경** : Web
-    - **담당자** : 김민지, 허남규
+```
+ https://myme.today
+```
 
-  - #### Design
+## 📂Tech-log
 
-    - **Framework 사용** : **O** / X
-    - [Material-UI](https://material-ui.com/)
-    - **Design Tool 사용** : Adobe XD, Photoshop, Illustrator, Zeplin 등
-    - **담당자** : 백상욱
+<details>
+  <summary>개발 환경</summary>
 
-  - ### Design Resources
+- ### Front-end
 
-    **외부 템플릿 또는 에셋**
+  - **Framework** : React
+  - **지원 환경** : Web / Mobile / Web App
+  - **담당자** : 김민주, 백유리
 
-    - 스켈레톤 코드 참고
+- ### Back-end
 
-    **자체 제작 산출물** (필요시 이미지 또는 설명 첨부)
+  - **Framework** : Node.js
+  - **Database** : MySQL
+  - **담당자** : 백상욱
 
-    - LOGO
+- ### Smart-mirror client
+
+  - **Device** : RaspberryPi
+  - **지원 환경** : Web
+  - **담당자** : 김민지, 허남규
+
+- ### Design
+  - **Framework 사용** : O
+  - [Material-UI](https://material-ui.com/)
+  - **Design Tool 사용** : Adobe XD, Photoshop, Illustrator, Zeplin 등
+  - **담당자** : 백상욱
 
 <br>
-
-- ### 핵심 라이브러리
-  추가예정
-
-<br/>
-
-## 📌회의록
-
-### 8월 10일
-
-| 파트     | 진행내용                                                                                                                       | 목표                                                                                                              |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
-| 백       | - 챌린지 생성 거의 진행                                                                                                        | - 창모드에서 사진 업로드 가능한지 <br/> -챌린지 완료 -버그fix<br/> - 회원가입 시 이메일 인증<br/> - 회원정보 수정 |
-| 프론트   | - 캘린더 <br/> -루틴 설정 페이지 완료 - 습관 수정/삭제 페이지 하나 추가해서 만들 예정 - 홈 화면에서 루틴 시간 재는거 해볼 예정 | - 구글 캘린더                                                                                                     |
-| 임베디드 | - 카메라 관련 펌웨어 개발 완료                                                                                                 | - 화면 on/off와 관련없이 촬영 가능하도록 만들 예정 -                                                              |
-
-- 하드웨어 버튼의 위치가 좀 어정쩡해서 외관상 예쁘진 않다.
-- 이젤 구하기 쉽지 않아서 좀 더 찾아봐야할 듯
-- 회원가입 시 이메일 인증
-
-<br/>
-<br/>
+</details>
 <details>
+  <summary>회의록</summary>
+  <details>
     <summary>1주차(2021년 7월 12일 ~ 2021년 7월 16일)</summary>
 
 ### 7월 12일
@@ -483,10 +468,26 @@ sub-pjt1 발표, 평가 진행
 
 ### 8월 10일
 
+| 파트     | 진행내용                                                                                                                       | 목표                                                                                                              |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| 백       | - 챌린지 생성 거의 진행                                                                                                        | - 창모드에서 사진 업로드 가능한지 <br/> -챌린지 완료 -버그fix<br/> - 회원가입 시 이메일 인증<br/> - 회원정보 수정 |
+| 프론트   | - 캘린더 <br/> -루틴 설정 페이지 완료 - 습관 수정/삭제 페이지 하나 추가해서 만들 예정 - 홈 화면에서 루틴 시간 재는거 해볼 예정 | - 구글 캘린더                                                                                                     |
+| 임베디드 | - 카메라 관련 펌웨어 개발 완료                                                                                                 | - 화면 on/off와 관련없이 촬영 가능하도록 만들 예정 -                                                              |
+
+- 하드웨어 버튼의 위치가 좀 어정쩡해서 외관상 예쁘진 않다.
+- 이젤 구하기 쉽지 않아서 좀 더 찾아봐야할 듯
+- 회원가입 시 이메일 인증
+
 <br/>
 <br/>
 
 ### 8월 11일
+
+| 파트     | 진행내용                                                                                                                                                             | 목표                                               |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| 백       | - 챌린지 진행중(66%) <br/> -기간을 정하는데 인증을 할 때마다 카운트를 해서 달성일 지정, 거의 된 것 같음 <br/> - 사진 업로드 구현 <br/>                               | -요일 처리                                         |
+| 프론트   | - 일정 추가/수정/삭제 기능 모달창으로 구현 <br/> - 캘린더는 fullcalendar 사용 <br/> - 홈 화면에서 루틴 습관 실행 완료체크 구현 <br/> - 습관 관리 수정/생성/삭제 만듦 | - 버그 수정 <br/> - 미러화면 구현                  |
+| 임베디드 | - 기능적 요소 완료                                                                                                                                                   | - 화면 on/off와 관련없이 촬영 가능하도록 만들 예정 |
 
 <br/>
 <br/>
@@ -503,42 +504,67 @@ sub-pjt1 발표, 평가 진행
 
 </details>
 
+<details>
+    <summary>6주차(2021년 8월 16일 ~ 2021년 8월 20일)</summary>
+
+### 8월 16일
+
 <br/>
 <br/>
 
-## 📌협업 도구
+### 8월 17일
+
+<br/>
+<br/>
+
+### 8월 18일
+
+<br/>
+<br/>
+
+### 8월 19일
+
+  <br/>
+  <br/>
+
+### 8월 20일
+
+**<h1>최종발표</h1>**
+
+<br/>
+<br/>
+
+</details>
+</details>
+<details>
+  <summary>협업도구</summary>
 
 - Jira
-  - https://jira.ssafy.com/projects/S05P12A201
+  - https://jira.ssafy.com/projects/S05P13A201
 - Figma
   - https://www.figma.com/file/kCfCkJSYE7kG6qTgSkgO9Y/2%EB%B0%981%ED%8C%80-team-library
 
-<br>
-
-## 📌git commit convention
-
+</details>
+<details>
+  <summary>git commit convention</summary>
+  
 - (폴더 및 파일 추가) **add** : 업로드한 파일들 / 간단한 파일 설명
 - (파일 수정) **update** : 업데이트한 파일들 / 업데이트 내용 설명
 - (버그 수정) **fix** : 수정한 파일들 / 수정한 내용 설명
+  </details>
 
-<br>
+  <details>
+  <summary>개발 자료 링크 정리</summary>
+  
+  - 웹엑스 미팅
+    - https://ssafyclass.webex.com/meet/gjskarb1492
+  - 루티너리 개발 과정
+    - https://www.notion.so/e65da5720ea348f7973cc057baca2e53
+  - 스마트폰 거울화 필름
+    - https://liverex.net/1200
+  - 매직미러 개발 참고자료
+    - https://steemit.com/kr/@wonsama/3oar99-kr-dev --국내 제작 블로그
+    - https://www.youtube.com/watch?v=fkVBAcvbrjU&t=803s --해외 제작 영상
+    - https://www.youtube.com/watch?v=RWjvJq4Zabk --해외 제작 영상
 
-## 📌개발 자료 링크 정리
-
-- 웹엑스 미팅
-  - https://ssafyclass.webex.com/meet/gjskarb1492
-- 코로나 일별 확진자 등등 api
-  - https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15043376
-- 대중교통 api
-  - https://lab.odsay.com/
-  - https://topis.seoul.go.kr/refRoom/openRefRoom_4.do
-- 미세먼지 api
-  - https://www.data.go.kr/data/15073861/openapi.do
-- 루티너리 개발 과정
-  - https://www.notion.so/e65da5720ea348f7973cc057baca2e53
-- 스마트폰 거울화 필름
-  - https://liverex.net/1200
-- 매직미러 개발 참고자료
-  - https://steemit.com/kr/@wonsama/3oar99-kr-dev --국내 제작 블로그
-  - https://www.youtube.com/watch?v=fkVBAcvbrjU&t=803s --해외 제작 영상
-  - https://www.youtube.com/watch?v=RWjvJq4Zabk --해외 제작 영상
+  </details>
