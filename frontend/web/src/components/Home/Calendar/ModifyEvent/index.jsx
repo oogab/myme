@@ -130,7 +130,6 @@ function ModifyModal(props) {
 
   const [click, setClick] = useState(false)
   const onChangeClick = () =>{
-    console.log("#color:"+eventInfo.backgroundColor)
       setClick(true);
   }
   const onChangeClose = () => {
@@ -180,7 +179,6 @@ function ModifyModal(props) {
     if(validate()){
       dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: modifyEvent})
       dispatch({type: OPEN_ALERT_MODAL, message:'일정을 수정하시겠습니까?'})
-      console.log("time:"+moment.duration(moment(eventInfo.start)-moment(eventInfo.end)))
     }
   }
 
@@ -195,7 +193,6 @@ function ModifyModal(props) {
   }
 
   const validate = () =>{
-    console.log('start: '+eventInfo.start)
     let titlesKorean = ['일정을','시작일을', '종료일을']
     let titlesEnglish =[eventInfo.title, eventInfo.start, eventInfo.end]
     for(let i=0;i<titlesKorean.length;i++){

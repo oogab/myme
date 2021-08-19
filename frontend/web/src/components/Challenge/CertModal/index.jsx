@@ -29,7 +29,6 @@ const CertModal = forwardRef((props, ref) => {
   }, [])
 
   const onUploadImage = useCallback((e) => {
-    // console.log('image', e.target.files[0])
     if(!e.target.files[0]) return
     const imageFormData = new FormData()
     imageFormData.append('image', e.target.files[0])
@@ -55,7 +54,6 @@ const CertModal = forwardRef((props, ref) => {
     const m = nowDate.getMonth() + 1
     const d = nowDate.getDate()
 
-    console.log(y + '-' + m + '-' + d)
 
     dispatch({
       type: CERTIFY_CHALLENGE_REQUEST,

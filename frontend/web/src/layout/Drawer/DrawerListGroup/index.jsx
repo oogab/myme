@@ -46,10 +46,7 @@ const DrawerListGroup = (props) => {
   }, [dispatch])
 
   useEffect(() => {
-    console.log('로그아웃 준비')
-    console.log(me)
     if (logOutDone || !me) {
-      console.log('로그아웃 성공')
       history.push('/')
       persistor.purge()
     }

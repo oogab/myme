@@ -119,7 +119,7 @@ const ChallengeDashboard = ({match}) => {
                       <div><span role="img" aria-label='more-certi-day'>📌</span> 남은 인증 일 수 : {myChallenge.total_number_of_certification - myChallenge.certification_count}</div>
                     </Grid>
                   </Grid>
-                  <div><span role="img">📅 </span>총 기간 : {myChallenge.start_date} ~ {myChallenge.end_date}</div>
+                  <div><span role="img" aria-label='startdate'>📅 </span>총 기간 : {myChallenge.start_date} ~ {myChallenge.end_date}</div>
                 </Paper>
               </Grid>
               <Grid item xs={12}>

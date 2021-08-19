@@ -30,7 +30,7 @@ const App = () => {
       type: LOAD_EVENT_REQUEST
     })
     dispatch({type: SET_CHOOSED_ROUTINE, idx:-1})
-  }, [])
+  }, [dispatch])
 
   const handleChange = (event, newValue) => {
     setTabValue(newValue);

@@ -143,13 +143,11 @@ function handleClose() {
   const [startDate, setStartDate] = useState(today);
   const startDateChange = (e) => {
     setStartDate(e.target.value);
-    console.log(startDate)
   };
 
   const [endDate, setEndDate] = useState(today);
   const endDateChange = (e) => {
     setEndDate(e.target.value);
-    console.log('end:'+endDate)
   };
 
   const [allDay, setAllDay] = useState(true);

@@ -41,7 +41,6 @@ function App(props){
       dispatch({type:SET_ORDER_REQUEST, habits: myRoutines[num].RoutinizedHabits, idx:num})
     }
     function setSaveRoutines(){
-      console.log(myRoutines[num].RoutinizedHabits)
       dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: saveRoutines})
       dispatch({type: OPEN_ALERT_MODAL, message:'순서를 저장하시겠습니까?'})
     }

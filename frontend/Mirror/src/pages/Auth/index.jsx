@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import Wrapper from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -10,21 +10,21 @@ const Auth = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const { me, isSignUp } = useSelector((state) => state.user)
+  const { me } = useSelector((state) => state.user)
 
   useEffect(() => {
     dispatch({
       type: LOAD_MY_INFO_REQUEST
     })
     console.log('hi')
-  }, [])
+  }, [dispatch])
 
   // 로그인 상태이면 홈 화면으로 이동!
   useEffect(() => {
     if (me) {
       history.push('/Home')
     }
-  }, [me])
+  }, [me, history])
 
   return(
     <Wrapper>

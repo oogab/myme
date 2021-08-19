@@ -137,7 +137,6 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
             break
         case SET_CHOOSED_EVENT_MODAL:
             draft.choosedEvent = action.data.id
-            console.log(draft.choosedEvent)
             draft.eventInfo=null
             draft.eventInfo={
                 id: action.data.id,

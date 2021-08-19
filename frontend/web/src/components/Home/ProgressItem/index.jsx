@@ -9,7 +9,6 @@ import NextIcon from '@material-ui/icons/SkipNext'
 function App(props){
     const history = useHistory()
     const habit = props.habit.Habit
-    console.log(habit)
     let min = Math.floor(props.time/60)
     let sec = props.time%60
 

@@ -279,7 +279,6 @@ const CreateChallenge = () => {
   }, [imageInput.current])
 
   const onChangeImage = useCallback((e) => {
-    console.log('image', e.target.files[0])
 
     const imageFormData = new FormData()
     imageFormData.append('image', e.target.files[0])

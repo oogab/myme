@@ -40,13 +40,9 @@ const App = (props) => {
                 height='600px'
                 dayMaxEvents={true}
                 events={events}
-                
-
                 eventClick={openModifyEventModal}
-                dayCellContent={(info)=>{return info.date.getDate()}}
                 />
         </Wrapper>
     )
   }
-
 export default App

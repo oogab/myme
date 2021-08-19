@@ -208,9 +208,6 @@ const Profile = () => {
     })
   }, [dispatch])
 
-  useEffect(() => {
-    console.log(nickname)
-  }, [nickname])
 
   
   return (
