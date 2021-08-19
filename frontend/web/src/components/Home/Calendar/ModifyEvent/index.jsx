@@ -1,23 +1,19 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import { Button } from '@material-ui/core'
 import { CirclePicker } from 'react-color';
 
 //icons
 import LocalOfferTwoToneIcon from '@material-ui/icons/LocalOfferTwoTone';
 import {Close} from '@material-ui/icons';
 
-import { withStyles, Switch, Typography } from '@material-ui/core/';
-import { teal } from '@material-ui/core/colors';
+import { Switch } from '@material-ui/core/';
 
 import { CLOSE_MODIFY_EVENT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION, OPEN_ALERT_MODAL } from '../../../../reducers/modal';
-import { CREATE_EVENT_REQUEST, DELETE_EVENT_REQUEST, MODIFY_EVENT_REQUEST,
+import { DELETE_EVENT_REQUEST, MODIFY_EVENT_REQUEST,
   SET_CHOOSED_EVENT_TITLE, SET_CHOOSED_EVENT_START, SET_CHOOSED_EVENT_END, SET_CHOOSED_EVENT_ALLDAY, SET_CHOOSED_EVENT_COLOR } from '../../../../reducers/calendar';
 
 function getModalStyle() {
@@ -254,7 +250,7 @@ function ModifyModal(props) {
                   id="date"
                   type="date"
                   onChange={changeEndDate}
-                  value={eventInfo.end=="" ? eventInfo.end=eventInfo.start && eventInfo.start : eventInfo.end}
+                  value={eventInfo.end==="" ? eventInfo.end=eventInfo.start && eventInfo.start : eventInfo.end}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,

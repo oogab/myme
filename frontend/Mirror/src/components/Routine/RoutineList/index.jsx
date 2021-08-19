@@ -1,8 +1,8 @@
-import React,{useState} from 'react';
+import React from 'react';
 import Wrapper from './styles'
 import RoutineItem from '../RoutineItem'
 import ScheduleIcon from '@material-ui/icons/Schedule';
-import {Typography, List,CardHeader, CardContent,CardActions} from '@material-ui/core'
+import {Typography, List,CardContent,CardActions} from '@material-ui/core'
 import CustomCard from '../CustomCard'
 function App(props){
     let {myRoutines} = props
@@ -21,7 +21,7 @@ function App(props){
             <CardContent className='content'>
                 <List>
                 {
-                    myRoutines.length!=0?
+                    myRoutines.length!==0?
                     <>
                     {
                         myRoutines.map((item, idx)=>(<RoutineItem routine={item} idx={idx} key={idx}/>))

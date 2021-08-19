@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
 import {
   Button,
   Grid,
@@ -10,7 +9,7 @@ import {
 } from '@material-ui/core';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginRequestAction } from '../../../reducers/user';
 import Wrapper from './styles';
 
@@ -49,7 +48,7 @@ const LoginForm = () => {
     }
 
     dispatch(loginRequestAction({email, password}))
-  }, [email, password])
+  }, [email, password, dispatch])
 
 
 
@@ -163,7 +162,7 @@ const LoginForm = () => {
           </div>
         </Grid>
         <Grid item xs={6} style={{textAlign: 'center', float:'left'}}>
-          <img src="./images/mymeQR.png" width="100px"></img>
+          <img src="./images/mymeQR.png" width="100px" alt=''></img>
         </Grid>
         
       

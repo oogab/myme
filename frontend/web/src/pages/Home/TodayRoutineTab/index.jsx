@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React from 'react';
+import {useSelector} from 'react-redux';
 import RoutineListItem from '../../../components/Home/RoutineListItem/index';
-import Container from '@material-ui/core/Container';
 import {Card,CardActions} from '@material-ui/core'
-function App (props) {
-  const dispatch = useDispatch()
+function App () {
   const { myRoutines } = useSelector((state) => state.routine)
 
   return(

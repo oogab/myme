@@ -1,7 +1,7 @@
-import React,{useState} from 'react';
+import React from 'react';
 import Wrapper from './styles'
 import RoutinizedHabitItem from '../RoutinizedHabitItem'
-import {Typography, List,CardHeader, CardContent,CardActions} from '@material-ui/core'
+import {Typography, List,CardContent,CardActions} from '@material-ui/core'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import CustomCard from '../CustomCard'
 function App(props){
@@ -15,7 +15,7 @@ function App(props){
                 <CardContent className='content'>
                 <List>
                     {
-                        routine.RoutinizedHabits.length!=0?
+                        routine.RoutinizedHabits.length!==0?
                         <>
                         {
                             routine.RoutinizedHabits.map((item,idx)=>(

@@ -5,7 +5,7 @@ const DarkMenu = withStyles({
       backgroundColor:'black',
       borderRadius:'5px',
       color:'white',
-      borderRadius:'2px solid white'
+      border:'2px solid white'
       
     },
   })(Menu);

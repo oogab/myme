@@ -1,10 +1,8 @@
 import React, { forwardRef, useCallback, useEffect, useState, useRef } from 'react'
-import { Grid, IconButton, TextField,Button } from '@material-ui/core'
+import { Grid, IconButton, Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
-import { ColorButton } from '../../../common/Buttons'
 import { convertNumDay } from '../../../config/config'
 import { CERTIFY_CHALLENGE_REQUEST, UPLOAD_CHALLENGE_IMAGE_REQUEST, CLEAR_CERTIFY_CHALLENGE, CLEAR_IMAGE_PATH } from '../../../reducers/challenge'
-import { OPEN_KEY_BOARD, CLOSE_KEY_BOARD } from '../../../reducers/keyboard'
 import { useSnackbar } from 'notistack';
 import CloseIcon from '@material-ui/icons/Close';
 import DarkTextField from '../../Etc/DarkTextField'
@@ -34,7 +32,6 @@ const CertModal = forwardRef((props, ref) => {
   const keyboard = useRef(null);
   const [layout, setLayout] = useState("default")
   const [language, setLanguage] = useState("default")
-  const [input, setInput] = useState('')
  
   //키보드 열기
   const [keyboardopen, setKeyboardOpen] = useState(false)
@@ -64,7 +61,7 @@ const CertModal = forwardRef((props, ref) => {
       setLayout(layout === "default" ? "shift" : "default")
     } 
      if( button === "{language}"){
-      setLanguage(language == "default" ? "english" : "default")
+      setLanguage(language === "default" ? "english" : "default")
      }
    };
 
@@ -115,7 +112,7 @@ const CertModal = forwardRef((props, ref) => {
         challengeId: challenge.id // challengeParticipation id...
       }
     })
-  }, [challengeImagePath, content, challenge.id, closeCertModal, dispatch])
+  }, [challengeImagePath, content, challenge.id, closeCertModal, dispatch, enqueueSnackbar])
 
   useEffect(() => {
     if (certifyChallengeDone) {
@@ -135,7 +132,7 @@ const CertModal = forwardRef((props, ref) => {
         type:CLEAR_CERTIFY_CHALLENGE
       })
     }
-  }, [certifyChallengeDone, certifyChallengeError])
+  }, [certifyChallengeDone, certifyChallengeError, enqueueSnackbar])
 
   const checkCertAvailable = () => {
     const now = new Date()

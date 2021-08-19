@@ -1,31 +1,22 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import Wrapper from './styles';
 import moment from 'moment';
 import {useDispatch, useSelector} from 'react-redux';
 import Clock from '../../components/Clock';
-import { withStyles } from '@material-ui/core/styles';
 import Weather from '../../components/Weather/WeatherWidget'
 import RoutineRootComponent from '../../components/Routine/RoutineRootComponent'
 import ChallengeList from '../../components/Challenge/ChallengeList/'
 import SettingButtons from '../../components/Etc/SettingButtons'
 import {
-   LinearProgress,
    Grid,
    List,
    ListItem,
    Typography,
    Fade
   } from '@material-ui/core';
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
 import { advice } from '../../config/config';
-import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import {LOAD_TODAY_ROUTINES_REQUEST} from '../../reducers/routine'
 import {LOAD_MY_CHALLENGES_REQUEST} from '../../reducers/challenge'
@@ -33,34 +24,19 @@ import {LOAD_MY_CHALLENGES_REQUEST} from '../../reducers/challenge'
 import CustomCalendar from '../../components/Calendar/index';
 import TodayEvent from '../../components/TodayEvent/index';
 import { LOAD_EVENT_REQUEST } from '../../reducers/calendar';
-import { FixedSizeList } from 'react-window';
 import {SnackbarProvider} from 'notistack'
-const BorderLinearProgress = withStyles((theme) => ({
-  root: {
-    height: 10,
-    borderRadius: 5,
-  },
-  colorPrimary: {
-    backgroundColor: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
-  },
-  bar: {
-    borderRadius: 5,
-    backgroundColor: '#1a90ff',
-  },
-}))(LinearProgress);
 
 const Main = props => {
   let today = new Date()
   let msg = advice(today.getDate()%10)
   const dispatch = useDispatch()
-  const [value, onChange] = useState(new Date());
   useEffect(()=>{
     dispatch({type:LOAD_TODAY_ROUTINES_REQUEST})
     dispatch({type: LOAD_EVENT_REQUEST})
     dispatch({
       type: LOAD_MY_CHALLENGES_REQUEST
     })
-  },[])
+  },[dispatch])
   const { events } = useSelector((state) => state.calendar)
 
   const [routineVisible, setRoutineVisible] = useState(true);
@@ -136,7 +112,7 @@ const Main = props => {
                 <List className="listScroll" component="nav" aria-label="mailbox folders"
                 style={{ maxHeight: '150px'}}>           
                 {  
-                    todayEvent.length == 0 ?
+                    todayEvent.length === 0 ?
                     <ListItem>오늘의 일정이 없습니다</ListItem> :
                     <>
                     {

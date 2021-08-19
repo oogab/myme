@@ -7,7 +7,7 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutRequestAction } from '../../../reducers/user';
 import Wrapper from './styles';
-import { Menu, MenuItem, Switch, Grid } from '@material-ui/core';
+import { MenuItem, Switch, Grid } from '@material-ui/core';
 import DarkMenu from '../DarkMenu';
 const App=(props)=>{
     let {routineVisible, routineHandleChange, challengeVisible, challengeHandleChange} = props
@@ -32,11 +32,11 @@ const App=(props)=>{
         if (logOutError) {
           console.log(logOutError)
         }
-      }, [me, logOutError])
+      }, [me, logOutError, history])
 
     const onSignOut = useCallback(() => {
         dispatch(logoutRequestAction())
-      }, [me])
+      }, [me, dispatch])
 
     function reload(){
       window.location.replace("/Home")
