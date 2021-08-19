@@ -1,8 +1,7 @@
-import React,{useState, useEffect} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import {TextField} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
 import {CLOSE_MODIFY_HABIT_MODAL, OPEN_ALERT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION} from '../../../reducers/modal'
 import {SET_MODIFY_HABIT_NAME, SET_MODIFY_HABIT_CONTENT, SET_MODIFY_HABIT_TIME_REQUIRED, MODIFY_MY_HABIT_REQUEST, ADD_JUST_HABIT_REQUEST, SET_MODIFY_HABIT_ASSIST_LINK} from '../../../reducers/habit'
@@ -80,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SimpleModal(props) {
-    const { modifyHabitModal, alertModalFunction } = useSelector((state) => state.modal)
+    const { modifyHabitModal } = useSelector((state) => state.modal)
     const {habitInfo} = useSelector((state) => state.habit)
     const dispatch = useDispatch()
     const classes = useStyles();
@@ -98,7 +97,7 @@ function SimpleModal(props) {
 
   //습관 수정 함수
   function modifyHabit(){
-      if(habitInfo.id==-1){
+      if(habitInfo.id===-1){
         dispatch({
           type: ADD_JUST_HABIT_REQUEST,
           data: {
@@ -126,7 +125,7 @@ function SimpleModal(props) {
   function setModifyHabit(){
     if(validate()){
       dispatch({type: SET_ALERT_MODAL_FUNCTION, alertModalFunction: modifyHabit})
-      if(habitInfo.id==-1){
+      if(habitInfo.id===-1){
         dispatch({type: OPEN_ALERT_MODAL, message:'습관을 생성하시겠습니까?'})
       }else{
         dispatch({type: OPEN_ALERT_MODAL, message:'습관을 수정하시겠습니까?'})
@@ -178,7 +177,7 @@ function SimpleModal(props) {
   const body = (
     <div style={modalStyle} className={classes.paper}>
         <div style={{height:'30px', marginBottom: '10px'}}>
-        <h2 id="simple-modal-title" style={{float:'left'}}>{habitInfo.id==-1?'습관 추가하기':'습관 수정하기'}</h2>
+        <h2 id="simple-modal-title" style={{float:'left'}}>{habitInfo.id===-1?'습관 추가하기':'습관 수정하기'}</h2>
         <Close style={{ float:'right'}} onClick={closeModal}></Close>
         </div>
         <input placeholder='제목' className={classes.input} onChange={changeName} defaultValue={habitInfo.name} style={{fontFamily: 'SCDream4'}}></input>

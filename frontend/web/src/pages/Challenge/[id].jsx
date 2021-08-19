@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { 
   Grid,
   IconButton,
@@ -12,8 +12,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import { ColorButton } from '../../common/Buttons';
 import { ColorChip } from '../../common/Chips'
 import { useDispatch, useSelector } from 'react-redux';
-import { categories, convertCertType, convertDaysWeek, convertNumDay } from '../../config/config';
-import { CLEAR_LOAD_CHALLENGE_DONE, CLEAR_PARTICIPATE_CHALLENGE, LIKE_CHALLENGE_REQUEST, PARTICIPATE_CHALLENGE_REQUEST, UNLIKE_CHALLENGE_REQUEST } from '../../reducers/challenge';
+import { categories, convertCertType, convertDaysWeek } from '../../config/config';
+import { CLEAR_PARTICIPATE_CHALLENGE, LIKE_CHALLENGE_REQUEST, PARTICIPATE_CHALLENGE_REQUEST, UNLIKE_CHALLENGE_REQUEST } from '../../reducers/challenge';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { OPEN_ALERT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION } from '../../reducers/modal';
@@ -62,7 +62,7 @@ const ChallengeDetail = ({match}) => {
       type: OPEN_ALERT_MODAL,
       message: '챌린지에 참여하시겠습니까?'
     })
-  }, [dispatch])
+  }, [dispatch, onParticipateChallenge])
 
   // loadChallengeDone이 true면 뒤로가기 해도 다시 이 페이지로 돌아온다.
   // 이 페이지가 렌더링 되면 바로 loadChallengeDone을 false로 바꿔준다.
@@ -91,7 +91,7 @@ const ChallengeDetail = ({match}) => {
         type: CLEAR_PARTICIPATE_CHALLENGE
       })
     }
-  }, [participateChallengeDone, participateChallengeError])
+  }, [participateChallengeDone, participateChallengeError, dispatch])
 
   return (
     <Layout>
@@ -133,7 +133,7 @@ const ChallengeDetail = ({match}) => {
                   }
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: 'center', margin: '5px' }}>
-                  <span><span role="img">📅 </span>총 기간 : {singleChallenge.start_date} ~ {singleChallenge.end_date}</span>
+                  <span><span role="img" aria-label="total-period">📅 </span>총 기간 : {singleChallenge.start_date} ~ {singleChallenge.end_date}</span>
                 </Grid>
               </Grid>
             </Paper>
@@ -165,7 +165,7 @@ const ChallengeDetail = ({match}) => {
           <Grid item xs={12}>
             <Paper>
               <Grid container style={{ padding: '10px' }}>
-                <h3><span role="img">🙂</span> 챌린지 개설자</h3>
+                <h3><span role="img" aria-label="challenge-maker">🙂</span> 챌린지 개설자</h3>
                 <Grid item xs={12} style={{ marginTop: '5px' }}>
                   <Typography><strong>{singleChallenge.User.nickname}</strong> / email : {singleChallenge.User.email}</Typography>
                 </Grid>
