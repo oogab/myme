@@ -280,13 +280,14 @@ const CreateChallenge = () => {
     if (name !== '' && subject !== '' && challengeImagePath !== '' && content !== '' && startDate !== '' && endDate !== '' && period !== 0 && totalNumOfCert !== 0 && certStartTime !== '' && certEndTime !== '' && !activeWeekError && !weekError && !certTimeError && !totalCertError) {
       setSubmitDisable(false)
     }
-  }, [name, subject, challengeImagePath, content, startDate, endDate, period, totalNumOfCert, certStartTime, certEndTime, activeWeekError, certTimeError, totalCertError, weekError])
+  }, [name, subject, challengeImagePath, content, startDate, endDate, period, totalNumOfCert, certStartTime, certEndTime])
   
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click()
   }, [imageInput.current])
 
   const onChangeImage = useCallback((e) => {
+    console.log('image', e.target.files[0])
 
     const imageFormData = new FormData()
     imageFormData.append('image', e.target.files[0])
@@ -295,7 +296,7 @@ const CreateChallenge = () => {
       type: UPLOAD_CHALLENGE_IMAGE_REQUEST,
       data: imageFormData
     })
-  }, [dispatch])
+  }, [])
   
   const onSubmit = useCallback((e) => {
     e.preventDefault()
@@ -328,7 +329,7 @@ const CreateChallenge = () => {
       }
     })
   }, [name, subject, challengeImagePath, content, startDate, endDate, period, certCycle, totalNumOfCert, certStartTime, certEndTime,
-    mon, tue, wed, thu, fri, sat, sun, dispatch]);
+    mon, tue, wed, thu, fri, sat, sun, categories]);
 
   useEffect(() => {
     if (addChallengeDone) {
@@ -347,11 +348,11 @@ const CreateChallenge = () => {
         message: addChallengeError
       })
     }
-  }, [addChallengeDone, addChallengeError, dispatch, history])
+  }, [addChallengeDone, addChallengeError])
 
   const onCancel = useCallback(() => {
     history.push('/ChallengeHome')
-  }, [history])
+  }, [])
 
   return (
     <Wrapper>
@@ -631,7 +632,7 @@ const CreateChallenge = () => {
           </Grid>
           <Grid item xs={12} sm={3} >
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <img accept="image/*" src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxHeight: '150px', maxWidth: '150px' }} alt='' />
+              <img accept="image/*" src={challengeImagePath ? challengeImagePath : "/images/camera.png"} style={{ maxHeight: '150px', maxWidth: '150px' }} />
             </div>
             <input type="file" name="image" hidden ref={imageInput} onChange={onChangeImage} />
           </Grid>
