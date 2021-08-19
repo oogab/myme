@@ -49,7 +49,6 @@ const App = () => {
                 <Route path="/Home" component={Home} />
                 <Route path="/RoutineSetting" component={RoutineSetting} />
                 <Route path="/HabitSetting" component={HabitSetting} />
-                <Route path="/not-found" component={NotFound} />
                 <Route path="/ChallengeHome" component={ChallengeHome} />
                 <Route path="/CreateChallenge" component={CreateChallenge} />
                 <Route path="/SearchChallenge" component={SearchChallenge} />
