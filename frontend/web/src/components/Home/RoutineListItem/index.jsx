@@ -70,7 +70,7 @@ const App = (props) => {
                   })
                 )
                 : <ListItem className='items'>
-                    <Paper style={{height:'66px', lineHeight:'66px',padding: "0px 16px",width: "100%"}}><h3>설정된 습관이 없어요!</h3></Paper>
+                    <Paper style={{height:'66px', lineHeight:'66px',padding: "0px 16px",width: "100%"}}><p>설정된 습관이 없어요!</p></Paper>
                 </ListItem>
             }
           </List>

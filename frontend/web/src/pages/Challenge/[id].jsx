@@ -3,7 +3,8 @@ import {
   Grid,
   IconButton,
   Paper,
-  Typography
+  Typography,
+  Button
 } from '@material-ui/core/';
 import Layout from '../../layout/';
 import Wrapper from './styles';
@@ -16,9 +17,10 @@ import { CLEAR_LOAD_CHALLENGE_DONE, CLEAR_PARTICIPATE_CHALLENGE, LIKE_CHALLENGE_
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { OPEN_ALERT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION } from '../../reducers/modal';
-
+import { useHistory } from 'react-router';
 const ChallengeDetail = ({match}) => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const { singleChallenge, participateChallengeDone, participateChallengeError } = useSelector((state) => state.challenge)
   const id = useSelector((state) => state.user.me.id)
   const liked = singleChallenge.Likers.find((v) => v.id === id)
@@ -172,10 +174,17 @@ const ChallengeDetail = ({match}) => {
           </Grid>
           <Grid item xs={12}>
             <Paper>
-              <Grid item xs={12} style={{ padding: '10px' }}>
-                <ColorButton fullWidth onClick={onSetParticipateChallenge}>
-                  참여하기!
-                </ColorButton>
+              <Grid container>
+                <Grid item xs={6} style={{ padding: '10px' }}>
+                  <Button fullWidth onClick={()=>{history.goBack()}} >
+                    뒤로가기
+                  </Button>
+                </Grid>
+                <Grid item xs={6} style={{ padding: '10px' }}>
+                  <ColorButton fullWidth onClick={onSetParticipateChallenge}>
+                    참여하기!
+                  </ColorButton>
+                </Grid>
               </Grid>
             </Paper>
           </Grid>

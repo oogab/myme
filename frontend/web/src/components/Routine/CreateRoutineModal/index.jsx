@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import DayOfWeek from './DayOfWeek/index';
 import DayTimeInput from './DayTimeInput/index';
-import Switch from '@material-ui/core/Switch';
+import Switch from '../../../common/Switch';
 import {Close} from '@material-ui/icons';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import { CLOSE_CREATE_ROUTINE_MODAL, OPEN_ALERT_MODAL, OPEN_CONFIRM_MODAL, SET_ALERT_MODAL_FUNCTION } from '../../../reducers/modal';

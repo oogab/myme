@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import Layout from '../../../layout/';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import { Grid, LinearProgress, Modal, Paper, Typography } from '@material-ui/core'
+import { Grid, LinearProgress, Modal, Paper, Typography, Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { ColorButton } from '../../../common/Buttons';
 import { CLEAR_DELETE_CHALLENGE_PARTICIPATION, DELETE_CHALLENGE_PARTICIPATION_REQUEST } from '../../../reducers/challenge';
@@ -165,7 +165,14 @@ const ChallengeDashboard = ({match}) => {
               </Grid>
               <Grid item xs={12}>
                 <Paper style={{ margin: '10px 0', padding: '10px' }}>
-                  <ColorButton fullWidth onClick={onAlertResignChallenge} >챌린지 그만두기</ColorButton>
+                  <Grid container>
+                    <Grid item xs={6}>
+                        <Button fullWidth onClick={()=>{history.goBack()}} >뒤로가기</Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <ColorButton fullWidth onClick={onAlertResignChallenge} >챌린지 그만두기</ColorButton>
+                    </Grid>
+                  </Grid>
                 </Paper>
               </Grid>
             </>

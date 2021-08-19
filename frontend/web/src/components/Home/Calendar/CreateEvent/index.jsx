@@ -16,7 +16,8 @@ import FirstPageTwoToneIcon from '@material-ui/icons/FirstPageTwoTone';
 import LastPageTwoToneIcon from '@material-ui/icons/LastPageTwoTone';
 import LocalOfferTwoToneIcon from '@material-ui/icons/LocalOfferTwoTone';
 
-import { withStyles, Switch, Typography } from '@material-ui/core/';
+import { withStyles, Typography } from '@material-ui/core/';
+import Switch from '../../../../common/Switch'
 function getModalStyle() {
   return {
     top: `50%`,

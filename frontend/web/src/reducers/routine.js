@@ -208,6 +208,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       draft.addRoutinizedHabitLoading = false
       draft.addRoutinizedHabitDone = true
       draft.myRoutines[draft.choosedRoutine].RoutinizedHabits.push(action.data)
+      draft.myRoutines[draft.choosedRoutine].DailyAchieveRoutines=[]
       break
     case ADD_ROUTINIZED_HABIT_FAILURE:
       draft.addRoutinizedHabitLoading = false

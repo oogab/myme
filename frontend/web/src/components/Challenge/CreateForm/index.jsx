@@ -343,7 +343,7 @@ const CreateChallenge = () => {
   }, [addChallengeDone, addChallengeError])
 
   const onCancel = useCallback(() => {
-    history.push('/Challenge')
+    history.push('/ChallengeHome')
   }, [])
 
   return (
