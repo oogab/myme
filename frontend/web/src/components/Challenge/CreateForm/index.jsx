@@ -101,35 +101,35 @@ const CreateChallenge = () => {
 
   // 시작일과 종료일 사이 평일의 수
   const getWeekdayNum = () => {
-    const tempDate = new Date(startDate.getTime())
+    const tempDate = moment(startDate)
     let count = 0
     while (true) {
-      if (tempDate.getTime() >= endDate.getTime()) {
+      if (tempDate >= endDate) {
         return count
       } else {
-        let temp = tempDate.getDay()
-        if (temp !== 0 && temp !== 6) {
+        let temp = tempDate.format('e')
+        if (temp*1 !== 0 && temp*1 !== 6) {
           count++
         }
       }
-      tempDate.setDate(tempDate.getDate()+1)
+      tempDate.set(tempDate.add(1, 'd'))
     }
   }
 
   // 시작일과 종료일 사이 주말의 수
   const getWeekendNum = () => {
-    const tempDate = new Date(startDate.getTime())
+    const tempDate = moment(startDate)
     let count = 0
     while (true) {
-      if (tempDate.getTime() >= endDate.getTime()) {
+      if (tempDate >= endDate) {
         return count
       } else {
-        let temp = tempDate.getDay()
-        if (temp === 0 || temp === 6) {
+        let temp = tempDate.format('e')
+        if (temp*1 === 0 || temp*1 === 6) {
           count++
         }
       }
-      tempDate.setDate(tempDate.getDate()+1)
+      tempDate.set(tempDate.add(1, 'd'))
     }
   }
 
