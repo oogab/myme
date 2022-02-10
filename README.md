@@ -574,3 +574,5 @@ sub-pjt1 발표, 평가 진행
     - https://www.youtube.com/watch?v=RWjvJq4Zabk --해외 제작 영상
 
   </details>
+
+  젠킨스 테스트
